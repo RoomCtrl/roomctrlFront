@@ -1,0 +1,45 @@
+{
+  "carousel": {
+    "subTitle": "Nowy standard organizacji przestrzeni pracy"
+  },
+  "goodBadSection": {
+    "title": "Dlaczego RoomCtrl?",
+    "subTitle": "Nowoczesne zarządzanie przestrzenią vs stare podejście",
+    "goodSection": {
+      "intuitive": "Intuicyjna rezerwacja w kilka sekund",
+      "automatic": "Automatyczne kolejkowanie i powiadomienia",
+      "support": "Wsparcie dla pracy hybrydowej i szkół",
+      "modern": "Nowoczesny interfejs i integracje"
+    },
+    "badSection": {
+      "title": "Tradycyjne podejście ",
+      "reservations": "Rezerwacje przez e-mail lub papierowe zgłoszenia",
+      "noAutomation": "Brak automatyzacji i chaos w planowaniu",
+      "noAccess": "Brak dostępnych statystyk lub raportów",
+      "lowAvailability": "Niska dostępność i nieintuicyjne systemy"
+    }
+  },
+  "infoSection": {
+    "title": "Czym jest RoomCtrl i dla kogo? ",
+    "adHoc": {
+      "title": "Spotkania ad-hoc",
+      "content": "Szybkie i elastyczne zarządzanie przestrzenią spotkań – RoomCtrl umożliwia natychmiastowe rezerwacje sal, bez potrzeby wcześniejszego planowania. Idealne dla spontanicznych spotkań zespołów lub rozmów 1:1"
+    },
+    "reservations": {
+      "title": "Rezerwacje",
+      "content": "Zorganizuj przestrzeń na własnych zasadach – system umożliwia tworzenie powtarzalnych, zautomatyzowanych rezerwacji z kontrolą czasu, uczestników i dostępności, dostosowanych do harmonogramu organizacji."
+    },
+    "queuing": {
+      "title": "Kolejkowanie",
+      "content": "Automatyczne zarządzanie kolejkami dostępu – gdy zasoby są ograniczone, RoomCtrl dba o sprawiedliwy dostęp do sal czy stanowisk pracy poprzez system kolejek, powiadomień i harmonogramów."
+    },
+    "schools": {
+      "title": "Szkoły",
+      "content": "Dla szkół i uczelni – inteligentne planowanie sal lekcyjnych – RoomCtrl wspiera codzienne planowanie zajęć, rezerwacje klas i sal wykładowych, a także umożliwia kontrolę nad zasobami dydaktycznymi."
+    },
+    "business": {
+      "title": "Biznes",
+      "content": "Wydajna organizacja przestrzeni biurowej – system ułatwia zarządzanie salkami konferencyjnymi, hot-deskingiem, a także zapewnia raportowanie wykorzystania przestrzeni i wsparcie dla pracy hybrydowej."
+    }
+  }
+}

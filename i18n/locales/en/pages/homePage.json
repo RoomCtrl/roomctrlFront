@@ -1,0 +1,45 @@
+{
+  "carousel": {
+    "subTitle": "A new standard in workspace organization"
+  },
+  "goodBadSection": {
+    "title": "Why RoomCtrl?",
+    "subTitle": "Modern space management vs traditional approach",
+    "goodSection": {
+      "intuitive": "Intuitive booking in seconds",
+      "automatic": "Automatic queuing and notifications",
+      "support": "Support for hybrid work and schools",
+      "modern": "Modern interface and integrations"
+    },
+    "badSection": {
+      "title": "Traditional approach",
+      "reservations": "Bookings via email or paper requests",
+      "noAutomation": "No automation and planning chaos",
+      "noAccess": "No access to statistics or reports",
+      "lowAvailability": "Low availability and unintuitive systems"
+    }
+  },
+  "infoSection": {
+    "title": "What is RoomCtrl and who is it for?",
+    "adHoc": {
+      "title": "Ad-hoc meetings",
+      "content": "Quick and flexible meeting space management – RoomCtrl allows instant room bookings without prior planning. Perfect for spontaneous team meetings or 1:1 conversations."
+    },
+    "reservations": {
+      "title": "Reservations",
+      "content": "Organize your space on your terms – the system enables recurring, automated bookings with control over time, participants, and availability, tailored to your organization's schedule."
+    },
+    "queuing": {
+      "title": "Queuing",
+      "content": "Automated access queue management – when resources are limited, RoomCtrl ensures fair access to rooms or workstations through a system of queues, notifications, and schedules."
+    },
+    "schools": {
+      "title": "Schools",
+      "content": "For schools and universities – intelligent classroom planning – RoomCtrl supports daily scheduling, classroom bookings, and control over educational resources."
+    },
+    "business": {
+      "title": "Business",
+      "content": "Efficient office space organization – the system simplifies the management of meeting rooms and hot-desking, while also providing space usage reporting and support for hybrid work."
+    }
+  }
+}
