@@ -10,7 +10,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "lint:json": "eslint \"**/*.{json,jsonc}\"",
+    "lint:json:fix": "eslint . --ext .json,.jsonc --fix"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.5.2",
@@ -29,6 +31,9 @@
     "@nuxtjs/i18n": "^9.5.6",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@primevue/nuxt-module": "^4.3.6",
-    "@vee-validate/nuxt": "^4.15.1"
+    "@stylistic/eslint-plugin": "^5.1.0",
+    "@vee-validate/nuxt": "^4.15.1",
+    "eslint-plugin-json": "^4.0.1",
+    "prettier": "^3.6.2"
   }
 }

@@ -9,7 +9,7 @@
       :num-visible="1"
     >
       <template #item="slotProps">
-        <div class="relative 2xl:h-[25rem] object-fill">
+        <div class="relative h-[25rem] object-fill">
           <img :src="'/images/mainPage/' + slotProps.item" />
 
           <div class="absolute inset-0 flex items-center justify-center px-4">

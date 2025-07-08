@@ -14,6 +14,11 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
   },
+  eslint: {
+    config: {
+      stylistic: true,
+    },
+  },
   i18n: {
     bundle: {
       optimizeTranslationDirective: false,

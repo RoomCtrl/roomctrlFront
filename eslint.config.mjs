@@ -1,4 +1,6 @@
 import withNuxt from './.nuxt/eslint.config.mjs'
+import stylistic from '@stylistic/eslint-plugin'
+import jsoncParser from 'jsonc-eslint-parser'
 
 const baseRules = {
   'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
@@ -23,17 +25,43 @@ const stylisticRules = {
   '@stylistic/semi': ['error', 'never'],
   '@stylistic/space-before-blocks': ['error', 'always'],
   '@stylistic/space-in-parens': ['error', 'never'],
-
   'no-extra-semi': 'error',
   'no-multiple-empty-lines': ['error', { max: 1 }],
 }
 
+const additionalRules = {
+  'no-debugger': 'error',
+  'no-trailing-spaces': 'error',
+  'eol-last': 'error',
+  'comma-dangle': ['error', 'always-multiline'],
+  'object-curly-spacing': ['error', 'always'],
+  'array-bracket-spacing': ['error', 'never'],
+}
+
 export default withNuxt(
   {
+    plugins: {
+      '@stylistic': stylistic,
+    },
     rules: {
       ...baseRules,
       ...vueRules,
       ...stylisticRules,
+      ...additionalRules,
+    },
+  },
+  {
+    files: ['**/*.json', '**/*.jsonc'],
+    languageOptions: {
+      parser: jsoncParser,
+    },
+    rules: {
+      'comma-dangle': ['error', 'never'],
+      '@stylistic/quotes': 'off',
+      '@stylistic/semi': 'off',
+      '@stylistic/space-before-blocks': 'off',
+      '@stylistic/space-in-parens': 'off',
+      'no-unused-vars': 'off',
     },
   },
 )
