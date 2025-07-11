@@ -10,6 +10,9 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
   ],
   devtools: { enabled: true },
+  css: [
+    'primeicons/primeicons.css',
+  ],
   compatibilityDate: '2025-05-15',
   nitro: {
     compressPublicAssets: true,

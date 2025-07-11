@@ -1,11 +1,13 @@
 <template>
-  <div class="flex flex-col gap-4 mx-5 lg:gap-10 lg:mx-10 2xl:mx-20 2xl:gap-20">
-    <LogoCarousel />
+  <NuxtLayout>
+    <div class="flex flex-col gap-4 mx-5 lg:gap-10 lg:mx-10 2xl:mx-20 2xl:gap-20">
+      <LogoCarousel />
 
-    <GoodBadSection />
+      <GoodBadSection />
 
-    <InfoSection />
-  </div>
+      <InfoSection />
+    </div>
+  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
