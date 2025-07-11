@@ -1,0 +1,17 @@
+{
+  "aboutAs": "About Us",
+  "contact": "Contact",
+  "aboutPlatform": "About the platform:",
+  "copyright": "2025 RoomCtrl. All rights reserved.",
+  "footer": {
+    "resources": {
+      "title": "Resources:",
+      "rules": "Terms of Service"
+    },
+    "contact": {
+      "title": "Contact Information:",
+      "email": "Email",
+      "phone": "Phone"
+    }
+  }
+}

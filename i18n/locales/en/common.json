@@ -1,3 +1,5 @@
 {
-  "roomCtrl": "RoomCtrl"
+  "roomCtrl": "RoomCtrl",
+  "logoAlt": "RoomCtrl Logo",
+  "logIn": "Log In"
 }
