@@ -85,20 +85,6 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
-    button: {
-      colorScheme: {
-        dark: {
-          root: {
-            color: '#ffffff',
-          },
-        },
-        light: {
-          root: {
-            color: '#ffffff',
-          },
-        },
-      },
-    },
     select: {
       colorScheme: {
         dark: {
@@ -106,10 +92,6 @@ const MyCustomPreset = definePreset(Aura, {
             background: '#0f1419',
             color: '#ffffff',
             borderColor: '#404040',
-          },
-          focus: {
-            borderColor: '#D74141',
-            boxShadow: '0 0 0 1px #D74141',
           },
           overlay: {
             background: '#262626',
@@ -142,10 +124,6 @@ const MyCustomPreset = definePreset(Aura, {
             color: '{text.color}',
             borderColor: '{content.borderColor}',
           },
-          focus: {
-            borderColor: '{primary.color}',
-            boxShadow: '0 0 0 1px {primary.color}',
-          },
         },
       },
     },
@@ -175,10 +153,6 @@ const MyCustomPreset = definePreset(Aura, {
     datatable: {
       colorScheme: {
         dark: {
-          root: {
-            background: '{surface.100}',
-            color: '{text.color}',
-          },
           row: {
             background: '{surface.100}',
             color: '{text.color}',
@@ -207,10 +181,6 @@ const MyCustomPreset = definePreset(Aura, {
             background: '{surface.100}',
             color: '{text.color}',
           },
-          header: {
-            background: '{surface.100}',
-            color: '{text.color}',
-          },
         },
       },
     },
@@ -225,22 +195,15 @@ const MyCustomPreset = definePreset(Aura, {
       },
     },
     divider: {
-      root: {
-        borderTopWidth: '1px',
-        borderTopStyle: 'solid',
-        margin: '1rem 0',
-      },
       colorScheme: {
         light: {
           root: {
             borderColor: '{surface.300}',
-            borderTopColor: '{surface.300}',
           },
         },
         dark: {
           root: {
             borderColor: '{surface.400}',
-            borderTopColor: '{surface.400}',
           },
         },
       },
@@ -248,10 +211,4 @@ const MyCustomPreset = definePreset(Aura, {
   },
 })
 
-export default defineNuxtPlugin(() => {
-  return {
-    provide: {
-      primevuePreset: MyCustomPreset,
-    },
-  }
-})
+export default MyCustomPreset
