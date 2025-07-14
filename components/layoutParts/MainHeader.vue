@@ -4,13 +4,28 @@
       to="/"
       class="flex-none"
     >
-      <NuxtImg
-        src="/logos/logo.svg"
-        :alt="t('common.logoAlt')"
-        class="flex h-[5vh]"
-      />
+      <ClientOnly>
+        <NuxtImg
+          v-if="darkMode"
+          src="/logos/logo_dark_mode.svg"
+          :alt="t('common.logoAlt')"
+          class="flex h-[5vh]"
+        />
+        <NuxtImg
+          v-else
+          src="/logos/logo.svg"
+          :alt="t('common.logoAlt')"
+          class="flex h-[5vh]"
+        />
+        <template #fallback>
+          <NuxtImg
+            src="/logos/logo.svg"
+            :alt="t('common.logoAlt')"
+            class="flex h-[5vh]"
+          />
+        </template>
+      </ClientOnly>
     </NuxtLink>
-
     <div class="hidden md:flex flex-row gap-3">
       <div
         v-for="(tab, index) in tabs"
@@ -23,6 +38,7 @@
         >
           {{ tab.name }}
         </NuxtLink>
+
         <span
           class="col-start-1 row-start-1 font-semibold invisible pointer-events-none"
           aria-hidden="true"
@@ -31,16 +47,10 @@
         </span>
       </div>
     </div>
-
-    <div class="hidden md:flex">
-      <Button
-        as="a"
-        :label="t('common.logIn')"
-        href="/login"
-      />
-    </div>
-
-    <div class="block md:hidden">
+    <UserHeaderOptions :dark-mode="darkMode" />
+    <div
+      class="block md:hidden"
+    >
       <div class="flex gap-4">
         <Drawer
           v-model:visible="visible"
@@ -54,7 +64,6 @@
             >
               <a :href="tab.link">{{ tab.name }}</a>
             </div>
-
             <Button
               as="a"
               :label="t('common.logIn')"
@@ -62,7 +71,6 @@
             />
           </div>
         </Drawer>
-
         <Button
           icon="pi pi-bars"
           @click="visible = true"
@@ -75,9 +83,13 @@
 <script setup lang="ts">
 import { NuxtImg } from '#components'
 import { Button } from 'primevue'
+import UserHeaderOptions from './headerParts/UserHeaderOptions.vue'
+
+defineProps({
+  darkMode: Boolean,
+})
 
 const visible = ref(false)
-
 const { t } = useI18n()
 
 const tabs = [

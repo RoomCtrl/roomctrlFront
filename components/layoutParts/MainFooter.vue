@@ -38,7 +38,7 @@
     </div>
 
     <div class="flex flex-col items-center">
-      <Divider class="w-[90vw]" />
+      <LazyDivider class="w-[90vw]" />
       <p class="text-white">
         &copy; {{ $t('layouts.main.copyright') }}
       </p>
@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { NuxtLink } from '#components'
+import { LazyDivider, NuxtLink } from '#components'
 
 const { t } = useI18n()
 

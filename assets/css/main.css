@@ -1,0 +1,42 @@
+/* assets/css/main.css */
+
+/* Podstawowe style dla body */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+/* Light mode */
+html:not(.dark) {
+  background-color: #ffffff;
+  color: #1f2937;
+}
+
+/* Dark mode */
+html.dark {
+  background-color: #0f1419;
+  color: #ffffff;
+}
+
+/* Dodatkowe style dla komponentów nie obsługiwanych przez preset */
+.dark .p-header {
+  background-color: #1B2532;
+}
+
+.dark .p-sub-card {
+  background-color: #404040;
+}
+
+/* Global transitions */
+* {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .p-toolbar {
+    padding: 0.5rem;
+  }
+}
