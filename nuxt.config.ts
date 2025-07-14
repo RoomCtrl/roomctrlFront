@@ -1,4 +1,4 @@
-import MyCustomPreset from './plugins/primevue-preset'
+import MyCustomPreset from './theme/primevue-preset'
 
 export default defineNuxtConfig({
   modules: [
