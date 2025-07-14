@@ -1,4 +1,4 @@
-import Aura from '@primeuix/themes/aura'
+import MyCustomPreset from './plugins/primevue-preset'
 
 export default defineNuxtConfig({
   modules: [
@@ -8,11 +8,23 @@ export default defineNuxtConfig({
     '@primevue/nuxt-module',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/i18n',
+    '@nuxtjs/color-mode',
   ],
   devtools: { enabled: true },
   css: [
     'primeicons/primeicons.css',
+    '~/assets/css/main.css',
   ],
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '',
+    storageKey: 'nuxt-color-mode',
+  },
   compatibilityDate: '2025-05-15',
   nitro: {
     compressPublicAssets: true,
@@ -33,14 +45,18 @@ export default defineNuxtConfig({
     lazy: true,
     langDir: 'locales',
     defaultLocale: 'pl',
+    strategy: 'prefix',
   },
   primevue: {
-    autoImport: false,
     options: {
       theme: {
-        preset: Aura,
+        preset: MyCustomPreset,
         options: {
-          darkModeSelector: false,
+          darkModeSelector: '.dark',
+          cssLayer: {
+            name: 'primevue',
+            order: 'tailwind-base, primevue, tailwind-utilities',
+          },
         },
       },
     },
