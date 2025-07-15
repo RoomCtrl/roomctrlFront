@@ -40,3 +40,34 @@ html.dark {
     padding: 0.5rem;
   }
 }
+/* Globalny fix dla FOUC PrimeVue */
+[data-pc-name] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Pokaż komponenty po załadowaniu */
+.primevue-ready [data-pc-name] {
+  opacity: 1;
+}
+
+/* Fallback styles dla głównych komponentów */
+[data-pc-name="button"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+[data-pc-name="card"] {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
