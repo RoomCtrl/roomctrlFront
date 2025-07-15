@@ -53,10 +53,6 @@ export default defineNuxtConfig({
         preset: MyCustomPreset,
         options: {
           darkModeSelector: '.dark',
-          cssLayer: {
-            name: 'primevue',
-            order: 'tailwind-base, primevue, tailwind-utilities',
-          },
         },
       },
     },
