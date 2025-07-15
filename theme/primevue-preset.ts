@@ -114,6 +114,11 @@ const MyCustomPreset = definePreset(Aura, {
             color: '{text.color}',
           },
         },
+        light: {
+          root: {
+            color: '#000000ff',
+          },
+        },
       },
     },
     inputtext: {
