@@ -2,7 +2,7 @@
   <Card class="w-full sm:w-[60vw]">
     <template #content>
       <div class="flex flex-col lg:flex-row gap-10 items-center w-full sm:w-[60vw]">
-        <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] h-[45vh]">
+        <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] h-[45vh] bg-[#1B2532]">
           <template #header>
             <p class="font-semibold lg:text-2xl sm:text-xl mx-auto">
               {{ $t('pages.contactPage.contactDetails.title') }}

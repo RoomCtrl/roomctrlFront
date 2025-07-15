@@ -17,7 +17,7 @@
         </h1>
         <ul class="footer-list">
           <li><NuxtLink to="">FAQ</NuxtLink></li>
-          <li><NuxtLink to="">{{ $t('layouts.main.footer.resources.rules') }}</NuxtLink></li>
+          <li><NuxtLink to="contact">{{ $t('layouts.main.footer.resources.rules') }}</NuxtLink></li>
         </ul>
       </div>
 
@@ -38,7 +38,7 @@
     </div>
 
     <div class="flex flex-col items-center">
-      <LazyDivider class="w-[90vw]" />
+      <Divider class="w-[90vw]" />
       <p class="text-white">
         &copy; {{ $t('layouts.main.copyright') }}
       </p>
@@ -47,7 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import { LazyDivider, NuxtLink } from '#components'
+import { NuxtLink } from '#components'
+import { Divider } from 'primevue'
 
 const { t } = useI18n()
 

@@ -18,12 +18,11 @@
         </div>
       </div>
     </div>
-    <Button label="some" />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-import { LazyButton, NuxtLayout } from '#components'
-import { Button, Card } from 'primevue'
+import { NuxtLayout } from '#components'
+import { Card } from 'primevue'
 import MailSender from '~/components/contactPage/MailSender.vue'
 </script>
