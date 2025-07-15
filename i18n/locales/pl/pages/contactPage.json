@@ -1,0 +1,10 @@
+{
+  "title": "Skontaktuj się z nami",
+  "subTitle": "Odpowiemy na Twoje pytania.",
+  "contactDetails": {
+    "title": "Dane kontaktowe",
+    "email": "Email",
+    "phone": "Telefon",
+    "address": "Adres"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "titles": {
+    "contactForm": "Contact Form"
+  },
+  "fields": {
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message"
+  }
+}

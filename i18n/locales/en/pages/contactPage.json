@@ -1,0 +1,10 @@
+{
+  "title": "Contact Us",
+  "subTitle": "We will answer your questions.",
+  "contactDetails": {
+    "title": "Contact Details",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address"
+  }
+}

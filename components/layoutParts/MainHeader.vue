@@ -34,7 +34,8 @@
       >
         <NuxtLink
           :to="tab.link"
-          class="col-start-1 row-start-1 border-b-2 border-transparent hover:font-semibold hover:text-[#D74141] hover:border-[#D74141]"
+          class="col-start-1 row-start-1 border-b-2 hover:font-semibold hover:text-[#D74141] hover:border-[#D74141]"
+          exact-active-class="border-b-2 border-[#D74141] text-[#D74141] font-semibold"
         >
           {{ tab.name }}
         </NuxtLink>
@@ -95,7 +96,7 @@ const { t } = useI18n()
 const tabs = [
   {
     name: t('layouts.main.contact'),
-    link: '/contact',
+    link: 'contact',
   },
   {
     name: t('layouts.main.aboutAs'),
