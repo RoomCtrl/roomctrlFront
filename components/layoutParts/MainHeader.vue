@@ -100,7 +100,7 @@ const tabs = [
   },
   {
     name: t('layouts.main.aboutAs'),
-    link: '/about',
+    link: 'aboutUs',
   },
 ]
 </script>
