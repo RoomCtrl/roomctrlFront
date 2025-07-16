@@ -5,6 +5,18 @@
     "title": "Contact Details",
     "email": "Email",
     "phone": "Phone",
-    "address": "Address"
+    "company": "Company"
+  },
+  "subjects": {
+    "reservation": {
+      "room": "Room reservation",
+      "cancel": "Reservation cancellation"
+    },
+    "techProblems": "Technical problems",
+    "techSupport": "Technical support",
+    "feedback": "Feedback / suggestions about the application",
+    "requestFunction": "Feature request",
+    "helpWithApp": "Help with using the app",
+    "other": "Other"
   }
 }

@@ -89,7 +89,7 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
-            background: '#0f1419',
+            // background: '#0f1419',
             color: '#ffffff',
             borderColor: '#404040',
           },
@@ -136,6 +136,7 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
+            color: '{text.color}',
             borderColor: '{content.borderColor}',
           },
         },

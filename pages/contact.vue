@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col items-center">
+  <div class="flex flex-col items-center">
     <div class="w-[80vw] space-y-12">
       <Card class="text-center shadow-sm">
         <template #content>

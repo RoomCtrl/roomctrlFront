@@ -2,7 +2,7 @@
   <Card class="w-full sm:w-[60vw]">
     <template #content>
       <div class="flex flex-col lg:flex-row gap-10 items-center w-full sm:w-[60vw]">
-        <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] h-[45vh] bg-[#1B2532]">
+        <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] h-[45vh]">
           <template #header>
             <p class="font-semibold lg:text-2xl sm:text-xl mx-auto">
               {{ $t('pages.contactPage.contactDetails.title') }}
@@ -45,10 +45,14 @@ import MailContact from '../forms/MailContact.vue'
 const { t } = useI18n()
 
 const contactUsDetails = [
-  // Change name of company
-  // { label: t('pages.contactPage.contactDetails.email'), content: 'FAJKCORP', icon: 'pi pi-building' },
-  { label: t('pages.contactPage.contactDetails.email'), content: 'filmac5@st.amu.edu.pl', icon: 'pi pi-envelope' },
-  { label: t('pages.contactPage.contactDetails.phone'), content: '+48 888 456 123', icon: 'pi pi-phone' },
-  { label: t('pages.contactPage.contactDetails.address'), content: 'Ulica Projektowa 26 64-920 Piła', icon: 'pi pi-map-marker' },
+  { label: t('pages.contactPage.contactDetails.company'), content: 'WorldCtrl', icon: 'pi pi-building' },
+  { label: t('pages.contactPage.contactDetails.email'), content: 'roomctrlinfo@gmail.com', icon: 'pi pi-envelope' },
+  { label: t('pages.contactPage.contactDetails.phone'), content: '+48 123 123 123', icon: 'pi pi-phone' },
 ]
 </script>
+
+<style scoped>
+.dark .p-panel {
+  background-color: #1B2532;
+}
+</style>
