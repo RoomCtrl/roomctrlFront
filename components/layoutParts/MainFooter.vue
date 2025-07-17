@@ -16,7 +16,7 @@
           {{ $t('layouts.main.footer.resources.title') }}
         </h1>
         <ul class="footer-list">
-          <li><NuxtLink to="">FAQ</NuxtLink></li>
+          <li><NuxtLink to="faq">FAQ</NuxtLink></li>
           <li><NuxtLink to="contact">{{ $t('layouts.main.footer.resources.rules') }}</NuxtLink></li>
         </ul>
       </div>

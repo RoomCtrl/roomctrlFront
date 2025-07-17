@@ -1,0 +1,111 @@
+{
+  "general": {
+    "title": "Ogólne informacje",
+    "question": {
+      "whatIsThisSystem": "Czym jest ten system?",
+      "whoCanUseSystem": "Kto może korzystać z systemu?",
+      "whoIsRoomOwner": "Czy jesteście właścicielami sal?",
+      "isAccountNeed": "Czy potrzebuję konta, aby złożyć rezerwację?",
+      "isUseSystemFree": "Czy korzystanie z systemu jest darmowe?"
+    },
+    "answer": {
+      "whatIsThisSystem": "To platforma online do rezerwacji sal, udostępniana instytucjom i organizacjom. Umożliwia wygodne zarządzanie dostępnością i zgłoszeniami.",
+      "whoCanUseSystem": "Tylko osoby lub podmioty, które otrzymały dostęp od administratora systemu. Nie ma możliwości samodzielnej rejestracji.",
+      "whoIsRoomOwner": "Nie. Udostępniamy jedynie system do rezerwacji. Odpowiedzialność za sale, ich dostępność, regulaminy i zasady korzystania ponoszą ich właściciele.",
+      "isAccountNeed": "Tak – konta są zakładane wyłącznie przez administratorów systemu. Skontaktuj się z nami, jeśli potrzebujesz dostępu.",
+      "isUseSystemFree": "Tak, sam system jest bezpłatny. Ewentualne opłaty za sale ustalają ich właściciele – nie my."
+    }
+  },
+  "reservation": {
+    "title": "Rezerwacja",
+    "question": {
+      "howToMakeReservation": "Jak mogę zarezerwować salę?",
+      "isReservationAutomatic": "Czy rezerwacje są automatycznie zatwierdzane?",
+      "canICancelReservation": "Czy mogę anulować swoją rezerwację?",
+      "mutltiReserveRoomInSameTime": "Czy mogę zarezerwować kilka sal jednocześnie?",
+      "whatIfCantSeeRoom": "Co jeśli nie widzę danej sali?"
+    },
+    "answer": {
+      "howToMakeReservation": "Po otrzymaniu konta od administratora możesz zalogować się do systemu, wybrać salę i dostępny termin, a następnie wysłać zgłoszenie rezerwacyjne.",
+      "isReservationAutomatic": "Niektóre mogą być zatwierdzane automatycznie, inne wymagają akceptacji przez administratora sali – zależnie od jej ustawień.",
+      "canICancelReservation": "Tak, w panelu użytkownika masz możliwość anulowania rezerwacji, o ile nie zostały już zablokowane przez administratora.",
+      "mutltiReserveRoomInSameTime": "Tak – każdą salę rezerwujesz oddzielnie, o ile są dostępne w wybranym czasie.",
+      "whatIfCantSeeRoom": "Możliwe, że nie masz uprawnień do danej lokalizacji lub sala została tymczasowo wyłączona. Skontaktuj się z administratorem."
+    }
+  },
+  "aboutRooms": {
+    "title": "Informacje o salach",
+    "question": {
+      "equpimentOfRoom": "Skąd mam wiedzieć, co znajduje się w danej sali?",
+      "responsibleForRoom": "Kto odpowiada za stan i wyposażenie sali?",
+      "roomCloseDespiteReservation": "Co zrobić, jeśli sala była zamknięta lub niedostępna mimo rezerwacji?",
+      "reportDefectInRoom": "Czy mogę zgłosić usterkę w sali przez system?",
+      "hasRoomWiFiOrMultimedia": "Czy sala ma dostęp do Wi-Fi lub sprzętu multimedialnego?"
+    },
+    "answer": {
+      "equpimentOfRoom": "Kliknij na salę – w jej opisie znajdziesz informacje o wyposażeniu, pojemności.",
+      "responsibleForRoom": "Administrator lub właściciel konkretnej sali. System nie zarządza fizycznym dostępem ani stanem technicznym przestrzeni.",
+      "roomCloseDespiteReservation": "Zgłoś sytuację bezpośrednio do właściciela sali lub osoby kontaktowej wskazanej w jej opisie.",
+      "reportDefectInRoom": "Obecnie zgłoszenia techniczne należy kierować poza systemem – do administratora sali.",
+      "hasRoomWiFiOrMultimedia": "Zależy od sali – szczegóły znajdziesz w opisie, dodanym przez jej właściciela."
+    }
+  },
+  "payment": {
+    "title": "Płatności",
+    "question": {
+      "systemTakeMoneyforReservation": "Czy system pobiera opłaty za rezerwacje?",
+      "paymentViaSystem": "Czy można zapłacić przez system?",
+      "invoicesForUseOfRoom": "Kto wystawia faktury za korzystanie z sal?",
+      "onlyFreeRoomsAvailable": "Czy dostępne są tylko darmowe sale?"
+    },
+    "answer": {
+      "systemTakeMoneyforReservation": "Nie – system jest darmowy. Jeśli dana sala wymaga opłat, informacje o tym znajdziesz w jej opisie.",
+      "paymentViaSystem": "Nie. System nie obsługuje płatności – rozliczenia odbywają się poza platformą, według zasad danego miejsca.",
+      "invoicesForUseOfRoom": "Tylko właściciel lub operator sali – my jako dostawca systemu nie wystawiamy żadnych dokumentów finansowych.",
+      "onlyFreeRoomsAvailable": "Niektóre mogą być darmowe, inne płatne – zależnie od instytucji. Informacja o kosztach znajduje się przy sali."
+    }
+  },
+  "techProblems": {
+    "title": "Problemy techniczne",
+    "question": {
+      "iCantLogin": "Nie mogę się zalogować – co zrobić?",
+      "pageDidntWork": "Strona nie działa prawidłowo – co teraz?",
+      "myReservationDisappeared": "Moje rezerwacje zniknęły – co się stało?",
+      "canIUseOnPhone": "Czy mogę korzystać z systemu na smartfonie?",
+      "whereReportErrorsAndSugestions": "Gdzie zgłosić błąd lub sugestię?"
+    },
+    "answer": {
+      "iCantLogin": "Upewnij się, że używasz poprawnego loginu i hasła. Jeśli problem się utrzymuje, skontaktuj się z administratorem systemu.",
+      "pageDidntWork": "Spróbuj odświeżyć stronę lub użyć innej przeglądarki. Jeśli problem się powtarza, zgłoś go do nas.",
+      "myReservationDisappeared": "Możliwe, że zostały anulowane przez administratora lub system – skontaktuj się z nami w celu weryfikacji.",
+      "canIUseOnPhone": "Tak – system jest przystosowany do urządzeń mobilnych i działa w przeglądarce oraz jest aplikacja mobilna.",
+      "whereReportErrorsAndSugestions": "Wyślij wiadomość na adres {email} – chętnie pomożemy."
+    }
+  },
+  "security": {
+    "title": "Bezpieczeństwo i dane osobowe",
+    "question": {
+      "isMyDataSafe": "Czy moje dane są bezpieczne?",
+      "howMyDataIsStored": "Jakie dane są przechowywane?",
+      "whoHaveAccessToMyData": "Kto ma dostęp do moich danych?"
+    },
+    "answer": {
+      "isMyDataSafe": "Tak. Przechowujemy dane zgodnie z RODO i nie udostępniamy ich nieuprawnionym podmiotom.",
+      "howMyDataIsStored": "Tylko niezbędne dane do zarządzania kontem i rezerwacjami – imię, nazwisko, e-mail, historia rezerwacji.",
+      "whoHaveAccessToMyData": "Administratorzy systemu oraz właściciele sal, z których korzystasz – wyłącznie w zakresie niezbędnym do obsługi rezerwacji."
+    }
+  },
+  "contact": {
+    "title": "Kontakt i pomoc",
+    "question": {
+      "howToContactAdmin": "Jak skontaktować się z administratorem systemu?",
+      "howGetAccessToSystem": "Jak uzyskać dostęp do systemu?",
+      "questionAboutRoom": "Mam pytanie o konkretną salę – do kogo pisać?"
+    },
+    "answer": {
+      "howToContactAdmin": "Napisz do nas na adres {email} lub użyj formularza kontaktowego na stronie.",
+      "howGetAccessToSystem": "Skontaktuj się z nami – dostęp nadajemy indywidualnie po weryfikacji.",
+      "questionAboutRoom": "Sprawdź opis sali – powinny tam znajdować się dane kontaktowe do jej administratora."
+    }
+  }
+}
