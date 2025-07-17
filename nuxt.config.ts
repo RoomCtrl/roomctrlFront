@@ -29,6 +29,16 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
   },
+  vite: {
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://185.25.151.154/',
+          changeOrigin: true,
+        },
+      },
+    },
+  },
   eslint: {
     config: {
       stylistic: true,

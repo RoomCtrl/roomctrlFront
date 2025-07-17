@@ -28,13 +28,23 @@
       <Button
         as="a"
         :label="t('common.logIn')"
-        href="/login"
+        href="login"
       />
+      <button
+        :disabled="loading"
+        @click="handleLogout"
+      >
+        {{ loading ? 'Wylogowywanie...' : 'Wyloguj' }}
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const { logout } = useAuth()
+const handleLogout = async () => {
+  await logout()
+}
 const colorMode = useColorMode()
 const isLoadingLanguage = ref(false)
 type LanguageCode = (typeof languages)[number]['code']
