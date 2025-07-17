@@ -1,0 +1,111 @@
+{
+  "general": {
+    "title": "General Information",
+    "question": {
+      "whatIsThisSystem": "What is this system?",
+      "whoCanUseSystem": "Who can use the system?",
+      "whoIsRoomOwner": "Are you the owners of the rooms?",
+      "isAccountNeed": "Do I need an account to make a reservation?",
+      "isUseSystemFree": "Is using the system free of charge?"
+    },
+    "answer": {
+      "whatIsThisSystem": "This is an online room reservation platform provided for institutions and organizations. It allows for convenient management of availability and booking requests.",
+      "whoCanUseSystem": "Only individuals or entities that have been granted access by the system administrator. Self-registration is not available.",
+      "whoIsRoomOwner": "No. We only provide the booking system. Responsibility for the rooms, their availability, rules, and conditions of use lies with their respective owners.",
+      "isAccountNeed": "Yes – accounts are created exclusively by system administrators. Contact us if you need access.",
+      "isUseSystemFree": "Yes, the system itself is free to use. Any potential room fees are set by their owners – not by us."
+    }
+  },
+  "reservation": {
+    "title": "Reservation",
+    "question": {
+      "howToMakeReservation": "How can I book a room?",
+      "isReservationAutomatic": "Are reservations approved automatically?",
+      "canICancelReservation": "Can I cancel my reservation?",
+      "mutltiReserveRoomInSameTime": "Can I reserve multiple rooms at the same time?",
+      "whatIfCantSeeRoom": "What if I can't see a particular room?"
+    },
+    "answer": {
+      "howToMakeReservation": "Once you receive an account from the administrator, you can log into the system, choose a room and an available time slot, then submit your reservation request.",
+      "isReservationAutomatic": "Some reservations may be approved automatically, others require approval by the room administrator – it depends on the room's settings.",
+      "canICancelReservation": "Yes, you can cancel your reservation in the user panel unless it has already been locked by the administrator.",
+      "mutltiReserveRoomInSameTime": "Yes – you can book each room separately, as long as they are available at the chosen time.",
+      "whatIfCantSeeRoom": "You may not have the necessary permissions for that location or the room may be temporarily unavailable. Please contact the administrator."
+    }
+  },
+  "aboutRooms": {
+    "title": "Room Information",
+    "question": {
+      "equpimentOfRoom": "How do I know what is available in a specific room?",
+      "responsibleForRoom": "Who is responsible for the room's condition and equipment?",
+      "roomCloseDespiteReservation": "What should I do if the room was closed or unavailable despite my reservation?",
+      "reportDefectInRoom": "Can I report a room defect through the system?",
+      "hasRoomWiFiOrMultimedia": "Does the room have Wi-Fi or multimedia equipment?"
+    },
+    "answer": {
+      "equpimentOfRoom": "Click on the room – the description includes information about its equipment and capacity.",
+      "responsibleForRoom": "The administrator or owner of the specific room. The system does not manage physical access or the technical condition of the space.",
+      "roomCloseDespiteReservation": "Report the issue directly to the room owner or contact person listed in the room description.",
+      "reportDefectInRoom": "Currently, technical issues should be reported outside the system – directly to the room administrator.",
+      "hasRoomWiFiOrMultimedia": "It depends on the room – details are provided in the description by the room owner."
+    }
+  },
+  "payment": {
+    "title": "Payments",
+    "question": {
+      "systemTakeMoneyforReservation": "Does the system charge for reservations?",
+      "paymentViaSystem": "Can I pay through the system?",
+      "invoicesForUseOfRoom": "Who issues invoices for using the rooms?",
+      "onlyFreeRoomsAvailable": "Are only free rooms available?"
+    },
+    "answer": {
+      "systemTakeMoneyforReservation": "No – the system is free to use. If a room requires payment, this will be stated in its description.",
+      "paymentViaSystem": "No. The system does not handle payments – billing is managed outside the platform according to the venue's rules.",
+      "invoicesForUseOfRoom": "Only the room owner or operator can issue invoices – we as the system provider do not issue any financial documents.",
+      "onlyFreeRoomsAvailable": "Some rooms may be free, others paid – depending on the institution. Pricing details are shown with each room."
+    }
+  },
+  "techProblems": {
+    "title": "Technical Issues",
+    "question": {
+      "iCantLogin": "I can't log in – what should I do?",
+      "pageDidntWork": "The page isn't working properly – what now?",
+      "myReservationDisappeared": "My reservations disappeared – what happened?",
+      "canIUseOnPhone": "Can I use the system on a smartphone?",
+      "whereReportErrorsAndSugestions": "Where can I report an error or suggestion?"
+    },
+    "answer": {
+      "iCantLogin": "Make sure you're using the correct login and password. If the problem persists, contact the system administrator.",
+      "pageDidntWork": "Try refreshing the page or using a different browser. If the problem continues, report it to us.",
+      "myReservationDisappeared": "It’s possible they were canceled by the administrator or the system – contact us for verification.",
+      "canIUseOnPhone": "Yes – the system is mobile-friendly and works in a browser. There is also a mobile app.",
+      "whereReportErrorsAndSugestions": "Send a message to {email} – we’ll be happy to help."
+    }
+  },
+  "security": {
+    "title": "Security and Personal Data",
+    "question": {
+      "isMyDataSafe": "Is my data safe?",
+      "howMyDataIsStored": "What data is stored?",
+      "whoHaveAccessToMyData": "Who has access to my data?"
+    },
+    "answer": {
+      "isMyDataSafe": "Yes. We store data in compliance with GDPR and do not share it with unauthorized entities.",
+      "howMyDataIsStored": "Only the data necessary for managing your account and reservations – name, surname, email, reservation history.",
+      "whoHaveAccessToMyData": "System administrators and the owners of the rooms you use – only to the extent necessary to process your reservations."
+    }
+  },
+  "contact": {
+    "title": "Contact and Support",
+    "question": {
+      "howToContactAdmin": "How can I contact the system administrator?",
+      "howGetAccessToSystem": "How do I get access to the system?",
+      "questionAboutRoom": "I have a question about a specific room – who should I contact?"
+    },
+    "answer": {
+      "howToContactAdmin": "Send us an email at {email} or use the contact form on the website.",
+      "howGetAccessToSystem": "Contact us – access is granted individually after verification.",
+      "questionAboutRoom": "Check the room description – it should contain contact details for its administrator."
+    }
+  }
+}
