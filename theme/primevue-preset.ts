@@ -160,13 +160,33 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
+    floatlabel: {
+      colorScheme: {
+        dark: {
+          root: {
+            focusColor: '#ffffff',
+          },
+        },
+        light: {
+          root: {
+            focusColor: '{surface.950}',
+          },
+        },
+      },
+    },
     inputtext: {
       colorScheme: {
         dark: {
           root: {
             background: '{surface.950}',
-            color: '{text.color}',
             borderColor: '{content.borderColor}',
+            focusBorderColor: '#ffffff',
+            color: '#ffffff',
+          },
+        },
+        light: {
+          root: {
+            focusBorderColor: '{surface.950}',
           },
         },
       },

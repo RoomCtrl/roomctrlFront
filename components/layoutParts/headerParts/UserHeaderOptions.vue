@@ -26,15 +26,27 @@
         </div>
       </ClientOnly>
       <Button
+        v-if="!user"
         as="a"
-        :label="t('common.logIn')"
-        href="/login"
+        :label="t('common.buttons.logIn')"
+        href="login"
+      />
+      <Button
+        v-else
+        :label="t('common.buttons.logOut')"
+        @click="handleLogout"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Button } from 'primevue'
+
+const { logout, user } = useAuth()
+const handleLogout = async () => {
+  await logout()
+}
 const colorMode = useColorMode()
 const isLoadingLanguage = ref(false)
 type LanguageCode = (typeof languages)[number]['code']
