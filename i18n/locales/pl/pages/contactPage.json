@@ -5,6 +5,18 @@
     "title": "Dane kontaktowe",
     "email": "Email",
     "phone": "Telefon",
-    "address": "Adres"
+    "company": "Firma"
+  },
+  "subjects": {
+    "reservation": {
+      "room": "Rezerwacja sali",
+      "cancel": "Anulowanie rezerwacji"
+    },
+    "techProblems": "Problemy techniczne",
+    "techSupport": "Wsparcie techniczne",
+    "feedback": "Opinia / sugestia dotycząca działania aplikacji",
+    "requestFunction": "Prośba o dodanie funkcji",
+    "helpWithApp": "Pomoc w obsłudze aplikacji",
+    "other": "Inne"
   }
 }

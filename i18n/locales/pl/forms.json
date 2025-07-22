@@ -4,17 +4,26 @@
     "loginForm": "Logowanie"
   },
   "fields": {
-    "name": "Imię",
+    "name": "Imię i nazwisko",
     "email": "Email",
     "subject": "Temat",
     "message": "Wiadomość",
     "login": "Login",
     "password": "Hasło"
   },
-  "messages": {
+  "fieldMessages": {
     "error": {
+      "email": "Wpisz poprawny adres e-mail",
       "required": "Pole {fieldName} jest wymagane.",
       "invalidField": "Pole {fieldName} jest nieprawidłowe."
+    }
+  },
+  "messages": {
+    "error": {
+      "whileSendingMail": "Wystąpił błąd podczas wysyłania wiadomości"
+    },
+    "success": {
+      "correctSentMail": "Wiadomość została wysłana pomyślnie!"
     }
   }
 }

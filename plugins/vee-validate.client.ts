@@ -25,11 +25,11 @@ export default defineNuxtPlugin((nuxtApp) => {
       const fieldName = fieldNames[ctx.field] || ctx.field
 
       const messages = {
-        required: t('forms.messages.error.required', { fieldName }),
-
+        email: t('forms.fieldMessages.error.email'),
+        required: t('forms.fieldMessages.error.required', { fieldName }),
       }
 
-      return messages[ctx.rule.name] || t('forms.messages.invalid', { fieldName })
+      return messages[ctx.rule.name] || t('forms.fieldMessages.error.invalidField', { fieldName })
     },
   })
 })

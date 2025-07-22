@@ -1,4 +1,6 @@
 {
+  "error": "Błąd",
+  "success": "Sukces",
   "roomCtrl": "RoomCtrl",
   "logoAlt": "Logo RoomCtrl",
   "buttons": {

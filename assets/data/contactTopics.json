@@ -1,0 +1,10 @@
+{
+  "reservationRoom": "pages.contactPage.subjects.reservation.room",
+  "reservationCancel": "pages.contactPage.subjects.reservation.cancel",
+  "techProblems": "pages.contactPage.subjects.techProblems",
+  "techSupport": "pages.contactPage.subjects.techSupport",
+  "feedback": "pages.contactPage.subjects.feedback",
+  "requestFunction": "pages.contactPage.subjects.requestFunction",
+  "helpWithApp": "pages.contactPage.subjects.helpWithApp",
+  "other": "pages.contactPage.subjects.other"
+}

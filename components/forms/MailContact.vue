@@ -1,7 +1,9 @@
 <template>
-  <form @submit.prevent="submitForm">
-    <Toast />
-    <div class="flex flex-col gap-3 w-full sm:w-[35vw]">
+  <Toast class="pt-[7vh]" />
+  <form @submit.prevent="sendMail">
+    <div
+      class="flex flex-col gap-3 w-full sm:w-[35vw]"
+    >
       <h1 class="flex justify-center text-xl font-bold">
         {{ $t('forms.titles.contactForm') }}
       </h1>
@@ -13,7 +15,6 @@
             type="text"
             class="w-[70vw] sm:w-full"
             :class="{ 'p-invalid': nameError }"
-            autofocus
             @blur="nameBlur"
           />
           <label for="name">{{ $t('forms.fields.name') }}</label>
@@ -50,9 +51,10 @@
       </div>
       <div>
         <FloatLabel variant="on">
-          <InputText
+          <Select
             id="subject"
             v-model="subject"
+            :options="subjects"
             type="text"
             class="w-[70vw] sm:w-full"
             :class="{ 'p-invalid': subjectError }"
@@ -73,25 +75,26 @@
         <FloatLabel variant="on">
           <Textarea
             id="message"
-            v-model="messageContent"
+            v-model="message"
             class="w-full h-[25vh]"
-            :class="{ 'p-invalid': messageContentError }"
-            @blur="messageContentBlur"
+            :class="{ 'p-invalid': messageError }"
+            @blur="messageBlur"
           />
           <label for="message">{{ $t('forms.fields.message') }}</label>
         </FloatLabel>
         <Message
-          v-if="messageContentError"
+          v-if="messageError"
           severity="error"
           size="small"
           variant="simple"
         >
-          {{ messageContentError }}
+          {{ messageError }}
         </Message>
       </div>
       <Button
         label="Wyślij"
         type="submit"
+        :loading="loading"
         class="w-[60vw] sm:w-[15vw] self-center"
       />
     </div>
@@ -99,23 +102,9 @@
 </template>
 
 <script setup lang="ts">
-import { useToast } from 'primevue'
 import { useField, useForm } from 'vee-validate'
-import type { IMailContactUs } from '@/interfaces/FormsInterface'
-
-const { handleSubmit, resetForm } = useForm<IMailContactUs>({
-  validationSchema: {
-    name: 'required',
-    email: 'required|email',
-    subject: 'required',
-    messageContent: 'required',
-  },
-})
-
-const { value: name, errorMessage: nameError, handleBlur: nameBlur } = useField<string>('name')
-const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useField<string>('email')
-const { value: subject, errorMessage: subjectError, handleBlur: subjectBlur } = useField<string>('subject')
-const { value: messageContent, errorMessage: messageContentError, handleBlur: messageContentBlur } = useField<string>('messageContent')
+import { useMailer } from '~/composables/useMailer'
+import type { IContactMailData } from '~/interfaces/RepositoriesInterface'
 
 const toast = useToast()
 
@@ -123,21 +112,42 @@ const showToast = (severity: string, summary: string, detail: string) => {
   toast.add({ severity, summary, detail, life: 3000 })
 }
 
-const submitForm = handleSubmit((formValues: IMailContactUs) => {
+const { t } = useI18n()
+
+const subjects = getSubjects(t)
+
+const { sendContactMessage } = useMailer()
+
+const { handleSubmit, resetForm } = useForm<IContactMailData>({
+  validationSchema: {
+    name: 'required',
+    email: 'required|email',
+    subject: 'required',
+    message: 'required',
+  },
+})
+
+const { value: name, errorMessage: nameError, handleBlur: nameBlur } = useField<string>('name')
+const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useField<string>('email')
+const { value: subject, errorMessage: subjectError, handleBlur: subjectBlur } = useField<string>('subject')
+const { value: message, errorMessage: messageError, handleBlur: messageBlur } = useField<string>('message')
+
+const loading = ref<boolean>(false)
+
+const sendMail = handleSubmit(async (formValues: IContactMailData) => {
+  loading.value = true
+
   try {
-    router.post('/send-mail', formValues, {
-      preserveScroll: true,
-      onSuccess: () => {
-        showToast('success', 'Sukces', 'Mail został wysłany.')
-        resetForm()
-      },
-      onError: (errors: Record<string, string>) => {
-        showToast('error', 'Błąd', Object.values(errors).join(', '))
-      },
-    })
+    await sendContactMessage(formValues)
+
+    showToast('success', t('common.success'), t('forms.messages.success.correctSentMail'))
+    resetForm()
   }
-  catch {
-    showToast('error', 'Błąd', 'Wystąpił nieoczekiwany błąd.')
+  catch (error: any) {
+    showToast('error', t('common.error'), error.message || t('forms.messages.error.whileSendingMail'))
+  }
+  finally {
+    loading.value = false
   }
 })
 </script>

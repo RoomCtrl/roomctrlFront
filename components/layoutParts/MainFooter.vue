@@ -6,7 +6,7 @@
           {{ $t('layouts.main.aboutPlatform') }}
         </h1>
         <ul class="footer-list">
-          <li><NuxtLink to="/">{{ $t('layouts.main.contact') }}</NuxtLink></li>
+          <li><NuxtLink to="contact">{{ $t('layouts.main.contact') }}</NuxtLink></li>
           <li><NuxtLink to="/">{{ $t('layouts.main.aboutAs') }}</NuxtLink></li>
         </ul>
       </div>
@@ -53,8 +53,8 @@ import { Divider } from 'primevue'
 const { t } = useI18n()
 
 const contactUsDetails = [
-  { label: t('layouts.main.footer.contact.email'), content: 'filmac5@st.amu.edu.pl' },
-  { label: t('layouts.main.footer.contact.phone'), content: '+48 888 456 123' },
+  { label: t('layouts.main.footer.contact.email'), content: 'roomctrlinfo@gmail.com' },
+  { label: t('layouts.main.footer.contact.phone'), content: '+48 123 123 123' },
 ]
 </script>
 
