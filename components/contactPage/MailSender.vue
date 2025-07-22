@@ -20,19 +20,13 @@
               </h1>
             </div>
 
-            <h2
-              v-if="contactDetail.label == t('pages.contactPage.contactDetails.address')"
-              class="w-[30vw] md:w-[20vw] max-sm:w-[40vw] lg:w-[10vw]"
-            >
-              {{ contactDetail.content }}
-            </h2>
-            <h2 v-else>
+            <h2 class="w-[30vw] md:w-[20vw] max-sm:w-[40vw] lg:w-[10vw]">
               {{ contactDetail.content }}
             </h2>
           </div>
         </Panel>
 
-        <MailContact class="w-full" />
+        <MailContact />
       </div>
     </template>
   </Card>

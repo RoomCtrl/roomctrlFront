@@ -76,6 +76,15 @@ const MyCustomPreset = definePreset(Aura, {
     },
   },
   components: {
+    toast: {
+      colorScheme: {
+        dark: {
+          success: {
+            detailColor: '#ffffff',
+          },
+        },
+      },
+    },
     accordion: {
       colorScheme: {
         dark: {
@@ -128,9 +137,9 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
-            // background: '#0f1419',
             color: '#ffffff',
             borderColor: '#404040',
+            focusBorderColor: '#ffffff',
           },
           overlay: {
             background: '#262626',
@@ -141,6 +150,11 @@ const MyCustomPreset = definePreset(Aura, {
             focusBackground: '#404040',
             selectedBackground: '#D74141',
             selectedColor: '#ffffff',
+          },
+        },
+        light: {
+          root: {
+            focusBorderColor: '{surface.950}',
           },
         },
       },
@@ -197,6 +211,12 @@ const MyCustomPreset = definePreset(Aura, {
           root: {
             color: '{text.color}',
             borderColor: '{content.borderColor}',
+            focusBorderColor: '#ffffff',
+          },
+        },
+        light: {
+          root: {
+            focusBorderColor: '{surface.950}',
           },
         },
       },

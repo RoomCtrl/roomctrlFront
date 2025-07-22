@@ -4,17 +4,26 @@
     "loginForm": "Login"
   },
   "fields": {
-    "name": "Name",
+    "name": "Full Name",
     "email": "Email",
     "subject": "Subject",
     "message": "Message",
-    "login": "Login",
+    "login": "Username",
     "password": "Password"
+  },
+  "fieldMessages": {
+    "error": {
+      "email": "Enter a valid email address",
+      "required": "The {fieldName} field is required.",
+      "invalidField": "The {fieldName} field is invalid."
+    }
   },
   "messages": {
     "error": {
-      "required": "The {fieldName} field is required.",
-      "invalidField": "The {fieldName} field is invalid."
+      "whileSendingMail": "An error occurred while sending the message"
+    },
+    "success": {
+      "correctSentMail": "Message sent successfully!"
     }
   }
 }

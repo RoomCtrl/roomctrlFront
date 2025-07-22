@@ -39,3 +39,15 @@ export interface IUserLoginResponse {
   user: IGetUserProfileResponse
   token: string
 }
+
+export interface IContactMailData {
+  name: string
+  email: string
+  subject: string
+  message: string
+}
+
+export interface IContactMailResponse {
+  code: number
+  message: string
+}
