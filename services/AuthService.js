@@ -9,19 +9,13 @@ export class AuthService {
 
   async login(credentials) {
     try {
-      // Wywołaj API logowania
-      const loginResponse = await this.authRepository.login(credentials)
+      const { token } = await this.authRepository.login(credentials)
+      if (!token) {
+        throw new Error('Nieprawidłowa odpowiedź serwera')
+      }
 
-      // if (!loginResponse.success || !loginResponse.data?.token) {
-      //   throw new Error('Nieprawidłowa odpowiedź serwera')
-      // }
-
-      const { token } = loginResponse
-
-      // Pobierz dane użytkownika
       const userData = await this.authRepository.getUserProfile(token)
 
-      // Zapisz token i dane użytkownika
       this.storageRepository.saveToken(token)
       this.storageRepository.saveUser(userData)
 
@@ -37,8 +31,7 @@ export class AuthService {
   }
 
   async logout() {
-    await this.storageRepository.clearToken?.()
-    await this.storageRepository.clearAll?.()
+    await this.storageRepository.clearAll()
   }
 
   async refreshUserToken(token) {
@@ -54,6 +47,36 @@ export class AuthService {
     }
     catch (error) {
       throw new Error(error.message || 'Błąd podczas odświeżania tokenu')
+    }
+  }
+
+  async validateToken(token) {
+    try {
+      const userData = await this.authRepository.getUserProfile(token)
+      if (userData) {
+        this.storageRepository.saveUser(userData)
+        return {
+          valid: true,
+          user: userData,
+        }
+      }
+      return { valid: false }
+    }
+    catch {
+      return { valid: false }
+    }
+  }
+
+  isTokenExpired(token) {
+    if (!token) return true
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      const currentTime = Date.now() / 1000
+      return payload.exp < currentTime
+    }
+    catch {
+      return true
     }
   }
 

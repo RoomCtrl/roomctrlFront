@@ -8,18 +8,11 @@ export const useAuth = () => {
 
   const login = async (credentials) => {
     loading.value = true
-
     try {
       const result = await authService.login(credentials)
-
-      // Aktualizuj stan
       user.value = result.user
       token.value = result.token
-
       return result
-    }
-    catch (error) {
-      throw error
     }
     finally {
       loading.value = false
@@ -28,18 +21,14 @@ export const useAuth = () => {
 
   const logout = async () => {
     loading.value = true
-
     try {
       await authService.logout(token.value)
-
-      // Wyczyść stan
       user.value = null
       token.value = null
 
-      await navigateTo('/login')
-    }
-    catch (error) {
-      console.error('Błąd podczas wylogowania:', error)
+      if (import.meta.client) {
+        await navigateTo('/login')
+      }
     }
     finally {
       loading.value = false
@@ -47,18 +36,10 @@ export const useAuth = () => {
   }
 
   const checkAuth = async () => {
-    // Nie sprawdzaj auth podczas SSR
-    if (import.meta.server) {
-      return false
-    }
-
     loading.value = true
-
     try {
-      // Sprawdź token w stanie
       let currentToken = token.value
 
-      // Jeśli nie ma tokenu w stanie, sprawdź storage
       if (!currentToken) {
         currentToken = authService.getStoredToken()
         if (currentToken) {
@@ -70,21 +51,22 @@ export const useAuth = () => {
         return false
       }
 
-      // Waliduj token
-      const validation = await authService.validateToken(currentToken)
+      if (authService.isTokenExpired?.(currentToken)) {
+        await logout()
+        return false
+      }
 
+      const validation = await authService.validateToken(currentToken)
       if (validation.valid) {
         user.value = validation.user
         return true
       }
       else {
-        // Token nieprawidłowy, wyczyść
         await logout()
         return false
       }
     }
-    catch (error) {
-      console.error('Błąd podczas sprawdzania autoryzacji:', error)
+    catch {
       await logout()
       return false
     }
@@ -97,22 +79,40 @@ export const useAuth = () => {
     if (!token.value) {
       return false
     }
-
     try {
       const newToken = await authService.refreshUserToken(token.value)
       token.value = newToken
       return true
     }
-    catch (error) {
-      console.error('Błąd podczas odświeżania tokenu:', error)
+    catch {
       await logout()
       return false
+    }
+  }
+
+  const syncFromStorage = () => {
+    if (!token.value) {
+      const storedToken = authService.getStoredToken()
+      if (storedToken) {
+        token.value = storedToken
+      }
+    }
+
+    if (!user.value) {
+      const storedUser = authService.getStoredUser()
+      if (storedUser) {
+        user.value = storedUser
+      }
     }
   }
 
   const isAuthenticated = computed(() => {
     return !!user.value && !!token.value
   })
+
+  if (import.meta.server) {
+    syncFromStorage()
+  }
 
   return {
     user: readonly(user),
@@ -123,5 +123,6 @@ export const useAuth = () => {
     logout,
     checkAuth,
     refreshToken,
+    syncFromStorage,
   }
 }

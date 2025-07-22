@@ -1,11 +1,20 @@
 {
   "titles": {
-    "contactForm": "Contact Form"
+    "contactForm": "Contact Form",
+    "loginForm": "Login"
   },
   "fields": {
     "name": "Name",
     "email": "Email",
     "subject": "Subject",
-    "message": "Message"
+    "message": "Message",
+    "login": "Login",
+    "password": "Password"
+  },
+  "messages": {
+    "error": {
+      "required": "The {fieldName} field is required.",
+      "invalidField": "The {fieldName} field is invalid."
+    }
   }
 }

@@ -26,22 +26,24 @@
         </div>
       </ClientOnly>
       <Button
+        v-if="!user"
         as="a"
-        :label="t('common.logIn')"
+        :label="t('common.buttons.logIn')"
         href="login"
       />
-      <button
-        :disabled="loading"
+      <Button
+        v-else
+        :label="t('common.buttons.logOut')"
         @click="handleLogout"
-      >
-        {{ loading ? 'Wylogowywanie...' : 'Wyloguj' }}
-      </button>
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const { logout } = useAuth()
+import { Button } from 'primevue'
+
+const { logout, user } = useAuth()
 const handleLogout = async () => {
   await logout()
 }
