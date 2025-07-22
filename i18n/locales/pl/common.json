@@ -1,5 +1,8 @@
 {
   "roomCtrl": "RoomCtrl",
   "logoAlt": "Logo RoomCtrl",
-  "logIn": "Zaloguj się"
+  "buttons": {
+    "logIn": "Zaloguj się",
+    "logOut": "Wyloguj się"
+  }
 }

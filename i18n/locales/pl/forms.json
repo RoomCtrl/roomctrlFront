@@ -1,11 +1,20 @@
 {
   "titles": {
-    "contactForm": "Formularz kontaktowy"
+    "contactForm": "Formularz kontaktowy",
+    "loginForm": "Logowanie"
   },
   "fields": {
     "name": "Imię",
     "email": "Email",
     "subject": "Temat",
-    "message": "Wiadomość"
+    "message": "Wiadomość",
+    "login": "Login",
+    "password": "Hasło"
+  },
+  "messages": {
+    "error": {
+      "required": "Pole {fieldName} jest wymagane.",
+      "invalidField": "Pole {fieldName} jest nieprawidłowe."
+    }
   }
 }

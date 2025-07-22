@@ -76,6 +76,45 @@ const MyCustomPreset = definePreset(Aura, {
     },
   },
   components: {
+    accordion: {
+      colorScheme: {
+        dark: {
+          header: {
+            background: '#1B2532',
+            activeBackground: '#1B2532',
+            activeHoverBackground: '#1B2532',
+            hoverBackground: '#1B2532',
+            color: '#ffffff',
+            hoverColor: '#ffffff',
+            activeColor: '#ffffff',
+            activeHoverColor: '#ffffff',
+          },
+          content: {
+            background: '#36475eff',
+            color: '#ffffff',
+          },
+        },
+        light: {
+          header: {
+            background: '#e5e5e5',
+            activeBackground: '#e5e5e5',
+            activeHoverBackground: '#e5e5e5',
+            hoverBackground: '#e5e5e5',
+            color: '#000000ff',
+            hoverColor: '#000000ff',
+            activeColor: '#000000ff',
+            activeHoverColor: '#000000ff',
+          },
+          content: {
+            background: '#f5f5f5',
+            color: '#000000ff',
+          },
+        },
+      },
+      content: {
+        padding: '2vh 2vw',
+      },
+    },
     drawer: {
       colorScheme: {
         dark: {
@@ -121,13 +160,33 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
+    floatlabel: {
+      colorScheme: {
+        dark: {
+          root: {
+            focusColor: '#ffffff',
+          },
+        },
+        light: {
+          root: {
+            focusColor: '{surface.950}',
+          },
+        },
+      },
+    },
     inputtext: {
       colorScheme: {
         dark: {
           root: {
             background: '{surface.950}',
-            color: '{text.color}',
             borderColor: '{content.borderColor}',
+            focusBorderColor: '#ffffff',
+            color: '#ffffff',
+          },
+        },
+        light: {
+          root: {
+            focusBorderColor: '{surface.950}',
           },
         },
       },

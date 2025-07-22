@@ -18,6 +18,7 @@ const vueRules = {
       component: 'always',
     },
   }],
+  'vue/attribute-hyphenation': 'off',
 }
 
 const stylisticRules = {
