@@ -5,6 +5,7 @@ export const useAuth = () => {
   const token = useState('auth.token', () => null)
   const loading = useState('auth.loading', () => false)
   const authService = new AuthService()
+  const localePath = useLocalePath()
 
   const login = async (credentials) => {
     loading.value = true
@@ -27,7 +28,7 @@ export const useAuth = () => {
       token.value = null
 
       if (import.meta.client) {
-        await navigateTo('/login')
+        await navigateTo(localePath('/login'))
       }
     }
     finally {
