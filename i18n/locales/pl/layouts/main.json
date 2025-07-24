@@ -3,6 +3,9 @@
   "contact": "Kontakt",
   "aboutPlatform": "O platformie :",
   "copyright": "2025 RoomCtrl. Wszystkie prawa zastrzeżone.",
+  "header": {
+    "helloUser": "Witaj, {firstName} {lastName} !"
+  },
   "footer": {
     "resources": {
       "title": "Zasoby:",

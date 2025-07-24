@@ -76,6 +76,15 @@ const MyCustomPreset = definePreset(Aura, {
     },
   },
   components: {
+    popover: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: '{surface.950}',
+          },
+        },
+      },
+    },
     toast: {
       colorScheme: {
         dark: {
@@ -128,6 +137,7 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
+            borderColor: '{surface.950}',
             background: '{surface.950}',
           },
         },

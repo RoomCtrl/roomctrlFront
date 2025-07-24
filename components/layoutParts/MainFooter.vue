@@ -6,7 +6,7 @@
           {{ $t('layouts.main.aboutPlatform') }}
         </h1>
         <ul class="footer-list">
-          <li><NuxtLink to="contact">{{ $t('layouts.main.contact') }}</NuxtLink></li>
+          <li><NuxtLink :to="localePath('contact')">{{ $t('layouts.main.contact') }}</NuxtLink></li>
           <li><NuxtLink to="/">{{ $t('layouts.main.aboutAs') }}</NuxtLink></li>
         </ul>
       </div>
@@ -16,8 +16,8 @@
           {{ $t('layouts.main.footer.resources.title') }}
         </h1>
         <ul class="footer-list">
-          <li><NuxtLink to="faq">FAQ</NuxtLink></li>
-          <li><NuxtLink to="contact">{{ $t('layouts.main.footer.resources.rules') }}</NuxtLink></li>
+          <li><NuxtLink :to="localePath('faq')">FAQ</NuxtLink></li>
+          <li><NuxtLink to="">{{ $t('layouts.main.footer.resources.rules') }}</NuxtLink></li>
         </ul>
       </div>
 
@@ -50,6 +50,7 @@
 import { NuxtLink } from '#components'
 import { Divider } from 'primevue'
 
+const localePath = useLocalePath()
 const { t } = useI18n()
 
 const contactUsDetails = [

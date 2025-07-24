@@ -3,7 +3,10 @@
     <div class="hidden md:flex flex-row gap-4">
       <ClientOnly class="flex">
         <template #fallback>
-          <div class="animate-pulse h-4 w-32 bg-gray-300 rounded" />
+          <Skeleton
+            width="12rem"
+            height="3rem"
+          />
         </template>
         <Select
           v-model="selectedLanguage"
@@ -18,7 +21,7 @@
       <ClientOnly>
         <div class="flex items-center">
           <i class="pi pi-sun mr-2" />
-          <InputSwitch
+          <ToggleSwitch
             v-model="isDarkMode"
             class="mx-2"
           />
@@ -29,24 +32,20 @@
         v-if="!user"
         as="a"
         :label="t('common.buttons.logIn')"
-        href="login"
+        :href="localePath('login')"
       />
-      <Button
-        v-else
-        :label="t('common.buttons.logOut')"
-        @click="handleLogout"
-      />
+      <UserAvatar v-else />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Button } from 'primevue'
+import UserAvatar from './UserAvatar.vue'
 
-const { logout, user } = useAuth()
-const handleLogout = async () => {
-  await logout()
-}
+const { user } = useAuth()
+const localePath = useLocalePath()
+
 const colorMode = useColorMode()
 const isLoadingLanguage = ref(false)
 type LanguageCode = (typeof languages)[number]['code']
