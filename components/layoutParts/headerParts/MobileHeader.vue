@@ -73,11 +73,16 @@ const tabs = computed(() => [
   {
     name: t('layouts.main.contact'),
     link: 'contact',
-    logInUser: user.value != null,
+    logInUser: true,
   },
   {
     name: t('layouts.main.aboutAs'),
     link: 'aboutUs',
+    logInUser: true,
+  },
+  {
+    name: t('layouts.main.howThisWork'),
+    link: 'howThisWork',
     logInUser: true,
   },
 ].filter(tab => tab.logInUser))
