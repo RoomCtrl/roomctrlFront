@@ -10,7 +10,7 @@
           v-for="(tab, index) in tabs"
           :key="index"
         >
-          <NuxtLink :to="tab.link">{{ tab.name }}</NuxtLink>
+          <NuxtLink :to="localePath(tab.link)">{{ tab.name }}</NuxtLink>
         </div>
         <Button
           v-if="!user"
@@ -58,8 +58,8 @@ const localePath = useLocalePath()
 const { t, locale } = useI18n()
 const selectedLanguage = ref(locale.value)
 const switchLocalePath = useSwitchLocalePath()
-
 const visible = ref(false)
+
 const { user, logout } = useAuth() as {
   user: Ref<IGetUserProfileResponse | null>
   logout: () => Promise<void>
@@ -73,12 +73,14 @@ const tabs = computed(() => [
   {
     name: t('layouts.main.contact'),
     link: 'contact',
+    logInUser: user.value != null,
   },
   {
     name: t('layouts.main.aboutAs'),
     link: 'aboutUs',
+    logInUser: true,
   },
-])
+].filter(tab => tab.logInUser))
 
 const colorMode = useColorMode()
 const isLoadingLanguage = ref(false)

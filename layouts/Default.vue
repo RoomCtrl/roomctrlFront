@@ -2,18 +2,24 @@
   <div
     class="relative flex flex-col"
   >
-    <div class="p-header fixed w-full z-10 bg-white shadow-xl">
-      <MainHeader :dark-mode="isDarkMode" />
+    <div class="p-header fixed w-full z-20 bg-white shadow-xl">
+      <MainHeader
+        :dark-mode="isDarkMode"
+        @sidebar-state="handleSideBarState"
+      />
     </div>
-
+    <div class="hidden absolute h-[50vh] pt-[9vh] z-10 md:flex">
+      <Sidebar
+        v-if="user"
+        v-model:sidebar-state="stateFromHeader"
+      />
+    </div>
     <div class="pt-[9vh] min-h-[79vh] justify-center">
       <slot class="flex-none" />
     </div>
 
-    <div>
-      <div class="mt-[4vh] w-full pt-[2vh] bg-[#1B2532]">
-        <MainFooter />
-      </div>
+    <div class="p-footer mt-[4vh] w-full z-20 pt-[2vh] bg-[#1B2532]">
+      <MainFooter />
     </div>
   </div>
 </template>
@@ -21,9 +27,18 @@
 <script setup lang="ts">
 import MainFooter from '../components/layoutParts/MainFooter.vue'
 import MainHeader from '../components/layoutParts/MainHeader.vue'
+import Sidebar from '../components/layoutParts/Sidebar.vue'
 
+const { user } = useAuth()
 const colorMode = useColorMode()
-
+const isMobile = ref(false)
+const isDesktop = () => {
+  if (import.meta.client) {
+    return window.innerWidth >= 768
+  }
+  return true
+}
+const stateFromHeader = ref(isDesktop())
 const isDarkMode = computed({
   get() {
     return colorMode.value === 'dark'
@@ -32,10 +47,31 @@ const isDarkMode = computed({
     colorMode.preference = value ? 'dark' : 'light'
   },
 })
+const handleSideBarState = (sideBarBoolean: boolean) => {
+  if (!isMobile.value) {
+    stateFromHeader.value = sideBarBoolean
+  }
+}
+
+onMounted(() => {
+  const checkMobile = () => {
+    isMobile.value = window.innerWidth < 768
+  }
+
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
+
+  onUnmounted(() => {
+    window.removeEventListener('resize', checkMobile)
+  })
+})
 </script>
 
 <style scoped>
 .dark .p-header {
 background-color: #1B2532;
+}
+.dark .p-footer {
+  border-top: 1px solid #404040;
 }
 </style>

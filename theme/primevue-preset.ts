@@ -76,6 +76,26 @@ const MyCustomPreset = definePreset(Aura, {
     },
   },
   components: {
+    menu: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: '{surface.950}',
+          },
+          item: {
+            color: '#ffffff',
+            focusColor: '{surface.950}',
+            focusBackground: '#D74141',
+          },
+        },
+        light: {
+          item: {
+            focusColor: '#ffffff',
+            focusBackground: '#D74141',
+          },
+        },
+      },
+    },
     popover: {
       colorScheme: {
         dark: {

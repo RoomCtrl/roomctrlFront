@@ -1,22 +1,32 @@
 <template>
   <div class="flex justify-between md:justify-evenly items-center my-3 max-md:mx-3">
-    <NuxtLink
-      :to="localePath('index')"
-      class="flex-none"
-    >
+    <div class="flex flex-row gap-8">
       <ClientOnly>
-        <NuxtImg
-          v-if="darkMode"
-          src="/logos/logo_dark_mode.svg"
-          :alt="t('common.logoAlt')"
-          class="flex h-[5vh]"
+        <Button
+          v-if="user"
+          class="hidden self-center md:flex"
+          :icon="sidebarButton"
+          @click="moveSideBar"
         />
-        <NuxtImg
-          v-else
-          src="/logos/logo.svg"
-          :alt="t('common.logoAlt')"
-          class="flex h-[5vh]"
-        />
+        <NuxtLink
+          :to="localePath('index')"
+          class="flex-none"
+        >
+
+          <NuxtImg
+            v-if="darkMode"
+            src="/logos/logo_dark_mode.svg"
+            :alt="t('common.logoAlt')"
+            class="flex h-[5vh]"
+          />
+          <NuxtImg
+            v-else
+            src="/logos/logo.svg"
+            :alt="t('common.logoAlt')"
+            class="flex h-[5vh]"
+          />
+
+        </NuxtLink>
         <template #fallback>
           <Skeleton
             width="10rem"
@@ -24,7 +34,8 @@
           />
         </template>
       </ClientOnly>
-    </NuxtLink>
+    </div>
+
     <div class="hidden md:flex flex-row gap-3">
       <div
         v-for="(tab, index) in tabs"
@@ -64,8 +75,12 @@ import UserHeaderOptions from './headerParts/UserHeaderOptions.vue'
 defineProps({
   darkMode: Boolean,
 })
+
+const emit = defineEmits(['sidebar-state'])
+const visible = ref<boolean>(true)
 const localePath = useLocalePath()
 const { t } = useI18n()
+const { user } = useAuth()
 
 const tabs = computed(() => [
   {
@@ -77,4 +92,12 @@ const tabs = computed(() => [
     link: 'aboutUs',
   },
 ])
+const moveSideBar = () => {
+  visible.value = !visible.value
+  emit('sidebar-state', visible.value)
+}
+
+const sidebarButton = computed(() => {
+  return visible.value ? 'pi pi-arrow-left' : 'pi pi-arrow-right'
+})
 </script>
