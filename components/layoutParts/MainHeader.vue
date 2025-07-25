@@ -91,6 +91,10 @@ const tabs = computed(() => [
     name: t('layouts.main.aboutAs'),
     link: 'aboutUs',
   },
+  {
+    name: t('layouts.main.howThisWork'),
+    link: 'howThisWork',
+  },
 ])
 const moveSideBar = () => {
   visible.value = !visible.value

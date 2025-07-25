@@ -1,0 +1,14 @@
+{
+  "title": "How does our platform work?",
+  "content": {
+    "useApp": "Using the application is simple and intuitive:",
+    "procesIsSafe": "The entire process is secure and takes place within your organization.",
+    "stepsList": {
+      "stepOne": "Contact your organization's administrator to receive your login credentials.",
+      "stepTwo": "Log in to the system.",
+      "stepThree": "Browse available rooms and choose a time slot that suits you.",
+      "stepFour": "Book the room with a single click.",
+      "stepFive": "Manage your reservations in the user panel."
+    }
+  }
+}
