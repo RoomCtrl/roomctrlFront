@@ -10,7 +10,8 @@
   "footer": {
     "resources": {
       "title": "Zasoby:",
-      "rules": "Regulamin"
+      "rules": "Regulamin",
+      "privacyPolicy": "Polityka Prywatności"
     },
     "contact": {
       "title": "Dane kontaktowe:",

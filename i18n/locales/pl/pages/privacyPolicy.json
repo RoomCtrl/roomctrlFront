@@ -1,0 +1,78 @@
+{
+  "title": "Polityka prywatności",
+  "lastUpdate": "Ostatnia aktualizacja: 28.07.2025",
+  "tableOfContents": "Spis treści",
+  "whoWeAre": {
+    "title": "Kim jesteśmy?",
+    "content": "Jesteśmy operatorem platformy do rezerwacji sal. Administratorem Twoich danych jest zespół RoomCtrl. W sprawach związanych z ochroną danych napisz do nas na: {'roomctrlinfo@gmail.com'} ."
+  },
+  "dataCollected": {
+    "title": "Jakie dane zbieramy?",
+    "content": "Przetwarzamy dane, które podajesz dobrowolnie, np.:",
+    "list": {
+      "username": "Imię i nazwisko",
+      "email": "Adres e-mail",
+      "roomReservation": "Informacje związane z rezerwacjami sal"
+    },
+    "technical": "Automatycznie zapisujemy też dane techniczne, np.:",
+    "technicalList": {
+      "webData": "Dane przeglądarki",
+      "cookies": "Pliki cookies"
+    }
+  },
+  "purpose": {
+    "title": "Dlaczego przetwarzamy twoje dane?",
+    "content": "Wykorzystujemy dane wyłącznie w celu:",
+    "list": {
+      "useOfSystem": "Umożliwienia korzystania z systemu rezerwacji",
+      "techContact": "Kontaktowania się w sprawach technicznych",
+      "correctApp": "Poprawy działania aplikacji (anonimowe statystyki)",
+      "securityServices": "Zapewnienia bezpieczeństwa usług"
+    }
+  },
+  "legalBasis": {
+    "title": "Podstawa prawna",
+    "list": {
+      "yourConsent": "Twojej zgody (np. formularz kontaktowy)",
+      "serviceDelivery": "Konieczności realizacji usługi (logowanie, rezerwacja)",
+      "adminInterest": "Uzasadnionego interesu administratora (bezpieczeństwo)"
+    }
+  },
+  "dataRetention": {
+    "title": "Jak długo przechowujemy dane?",
+    "content": "Twoje dane przechowujemy przez czas korzystania z aplikacji i do 12 miesięcy po jej dezaktywacji, chyba że przepisy prawa wymagają dłuższego przechowywania."
+  },
+  "dataSharing": {
+    "title": "Komu udostępniamy dane?",
+    "content": "Twoje dane mogą być przekazywane:",
+    "list": {
+      "hostAndIt": "Dostawcom usług hostingowych i IT",
+      "stateAuthorites": "Organy państwowe – tylko gdy wymagają tego przepisy prawa"
+    },
+    "note": "Nie przekazujemy danych do krajów spoza UE."
+  },
+  "userRights": {
+    "title": "Twoje prawa",
+    "list": {
+      "accessToData": "Dostępu do swoich danych",
+      "correctData": "Poprawiania danych",
+      "deleteData": "Usunięcia danych („prawo do bycia zapomnianym”)",
+      "moveData": "Przenoszenia danych",
+      "complaintSubmission": "Złożenia skargi do UODO (Prezes Urzędu Ochrony Danych Osobowych)"
+    }
+  },
+  "cookies": {
+    "title": "Pliki cookies",
+    "content": "Używamy plików cookies w celu:",
+    "list": {
+      "websitePerformance": "Zapewnienia działania strony",
+      "trafficAnalysis": "Analizy ruchu (np. Google Analytics)"
+    },
+    "note": "Możesz wyłączyć cookies w ustawieniach przeglądarki."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "content": "Masz pytania? Napisz do nas:",
+    "email": "{'roomctrlinfo@gmail.com'}"
+  }
+}
