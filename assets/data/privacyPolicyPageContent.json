@@ -1,0 +1,112 @@
+[
+  {
+    "id": "whoWeAre",
+    "title": "pages.privacyPolicy.whoWeAre.title",
+    "contentWithoutList": ["pages.privacyPolicy.whoWeAre.content"]
+  },
+  {
+    "id": "dataCollected",
+    "title": "pages.privacyPolicy.dataCollected.title",
+    "content": [
+      "pages.privacyPolicy.dataCollected.content",
+      {
+        "list": [
+          "pages.privacyPolicy.dataCollected.list.username",
+          "pages.privacyPolicy.dataCollected.list.email",
+          "pages.privacyPolicy.dataCollected.list.roomReservation"
+        ]
+      },
+      "pages.privacyPolicy.dataCollected.technical",
+      {
+        "list": [
+          "pages.privacyPolicy.dataCollected.technicalList.webData",
+          "pages.privacyPolicy.dataCollected.technicalList.cookies"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "purpose",
+    "title": "pages.privacyPolicy.purpose.title",
+    "content": [
+      "pages.privacyPolicy.purpose.content",
+      {
+        "list": [
+          "pages.privacyPolicy.purpose.list.useOfSystem",
+          "pages.privacyPolicy.purpose.list.techContact",
+          "pages.privacyPolicy.purpose.list.correctApp",
+          "pages.privacyPolicy.purpose.list.securityServices"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "legalBasis",
+    "title": "pages.privacyPolicy.legalBasis.title",
+    "content": [
+      {
+        "list": [
+          "pages.privacyPolicy.legalBasis.list.yourConsent",
+          "pages.privacyPolicy.legalBasis.list.serviceDelivery",
+          "pages.privacyPolicy.legalBasis.list.adminInterest"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dataRetention",
+    "title": "pages.privacyPolicy.dataRetention.title",
+    "contentWithoutList": ["pages.privacyPolicy.dataRetention.content"]
+  },
+  {
+    "id": "dataSharing",
+    "title": "pages.privacyPolicy.dataSharing.title",
+    "content": [
+      "pages.privacyPolicy.dataSharing.content",
+      {
+        "list": [
+          "pages.privacyPolicy.dataSharing.list.hostAndIt",
+          "pages.privacyPolicy.dataSharing.list.stateAuthorites"
+        ]
+      },
+      "pages.privacyPolicy.dataSharing.note"
+    ]
+  },
+  {
+    "id": "userRights",
+    "title": "pages.privacyPolicy.userRights.title",
+    "content": [
+      {
+        "list": [
+          "pages.privacyPolicy.userRights.list.accessToData",
+          "pages.privacyPolicy.userRights.list.correctData",
+          "pages.privacyPolicy.userRights.list.deleteData",
+          "pages.privacyPolicy.userRights.list.moveData",
+          "pages.privacyPolicy.userRights.list.complaintSubmission"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cookies",
+    "title": "pages.privacyPolicy.cookies.title",
+    "content": [
+      "pages.privacyPolicy.cookies.content",
+      {
+        "list": [
+          "pages.privacyPolicy.cookies.list.websitePerformance",
+          "pages.privacyPolicy.cookies.list.trafficAnalysis"
+        ]
+      },
+      "pages.privacyPolicy.cookies.note"
+    ]
+  },
+  {
+    "id": "contact",
+    "title": "pages.privacyPolicy.contact.title",
+    "contentWithoutList": [
+      "pages.privacyPolicy.contact.content",
+      "pages.privacyPolicy.contact.email"
+    ]
+  }
+]

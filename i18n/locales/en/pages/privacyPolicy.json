@@ -1,0 +1,78 @@
+{
+  "title": "Privacy Policy",
+  "lastUpdate": "Last update: 28.07.2025",
+  "tableOfContents": "Table of Contents",
+  "whoWeAre": {
+    "title": "Who are we?",
+    "content": "We are the operator of the room reservation platform. The controller of your data is the RoomCtrl team. For any data protection inquiries, contact us at: {'roomctrlinfo@gmail.com'} ."
+  },
+  "dataCollected": {
+    "title": "What data do we collect?",
+    "content": "We process the data you provide voluntarily, such as:",
+    "list": {
+      "username": "Full name",
+      "email": "Email address",
+      "roomReservation": "Information related to room reservations"
+    },
+    "technical": "We also automatically record technical data, such as:",
+    "technicalList": {
+      "webData": "Browser data",
+      "cookies": "Cookies"
+    }
+  },
+  "purpose": {
+    "title": "Why do we process your data?",
+    "content": "We use your data solely for the purpose of:",
+    "list": {
+      "useOfSystem": "Enabling the use of the reservation system",
+      "techContact": "Contacting you regarding technical issues",
+      "correctApp": "Improving the application (anonymous statistics)",
+      "securityServices": "Ensuring service security"
+    }
+  },
+  "legalBasis": {
+    "title": "Legal basis",
+    "list": {
+      "yourConsent": "Your consent (e.g., contact form)",
+      "serviceDelivery": "Necessity of providing the service (login, reservation)",
+      "adminInterest": "Legitimate interest of the controller (security)"
+    }
+  },
+  "dataRetention": {
+    "title": "How long do we store your data?",
+    "content": "We store your data for as long as you use the application and up to 12 months after its deactivation, unless the law requires longer storage."
+  },
+  "dataSharing": {
+    "title": "Who do we share data with?",
+    "content": "Your data may be shared with:",
+    "list": {
+      "hostAndIt": "Hosting and IT service providers",
+      "stateAuthorites": "State authorities – only when required by law"
+    },
+    "note": "We do not transfer data to countries outside the EU."
+  },
+  "userRights": {
+    "title": "Your rights",
+    "list": {
+      "accessToData": "Access your data",
+      "correctData": "Correct your data",
+      "deleteData": "Delete your data (“right to be forgotten”)",
+      "moveData": "Transfer your data",
+      "complaintSubmission": "File a complaint with the Data Protection Authority (President of the Personal Data Protection Office)"
+    }
+  },
+  "cookies": {
+    "title": "Cookies",
+    "content": "We use cookies for the purpose of:",
+    "list": {
+      "websitePerformance": "Ensuring the website works properly",
+      "trafficAnalysis": "Traffic analysis (e.g., Google Analytics)"
+    },
+    "note": "You can disable cookies in your browser settings."
+  },
+  "contact": {
+    "title": "Contact",
+    "content": "Have questions? Write to us:",
+    "email": "{'roomctrlinfo@gmail.com'}"
+  }
+}

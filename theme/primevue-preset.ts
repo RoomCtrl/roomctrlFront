@@ -158,7 +158,7 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             borderColor: '{surface.950}',
-            background: '{surface.950}',
+            background: '#D74141',
           },
         },
       },

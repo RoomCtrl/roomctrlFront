@@ -6,8 +6,12 @@
           {{ $t('layouts.main.aboutPlatform') }}
         </h1>
         <ul class="footer-list">
-          <li><NuxtLink :to="localePath('contact')">{{ $t('layouts.main.contact') }}</NuxtLink></li>
-          <li><NuxtLink to="/">{{ $t('layouts.main.aboutAs') }}</NuxtLink></li>
+          <li
+            v-for="(page, index) in pagesAboutPlatform"
+            :key="index"
+          >
+            <NuxtLink :to="localePath(page.link)">{{ page.name }}</NuxtLink>
+          </li>
         </ul>
       </div>
 
@@ -16,8 +20,12 @@
           {{ $t('layouts.main.footer.resources.title') }}
         </h1>
         <ul class="footer-list">
-          <li><NuxtLink :to="localePath('faq')">FAQ</NuxtLink></li>
-          <li><NuxtLink to="">{{ $t('layouts.main.footer.resources.rules') }}</NuxtLink></li>
+          <li
+            v-for="(page, index) in pagesResources"
+            :key="index"
+          >
+            <NuxtLink :to="localePath(page.link)">{{ page.name }}</NuxtLink>
+          </li>
         </ul>
       </div>
 
@@ -56,6 +64,32 @@ const { t } = useI18n()
 const contactUsDetails = [
   { label: t('layouts.main.footer.contact.email'), content: 'roomctrlinfo@gmail.com' },
   { label: t('layouts.main.footer.contact.phone'), content: '+48 123 123 123' },
+]
+
+const pagesAboutPlatform = [
+  {
+    name: t('layouts.main.contact'),
+    link: 'contact',
+  },
+  {
+    name: t('layouts.main.aboutAs'),
+    link: 'aboutUs',
+  },
+]
+
+const pagesResources = [
+  {
+    name: 'FAQ',
+    link: 'faq',
+  },
+  {
+    name: t('layouts.main.footer.resources.rules'),
+    link: '',
+  },
+  {
+    name: t('layouts.main.footer.resources.privacyPolicy'),
+    link: 'privacyPolicy',
+  },
 ]
 </script>
 
