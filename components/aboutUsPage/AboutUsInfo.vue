@@ -1,16 +1,8 @@
 <template>
   <Card>
     <template #content>
-      <div class="flex justify-center">
-        <NuxtImg
-          src="/images/aboutUsPage/team.jpg"
-          alt="Nasz zespół"
-          class="hidden h-[20vh] rounded-lg shadow-lg sm:flex"
-        />
-      </div>
-
       <h1 class="text-4xl sm:text-5xl font-extrabold mt-12 mb-12 text-center">
-        {{ $t('pages.aboutUsPage.title') }}
+        {{ $t('pages.aboutUs.title') }}
       </h1>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
@@ -37,26 +29,23 @@
 </template>
 
 <script setup lang="ts">
-import { NuxtImg } from '#components'
-import { Card } from 'primevue'
-
 const { t } = useI18n()
 
 const columns = [
   {
     icon: 'pi pi-lightbulb',
-    title: t('pages.aboutUsPage.strategy.title'),
-    description: t('pages.aboutUsPage.strategy.description'),
+    title: t('pages.aboutUs.strategy.title'),
+    description: t('pages.aboutUs.strategy.description'),
   },
   {
     icon: 'pi pi-microchip-ai',
-    title: t('pages.aboutUsPage.innovativeTech.title'),
-    description: t('pages.aboutUsPage.innovativeTech.description'),
+    title: t('pages.aboutUs.innovativeTech.title'),
+    description: t('pages.aboutUs.innovativeTech.description'),
   },
   {
     icon: 'pi pi-cog',
-    title: t('pages.aboutUsPage.teamwork.title'),
-    description: t('pages.aboutUsPage.teamwork.description'),
+    title: t('pages.aboutUs.teamwork.title'),
+    description: t('pages.aboutUs.teamwork.description'),
   },
 ]
 </script>

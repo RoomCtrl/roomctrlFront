@@ -24,8 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { Drawer } from 'primevue'
-
 const props = defineProps({
   sidebarState: Boolean,
 })

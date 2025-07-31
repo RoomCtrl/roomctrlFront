@@ -9,7 +9,7 @@
       :num-visible="1"
     >
       <template #item="slotProps">
-        <div class="relative h-[25rem] object-fill">
+        <div class="relative h-[20vh] md:h-[25rem] object-fill">
           <img :src="'/images/mainPage/' + slotProps.item" />
 
           <div class="absolute inset-0 flex items-center justify-center px-4">
@@ -18,7 +18,7 @@
                 {{ $t('common.roomCtrl') }}
               </div>
               <div class="text-white text-sm sm:text-base md:text-xl mt-2">
-                {{ $t('pages.homePage.carousel.subTitle') }}
+                {{ $t('pages.home.carousel.subTitle') }}
               </div>
             </div>
           </div>
@@ -29,8 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import { Galleria } from 'primevue'
-
 const images = [
   'meeting.jpg',
   'planning.jpg',

@@ -2,10 +2,10 @@
   <div class="p-6">
     <div class="text-center mb-10">
       <h2 class="text-2xl sm:text-3xl font-bold">
-        {{ $t('pages.homePage.goodBadSection.title') }}
+        {{ $t('pages.home.goodBadSection.title') }}
       </h2>
       <p class="text-gray-500 mt-2">
-        {{ $t('pages.homePage.goodBadSection.subTitle') }}
+        {{ $t('pages.home.goodBadSection.subTitle') }}
       </p>
     </div>
 
@@ -17,10 +17,10 @@
         </h3>
 
         <ul class="mt-4 space-y-2 text-green-900 list-disc list-inside">
-          <li>{{ $t('pages.homePage.goodBadSection.goodSection.intuitive') }}</li>
-          <li>{{ $t('pages.homePage.goodBadSection.goodSection.automatic') }}</li>
-          <li>{{ $t('pages.homePage.goodBadSection.goodSection.support') }}</li>
-          <li>{{ $t('pages.homePage.goodBadSection.goodSection.modern') }}</li>
+          <li>{{ $t('pages.home.goodBadSection.goodSection.intuitive') }}</li>
+          <li>{{ $t('pages.home.goodBadSection.goodSection.automatic') }}</li>
+          <li>{{ $t('pages.home.goodBadSection.goodSection.support') }}</li>
+          <li>{{ $t('pages.home.goodBadSection.goodSection.modern') }}</li>
         </ul>
 
         <div
@@ -38,13 +38,13 @@
       >
         <h3 class="text-xl font-bold flex items-center gap-2 text-gray-700">
           <i class="pi pi-times-circle text-gray-500 text-2xl" />
-          {{ $t('pages.homePage.goodBadSection.badSection.title') }}
+          {{ $t('pages.home.goodBadSection.badSection.title') }}
         </h3>
         <ul class="mt-4 space-y-2 text-gray-700 list-disc list-inside">
-          <li>{{ $t('pages.homePage.goodBadSection.badSection.reservations') }}</li>
-          <li>{{ $t('pages.homePage.goodBadSection.badSection.noAutomation') }}</li>
-          <li>{{ $t('pages.homePage.goodBadSection.badSection.noAccess') }}</li>
-          <li>{{ $t('pages.homePage.goodBadSection.badSection.lowAvailability') }}</li>
+          <li>{{ $t('pages.home.goodBadSection.badSection.reservations') }}</li>
+          <li>{{ $t('pages.home.goodBadSection.badSection.noAutomation') }}</li>
+          <li>{{ $t('pages.home.goodBadSection.badSection.noAccess') }}</li>
+          <li>{{ $t('pages.home.goodBadSection.badSection.lowAvailability') }}</li>
         </ul>
 
         <div

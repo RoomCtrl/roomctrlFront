@@ -1,156 +1,156 @@
 [
   {
-    "category": "pages.faqPage.general.title",
+    "category": "pages.faq.general.title",
     "items": [
       {
-        "question": "pages.faqPage.general.question.whatIsThisSystem",
-        "answer": "pages.faqPage.general.answer.whatIsThisSystem"
+        "question": "pages.faq.general.question.whatIsThisSystem",
+        "answer": "pages.faq.general.answer.whatIsThisSystem"
       },
       {
-        "question": "pages.faqPage.general.question.whoCanUseSystem",
-        "answer": "pages.faqPage.general.answer.whoCanUseSystem"
+        "question": "pages.faq.general.question.whoCanUseSystem",
+        "answer": "pages.faq.general.answer.whoCanUseSystem"
       },
       {
-        "question": "pages.faqPage.general.question.whoIsRoomOwner",
-        "answer": "pages.faqPage.general.answer.whoIsRoomOwner"
+        "question": "pages.faq.general.question.whoIsRoomOwner",
+        "answer": "pages.faq.general.answer.whoIsRoomOwner"
       },
       {
-        "question": "pages.faqPage.general.question.isAccountNeed",
-        "answer": "pages.faqPage.general.answer.isAccountNeed"
+        "question": "pages.faq.general.question.isAccountNeed",
+        "answer": "pages.faq.general.answer.isAccountNeed"
       },
       {
-        "question": "pages.faqPage.general.question.isUseSystemFree",
-        "answer": "pages.faqPage.general.answer.isUseSystemFree"
+        "question": "pages.faq.general.question.isUseSystemFree",
+        "answer": "pages.faq.general.answer.isUseSystemFree"
       }
     ]
   },
   {
-    "category": "pages.faqPage.reservation.title",
+    "category": "pages.faq.reservation.title",
     "items": [
       {
-        "question": "pages.faqPage.reservation.question.howToMakeReservation",
-        "answer": "pages.faqPage.reservation.answer.howToMakeReservation"
+        "question": "pages.faq.reservation.question.howToMakeReservation",
+        "answer": "pages.faq.reservation.answer.howToMakeReservation"
       },
       {
-        "question": "pages.faqPage.reservation.question.isReservationAutomatic",
-        "answer": "pages.faqPage.reservation.answer.isReservationAutomatic"
+        "question": "pages.faq.reservation.question.isReservationAutomatic",
+        "answer": "pages.faq.reservation.answer.isReservationAutomatic"
       },
       {
-        "question": "pages.faqPage.reservation.question.canICancelReservation",
-        "answer": "pages.faqPage.reservation.answer.canICancelReservation"
+        "question": "pages.faq.reservation.question.canICancelReservation",
+        "answer": "pages.faq.reservation.answer.canICancelReservation"
       },
       {
-        "question": "pages.faqPage.reservation.question.mutltiReserveRoomInSameTime",
-        "answer": "pages.faqPage.reservation.answer.mutltiReserveRoomInSameTime"
+        "question": "pages.faq.reservation.question.mutltiReserveRoomInSameTime",
+        "answer": "pages.faq.reservation.answer.mutltiReserveRoomInSameTime"
       },
       {
-        "question": "pages.faqPage.reservation.question.whatIfCantSeeRoom",
-        "answer": "pages.faqPage.reservation.answer.whatIfCantSeeRoom"
+        "question": "pages.faq.reservation.question.whatIfCantSeeRoom",
+        "answer": "pages.faq.reservation.answer.whatIfCantSeeRoom"
       }
     ]
   },
   {
-    "category": "pages.faqPage.aboutRooms.title",
+    "category": "pages.faq.aboutRooms.title",
     "items": [
       {
-        "question": "pages.faqPage.aboutRooms.question.equpimentOfRoom",
-        "answer": "pages.faqPage.aboutRooms.answer.equpimentOfRoom"
+        "question": "pages.faq.aboutRooms.question.equpimentOfRoom",
+        "answer": "pages.faq.aboutRooms.answer.equpimentOfRoom"
       },
       {
-        "question": "pages.faqPage.aboutRooms.question.responsibleForRoom",
-        "answer": "pages.faqPage.aboutRooms.answer.responsibleForRoom"
+        "question": "pages.faq.aboutRooms.question.responsibleForRoom",
+        "answer": "pages.faq.aboutRooms.answer.responsibleForRoom"
       },
       {
-        "question": "pages.faqPage.aboutRooms.question.roomCloseDespiteReservation",
-        "answer": "pages.faqPage.aboutRooms.answer.roomCloseDespiteReservation"
+        "question": "pages.faq.aboutRooms.question.roomCloseDespiteReservation",
+        "answer": "pages.faq.aboutRooms.answer.roomCloseDespiteReservation"
       },
       {
-        "question": "pages.faqPage.aboutRooms.question.reportDefectInRoom",
-        "answer": "pages.faqPage.aboutRooms.answer.reportDefectInRoom"
+        "question": "pages.faq.aboutRooms.question.reportDefectInRoom",
+        "answer": "pages.faq.aboutRooms.answer.reportDefectInRoom"
       },
       {
-        "question": "pages.faqPage.aboutRooms.question.hasRoomWiFiOrMultimedia",
-        "answer": "pages.faqPage.aboutRooms.answer.hasRoomWiFiOrMultimedia"
+        "question": "pages.faq.aboutRooms.question.hasRoomWiFiOrMultimedia",
+        "answer": "pages.faq.aboutRooms.answer.hasRoomWiFiOrMultimedia"
       }
     ]
   },
   {
-    "category": "pages.faqPage.payment.title",
+    "category": "pages.faq.payment.title",
     "items": [
       {
-        "question": "pages.faqPage.payment.question.systemTakeMoneyforReservation",
-        "answer": "pages.faqPage.payment.answer.systemTakeMoneyforReservation"
+        "question": "pages.faq.payment.question.systemTakeMoneyforReservation",
+        "answer": "pages.faq.payment.answer.systemTakeMoneyforReservation"
       },
       {
-        "question": "pages.faqPage.payment.question.paymentViaSystem",
-        "answer": "pages.faqPage.payment.answer.paymentViaSystem"
+        "question": "pages.faq.payment.question.paymentViaSystem",
+        "answer": "pages.faq.payment.answer.paymentViaSystem"
       },
       {
-        "question": "pages.faqPage.payment.question.invoicesForUseOfRoom",
-        "answer": "pages.faqPage.payment.answer.invoicesForUseOfRoom"
+        "question": "pages.faq.payment.question.invoicesForUseOfRoom",
+        "answer": "pages.faq.payment.answer.invoicesForUseOfRoom"
       },
       {
-        "question": "pages.faqPage.payment.question.onlyFreeRoomsAvailable",
-        "answer": "pages.faqPage.payment.answer.onlyFreeRoomsAvailable"
+        "question": "pages.faq.payment.question.onlyFreeRoomsAvailable",
+        "answer": "pages.faq.payment.answer.onlyFreeRoomsAvailable"
       }
     ]
   },
   {
-    "category": "pages.faqPage.techProblems.title",
+    "category": "pages.faq.techProblems.title",
     "items": [
       {
-        "question": "pages.faqPage.techProblems.question.iCantLogin",
-        "answer": "pages.faqPage.techProblems.answer.iCantLogin"
+        "question": "pages.faq.techProblems.question.iCantLogin",
+        "answer": "pages.faq.techProblems.answer.iCantLogin"
       },
       {
-        "question": "pages.faqPage.techProblems.question.pageDidntWork",
-        "answer": "pages.faqPage.techProblems.answer.pageDidntWork"
+        "question": "pages.faq.techProblems.question.pageDidntWork",
+        "answer": "pages.faq.techProblems.answer.pageDidntWork"
       },
       {
-        "question": "pages.faqPage.techProblems.question.myReservationDisappeared",
-        "answer": "pages.faqPage.techProblems.answer.myReservationDisappeared"
+        "question": "pages.faq.techProblems.question.myReservationDisappeared",
+        "answer": "pages.faq.techProblems.answer.myReservationDisappeared"
       },
       {
-        "question": "pages.faqPage.techProblems.question.canIUseOnPhone",
-        "answer": "pages.faqPage.techProblems.answer.canIUseOnPhone"
+        "question": "pages.faq.techProblems.question.canIUseOnPhone",
+        "answer": "pages.faq.techProblems.answer.canIUseOnPhone"
       },
       {
-        "question": "pages.faqPage.techProblems.question.whereReportErrorsAndSugestions",
-        "answer": "pages.faqPage.techProblems.answer.whereReportErrorsAndSugestions"
+        "question": "pages.faq.techProblems.question.whereReportErrorsAndSugestions",
+        "answer": "pages.faq.techProblems.answer.whereReportErrorsAndSugestions"
       }
     ]
   },
   {
-    "category": "pages.faqPage.security.title",
+    "category": "pages.faq.security.title",
     "items": [
       {
-        "question": "pages.faqPage.security.question.isMyDataSafe",
-        "answer": "pages.faqPage.security.answer.isMyDataSafe"
+        "question": "pages.faq.security.question.isMyDataSafe",
+        "answer": "pages.faq.security.answer.isMyDataSafe"
       },
       {
-        "question": "pages.faqPage.security.question.howMyDataIsStored",
-        "answer": "pages.faqPage.security.answer.howMyDataIsStored"
+        "question": "pages.faq.security.question.howMyDataIsStored",
+        "answer": "pages.faq.security.answer.howMyDataIsStored"
       },
       {
-        "question": "pages.faqPage.security.question.whoHaveAccessToMyData",
-        "answer": "pages.faqPage.security.answer.whoHaveAccessToMyData"
+        "question": "pages.faq.security.question.whoHaveAccessToMyData",
+        "answer": "pages.faq.security.answer.whoHaveAccessToMyData"
       }
     ]
   },
   {
-    "category": "pages.faqPage.contact.title",
+    "category": "pages.faq.contact.title",
     "items": [
       {
-        "question": "pages.faqPage.contact.question.howToContactAdmin",
-        "answer": "pages.faqPage.contact.answer.howToContactAdmin"
+        "question": "pages.faq.contact.question.howToContactAdmin",
+        "answer": "pages.faq.contact.answer.howToContactAdmin"
       },
       {
-        "question": "pages.faqPage.contact.question.howGetAccessToSystem",
-        "answer": "pages.faqPage.contact.answer.howGetAccessToSystem"
+        "question": "pages.faq.contact.question.howGetAccessToSystem",
+        "answer": "pages.faq.contact.answer.howGetAccessToSystem"
       },
       {
-        "question": "pages.faqPage.contact.question.questionAboutRoom",
-        "answer": "pages.faqPage.contact.answer.questionAboutRoom"
+        "question": "pages.faq.contact.question.questionAboutRoom",
+        "answer": "pages.faq.contact.answer.questionAboutRoom"
       }
     ]
   }

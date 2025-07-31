@@ -27,8 +27,6 @@
 </template>
 
 <script setup>
-import { Card } from 'primevue'
-
 const { t } = useI18n()
 const stepsList = [
   t('pages.howThisWork.content.stepsList.stepOne'),

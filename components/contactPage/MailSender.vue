@@ -5,7 +5,7 @@
         <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] h-[45vh]">
           <template #header>
             <p class="font-semibold lg:text-2xl sm:text-xl mx-auto">
-              {{ $t('pages.contactPage.contactDetails.title') }}
+              {{ $t('pages.contact.contactDetails.title') }}
             </p>
           </template>
           <div
@@ -33,15 +33,14 @@
 </template>
 
 <script setup lang="ts">
-import { Card, Panel } from 'primevue'
 import MailContact from '../forms/MailContact.vue'
 
 const { t } = useI18n()
 
 const contactUsDetails = [
-  { label: t('pages.contactPage.contactDetails.company'), content: 'WorldCtrl', icon: 'pi pi-building' },
-  { label: t('pages.contactPage.contactDetails.email'), content: 'roomctrlinfo@gmail.com', icon: 'pi pi-envelope' },
-  { label: t('pages.contactPage.contactDetails.phone'), content: '+48 123 123 123', icon: 'pi pi-phone' },
+  { label: t('pages.contact.contactDetails.company'), content: 'WorldCtrl', icon: 'pi pi-building' },
+  { label: t('pages.contact.contactDetails.email'), content: 'roomctrlinfo@gmail.com', icon: 'pi pi-envelope' },
+  { label: t('pages.contact.contactDetails.phone'), content: '+48 123 123 123', icon: 'pi pi-phone' },
 ]
 </script>
 

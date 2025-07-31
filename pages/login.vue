@@ -9,6 +9,5 @@
 </template>
 
 <script setup>
-import { Card } from 'primevue'
 import BaseLogin from '~/components/forms/baseLogin.vue'
 </script>

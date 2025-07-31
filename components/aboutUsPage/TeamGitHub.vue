@@ -1,6 +1,6 @@
 <template>
   <Panel
-    :header="$t('pages.aboutUsPage.creatorsAccounts')"
+    :header="$t('pages.aboutUs.creatorsAccounts')"
   >
     <div class="flex flex-col md:flex-row md:gap-2">
       <div
@@ -29,8 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import { Avatar, Chip, Panel } from 'primevue'
-
 const teamGitAccount = [
   { person: 'Jakub Pluta', link: 'https://github.com/MrPuta' },
   { person: 'Kamil Rogalski', link: 'https://github.com/RogalXRogal' },

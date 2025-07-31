@@ -66,7 +66,6 @@
 </template>
 
 <script setup lang="ts">
-import { InputText, Button, FloatLabel, Password } from 'primevue'
 import { useForm, useField, defineRule } from 'vee-validate'
 import { required } from '@vee-validate/rules'
 import { useAuth } from '~/composables/useAuth'
