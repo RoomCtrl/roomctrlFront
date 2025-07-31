@@ -84,7 +84,7 @@ const pagesResources = [
   },
   {
     name: t('layouts.main.footer.resources.rules'),
-    link: '',
+    link: 'rules',
   },
   {
     name: t('layouts.main.footer.resources.privacyPolicy'),

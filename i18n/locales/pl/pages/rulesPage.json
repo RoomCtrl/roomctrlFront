@@ -1,0 +1,83 @@
+{
+  "title": "Regulamin",
+  "lastUpdate": "Ostatnia aktualizacja: 31.07.2025",
+  "general": {
+    "title": "Postanowienia ogólne",
+    "list": {
+      "1": "Niniejszy regulamin („Regulamin”) określa zasady korzystania z platformy internetowej służącej do rezerwacji sal („Serwis”).",
+      "2": "Serwis jest dostępny pod adresem: http://185.25.151.154:3000/.",
+      "3": "Administratorem Serwisu jest RoomCtrl.",
+      "4": "Korzystanie z Serwisu oznacza akceptację niniejszego Regulaminu.",
+      "5": "Regulamin jest dostępny na stronie internetowej Serwisu w zakładce „Regulamin”."
+    }
+  },
+  "usageConditions": {
+    "title": "Warunki korzystania z Serwisu",
+    "list": {
+      "1": "Serwis umożliwia zarządzanie rezerwacjami sal w instytucjach, które posiadają konto administratora.",
+      "2": "Korzystanie z Serwisu wymaga aktywnego konta użytkownika.",
+      "3": "Konto użytkownika tworzy administrator instytucji lub na jego zlecenie administrator Serwisu.",
+      "4": "Zabrania się: podawania nieprawdziwych danych przy rejestracji lub logowaniu, korzystania z konta innej osoby, podejmowania działań zakłócających działanie Serwisu (np. próby włamań, ataki DDoS)."
+    }
+  },
+  "reservations": {
+    "title": "Tworzenie i obsługa rezerwacji",
+    "list": {
+      "1": "Rezerwacje mogą być dokonywane wyłącznie przez osoby uprawnione w ramach danej instytucji.",
+      "2": "Użytkownik zobowiązuje się do rezerwowania sal zgodnie z rzeczywistymi potrzebami, odwoływania rezerwacji, jeśli nie mogą się odbyć, oraz nieblokowania sal bez uzasadnionej przyczyny.",
+      "3": "Administrator Serwisu nie odpowiada za dostępność sal, gdyż zależy to od administratorów instytucji korzystających z platformy."
+    }
+  },
+  "userResponsibility": {
+    "title": "Odpowiedzialność użytkownika",
+    "list": {
+      "1": "Użytkownik ponosi pełną odpowiedzialność za dane wprowadzone do Serwisu oraz za swoje działania.",
+      "2": "Użytkownik nie może używać Serwisu w sposób sprzeczny z prawem, dobrymi obyczajami lub w celach niezgodnych z przeznaczeniem.",
+      "3": "Administrator Serwisu ma prawo: zablokować konto użytkownika w przypadku naruszenia Regulaminu, usunąć nieprawidłowe lub fałszywe dane."
+    }
+  },
+  "adminResponsibility": {
+    "title": "Odpowiedzialność administratora Serwisu",
+    "list": {
+      "1": "Administrator Serwisu nie ponosi odpowiedzialności za: przerwy w działaniu Serwisu spowodowane awariami technicznymi lub siłą wyższą, błędne dane wprowadzone przez użytkowników, sposób wykorzystania Serwisu przez instytucje lub osoby fizyczne.",
+      "2": "Administrator Serwisu dokłada starań, aby platforma działała w sposób ciągły i bezpieczny."
+    }
+  },
+  "security": {
+    "title": "Bezpieczeństwo",
+    "list": {
+      "1": "Serwis korzysta z zabezpieczeń technicznych, takich jak szyfrowanie SSL.",
+      "2": "Użytkownik jest zobowiązany do ochrony swojego hasła, nieudostępniania danych logowania osobom trzecim oraz zgłaszania administratorowi wszelkich incydentów bezpieczeństwa."
+    },
+    "note": "Nie przekazujemy danych do krajów spoza UE."
+  },
+  "dataProtection": {
+    "title": "Ochrona danych osobowych",
+    "list": {
+      "1": "Dane osobowe użytkowników są przetwarzane zgodnie z Polityką prywatności dostępną w Serwisie.",
+      "2": "Użytkownik ma prawo dostępu do swoich danych, ich poprawiania, usuwania oraz innych praw wynikających z RODO."
+    }
+  },
+  "complaints": {
+    "title": "Reklamacje",
+    "list": {
+      "1": "Użytkownik może zgłaszać reklamacje dotyczące funkcjonowania Serwisu na adres: http://185.25.151.154:3000/.",
+      "2": "Reklamacje będą rozpatrywane w terminie 14 dni roboczych od daty ich złożenia."
+    }
+  },
+  "changes": {
+    "title": "Zmiany regulaminu",
+    "list:": {
+      "1": "Administrator Serwisu zastrzega sobie prawo do zmiany Regulaminu w dowolnym momencie.",
+      "2": "Zmiany wchodzą w życie w momencie opublikowania ich na stronie Serwisu.",
+      "3": "Dalsze korzystanie z Serwisu oznacza akceptację nowego Regulaminu."
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "list:": {
+      "1": "W sprawach dotyczących Regulaminu prosimy o kontakt:",
+      "2": "{'roomctrlinfo@gmail.com'}"
+    }
+  }
+}

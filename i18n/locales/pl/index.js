@@ -8,6 +8,7 @@ import faqPage from './pages/faqPage.json'
 import services from './services.json'
 import howThisWork from './pages/howThisWork.json'
 import privacyPolicy from './pages/privacyPolicy.json'
+import rulesPage from './pages/rulesPage.json'
 
 export default () => ({
   common,
@@ -20,6 +21,7 @@ export default () => ({
     aboutUsPage,
     faqPage,
     privacyPolicy,
+    rulesPage,
   },
   layouts: {
     main,
