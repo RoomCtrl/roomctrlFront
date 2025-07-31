@@ -1,0 +1,83 @@
+{
+  "title": "Terms of Service",
+  "lastUpdate": "Last update: 31.07.2025",
+  "general": {
+    "title": "General Provisions",
+    "list": {
+      "1": "These Terms of Service (“Terms”) define the rules for using the online platform for room reservations (“Service”).",
+      "2": "The Service is available at: http://185.25.151.154:3000/.",
+      "3": "The Service is administered by RoomCtrl.",
+      "4": "Using the Service constitutes acceptance of these Terms.",
+      "5": "The Terms are available on the Service's website under the “Terms of Service” section."
+    }
+  },
+  "usageConditions": {
+    "title": "Conditions of Use",
+    "list": {
+      "1": "The Service allows the management of room reservations in institutions that have an administrator account.",
+      "2": "Using the Service requires an active user account.",
+      "3": "A user account is created by the institution’s administrator or by the Service administrator at their request.",
+      "4": "It is prohibited to: provide false information during registration or login, use another person’s account, engage in actions that disrupt the Service’s operation (e.g., hacking attempts, DDoS attacks)."
+    }
+  },
+  "reservations": {
+    "title": "Creating and Managing Reservations",
+    "list": {
+      "1": "Reservations may only be made by authorized individuals within a given institution.",
+      "2": "The user agrees to book rooms according to actual needs, cancel reservations if they cannot take place, and avoid blocking rooms without valid reason.",
+      "3": "The Service Administrator is not responsible for room availability, as it depends on the administrators of the institutions using the platform."
+    }
+  },
+  "userResponsibility": {
+    "title": "User Responsibility",
+    "list": {
+      "1": "The user bears full responsibility for the data entered into the Service and for their actions.",
+      "2": "The user must not use the Service in a manner contrary to the law, good practices, or for purposes inconsistent with its intended use.",
+      "3": "The Service Administrator has the right to: block a user account in case of a violation of these Terms, remove incorrect or false data."
+    }
+  },
+  "adminResponsibility": {
+    "title": "Service Administrator Responsibility",
+    "list": {
+      "1": "The Service Administrator is not liable for: service interruptions caused by technical failures or force majeure, incorrect data entered by users, or the way the Service is used by institutions or individuals.",
+      "2": "The Service Administrator makes every effort to ensure the platform operates continuously and securely."
+    }
+  },
+  "security": {
+    "title": "Security",
+    "list": {
+      "1": "The Service uses technical security measures such as SSL encryption.",
+      "2": "The user is required to protect their password, not share login credentials with third parties, and report any security incidents to the administrator."
+    },
+    "note": "We do not transfer data to countries outside the EU."
+  },
+  "dataProtection": {
+    "title": "Personal Data Protection",
+    "list": {
+      "1": "Users’ personal data is processed in accordance with the Privacy Policy available in the Service.",
+      "2": "The user has the right to access, correct, delete their data, and exercise other rights under GDPR."
+    }
+  },
+  "complaints": {
+    "title": "Complaints",
+    "list": {
+      "1": "The user may submit complaints regarding the Service's operation at: http://185.25.151.154:3000/.",
+      "2": "Complaints will be processed within 14 business days from the date of submission."
+    }
+  },
+  "changes": {
+    "title": "Changes to the Terms",
+    "list": {
+      "1": "The Service Administrator reserves the right to change the Terms at any time.",
+      "2": "Changes become effective upon publication on the Service's website.",
+      "3": "Continued use of the Service constitutes acceptance of the new Terms."
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "list": {
+      "1": "For matters regarding the Terms, please contact:",
+      "2": "{'roomctrlinfo@gmail.com'}"
+    }
+  }
+}

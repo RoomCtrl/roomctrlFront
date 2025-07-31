@@ -1,6 +1,6 @@
 <template>
   <Card
-    v-for="(data, index) in privacyPolicyData"
+    v-for="(data, index) in infoSectionContent"
     :key="index"
     class="flex flex-col my-[2vh] md:my-[8vh] py-[2vh]"
   >
@@ -23,15 +23,18 @@
       <div
         v-for="(content, subIndex) in data.content"
         :key="subIndex"
-        class="px-[5vw] md:px-[10vw]"
+        class="px-[5vw] md:px-[8vw]"
       >
         <ul
           v-if="content.list"
-          class="list-disc px-[5vw] md:px-[2vw]"
+          class="px-[5vw] md:px-[2vw]"
+          :class="{ 'list-decimal': numberedSubList,
+                    'list-disc': !numberedSubList }"
         >
           <li
             v-for="(listItem, subSubIndex) in content.list"
             :key="subSubIndex"
+            class="py-[0.3vh]"
           >
             {{ $t(listItem) }}
           </li>
@@ -45,7 +48,9 @@
   </Card>
 </template>
 
-<script setup>
-import { Card } from 'primevue'
-import privacyPolicyData from '~/assets/data/privacyPolicyPageContent.json'
+<script setup lang="ts">
+defineProps({
+  infoSectionContent: Object,
+  numberedSubList: Boolean,
+})
 </script>
