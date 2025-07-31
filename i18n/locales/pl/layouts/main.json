@@ -1,18 +1,19 @@
 {
-  "aboutAs": "O nas",
-  "contact": "Kontakt",
-  "howThisWork": "Jak to działa?",
-  "aboutPlatform": "O platformie :",
+  "pages": {
+    "aboutUs": "O nas",
+    "contact": "Kontakt",
+    "howThisWork": "Jak to działa?",
+    "faq": "FAQ",
+    "rules": "Regulamin",
+    "privacyPolicy": "Polityka Prywatności"
+  },
   "copyright": "2025 RoomCtrl. Wszystkie prawa zastrzeżone.",
   "header": {
     "helloUser": "Witaj, {firstName} {lastName} !"
   },
   "footer": {
-    "resources": {
-      "title": "Zasoby:",
-      "rules": "Regulamin",
-      "privacyPolicy": "Polityka Prywatności"
-    },
+    "resources": "Zasoby:",
+    "aboutPlatform": "O platformie :",
     "contact": {
       "title": "Dane kontaktowe:",
       "email": "Email",

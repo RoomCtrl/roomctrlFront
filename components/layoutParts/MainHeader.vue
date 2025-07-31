@@ -84,19 +84,19 @@ const { user } = useAuth()
 
 const tabs = computed(() => [
   {
-    name: t('layouts.main.contact'),
+    name: t('layouts.main.pages.contact'),
     link: 'contact',
   },
   {
-    name: t('layouts.main.aboutAs'),
+    name: t('layouts.main.pages.aboutUs'),
     link: 'aboutUs',
   },
   {
-    name: t('layouts.main.howThisWork'),
+    name: t('layouts.main.pages.howThisWork'),
     link: 'howThisWork',
   },
   {
-    name: t('layouts.main.footer.resources.rules'),
+    name: t('layouts.main.pages.rules'),
     link: 'rules',
   },
 ])

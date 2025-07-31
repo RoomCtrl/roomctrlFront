@@ -40,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from 'primevue'
 import UserAvatar from './UserAvatar.vue'
 
 const { user } = useAuth()

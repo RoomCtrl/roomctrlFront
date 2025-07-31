@@ -3,7 +3,7 @@
     <div class="flex flex-col md:flex-row md:justify-evenly max-md:gap-3 md:w-full">
       <div>
         <h1>
-          {{ $t('layouts.main.aboutPlatform') }}
+          {{ $t('layouts.main.footer.aboutPlatform') }}
         </h1>
         <ul class="footer-list">
           <li
@@ -17,7 +17,7 @@
 
       <div>
         <h1>
-          {{ $t('layouts.main.footer.resources.title') }}
+          {{ $t('layouts.main.footer.resources') }}
         </h1>
         <ul class="footer-list">
           <li
@@ -56,7 +56,6 @@
 
 <script setup lang="ts">
 import { NuxtLink } from '#components'
-import { Divider } from 'primevue'
 
 const localePath = useLocalePath()
 const { t } = useI18n()
@@ -66,31 +65,31 @@ const contactUsDetails = [
   { label: t('layouts.main.footer.contact.phone'), content: '+48 123 123 123' },
 ]
 
-const pagesAboutPlatform = [
+const pagesAboutPlatform = computed(() => [
   {
-    name: t('layouts.main.contact'),
+    name: t('layouts.main.pages.contact'),
     link: 'contact',
   },
   {
-    name: t('layouts.main.aboutAs'),
+    name: t('layouts.main.pages.aboutUs'),
     link: 'aboutUs',
   },
-]
+])
 
-const pagesResources = [
+const pagesResources = computed(() => [
   {
-    name: 'FAQ',
+    name: t('layouts.main.pages.faq'),
     link: 'faq',
   },
   {
-    name: t('layouts.main.footer.resources.rules'),
+    name: t('layouts.main.pages.rules'),
     link: 'rules',
   },
   {
-    name: t('layouts.main.footer.resources.privacyPolicy'),
+    name: t('layouts.main.pages.privacyPolicy'),
     link: 'privacyPolicy',
   },
-]
+])
 </script>
 
 <style scoped>

@@ -1,104 +1,101 @@
 [
   {
     "id": "general",
-    "title": "pages.rulesPage.general.title",
+    "title": "pages.rules.general.title",
     "content": [
       {
         "list": [
-          "pages.rulesPage.general.list.1",
-          "pages.rulesPage.general.list.2",
-          "pages.rulesPage.general.list.3",
-          "pages.rulesPage.general.list.4",
-          "pages.rulesPage.general.list.5"
+          "pages.rules.general.list.1",
+          "pages.rules.general.list.2",
+          "pages.rules.general.list.3",
+          "pages.rules.general.list.4",
+          "pages.rules.general.list.5"
         ]
       }
     ]
   },
   {
     "id": "usageConditions",
-    "title": "pages.rulesPage.usageConditions.title",
+    "title": "pages.rules.usageConditions.title",
     "content": [
       {
         "list": [
-          "pages.rulesPage.usageConditions.list.1",
-          "pages.rulesPage.usageConditions.list.2",
-          "pages.rulesPage.usageConditions.list.3",
-          "pages.rulesPage.usageConditions.list.4"
+          "pages.rules.usageConditions.list.1",
+          "pages.rules.usageConditions.list.2",
+          "pages.rules.usageConditions.list.3",
+          "pages.rules.usageConditions.list.4"
         ]
       }
     ]
   },
   {
     "id": "reservations",
-    "title": "pages.rulesPage.reservations.title",
+    "title": "pages.rules.reservations.title",
     "content": [
       {
         "list": [
-          "pages.rulesPage.reservations.list.1",
-          "pages.rulesPage.reservations.list.2",
-          "pages.rulesPage.reservations.list.3"
+          "pages.rules.reservations.list.1",
+          "pages.rules.reservations.list.2",
+          "pages.rules.reservations.list.3"
         ]
       }
     ]
   },
   {
     "id": "userResponsibility",
-    "title": "pages.rulesPage.userResponsibility.title",
+    "title": "pages.rules.userResponsibility.title",
     "content": [
       {
         "list": [
-          "pages.rulesPage.userResponsibility.list.1",
-          "pages.rulesPage.userResponsibility.list.2",
-          "pages.rulesPage.userResponsibility.list.3"
+          "pages.rules.userResponsibility.list.1",
+          "pages.rules.userResponsibility.list.2",
+          "pages.rules.userResponsibility.list.3"
         ]
       }
     ]
   },
   {
     "id": "adminResponsibility",
-    "title": "pages.rulesPage.adminResponsibility.title",
+    "title": "pages.rules.adminResponsibility.title",
     "content": [
       {
         "list": [
-          "pages.rulesPage.adminResponsibility.list.1",
-          "pages.rulesPage.adminResponsibility.list.2"
+          "pages.rules.adminResponsibility.list.1",
+          "pages.rules.adminResponsibility.list.2"
         ]
       }
     ]
   },
   {
     "id": "security",
-    "title": "pages.rulesPage.security.title",
+    "title": "pages.rules.security.title",
     "content": [
       {
-        "list": [
-          "pages.rulesPage.security.list.1",
-          "pages.rulesPage.security.list.2"
-        ]
+        "list": ["pages.rules.security.list.1", "pages.rules.security.list.2"]
       }
     ],
     "note": "Nie przekazujemy danych do krajów spoza UE."
   },
   {
     "id": "dataProtection",
-    "title": "pages.rulesPage.dataProtection.title",
+    "title": "pages.rules.dataProtection.title",
     "content": [
       {
         "list": [
-          "pages.rulesPage.dataProtection.list.1",
-          "pages.rulesPage.dataProtection.list.2"
+          "pages.rules.dataProtection.list.1",
+          "pages.rules.dataProtection.list.2"
         ]
       }
     ]
   },
   {
     "id": "complaints",
-    "title": "pages.rulesPage.complaints.title",
+    "title": "pages.rules.complaints.title",
     "content": [
       {
         "list": [
-          "pages.rulesPage.complaints.list.1",
-          "pages.rulesPage.complaints.list.2"
+          "pages.rules.complaints.list.1",
+          "pages.rules.complaints.list.2"
         ]
       }
     ]

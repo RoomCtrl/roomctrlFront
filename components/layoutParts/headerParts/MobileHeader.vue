@@ -71,17 +71,17 @@ const handleLogout = async () => {
 
 const tabs = computed(() => [
   {
-    name: t('layouts.main.contact'),
+    name: t('layouts.main.pages.contact'),
     link: 'contact',
     logInUser: true,
   },
   {
-    name: t('layouts.main.aboutAs'),
+    name: t('layouts.main.pages.aboutUs'),
     link: 'aboutUs',
     logInUser: true,
   },
   {
-    name: t('layouts.main.howThisWork'),
+    name: t('layouts.main.pages.howThisWork'),
     link: 'howThisWork',
     logInUser: true,
   },

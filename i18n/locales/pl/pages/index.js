@@ -1,0 +1,7 @@
+export { default as home } from './home.json'
+export { default as contact } from './contact.json'
+export { default as aboutUs } from './aboutUs.json'
+export { default as faq } from './faq.json'
+export { default as rules } from './rules.json'
+export { default as howThisWork } from './howThisWork.json'
+export { default as privacyPolicy } from './privacyPolicy.json'

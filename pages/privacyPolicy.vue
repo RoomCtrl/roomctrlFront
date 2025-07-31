@@ -10,6 +10,6 @@
 </template>
 
 <script setup>
-import privacyPolicyPageContent from '~/assets/data/privacyPolicyPageContent.json'
+import privacyPolicyPageContent from '@/assets/data/privacyPolicyPageContent.json'
 import ListWithContents from '~/components/subpagesParts/ListWithContents.vue'
 </script>
