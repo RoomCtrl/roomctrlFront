@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IPageList } from '~/interfaces/PageInterfaces'
+import type { IPageList } from '~/app/interfaces/PageInterfaces'
 import InfoListCard from './infoSectionParts/InfoListCard.vue'
 import TableOfContents from './infoSectionParts/TableOfContents.vue'
 

@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IGetUserProfileResponse } from '~/interfaces/RepositoriesInterface'
+import type { IGetUserProfileResponse } from '~/app/interfaces/RepositoriesInterface'
 
 const op = ref()
 const { t } = useI18n()
