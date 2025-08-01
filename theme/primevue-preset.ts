@@ -3,19 +3,7 @@ import Aura from '@primeuix/themes/aura'
 
 const MyCustomPreset = definePreset(Aura, {
   semantic: {
-    primary: {
-      50: '#fef2f2',
-      100: '#fee2e2',
-      200: '#fecaca',
-      300: '#fca5a5',
-      400: '#f87171',
-      500: '#D74141',
-      600: '#dc2626',
-      700: '#b91c1c',
-      800: '#991b1b',
-      900: '#7f1d1d',
-      950: '#450a0a',
-    },
+    primary: '#D74141',
     colorScheme: {
       light: {
         primary: {
@@ -26,17 +14,20 @@ const MyCustomPreset = definePreset(Aura, {
         },
         surface: {
           0: '#ffffff',
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#020617',
+          50: '{gray.100}',
+          100: '#D74141',
+          150: '#000000ff',
+          // 50: '#f8fafc',
+          // 100: '#f1f5f9',
+          // 200: '#e2e8f0',
+          // 300: '#cbd5e1',
+          // 400: '#94a3b8',
+          // 500: '#64748b',
+          // 600: '#475569',
+          // 700: '#334155',
+          // 800: '#1e293b',
+          // 900: '#0f172a',
+          // 950: '#020617',
         },
       },
       dark: {
@@ -48,88 +39,50 @@ const MyCustomPreset = definePreset(Aura, {
         },
         surface: {
           0: '#0f1419',
-          50: '#1a1a1a',
-          100: '#262626',
-          200: '#404040',
-          300: '#525252',
-          400: '#737373',
-          500: '#a3a3a3',
-          600: '#d4d4d4',
-          700: '#e5e5e5',
-          800: '#f5f5f5',
-          900: '#fafafa',
-          950: '#1B2532',
+          50: '#1B2532',
+          // 100: '#262626',
+          100: '#413e3eff',
+          150: '#404040',
+          200: '#36475eff',
+          250: '#D74141',
         },
-        content: {
+        contentDark: {
           color: '#ffffff',
           hoverColor: '#f3f4f6',
           borderColor: '#404040',
+          focusBorderColor: '#ffffff',
           borderRadius: '6px',
         },
-        text: {
+        textDark: {
           color: '#ffffff',
           hoverColor: '#f3f4f6',
           mutedColor: '#a3a3a3',
           hoverMutedColor: '#d4d4d4',
         },
+        textLight: {
+          color: '#000000ff',
+          focusColor: '#ffffff',
+        },
       },
     },
   },
   components: {
-    menu: {
-      colorScheme: {
-        dark: {
-          root: {
-            background: '{surface.950}',
-          },
-          item: {
-            color: '#ffffff',
-            focusColor: '{surface.950}',
-            focusBackground: '#D74141',
-          },
-        },
-        light: {
-          item: {
-            focusColor: '#ffffff',
-            focusBackground: '#D74141',
-          },
-        },
-      },
-    },
-    popover: {
-      colorScheme: {
-        dark: {
-          root: {
-            background: '{surface.950}',
-          },
-        },
-      },
-    },
-    toast: {
-      colorScheme: {
-        dark: {
-          success: {
-            detailColor: '#ffffff',
-          },
-        },
-      },
-    },
     accordion: {
       colorScheme: {
         dark: {
           header: {
-            background: '#1B2532',
-            activeBackground: '#1B2532',
-            activeHoverBackground: '#1B2532',
-            hoverBackground: '#1B2532',
-            color: '#ffffff',
-            hoverColor: '#ffffff',
-            activeColor: '#ffffff',
-            activeHoverColor: '#ffffff',
+            background: '{surface.50}',
+            activeBackground: '{surface.50}',
+            activeHoverBackground: '{surface.50}',
+            hoverBackground: '{surface.50}',
+            color: '{textDark.color}',
+            hoverColor: '{textDark.color}',
+            activeColor: '{textDark.color}',
+            activeHoverColor: '{textDark.color}',
           },
           content: {
-            background: '#36475eff',
-            color: '#ffffff',
+            background: '{surface.200}',
+            color: '{textDark.color}',
           },
         },
         light: {
@@ -138,14 +91,14 @@ const MyCustomPreset = definePreset(Aura, {
             activeBackground: '#e5e5e5',
             activeHoverBackground: '#e5e5e5',
             hoverBackground: '#e5e5e5',
-            color: '#000000ff',
-            hoverColor: '#000000ff',
-            activeColor: '#000000ff',
-            activeHoverColor: '#000000ff',
+            color: '{textLight.color}',
+            hoverColor: '{textLight.color}',
+            activeColor: '{textLight.color}',
+            activeHoverColor: '{textLight.color}',
           },
           content: {
             background: '#f5f5f5',
-            color: '#000000ff',
+            color: '{textLight.color}',
           },
         },
       },
@@ -153,38 +106,11 @@ const MyCustomPreset = definePreset(Aura, {
         padding: '2vh 2vw',
       },
     },
-    drawer: {
+    avatar: {
       colorScheme: {
         dark: {
           root: {
-            borderColor: '{surface.950}',
-            background: '#D74141',
-          },
-        },
-      },
-    },
-    select: {
-      colorScheme: {
-        dark: {
-          root: {
-            color: '#ffffff',
-            borderColor: '#404040',
-            focusBorderColor: '#ffffff',
-          },
-          overlay: {
-            background: '#262626',
-            borderColor: '#404040',
-          },
-          option: {
-            color: '#ffffff',
-            focusBackground: '#404040',
-            selectedBackground: '#D74141',
-            selectedColor: '#ffffff',
-          },
-        },
-        light: {
-          root: {
-            focusBorderColor: '{surface.950}',
+            color: '{textDark.color}',
           },
         },
       },
@@ -194,82 +120,21 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             background: '{surface.100}',
-            color: '{text.color}',
+            color: '{textDark.color}',
           },
         },
         light: {
           root: {
-            color: '#000000ff',
+            color: '{textLight.color}',
           },
         },
       },
     },
-    floatlabel: {
+    chip: {
       colorScheme: {
         dark: {
           root: {
-            focusColor: '#ffffff',
-          },
-        },
-        light: {
-          root: {
-            focusColor: '{surface.950}',
-          },
-        },
-      },
-    },
-    inputtext: {
-      colorScheme: {
-        dark: {
-          root: {
-            background: '{surface.950}',
-            borderColor: '{content.borderColor}',
-            focusBorderColor: '#ffffff',
-            color: '#ffffff',
-          },
-        },
-        light: {
-          root: {
-            focusBorderColor: '{surface.950}',
-          },
-        },
-      },
-    },
-    textarea: {
-      colorScheme: {
-        dark: {
-          root: {
-            color: '{text.color}',
-            borderColor: '{content.borderColor}',
-            focusBorderColor: '#ffffff',
-          },
-        },
-        light: {
-          root: {
-            focusBorderColor: '{surface.950}',
-          },
-        },
-      },
-    },
-    dropdown: {
-      colorScheme: {
-        dark: {
-          root: {
-            background: '{surface.100}',
-            color: '{text.color}',
-            borderColor: '{content.borderColor}',
-          },
-          focus: {
-            borderColor: '{primary.color}',
-            boxShadow: '0 0 0 1px {primary.color}',
-          },
-          panel: {
-            background: '{surface.100}',
-            borderColor: '{content.borderColor}',
-          },
-          item: {
-            color: '{text.color}',
-            hoverBackground: '{surface.200}',
+            color: '{textLight.focusColor}',
           },
         },
       },
@@ -279,21 +144,7 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           row: {
             background: '{surface.100}',
-            color: '{text.color}',
-            hoverBackground: '{surface.200}',
-          },
-        },
-      },
-    },
-    menubar: {
-      colorScheme: {
-        dark: {
-          root: {
-            background: '{surface.100}',
-            borderColor: '{content.borderColor}',
-          },
-          item: {
-            color: '{text.color}',
+            color: '{textDark.color}',
           },
         },
       },
@@ -303,17 +154,7 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             background: '{surface.100}',
-            color: '{text.color}',
-          },
-        },
-      },
-    },
-    panel: {
-      colorScheme: {
-        dark: {
-          root: {
-            background: '{surface.100}',
-            color: '{text.color}',
+            color: '{textDark.color}',
           },
         },
       },
@@ -327,7 +168,201 @@ const MyCustomPreset = definePreset(Aura, {
         },
         dark: {
           root: {
-            borderColor: '{surface.400}',
+            borderColor: '{contentDark.color}',
+          },
+        },
+      },
+    },
+    drawer: {
+      colorScheme: {
+        dark: {
+          root: {
+            borderColor: '{surface.50}',
+            background: '{surface.250}',
+          },
+        },
+      },
+    },
+    dropdown: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: '{surface.100}',
+            color: '{textDark.color}',
+            borderColor: '{contentDark.borderColor}',
+          },
+          focus: {
+            borderColor: '{primary.color}',
+            boxShadow: '0 0 0 1px {primary.color}',
+          },
+          panel: {
+            background: '{surface.100}',
+            borderColor: '{contentDark.borderColor}',
+          },
+          item: {
+            color: '{textDark.color}',
+            hoverBackground: '{surface.250}',
+          },
+        },
+      },
+    },
+    floatlabel: {
+      colorScheme: {
+        dark: {
+          root: {
+            focusColor: '{textDark.color}',
+          },
+          on: {
+            active: {
+              background: '{surface.50}',
+            },
+          },
+        },
+        light: {
+          root: {
+            focusColor: '{textLight.focusColor}',
+          },
+        },
+      },
+    },
+    inputtext: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: '{surface.50}',
+            borderColor: '{contentDark.borderColor}',
+            focusBorderColor: '{textDark.color}',
+            color: '{textDark.color}',
+          },
+        },
+        light: {
+          root: {
+            focusBorderColor: '{surface.150}',
+          },
+        },
+      },
+    },
+    menu: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: '{surface.50}',
+          },
+          item: {
+            color: '{textDark.color}',
+            focusColor: '{surface.50}',
+            focusBackground: '{surface.250}',
+          },
+        },
+        light: {
+          item: {
+            focusColor: '{textLight.focusColor}',
+            focusBackground: '{surface.100}',
+          },
+        },
+      },
+    },
+    menubar: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: '{surface.100}',
+            borderColor: '{contentDark.borderColor}',
+          },
+          item: {
+            color: '{textDark.color}',
+          },
+        },
+      },
+    },
+    panel: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: '{surface.100}',
+            color: '{textDark.color}',
+          },
+        },
+      },
+    },
+    popover: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: '{surface.50}',
+          },
+        },
+      },
+    },
+    select: {
+      colorScheme: {
+        dark: {
+          root: {
+            color: '{textDark.color}',
+            borderColor: '{contentDark.borderColor}',
+            focusBorderColor: '{contentDark.focusBorderColor}',
+            background: '{surface.50}',
+          },
+          overlay: {
+            background: '{surface.50}',
+            borderColor: '{contentDark.borderColor}',
+          },
+          option: {
+            color: '{textDark.color}',
+            focusBackground: '{surface.150}',
+            selectedBackground: '{surface.250}',
+            selectedColor: '{textDark.color}',
+            selectedFocusBackground: '{surface.250}',
+          },
+        },
+        light: {
+          root: {
+            focusBorderColor: '{surface.150}',
+          },
+          option: {
+            focusBackground: '#f5f5f5',
+            selectedBackground: '{surface.100}',
+            selectedColor: '{textLight.focusColor}',
+            selectedFocusBackground: '{surface.100}',
+          },
+        },
+      },
+    },
+    textarea: {
+      colorScheme: {
+        dark: {
+          root: {
+            color: '{textDark.color}',
+            borderColor: '{contentDark.borderColor}',
+            focusBorderColor: '{textDark.color}',
+            background: '{surface.50}',
+          },
+        },
+        light: {
+          root: {
+            focusBorderColor: '{surface.150}',
+          },
+        },
+      },
+    },
+    toast: {
+      colorScheme: {
+        dark: {
+          success: {
+            detailColor: '{textDark.color}',
+          },
+        },
+      },
+    },
+    toggleswitch: {
+      colorScheme: {
+        dark: {
+          root: {
+            checkedHoverBackground: '#dd3b3bff',
+          },
+          handle: {
+            checkedBackground: '{surface.50}',
+            checkedHoverBackground: '{surface.50}',
           },
         },
       },

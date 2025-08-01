@@ -34,13 +34,13 @@
       </div>
 
       <div
-        class="relative group bg-gray-100 rounded-xl shadow-md p-6 animate-fade-in-up transition-all duration-700 delay-300"
+        class="relative group bg-red-100 rounded-xl shadow-md p-6 animate-fade-in-up transition-all duration-700 delay-300"
       >
-        <h3 class="text-xl font-bold flex items-center gap-2 text-gray-700">
-          <i class="pi pi-times-circle text-gray-500 text-2xl" />
+        <h3 class="text-xl font-bold flex items-center gap-2 text-red-700">
+          <i class="pi pi-times-circle text-red-500 text-2xl" />
           {{ $t('pages.home.goodBadSection.badSection.title') }}
         </h3>
-        <ul class="mt-4 space-y-2 text-gray-700 list-disc list-inside">
+        <ul class="mt-4 space-y-2 text-red-700 list-disc list-inside">
           <li>{{ $t('pages.home.goodBadSection.badSection.reservations') }}</li>
           <li>{{ $t('pages.home.goodBadSection.badSection.noAutomation') }}</li>
           <li>{{ $t('pages.home.goodBadSection.badSection.noAccess') }}</li>
