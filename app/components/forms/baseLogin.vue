@@ -68,7 +68,6 @@
 <script setup lang="ts">
 import { useForm, useField, defineRule } from 'vee-validate'
 import { required } from '@vee-validate/rules'
-import { useAuth } from '~/composables/useAuth'
 
 defineRule('required', required)
 

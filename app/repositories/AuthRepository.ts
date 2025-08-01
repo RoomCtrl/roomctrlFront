@@ -1,4 +1,4 @@
-import type { IGetUserProfileResponse, ILoginResponse, ICredentials } from '~/interfaces/RepositoriesInterface'
+import type { ICredentials, IGetUserProfileResponse, ILoginResponse } from '~/interfaces/RepositoriesInterface'
 
 export class AuthRepository {
   async login(credentials: ICredentials): Promise<ILoginResponse> {
