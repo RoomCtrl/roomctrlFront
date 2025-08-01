@@ -104,7 +104,6 @@
 <script setup lang="ts">
 import { useToast } from 'primevue'
 import { useField, useForm } from 'vee-validate'
-import { useMailer } from '~/composables/useMailer'
 import type { IContactMailData } from '~/interfaces/RepositoriesInterface'
 
 const toast = useToast()

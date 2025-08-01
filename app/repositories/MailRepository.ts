@@ -1,4 +1,4 @@
-import type { IContactMailData, IContactMailResponse } from '~/interfaces/RepositoriesInterface'
+import type { IContactMailData, IContactMailResponse } from '~/app/interfaces/RepositoriesInterface'
 
 export class MailRepository {
   async contactMail(contactData: IContactMailData): Promise<IContactMailResponse> {

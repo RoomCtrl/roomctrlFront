@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IGetUserProfileResponse } from '~/interfaces/RepositoriesInterface'
+import type { IGetUserProfileResponse } from '~/app/interfaces/RepositoriesInterface'
 
 const localePath = useLocalePath()
 const { t, locale } = useI18n()
