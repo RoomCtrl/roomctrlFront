@@ -1,16 +1,71 @@
 {
-  "creatorsAccounts": "Konta Github twórców:",
-  "title": "Realizujemy ambitne wyzwania",
-  "strategy": {
-    "title": "Strategia",
-    "description": "Tworzymy rozwiązania, które zmieniają sposób zarządzania przestrzenią."
+  "title": "Kim jesteśmy? ",
+  "ourMission": {
+    "title": "Nasza misja",
+    "description": "Ułatwiamy dostęp do przestrzeni, aby każdy mógł znaleźć idealne miejsce na swoje wydarzenie bez zbędnych formalności."
   },
-  "innovativeTech": {
-    "title": "Innowacyjne Technologie",
-    "description": "Łączymy najnowsze technologie z praktycznymi potrzebami biznesu."
+  "ourVision": {
+    "title": "Nasza wizja",
+    "description": "Chcemy stworzyć społeczność, w której wolne sale znajdują swoje zastosowanie, a proces rezerwacji jest szybki i wygodny."
   },
-  "teamwork": {
-    "title": "Zespół i Współpraca",
-    "description": "Wspólnie osiągamy cele, realizując ambitne projekty."
+  "subtitle": "Nasza aplikacja to platforma, która łączy właścicieli przestrzeni z osobami ich potrzebującymi. Nie posiadamy własnych sal – ułatwiamy rezerwacje i zarządzanie miejscami w prosty, bezpieczny i szybki sposób. ",
+  "howThisWorks": {
+    "title": "Jak to działa?",
+    "findRoom": {
+      "title": "Znajdź salę",
+      "description": "Przeglądaj dostępne przestrzenie w dogodnej lokalizacji."
+    },
+    "reserve": {
+      "title": "Zarezerwuj",
+      "description": "Wybierz termin i dokonaj rezerwacji w kilka kliknięć."
+    },
+    "use": {
+      "title": "Korzystaj",
+      "description": "Spotkaj się, szkol się, twórz – bez zbędnych formalności."
+    }
+  },
+  "ourFillars": {
+    "title": "Nasze filary",
+    "strategy": {
+      "title": "Strategia",
+      "description": "Łączymy ludzi i miejsca, zapewniając szybki dostęp do sal w różnych lokalizacjach. "
+    },
+    "innovaction": {
+      "title": "Innowacyjne technologie",
+      "description": "Wykorzystujemy nowoczesne rozwiązania dla prostego i bezpiecznego procesu rezerwacji."
+    },
+    "teamwork": {
+      "title": "Zespół i współpraca",
+      "description": "Tworzymy społeczność, w której każdy może korzystać z dostępnych przestrzeni."
+    }
+  },
+  "chooseUs": {
+    "title": "Dlaczego warto nas wybrać?",
+    "features": {
+      "noAdditionalFees": "Brak ukrytych kosztów",
+      "fastBooking": "Szybka i prosta rezerwacja online",
+      "securePayment": "Bezpieczne płatności",
+      "flexible": "Elastyczność – wynajem na godziny lub dni",
+      "coummity": "Społeczność zaufanych partnerów"
+    }
+  },
+  "opinions": {
+    "title": "Co mówią o nas użytkownicy?",
+    "feedback": "„W końcu proste i szybkie narzędzie do rezerwacji sal – bez telefonów i komplikacji!”",
+    "inProgress": "(Sekcja opinii w przygotowaniu)"
+  },
+  "joinUs": {
+    "title": "Chcesz dołączyć?",
+    "subtitle": "Skontaktuj się z nami, aby uzyskać dostęp do platformy. Aby sprawdź, jak prosta może być rezerwacja sal!",
+    "button": "Skontaktuj się z nami"
+  },
+  "authors": {
+    "title": "Poznaj nasz zespół",
+    "descriptions": {
+      "jp": "Specjalizuje się w tworzeniu wydajnych i nowoczesnych interfejsów w Nuxt.js. Dba o szybkość działania i przyjazny design aplikacji.",
+      "kr": "Odpowiada za backend i integrację systemu. Tworzy solidne API i zapewnia stabilne połączenie między frontem a serwerem.",
+      "as": "Projektuje i rozwija aplikacje mobilne w Ionic. Skupia się na responsywności i płynności działania na różnych urządzeniach.",
+      "fm": "Strażnik jakości oprogramowania. Wyszukuje błędy i dopilnowuje, aby finalny produkt działał bez zarzutu."
+    }
   }
 }

@@ -14,11 +14,11 @@
         v-model:sidebar-state="stateFromHeader"
       />
     </div>
-    <div class="pt-[9vh] min-h-[79vh] justify-center">
+    <div class="p-content py-[9vh] min-h-[79vh] justify-center">
       <slot class="flex-none" />
     </div>
 
-    <div class="p-footer mt-[4vh] w-full z-20 pt-[2vh] bg-[#1B2532]">
+    <div class="p-footer w-full z-20 pt-[2vh] bg-[#1B2532]">
       <MainFooter />
     </div>
   </div>
@@ -73,5 +73,8 @@ background-color: #1B2532;
 }
 .dark .p-footer {
   border-top: 1px solid #404040;
+}
+.light .p-content {
+  background-color: var(--p-gray-100);
 }
 </style>
