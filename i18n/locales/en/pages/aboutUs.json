@@ -1,16 +1,71 @@
 {
-  "creatorsAccounts": "Creators' GitHub Accounts:",
-  "title": "We Tackle Ambitious Challenges",
-  "strategy": {
-    "title": "Strategy",
-    "description": "We create solutions that transform the way space is managed."
+  "title": "Who are we?",
+  "ourMission": {
+    "title": "Our Mission",
+    "description": "We make access to spaces easier so that everyone can find the perfect place for their event without unnecessary formalities."
   },
-  "innovativeTech": {
-    "title": "Innovative Technologies",
-    "description": "We combine the latest technologies with practical business needs."
+  "ourVision": {
+    "title": "Our Vision",
+    "description": "We aim to create a community where available rooms find their purpose, and the booking process is fast and convenient."
   },
-  "teamwork": {
-    "title": "Teamwork and Collaboration",
-    "description": "Together we achieve goals by delivering ambitious projects."
+  "subtitle": "Our app is a platform that connects space owners with those who need them. We don’t own any rooms ourselves – we make reservations and space management simple, secure, and quick.",
+  "howThisWorks": {
+    "title": "How does it work?",
+    "findRoom": {
+      "title": "Find a room",
+      "description": "Browse available spaces in a convenient location."
+    },
+    "reserve": {
+      "title": "Book",
+      "description": "Choose a date and make a reservation in just a few clicks."
+    },
+    "use": {
+      "title": "Enjoy",
+      "description": "Meet, learn, create – without unnecessary formalities."
+    }
+  },
+  "ourFillars": {
+    "title": "Our Pillars",
+    "strategy": {
+      "title": "Strategy",
+      "description": "We connect people and places, providing quick access to rooms in various locations."
+    },
+    "innovaction": {
+      "title": "Innovative Technologies",
+      "description": "We use modern solutions for a simple and secure booking process."
+    },
+    "teamwork": {
+      "title": "Team and Collaboration",
+      "description": "We create a community where everyone can benefit from available spaces."
+    }
+  },
+  "chooseUs": {
+    "title": "Why Choose Us?",
+    "features": {
+      "noAdditionalFees": "No hidden costs",
+      "fastBooking": "Quick and easy online booking",
+      "securePayment": "Secure payments",
+      "flexible": "Flexibility – rent by the hour or by the day",
+      "coummity": "A community of trusted partners"
+    }
+  },
+  "opinions": {
+    "title": "What do our users say?",
+    "feedback": "“Finally, a simple and fast tool for booking rooms – no calls, no complications!”",
+    "inProgress": "(Reviews section coming soon)"
+  },
+  "joinUs": {
+    "title": "Want to join?",
+    "subtitle": "Contact us to gain access to the platform. Discover how simple booking a room can be!",
+    "button": "Contact us"
+  },
+  "authors": {
+    "title": "Meet our team",
+    "descriptions": {
+      "jp": "Specializes in building efficient and modern interfaces in Nuxt.js. Ensures speed and a user-friendly app design.",
+      "kr": "Responsible for backend and system integration. Creates robust APIs and ensures stable connections between front-end and server.",
+      "as": "Designs and develops mobile apps in Ionic. Focuses on responsiveness and smooth performance across devices.",
+      "fm": "The guardian of software quality. Hunts bugs and ensures the final product runs flawlessly."
+    }
   }
 }

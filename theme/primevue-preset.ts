@@ -29,6 +29,10 @@ const MyCustomPreset = definePreset(Aura, {
           // 900: '#0f172a',
           // 950: '#020617',
         },
+        text: {
+          color: '#000000ff',
+          focusColor: '#ffffff',
+        },
       },
       dark: {
         primary: {
@@ -40,28 +44,23 @@ const MyCustomPreset = definePreset(Aura, {
         surface: {
           0: '#0f1419',
           50: '#1B2532',
-          // 100: '#262626',
-          100: '#413e3eff',
+          100: '#262626',
           150: '#404040',
           200: '#36475eff',
           250: '#D74141',
         },
-        contentDark: {
+        content: {
           color: '#ffffff',
           hoverColor: '#f3f4f6',
           borderColor: '#404040',
           focusBorderColor: '#ffffff',
           borderRadius: '6px',
         },
-        textDark: {
+        text: {
           color: '#ffffff',
           hoverColor: '#f3f4f6',
           mutedColor: '#a3a3a3',
           hoverMutedColor: '#d4d4d4',
-        },
-        textLight: {
-          color: '#000000ff',
-          focusColor: '#ffffff',
         },
       },
     },
@@ -75,14 +74,14 @@ const MyCustomPreset = definePreset(Aura, {
             activeBackground: '{surface.50}',
             activeHoverBackground: '{surface.50}',
             hoverBackground: '{surface.50}',
-            color: '{textDark.color}',
-            hoverColor: '{textDark.color}',
-            activeColor: '{textDark.color}',
-            activeHoverColor: '{textDark.color}',
+            color: '{text.color}',
+            hoverColor: '{text.color}',
+            activeColor: '{text.color}',
+            activeHoverColor: '{text.color}',
           },
           content: {
             background: '{surface.200}',
-            color: '{textDark.color}',
+            color: '{text.color}',
           },
         },
         light: {
@@ -91,14 +90,14 @@ const MyCustomPreset = definePreset(Aura, {
             activeBackground: '#e5e5e5',
             activeHoverBackground: '#e5e5e5',
             hoverBackground: '#e5e5e5',
-            color: '{textLight.color}',
-            hoverColor: '{textLight.color}',
-            activeColor: '{textLight.color}',
-            activeHoverColor: '{textLight.color}',
+            color: '{text.color}',
+            hoverColor: '{text.color}',
+            activeColor: '{text.color}',
+            activeHoverColor: '{text.color}',
           },
           content: {
             background: '#f5f5f5',
-            color: '{textLight.color}',
+            color: '{text.color}',
           },
         },
       },
@@ -110,7 +109,7 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
-            color: '{textDark.color}',
+            color: '{text.color}',
           },
         },
       },
@@ -120,12 +119,12 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             background: '{surface.100}',
-            color: '{textDark.color}',
+            color: '{text.color}',
           },
         },
         light: {
           root: {
-            color: '{textLight.color}',
+            color: '#000000ff',
           },
         },
       },
@@ -134,7 +133,12 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
-            color: '{textLight.focusColor}',
+            color: '{text.focusColor}',
+          },
+        },
+        light: {
+          root: {
+            color: '{text.focusColor}',
           },
         },
       },
@@ -144,7 +148,7 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           row: {
             background: '{surface.100}',
-            color: '{textDark.color}',
+            color: '{text.color}',
           },
         },
       },
@@ -154,7 +158,7 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             background: '{surface.100}',
-            color: '{textDark.color}',
+            color: '{text.color}',
           },
         },
       },
@@ -168,7 +172,7 @@ const MyCustomPreset = definePreset(Aura, {
         },
         dark: {
           root: {
-            borderColor: '{contentDark.color}',
+            borderColor: '{content.color}',
           },
         },
       },
@@ -178,7 +182,8 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             borderColor: '{surface.50}',
-            background: '{surface.250}',
+            background: '{surface.50}',
+            color: '{text.color}',
           },
         },
       },
@@ -188,8 +193,8 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             background: '{surface.100}',
-            color: '{textDark.color}',
-            borderColor: '{contentDark.borderColor}',
+            color: '{text.color}',
+            borderColor: '{content.borderColor}',
           },
           focus: {
             borderColor: '{primary.color}',
@@ -197,10 +202,10 @@ const MyCustomPreset = definePreset(Aura, {
           },
           panel: {
             background: '{surface.100}',
-            borderColor: '{contentDark.borderColor}',
+            borderColor: '{content.borderColor}',
           },
           item: {
-            color: '{textDark.color}',
+            color: '{text.color}',
             hoverBackground: '{surface.250}',
           },
         },
@@ -210,7 +215,7 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
-            focusColor: '{textDark.color}',
+            focusColor: '{text.color}',
           },
           on: {
             active: {
@@ -220,7 +225,7 @@ const MyCustomPreset = definePreset(Aura, {
         },
         light: {
           root: {
-            focusColor: '{textLight.focusColor}',
+            focusColor: '{text.color}',
           },
         },
       },
@@ -230,9 +235,9 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             background: '{surface.50}',
-            borderColor: '{contentDark.borderColor}',
-            focusBorderColor: '{textDark.color}',
-            color: '{textDark.color}',
+            borderColor: '{content.borderColor}',
+            focusBorderColor: '{text.color}',
+            color: '{text.color}',
           },
         },
         light: {
@@ -249,14 +254,14 @@ const MyCustomPreset = definePreset(Aura, {
             background: '{surface.50}',
           },
           item: {
-            color: '{textDark.color}',
+            color: '{text.color}',
             focusColor: '{surface.50}',
             focusBackground: '{surface.250}',
           },
         },
         light: {
           item: {
-            focusColor: '{textLight.focusColor}',
+            focusColor: '{text.focusColor}',
             focusBackground: '{surface.100}',
           },
         },
@@ -267,10 +272,10 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             background: '{surface.100}',
-            borderColor: '{contentDark.borderColor}',
+            borderColor: '{content.borderColor}',
           },
           item: {
-            color: '{textDark.color}',
+            color: '{text.color}',
           },
         },
       },
@@ -280,7 +285,10 @@ const MyCustomPreset = definePreset(Aura, {
         dark: {
           root: {
             background: '{surface.100}',
-            color: '{textDark.color}',
+            color: '{text.color}',
+          },
+          header: {
+            color: '{text.color}',
           },
         },
       },
@@ -289,6 +297,7 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
+            color: '{text.color}',
             background: '{surface.50}',
           },
         },
@@ -298,32 +307,37 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
-            color: '{textDark.color}',
-            borderColor: '{contentDark.borderColor}',
-            focusBorderColor: '{contentDark.focusBorderColor}',
+            color: '{text.color}',
+            borderColor: '{content.borderColor}',
+            focusBorderColor: '{content.focusBorderColor}',
             background: '{surface.50}',
           },
           overlay: {
             background: '{surface.50}',
-            borderColor: '{contentDark.borderColor}',
+            borderColor: '{content.borderColor}',
           },
           option: {
-            color: '{textDark.color}',
-            focusBackground: '{surface.150}',
+            color: '{text.color}',
+            focusColor: '{text.color}',
+            focusBackground: '{surface.200}',
             selectedBackground: '{surface.250}',
-            selectedColor: '{textDark.color}',
+            selectedColor: '{text.color}',
             selectedFocusBackground: '{surface.250}',
           },
         },
         light: {
           root: {
+            color: '{text.color}',
             focusBorderColor: '{surface.150}',
           },
           option: {
-            focusBackground: '#f5f5f5',
+            color: '{text.color}',
+            focusColor: '{text.focusColor}',
+            focusBackground: '{surface.100}',
             selectedBackground: '{surface.100}',
-            selectedColor: '{textLight.focusColor}',
+            selectedColor: '{text.focusColor}',
             selectedFocusBackground: '{surface.100}',
+            selectedFocusColor: '{text.focusColor}',
           },
         },
       },
@@ -332,9 +346,9 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
-            color: '{textDark.color}',
-            borderColor: '{contentDark.borderColor}',
-            focusBorderColor: '{textDark.color}',
+            color: '{text.color}',
+            borderColor: '{content.borderColor}',
+            focusBorderColor: '{text.color}',
             background: '{surface.50}',
           },
         },
@@ -349,7 +363,7 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           success: {
-            detailColor: '{textDark.color}',
+            detailColor: '{text.color}',
           },
         },
       },
@@ -358,7 +372,7 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
-            checkedHoverBackground: '#dd3b3bff',
+            checkedHoverBackground: '#dd5252ff',
           },
           handle: {
             checkedBackground: '{surface.50}',

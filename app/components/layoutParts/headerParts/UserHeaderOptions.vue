@@ -5,7 +5,7 @@
         <template #fallback>
           <Skeleton
             width="12rem"
-            height="3rem"
+            height="2.5rem"
           />
         </template>
         <Select

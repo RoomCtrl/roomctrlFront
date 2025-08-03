@@ -1,11 +1,10 @@
 <template>
-  <div class="flex flex-col px-[10vw] pt-[1vh] gap-4">
+  <div class="px-[2vw] md:px-[10vw]">
     <AboutUsInfo />
-    <TeamGitHub />
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import AboutUsInfo from '~/components/aboutUsPage/AboutUsInfo.vue'
-import TeamGitHub from '~/components/aboutUsPage/TeamGitHub.vue'
 </script>
+a
