@@ -11,6 +11,9 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
   ],
   devtools: { enabled: true },
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+  },
   css: [
     'primeicons/primeicons.css',
     '~/assets/css/main.css',
