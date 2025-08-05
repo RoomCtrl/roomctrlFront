@@ -17,7 +17,8 @@
             <Card
               v-for="(card, index) in whoWeAre"
               :key="index"
-              class="bg-[rgba(223,71,71,0.2)] w-[70vw] md:w-[30vw]"
+              pt:root:class="w-[70vw] md:w-[30vw] overflow-hidden"
+              pt:body:class="bg-[rgba(223,71,71,0.2)]"
             >
               <template #title>
                 <h1 class="text-2xl font-semibold text-center">
@@ -38,7 +39,8 @@
               <Card
                 v-for="(step, index) in howThisWork"
                 :key="index"
-                class="bg-[rgba(47,152,223,0.2)] w-[70vw] md:w-[23vw]"
+                pt:root:class="w-[70vw] md:w-[23vw] overflow-hidden"
+                pt:body:class="bg-[rgba(47,152,223,0.2)]"
               >
                 <template #title>
                   <h1 class="font-semibold">
@@ -60,7 +62,8 @@
               <Card
                 v-for="(filar, index) in filars"
                 :key="index"
-                class="bg-[rgba(47,152,223,0.2)] w-[80vw] md:w-[23vw]"
+                pt:root:class="w-[80vw] md:w-[23vw] overflow-hidden"
+                pt:body:class="bg-[rgba(47,152,223,0.2)]"
               >
                 <template #title>
                   <h1 class="font-semibold">
@@ -181,9 +184,3 @@ const features = [
   t('pages.aboutUs.chooseUs.features.coummity'),
 ]
 </script>
-
-<style scoped>
-.test {
-  background-color: rgba(151, 151, 151, 0.2);
-}
-</style>

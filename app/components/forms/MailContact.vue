@@ -8,17 +8,22 @@
         {{ $t('forms.titles.contactForm') }}
       </h1>
       <div>
-        <FloatLabel variant="on">
-          <InputText
-            id="name"
-            v-model="name"
-            type="text"
-            class="w-[70vw] sm:w-full"
-            :class="{ 'p-invalid': nameError }"
-            @blur="nameBlur"
-          />
-          <label for="name">{{ $t('forms.fields.name') }}</label>
-        </FloatLabel>
+        <InputGroup>
+          <InputGroupAddon>
+            <i class="pi pi-user" />
+          </InputGroupAddon>
+          <FloatLabel variant="on">
+            <InputText
+              id="name"
+              v-model="name"
+              type="text"
+              class="w-[70vw] sm:w-full"
+              :class="{ 'p-invalid': nameError }"
+              @blur="nameBlur"
+            />
+            <label for="name">{{ $t('forms.fields.name') }}</label>
+          </FloatLabel>
+        </InputGroup>
         <Message
           v-if="nameError"
           severity="error"
@@ -29,17 +34,22 @@
         </Message>
       </div>
       <div>
-        <FloatLabel variant="on">
-          <InputText
-            id="email"
-            v-model="email"
-            type="text"
-            class="w-[70vw] sm:w-full"
-            :class="{ 'p-invalid': emailError }"
-            @blur="emailBlur"
-          />
-          <label for="email">{{ $t('forms.fields.email') }}</label>
-        </FloatLabel>
+        <InputGroup>
+          <InputGroupAddon>
+            <i class="pi pi-envelope" />
+          </InputGroupAddon>
+          <FloatLabel variant="on">
+            <InputText
+              id="email"
+              v-model="email"
+              type="text"
+              class="w-[70vw] sm:w-full"
+              :class="{ 'p-invalid': emailError }"
+              @blur="emailBlur"
+            />
+            <label for="email">{{ $t('forms.fields.email') }}</label>
+          </FloatLabel>
+        </InputGroup>
         <Message
           v-if="emailError"
           severity="error"
@@ -50,18 +60,23 @@
         </Message>
       </div>
       <div>
-        <FloatLabel variant="on">
-          <Select
-            id="subject"
-            v-model="subject"
-            :options="subjects"
-            type="text"
-            class="w-[70vw] sm:w-full"
-            :class="{ 'p-invalid': subjectError }"
-            @blur="subjectBlur"
-          />
-          <label for="subject">{{ $t('forms.fields.subject') }}</label>
-        </FloatLabel>
+        <InputGroup>
+          <InputGroupAddon>
+            <i class="pi pi-list" />
+          </InputGroupAddon>
+          <FloatLabel variant="on">
+            <Select
+              id="subject"
+              v-model="subject"
+              :options="subjects"
+              type="text"
+              class="w-[70vw] sm:w-full"
+              :class="{ 'p-invalid': subjectError }"
+              @blur="subjectBlur"
+            />
+            <label for="subject">{{ $t('forms.fields.subject') }}</label>
+          </FloatLabel>
+        </InputGroup>
         <Message
           v-if="subjectError"
           severity="error"
@@ -92,7 +107,8 @@
         </Message>
       </div>
       <Button
-        label="Wyślij"
+        :label="t('pages.contact.send')"
+        icon="pi pi-send"
         type="submit"
         :loading="loading"
         class="w-[60vw] sm:w-[15vw] self-center"

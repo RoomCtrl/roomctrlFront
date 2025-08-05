@@ -45,8 +45,8 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-center">
-      <Divider class="w-[90vw]" />
+    <div class="flex flex-col items-center w-[90vw]">
+      <Divider />
       <p class="text-white">
         &copy; {{ $t('layouts.main.copyright') }}
       </p>

@@ -10,14 +10,18 @@
         v-for="(member, index) in ourTeam"
         :key="index"
       >
-        <Chip class="flex flex-col md:justify-between py-[2vh] gap-1 w-full md:w-[19vw] h-[21vh] md:h-[26vh] bg-[rgba(215,65,65,0.7)]">
-          <div class="flex-grow flex-col justify-start">
-            <div class="flex flex-row self-start gap-2 pt-[0.5vh] mb-1">
-              <Avatar
-                icon="pi pi-user"
-                size="large"
-                class="flex-none self-center"
-                shape="circle"
+        <Card
+          pt:root:class="w-full overflow-hidden h-full"
+          pt:body:class="bg-[rgba(215,65,65,0.7)] h-full"
+          pt:title:class="flex-none"
+          pt:content:class="flex-grow bg-white dark:bg-[#262626] rounded-xl border-2 text-center flex items-center p-2"
+          pt:footer:class="flex-none"
+        >
+          <template #title>
+            <div class="flex flex-row gap-3">
+              <i
+                class="pi pi-user flex-none self-center"
+                style="font-size: 2rem;"
               />
               <div class="flex flex-col">
                 <h2 class="text-xl font-bold">
@@ -28,23 +32,27 @@
                 </h1>
               </div>
             </div>
+          </template>
 
-            <p class="text-center">
+          <template #content>
+            <p>
               {{ member.description }}
             </p>
-          </div>
+          </template>
 
-          <NuxtLink
-            :to="member.link"
-            target="_blank"
-            class="flex-none self-end"
-          >
-            <i
-              class="pi pi-github"
-              style="font-size: 1.7rem"
-            />
-          </NuxtLink>
-        </Chip>
+          <template #footer>
+            <NuxtLink
+              :to="member.link"
+              target="_blank"
+              class="flex justify-end"
+            >
+              <i
+                class="pi pi-github"
+                style="font-size: 1.7rem"
+              />
+            </NuxtLink>
+          </template>
+        </Card>
       </div>
     </div>
   </Panel>
@@ -63,6 +71,6 @@ const ourTeam = [
 
 <style scoped>
 .test {
-  background-color: rgba(215,65,65,0.7);
+  background-color: rgba(219, 147, 147, 0.7);
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <Panel
-    class="fixed flex flex-col max-md:self-center w-[80vw] max-md:top-[7vh] p-[1vw] mx-[1vw] mt-[3vh] rounded-lg md:w-[22vw]"
+    class="sticky md:fixed flex flex-col max-md:self-center w-[80vw] max-md:top-[9vh] p-[1vw] mx-[1vw] rounded-lg md:w-[22vw]"
     toggleable
   >
     <template #header>

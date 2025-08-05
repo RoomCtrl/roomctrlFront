@@ -1,7 +1,7 @@
 <template>
-  <Card class="flex items-center py-[2vh]">
+  <Card class="flex items-center">
     <template #title>
-      <h1 class="flex justify-center text-4xl font-bold py-[3vh] my-[3vh] bg-[#D74141] rounded-xl text-white text-center">
+      <h1 class="flex justify-center text-4xl font-bold py-[3vh] mb-[3vh] bg-[#D74141] rounded-xl text-white text-center">
         {{ $t('pages.howThisWork.title') }}
       </h1>
     </template>
