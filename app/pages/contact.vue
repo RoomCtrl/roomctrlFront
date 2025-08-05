@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center">
-    <div class="w-[80vw] space-y-12">
+    <div class="space-y-12">
       <Card class="text-center shadow-sm">
         <template #content>
           <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">

@@ -28,14 +28,15 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   nitro: {
     compressPublicAssets: true,
-  },
-  vite: {
-    server: {
-      proxy: {
-        '/api': {
-          target: 'http://185.25.151.154/',
-          changeOrigin: true,
-        },
+    devProxy: {
+      '/api': {
+        target: 'http://185.25.151.154/api/',
+        changeOrigin: true,
+      },
+    },
+    routeRules: {
+      '/api/**': {
+        proxy: 'http://185.25.151.154/api/**',
       },
     },
   },

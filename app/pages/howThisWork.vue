@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center py-[5vh] mx-[3vw] md:mx-[20vw]">
+  <div class="flex justify-center mx-[3vw] md:mx-[20vw]">
     <HowWorkList />
   </div>
 </template>

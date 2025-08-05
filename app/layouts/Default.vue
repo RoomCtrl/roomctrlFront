@@ -14,7 +14,7 @@
         v-model:sidebar-state="stateFromHeader"
       />
     </div>
-    <div class="p-content py-[9vh] min-h-[79vh] justify-center">
+    <div class="p-content pb-[2rem] md:pb-[3rem] pt-[7rem] md:pt-[8rem] min-h-[79vh] justify-center">
       <slot class="flex-none" />
     </div>
 

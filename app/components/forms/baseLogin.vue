@@ -7,18 +7,22 @@
 
       <div class="flex flex-col gap-4">
         <div>
-          <FloatLabel variant="on">
-            <InputText
-              id="username"
-              v-model="username"
-              class="w-[70vw] md:w-[20rem]"
-              :class="{ 'p-invalid': usernameError }"
-              type="text"
-              autofocus
-              @blur="usernameBlur"
-            />
-            <label for="username">{{ $t('forms.fields.login') }}</label>
-          </FloatLabel>
+          <InputGroup class="w-[70vw] md:w-[23rem]">
+            <InputGroupAddon>
+              <i class="pi pi-user" />
+            </InputGroupAddon>
+            <FloatLabel variant="on">
+              <InputText
+                id="username"
+                v-model="username"
+                :class="{ 'p-invalid': usernameError }"
+                type="text"
+                autofocus
+                @blur="usernameBlur"
+              />
+              <label for="username">{{ $t('forms.fields.login') }}</label>
+            </FloatLabel>
+          </InputGroup>
           <Message
             v-if="usernameError"
             severity="error"
@@ -30,20 +34,24 @@
         </div>
 
         <div>
-          <FloatLabel variant="on">
-            <Password
-              id="password"
-              v-model="password"
-              class="w-[70vw] md:w-[20rem]"
-              :class="{ 'p-invalid': passwordError }"
-              type="password"
-              toggleMask
-              fluid
-              :feedback="false"
-              @blur="passwordBlur"
-            />
-            <label for="password">{{ $t('forms.fields.password') }}</label>
-          </FloatLabel>
+          <InputGroup class="w-[70vw] md:w-[23rem]">
+            <InputGroupAddon>
+              <i class="pi pi-key" />
+            </InputGroupAddon>
+            <FloatLabel variant="on">
+              <Password
+                id="password"
+                v-model="password"
+                :class="{ 'p-invalid': passwordError }"
+                type="password"
+                toggleMask
+                fluid
+                :feedback="false"
+                @blur="passwordBlur"
+              />
+              <label for="password">{{ $t('forms.fields.password') }}</label>
+            </FloatLabel>
+          </InputGroup>
           <Message
             v-if="passwordError"
             severity="error"
