@@ -40,7 +40,7 @@
                 v-for="(step, index) in howThisWork"
                 :key="index"
                 pt:root:class="w-[70vw] md:w-[23vw] overflow-hidden"
-                pt:body:class="bg-[rgba(47,152,223,0.2)]"
+                pt:body:class="bg-[rgba(47,152,223,0.2)] h-full"
               >
                 <template #title>
                   <h1 class="font-semibold">
@@ -63,7 +63,7 @@
                 v-for="(filar, index) in filars"
                 :key="index"
                 pt:root:class="w-[80vw] md:w-[23vw] overflow-hidden"
-                pt:body:class="bg-[rgba(47,152,223,0.2)]"
+                pt:body:class="bg-[rgba(47,152,223,0.2)] h-full"
               >
                 <template #title>
                   <h1 class="font-semibold">

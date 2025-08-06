@@ -84,20 +84,20 @@ const { user } = useAuth()
 
 const tabs = computed(() => [
   {
-    name: t('layouts.main.pages.contact'),
-    link: 'contact',
-  },
-  {
-    name: t('layouts.main.pages.aboutUs'),
-    link: 'aboutUs',
-  },
-  {
     name: t('layouts.main.pages.howThisWork'),
     link: 'howThisWork',
   },
   {
     name: t('layouts.main.pages.rules'),
     link: 'rules',
+  },
+  {
+    name: t('layouts.main.pages.aboutUs'),
+    link: 'aboutUs',
+  },
+  {
+    name: t('layouts.main.pages.contact'),
+    link: 'contact',
   },
 ])
 const moveSideBar = () => {
