@@ -67,12 +67,12 @@ const contactUsDetails = [
 
 const pagesAboutPlatform = computed(() => [
   {
-    name: t('layouts.main.pages.contact'),
-    link: 'contact',
-  },
-  {
     name: t('layouts.main.pages.aboutUs'),
     link: 'aboutUs',
+  },
+  {
+    name: t('layouts.main.pages.contact'),
+    link: 'contact',
   },
 ])
 
