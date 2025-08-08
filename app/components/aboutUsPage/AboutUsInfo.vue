@@ -78,10 +78,10 @@
           </div>
 
           <div>
-            <h2 class="text-2xl md:text-4xl font-bold text-center">
+            <h2 class="text-2xl md:text-4xl font-bold text-center mb-[2vh]">
               {{ $t('pages.aboutUs.chooseUs.title') }}
             </h2>
-            <ul class="max-w-3xl mx-auto space-y-3 text-lg list-disc list-inside">
+            <ul class="max-w-3xl mx-auto md:ml-[31vw] space-y-3 text-lg list-disc list-inside">
               <li
                 v-for="(feature, index) in features"
                 :key="index"

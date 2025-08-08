@@ -12,7 +12,10 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div class="relative group bg-green-50 rounded-xl shadow-lg p-6 animate-fade-in-up transition-all duration-700">
         <h3 class="text-xl font-bold flex items-center gap-2 text-green-700">
-          <i class="pi pi-check-circle text-green-600 text-2xl" />
+          <i
+            class="pi pi-check-circle text-green-600"
+            style="font-size: 1.5rem;"
+          />
           {{ $t('common.roomCtrl') }}
         </h3>
 
@@ -37,7 +40,10 @@
         class="relative group bg-red-100 rounded-xl shadow-md p-6 animate-fade-in-up transition-all duration-700 delay-300"
       >
         <h3 class="text-xl font-bold flex items-center gap-2 text-red-700">
-          <i class="pi pi-times-circle text-red-500 text-2xl" />
+          <i
+            class="pi pi-times-circle text-red-500"
+            style="font-size: 1.5rem"
+          />
           {{ $t('pages.home.goodBadSection.badSection.title') }}
         </h3>
         <ul class="mt-4 space-y-2 text-red-700 list-disc list-inside">

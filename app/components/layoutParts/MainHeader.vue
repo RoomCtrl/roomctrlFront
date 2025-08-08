@@ -13,13 +13,13 @@
           class="flex-none"
         >
 
-          <NuxtImg
+          <img
             v-if="darkMode"
             src="/logos/logo_dark_mode.svg"
             :alt="t('common.logoAlt')"
             class="flex h-[5vh]"
           />
-          <NuxtImg
+          <img
             v-else
             src="/logos/logo.svg"
             :alt="t('common.logoAlt')"
@@ -68,7 +68,6 @@
 </template>
 
 <script setup lang="ts">
-import { NuxtImg } from '#components'
 import MobileHeader from './headerParts/MobileHeader.vue'
 import UserHeaderOptions from './headerParts/UserHeaderOptions.vue'
 
@@ -98,6 +97,10 @@ const tabs = computed(() => [
   {
     name: t('layouts.main.pages.contact'),
     link: 'contact',
+  },
+  {
+    name: t('layouts.main.pages.downloadApp'),
+    link: 'downloadApp',
   },
 ])
 const moveSideBar = () => {
