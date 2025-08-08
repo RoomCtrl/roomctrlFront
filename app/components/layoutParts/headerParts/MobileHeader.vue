@@ -85,6 +85,11 @@ const tabs = computed(() => [
     link: 'howThisWork',
     logInUser: true,
   },
+  {
+    name: t('layouts.main.pages.downloadApp'),
+    link: 'downloadApp',
+    logInUser: true,
+  },
 ].filter(tab => tab.logInUser))
 
 const colorMode = useColorMode()

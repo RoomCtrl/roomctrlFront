@@ -13,6 +13,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
+    head: {
+      title: 'RoomCtrl',
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+      ],
+    },
   },
   css: [
     'primeicons/primeicons.css',
