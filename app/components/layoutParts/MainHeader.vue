@@ -1,10 +1,10 @@
 <template>
-  <div class="flex justify-between md:justify-evenly items-center my-3 max-md:mx-3">
+  <div class="flex justify-between lg:justify-evenly items-center my-3 max-lg:mx-3">
     <div class="flex flex-row gap-8">
       <ClientOnly>
         <Button
           v-if="user"
-          class="hidden self-center md:flex"
+          class="hidden self-center lg:flex"
           :icon="sidebarButton"
           @click="moveSideBar"
         />
@@ -36,7 +36,7 @@
       </ClientOnly>
     </div>
 
-    <div class="hidden md:flex flex-row gap-3">
+    <div class="hidden lg:flex flex-row gap-3">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -60,7 +60,7 @@
     </div>
     <UserHeaderOptions :dark-mode="darkMode" />
     <div
-      class="block md:hidden"
+      class="block lg:hidden"
     >
       <MobileHeader />
     </div>

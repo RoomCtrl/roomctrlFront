@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center pt-[4rem]">
-    <Card pt:root:class="w-[90vw] md:w-[40vw]">
+    <Card pt:root:class="w-[90vw] lg:w-[40vw]">
       <template #content>
         <BaseLogin />
       </template>

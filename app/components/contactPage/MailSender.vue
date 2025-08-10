@@ -1,8 +1,8 @@
 <template>
-  <Card class="w-full sm:w-[60vw]">
+  <Card class="w-full lg:w-[60vw]">
     <template #content>
-      <div class="flex flex-col lg:flex-row gap-10 items-center w-full sm:w-[60vw]">
-        <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] h-[45vh]">
+      <div class="flex flex-col lg:flex-row gap-10 items-center w-full lg:w-[60vw]">
+        <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] lg:h-[45vh]">
           <template #header>
             <p class="font-semibold lg:text-2xl sm:text-xl mx-auto">
               {{ $t('pages.contact.contactDetails.title') }}
@@ -26,7 +26,9 @@
           </div>
         </Panel>
 
-        <MailContact />
+        <div class="w-full">
+          <MailContact />
+        </div>
       </div>
     </template>
   </Card>

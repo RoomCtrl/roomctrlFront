@@ -6,7 +6,7 @@
         :key="index"
         class="flex flex-col gap-2 w-[80vw]"
       >
-        <h1 class="font-bold text-2xl">
+        <h1 class="font-bold text-xl md:text-3xl">
           {{ $t(faq.category) }}
         </h1>
 
@@ -16,10 +16,12 @@
             :key="itemIndex"
             :value="itemIndex"
           >
-            <AccordionHeader class="font-bold text-lg">
-              {{ $t(item.question) }}
+            <AccordionHeader>
+              <h1 class="font-semibold md:font-bold md:text-lg">
+                {{ $t(item.question) }}
+              </h1>
             </AccordionHeader>
-            <AccordionContent>
+            <AccordionContent pt:content:class="text-sm">
               <p>
                 {{ getAnswer(item.answer) }}
               </p>

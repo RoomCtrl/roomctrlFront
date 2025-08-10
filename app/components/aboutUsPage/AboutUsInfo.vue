@@ -2,22 +2,22 @@
   <div class="flex flex-col gap-10">
     <Card>
       <template #title>
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 text-center">
+        <h1 class="text-4xl lg:text-6xl font-extrabold mb-4 text-center">
           {{ $t('pages.aboutUs.title') }}
         </h1>
       </template>
       <template #subtitle>
-        <p class="text-lg text-center mb-4 md:mb-8 md:px-[18vw]">
+        <p class="text-lg text-center mb-4 lg:mb-8 lg:px-[18vw]">
           {{ $t('pages.aboutUs.subtitle') }}
         </p>
       </template>
       <template #content>
-        <div class="flex flex-col gap-10 md:gap-20 max-md:items-center">
-          <div class="flex flex-col md:flex-row max-md:gap-3 justify-center md:justify-evenly text-center">
+        <div class="flex flex-col gap-10 lg:gap-20 max-lg:items-center">
+          <div class="flex flex-col lg:flex-row max-lg:gap-3 justify-center lg:justify-evenly text-center">
             <Card
               v-for="(card, index) in whoWeAre"
               :key="index"
-              pt:root:class="w-[70vw] md:w-[30vw] overflow-hidden"
+              pt:root:class="w-[70vw] lg:w-[30vw] overflow-hidden"
               pt:body:class="bg-[rgba(223,71,71,0.2)]"
             >
               <template #title>
@@ -32,14 +32,14 @@
           </div>
 
           <div>
-            <h1 class="font-bold text-2xl md:text-4xl text-center">
+            <h1 class="font-bold text-2xl lg:text-4xl text-center">
               {{ $t('pages.aboutUs.howThisWorks.title') }}
             </h1>
-            <div class="flex flex-col md:flex-row max-md:gap-3 justify-center md:justify-evenly text-center pt-[1vh] md:pt-[5vh]">
+            <div class="flex flex-col lg:flex-row max-lg:gap-3 justify-center lg:justify-evenly text-center pt-[1vh] lg:pt-[5vh]">
               <Card
                 v-for="(step, index) in howThisWork"
                 :key="index"
-                pt:root:class="w-[70vw] md:w-[23vw] overflow-hidden"
+                pt:root:class="w-[70vw] lg:w-[23vw] overflow-hidden"
                 pt:body:class="bg-[rgba(47,152,223,0.2)] h-full"
               >
                 <template #title>
@@ -55,14 +55,14 @@
           </div>
 
           <div>
-            <h1 class="font-bold text-2xl md:text-4xl text-center">
+            <h1 class="font-bold text-2xl lg:text-4xl text-center">
               {{ $t('pages.aboutUs.ourFillars.title') }}
             </h1>
-            <div class="flex flex-col md:flex-row max-md:gap-3 justify-evenly text-center pt-[1vh] md:pt-[5vh]">
+            <div class="flex flex-col lg:flex-row max-lg:gap-3 justify-evenly text-center pt-[1vh] lg:pt-[5vh]">
               <Card
                 v-for="(filar, index) in filars"
                 :key="index"
-                pt:root:class="w-[80vw] md:w-[23vw] overflow-hidden"
+                pt:root:class="w-[80vw] lg:w-[23vw] overflow-hidden"
                 pt:body:class="bg-[rgba(47,152,223,0.2)] h-full"
               >
                 <template #title>
@@ -78,10 +78,10 @@
           </div>
 
           <div>
-            <h2 class="text-2xl md:text-4xl font-bold text-center mb-[2vh]">
+            <h2 class="text-2xl lg:text-4xl font-bold text-center mb-[2vh]">
               {{ $t('pages.aboutUs.chooseUs.title') }}
             </h2>
-            <ul class="max-w-3xl mx-auto md:ml-[31vw] space-y-3 text-lg list-disc list-inside">
+            <ul class="max-w-3xl mx-auto lg:ml-[31vw] space-y-3 text-lg list-disc list-inside">
               <li
                 v-for="(feature, index) in features"
                 :key="index"
@@ -92,7 +92,7 @@
           </div>
 
           <div class="bg-[rgba(151,151,151,0.2)] border-2 p-10 rounded-2xl text-center inset-shadow-sm">
-            <h2 class="text-2xl md:text-4xl font-bold mb-4">
+            <h2 class="text-2xl lg:text-4xl font-bold mb-4">
               {{ $t('pages.aboutUs.opinions.title') }}
             </h2>
             <p class="italic">
@@ -108,14 +108,14 @@
 
     <TeamGitHub class="shadow-lg rounded-xl" />
 
-    <Card class="text-center p-8 rounded-xl shadow-lg md:w-[50vw] mx-auto">
+    <Card class="text-center p-8 rounded-xl shadow-lg lg:w-[50vw] mx-auto">
       <template #title>
         <h2 class="text-2xl font-bold">
           {{ $t('pages.aboutUs.joinUs.title') }}
         </h2>
       </template>
       <template #subtitle>
-        <h1 class="text-lg px-[1vw] md:px-[10vw] mb-4">
+        <h1 class="text-lg px-[1vw] lg:px-[10vw] mb-4">
           {{ $t('pages.aboutUs.joinUs.subtitle') }}
         </h1>
       </template>

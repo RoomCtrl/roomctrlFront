@@ -1,7 +1,7 @@
 <template>
   <div>
     <Card
-      pt:root:class="w-[80vw] md:w-[25vw]"
+      pt:root:class="w-[80vw] lg:w-[25vw]"
       pt:body:class="h-full"
       pt:content:class="flex-grow"
       pt:footer:class="flex justify-center"

@@ -1,17 +1,17 @@
 <template>
-  <div class="relative flex flex-col md:flex-row gap-4">
+  <div class="relative flex flex-col lg:flex-row gap-4">
     <TableOfContents
       :data="pageContent"
-      class="min-md:flex-1"
+      class="min-lg:flex-1"
     />
-    <div class="px-[4vw] md:px-[25vw] min-md:flex-1">
+    <div class="px-[4vw] lg:px-[25vw] min-lg:flex-1">
       <div class="px-[10vw]">
         <Card
           pt:root:class="overflow-hidden"
           pt:body:class="bg-[#D74141]"
         >
           <template #title>
-            <h1 class="font-black text-4xl text-center py-[2vh] text-white">
+            <h1 class="font-black text-3xl md:text-4xl text-center py-[2vh] text-white">
               {{ title }}
             </h1>
           </template>

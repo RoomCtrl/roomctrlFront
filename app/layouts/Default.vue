@@ -8,13 +8,13 @@
         @sidebar-state="handleSideBarState"
       />
     </div>
-    <div class="hidden absolute h-[50vh] pt-[9vh] z-10 md:flex">
+    <div class="hidden absolute h-[50vh] pt-[9vh] z-10 lg:flex">
       <Sidebar
         v-if="user"
         v-model:sidebar-state="stateFromHeader"
       />
     </div>
-    <div class="p-content pb-[2rem] md:pb-[3rem] pt-[7rem] md:pt-[8rem] min-h-[79vh] justify-center">
+    <div class="p-content pb-[2rem] lg:pb-[3rem] pt-[7rem] lg:pt-[8rem] min-h-[79vh] justify-center max-lg:px-[3vw]">
       <slot class="flex-none" />
     </div>
 
