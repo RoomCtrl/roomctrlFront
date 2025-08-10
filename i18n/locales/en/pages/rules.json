@@ -5,7 +5,7 @@
     "title": "General Provisions",
     "list": {
       "1": "These Terms of Service (“Terms”) define the rules for using the online platform for room reservations (“Service”).",
-      "2": "The Service is available at: http://185.25.151.154:3000/.",
+      "2": "The Service is available at: http://RoomCtrl.pl .",
       "3": "The Service is administered by RoomCtrl.",
       "4": "Using the Service constitutes acceptance of these Terms.",
       "5": "The Terms are available on the Service's website under the “Terms of Service” section."
@@ -61,7 +61,7 @@
   "complaints": {
     "title": "Complaints",
     "list": {
-      "1": "The user may submit complaints regarding the Service's operation at: http://185.25.151.154:3000/.",
+      "1": "The user may submit complaints regarding the Service's operation at: http://RoomCtrl.pl .",
       "2": "Complaints will be processed within 14 business days from the date of submission."
     }
   },

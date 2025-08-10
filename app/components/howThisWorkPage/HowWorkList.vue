@@ -1,12 +1,12 @@
 <template>
   <Card class="flex items-center">
     <template #title>
-      <h1 class="flex justify-center text-4xl font-bold py-[3vh] mb-[3vh] bg-[#D74141] rounded-xl text-white text-center">
+      <h1 class="flex justify-center text-xl md:text-4xl font-bold py-[3vh] mb-[3vh] bg-[#D74141] rounded-xl text-white text-center">
         {{ $t('pages.howThisWork.title') }}
       </h1>
     </template>
     <template #content>
-      <div class="flex flex-col gap-4 text-lg">
+      <div class="flex flex-col gap-4 md:text-lg">
         <h1 class="font-semibold">
           {{ $t('pages.howThisWork.content.useApp') }}
         </h1>
@@ -14,6 +14,7 @@
           <li
             v-for="(step, index) in stepsList"
             :key="index"
+            class="max-md:text-sm"
           >
             {{ (index + 1) + '. ' + step }}
           </li>

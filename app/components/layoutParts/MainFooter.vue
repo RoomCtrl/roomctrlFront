@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center min-h-[8vh] pb-[3vh] md:mx-[10rem] md:gap-6">
-    <div class="flex flex-col md:flex-row md:justify-evenly max-md:gap-3 md:w-full">
+  <div class="flex flex-col items-center min-h-[8vh] pb-[3vh] lg:mx-[10rem] lg:gap-6">
+    <div class="flex flex-col md:flex-row justify-center md:justify-evenly max-lg:gap-3 md:w-full">
       <div>
         <h1>
           {{ $t('layouts.main.footer.aboutPlatform') }}

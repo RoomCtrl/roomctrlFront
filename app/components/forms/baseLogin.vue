@@ -6,8 +6,8 @@
       </h1>
 
       <div class="flex flex-col gap-4">
-        <div>
-          <InputGroup class="w-[70vw] md:w-[23rem]">
+        <div class="w-[70vw] md:w-[23rem]">
+          <InputGroup>
             <InputGroupAddon>
               <i class="pi pi-user" />
             </InputGroupAddon>
@@ -33,8 +33,8 @@
           </Message>
         </div>
 
-        <div>
-          <InputGroup class="w-[70vw] md:w-[23rem]">
+        <div class="w-[70vw] md:w-[23rem]">
+          <InputGroup>
             <InputGroupAddon>
               <i class="pi pi-key" />
             </InputGroupAddon>

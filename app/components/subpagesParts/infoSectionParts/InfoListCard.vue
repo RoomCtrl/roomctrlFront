@@ -2,12 +2,12 @@
   <Card
     v-for="(data, index) in infoSectionContent"
     :key="index"
-    class="flex flex-col my-[2vh] md:my-[8vh] py-[2vh]"
+    class="flex flex-col my-[2vh] lg:my-[8vh] py-[2vh]"
   >
     <template #content>
       <h1
         :id="data.id"
-        class="scroll-mt-[15vh] font-extrabold text-3xl text-center py-[2vh]"
+        class="scroll-mt-[15vh] font-extrabold text-2xl md:text-3xl text-center py-[2vh]"
       >
         {{ $t(data.title) }}
       </h1>
@@ -15,7 +15,7 @@
         <div
           v-for="(content, subIndex) in data.contentWithoutList"
           :key="subIndex"
-          class="text-center md:px-[4vw]"
+          class="text-center max-sm:text-sm lg:px-[4vw]"
         >
           {{ $t(content) }}
         </div>
@@ -23,24 +23,27 @@
       <div
         v-for="(content, subIndex) in data.content"
         :key="subIndex"
-        class="px-[5vw] md:px-[8vw]"
+        class="px-[5vw] lg:px-[8vw]"
       >
         <ul
           v-if="content.list"
-          class="px-[5vw] md:px-[2vw]"
+          class="px-[5vw] lg:px-[2vw]"
           :class="{ 'list-decimal': numberedSubList,
                     'list-disc': !numberedSubList }"
         >
           <li
             v-for="(listItem, subSubIndex) in content.list"
             :key="subSubIndex"
-            class="py-[0.3vh]"
+            class="py-[0.3vh] max-sm:text-sm"
           >
             {{ $t(listItem) }}
           </li>
         </ul>
 
-        <div v-else>
+        <div
+          v-else
+          class="max-sm:text-sm"
+        >
           {{ $t(content) }}
         </div>
       </div>

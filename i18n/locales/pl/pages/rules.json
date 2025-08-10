@@ -5,7 +5,7 @@
     "title": "Postanowienia ogólne",
     "list": {
       "1": "Niniejszy regulamin („Regulamin”) określa zasady korzystania z platformy internetowej służącej do rezerwacji sal („Serwis”).",
-      "2": "Serwis jest dostępny pod adresem: http://185.25.151.154:3000/.",
+      "2": "Serwis jest dostępny pod adresem: http://RoomCtrl.pl .",
       "3": "Administratorem Serwisu jest RoomCtrl.",
       "4": "Korzystanie z Serwisu oznacza akceptację niniejszego Regulaminu.",
       "5": "Regulamin jest dostępny na stronie internetowej Serwisu w zakładce „Regulamin”."
@@ -61,7 +61,7 @@
   "complaints": {
     "title": "Reklamacje",
     "list": {
-      "1": "Użytkownik może zgłaszać reklamacje dotyczące funkcjonowania Serwisu na adres: http://185.25.151.154:3000/.",
+      "1": "Użytkownik może zgłaszać reklamacje dotyczące funkcjonowania Serwisu na adres: http://RoomCtrl.pl .",
       "2": "Reklamacje będą rozpatrywane w terminie 14 dni roboczych od daty ich złożenia."
     }
   },
