@@ -36,14 +36,29 @@
         <Button
           :label="t('common.download')"
           severity="info"
+          @click="visible = true"
         />
       </template>
     </Card>
+    <Dialog
+      v-model:visible="visible"
+      pt:content:class="flex flex-col gap-2"
+      modal
+    >
+      <div class="w-[20rem] h-[20rem] border-2 text-center" />
+      <div class="flex flex-row items-center gap-2 justify-center">
+        <h1>
+          some
+        </h1>
+        <Button label="skopiuj" />
+      </div>
+    </Dialog>
   </div>
 </template>
 
 <script setup>
 const { t } = useI18n()
+const visible = ref(false)
 
 defineProps({
   content: Object,

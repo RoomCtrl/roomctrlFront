@@ -14,6 +14,7 @@
           option-label="name"
           option-value="code"
           placeholder="Select Language"
+          class="w-[7rem]"
           @change="onLanguageSelect"
         />
       </ClientOnly>
@@ -30,6 +31,7 @@
       </ClientOnly>
       <Button
         v-if="!user"
+        class="w-[8rem]"
         as="a"
         :label="t('common.buttons.logIn')"
         :href="localePath('login')"

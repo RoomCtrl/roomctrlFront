@@ -1,7 +1,7 @@
 <template>
   <Panel
     class="sticky lg:fixed flex flex-col max-lg:self-center w-[80vw] max-lg:top-[9vh] p-[1vw] mx-[1vw] rounded-lg lg:w-[22vw]"
-    toggleable
+    :toggleable="isMobile"
   >
     <template #header>
       <h1 class="text-xl font-semibold">
@@ -165,6 +165,21 @@ const handleHashChange = () => {
     }, 50)
   }
 }
+
+const isMobile = ref(false)
+
+function checkIsMobile() {
+  isMobile.value = window.innerWidth <= 768
+}
+
+onMounted(() => {
+  checkIsMobile()
+  window.addEventListener('resize', checkIsMobile)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkIsMobile)
+})
 </script>
 
 <style scoped>

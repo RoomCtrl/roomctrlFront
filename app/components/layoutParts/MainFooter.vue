@@ -107,6 +107,5 @@ h1 {
 
 .footer-list {
   color: white;
-  margin-left: 1.5vh;
 }
 </style>

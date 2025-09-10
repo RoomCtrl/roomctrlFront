@@ -9,7 +9,7 @@
         :id="data.id"
         class="scroll-mt-[15vh] font-extrabold text-2xl md:text-3xl text-center py-[2vh]"
       >
-        {{ $t(data.title) }}
+        {{ (index + 1) + '. ' + $t(data.title) }}
       </h1>
       <div v-if="data.contentWithoutList">
         <div
