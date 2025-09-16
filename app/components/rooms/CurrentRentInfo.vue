@@ -1,10 +1,10 @@
 <template>
   <div
     :class="[statusColor, animate]"
-    class="rounded-xl flex flex-col -mb-16 mr-3 py-2"
+    class="rounded-t-xl lg:rounded-xl flex flex-col lg:-mb-20 lg:mr-3 py-3"
   >
-    <div class="flex flex-row justify-between px-2 pb-2 text-white">
-      <h1 class="lg:flex-1 text-md lg:text-lg font-bold">
+    <div class="flex flex-row justify-between px-2 pb-3 text-white max-sm:items-center">
+      <h1 class="lg:flex-1 text-lg font-bold">
         {{ 'Sala nr. ' + roomName }}
       </h1>
       <div class="flex flex-row gap-2 justify-end items-center">
@@ -18,22 +18,24 @@
         />
       </div>
     </div>
-    <div
-      class="grid grid-cols-2 mx-2 rounded-lg text-center gap-y-1 border-2"
-      :class="[textColor]"
+    <Message
+      pt:root:class="mx-2 rounded-lg lg:text-center max-sm:text-sm"
+      pt:text:class="flex flex-col justify-start lg:grid lg:grid-cols-2 lg:gap-y-1"
+      :severity="badgeColor"
     >
-      <div class="flex flex-row items-center gap-2 m-auto">
+      <div class="flex flex-row items-center gap-2 lg:m-auto">
         <i class="pi pi-arrow-up-right-and-arrow-down-left-from-center" />
         <p>Rozmiar sali: {{ size }}2</p>
       </div>
-      <div class="flex flex-row items-center gap-2 m-auto">
+      <div class="flex flex-row items-center gap-2 lg:m-auto">
         <i class="pi pi-users" />
         <p>Pojemność: {{ capacity }}</p>
       </div>
       <div class="col-span-2">
+        <i class="pi pi-thumbtack" />
         Lokalizacja: Sektor B skrzydło prawe
       </div>
-    </div>
+    </Message>
   </div>
 </template>
 
@@ -53,15 +55,35 @@ defineProps<{
   animate: string
 }>()
 
+const isReady = ref(false)
+
+onMounted(() => {
+  isReady.value = true
+})
+
 const status = inject('roomStatus') as string
 
+const colorMode = useColorMode()
+
+const isDarkMode = computed(() => {
+  if (!isReady.value) return false
+  return colorMode.value === 'dark' || colorMode.preference === 'dark'
+})
 const statusColor = computed(() => {
-  const map: Record<string, string> = {
-    avaiable: 'bg-green-600', // zielony
-    occupied: 'bg-red-600', // czerwony
-    out_of_order: 'bg-yellow-600', // żółty
+  const lightMap: Record<string, string> = {
+    avaiable: 'bg-green-600',
+    occupied: 'bg-red-600',
+    out_of_order: 'bg-yellow-600',
   }
-  return map[status] || map.default
+
+  const darkMap: Record<string, string> = {
+    avaiable: 'bg-green-950',
+    occupied: 'bg-red-950',
+    out_of_order: 'bg-yellow-950',
+  }
+
+  const currentMap = isDarkMode.value ? darkMap : lightMap
+  return currentMap[status] || lightMap.avaiable // fallback
 })
 
 const textColor = computed(() => {

@@ -2,7 +2,7 @@
   <div class="flex flex-col justify-between gap-1">
     <div class="flex flex-row justify-between items-center">
       <h1
-        class="font-semibold text-lg"
+        class="font-medium lg:font-semibold lg:text-lg"
       >
         Nadchodzące:
       </h1>

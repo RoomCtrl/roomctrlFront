@@ -12,10 +12,11 @@
     />
 
     <Card
-      pt:root:class="flex-grow -mr-6 -mb-1 z-10"
+      pt:root:class="max-sm:rounded-t flex-grow lg:-mr-6 -my-1 z-10"
       pt:header:class="py-2 px-3"
-      pt:body:class="h-full py-1"
-      pt:subtitle:class="h-full"
+      pt:body:class="h-full"
+      pt:body:style="--p-card-body-padding: 0.25rem 1.25rem"
+      :pt:subtitle:class="['h-full', { 'blur-sm': animationClass === 'show' }]"
       pt:caption:class="flex flex-col justify-around lg:justify-between h-full"
       :style="{ borderColor: statusColor }"
     >
@@ -33,27 +34,31 @@
                 text: 'text-center',
               },
             }"
-            class="text-xl font-semibold  truncate"
+            :class="{ 'blur-sm': animationClass === 'show' }"
+            class="text-lg lg:text-xl font-semibold lg:truncate"
           >
             {{ currentEvent }}
           </h1>
           <h1
             v-else
-            class="text-xl font-semibold  truncate"
+            :class="{ 'blur-sm': animationClass === 'show' }"
+            class="text-xl font-semibold truncate"
           >
             Prywatna rezerwacja
           </h1>
-          <i
-            class="pi pi-info-circle"
-            style="font-size: 1.25rem;"
-            @mouseenter="playShow"
-            @mouseleave="playHide"
-          />
+          <div class="hidden lg:block">
+            <i
+              class="pi pi-info-circle"
+              style="font-size: 1.25rem;"
+              @mouseenter="playShow"
+              @mouseleave="playHide"
+            />
+          </div>
         </div>
       </template>
 
       <template #subtitle>
-        <EventTag
+        <IncomingRent
           v-if="room.status !== 'out_of_order'"
           :title="room.next_booking.title"
           :started-at="room.next_booking.startedAt"
@@ -74,7 +79,7 @@
 
 <script setup lang="ts">
 import CurrentRentInfo from './CurrentRentInfo.vue'
-import EventTag from './IncomingRent.vue'
+import IncomingRent from './IncomingRent.vue'
 
 const props = defineProps<{
   room: IRoomAvailability
@@ -94,25 +99,6 @@ const statusColor = computed(() => {
   }
   return map[props.room.status] || map.default
 })
-const statusBg = computed(() => {
-  const map: Record<string, string> = {
-    avaiable: 'border-green-600 bg-green-100', // zielony
-    occupied: 'border-red-600 bg-red-100', // czerwony
-    out_of_order: 'border-yellow-600 bg-yellow-100', // żółty
-  }
-  return map[props.room.status] || map.default
-})
-
-const toggleInfo = () => {
-  showItem.value = !showItem.value
-}
-
-const statusResponse = computed(() => {
-  if (props.room.status === 'out_of_order') return 'Sala tymczasowo wyłączona z użytku'
-  if (props.room.status === 'occupied') return 'Sala jest zajęta'
-  return 'Sala jest dostępna'
-})
-
 const animationClass = ref('')
 
 const playShow = () => {
@@ -128,6 +114,11 @@ const playHide = () => {
     animationClass.value = 'hide'
   })
 }
+const statusResponse = computed(() => {
+  if (props.room.status === 'out_of_order') return 'Sala tymczasowo wyłączona z użytku'
+  if (props.room.status === 'occupied') return 'Sala jest zajęta'
+  return 'Sala jest dostępna'
+})
 </script>
 
 <style scoped>

@@ -1,10 +1,10 @@
 <template>
   <Message
     :severity="color"
-    pt:root:class="rounded-3xl"
-    pt:content:class="py-1 px-2"
+    pt:root:style="--p-message-border-radius: 1.5rem"
+    pt:content:style="--p-message-content-padding: 0.25rem 0.5rem "
   >
-    <div class="flex flex-row gap-1 items-center">
+    <div class="flex flex-row gap-1 items-center text-sm">
       <div
         v-if="status === 'occupied'"
         class="flex flex-row gap-1 items-center"
