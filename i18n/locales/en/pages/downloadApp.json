@@ -1,22 +1,13 @@
 {
   "androidIos": "Android / iOS",
   "title": "Download the App",
+  "usersRate": "User rating: ",
+  "minVersion": "Minimum version: ",
+  "size": "Size: ",
   "android": {
-    "title": "Android",
-    "list": {
-      "1": "Minimum version: Android 6.0",
-      "2": "Size: 20 MB",
-      "3": "System permissions (calendar, notifications, location)",
-      "4": "Support for various screen resolutions",
-      "5": "Automatic dark mode (system)"
-    }
+    "title": "Android"
   },
   "ios": {
-    "title": "iOS",
-    "list": {
-      "1": "Minimum version: iOS 13.0",
-      "2": "Size: 25 MB",
-      "3": "iOS dark mode"
-    }
+    "title": "iOS"
   }
 }

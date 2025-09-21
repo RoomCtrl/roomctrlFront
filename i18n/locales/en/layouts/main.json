@@ -1,11 +1,21 @@
 {
   "pages": {
     "aboutUs": "About Us",
-    "faq": "FAQ",
     "contact": "Contact",
     "howThisWork": "How does it work?",
-    "rules": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
+    "documentation": "Documentation",
+    "faq": {
+      "title": "FAQ",
+      "description": "Find answers to common questions"
+    },
+    "rules": {
+      "title": "Terms of Service",
+      "description": "Rules and guidelines for using our service"
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "description": "How we collect and use your personal data"
+    },
     "downloadApp": "Download App"
   },
   "copyright": "2025 RoomCtrl. All rights reserved.",

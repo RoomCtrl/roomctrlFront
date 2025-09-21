@@ -1,13 +1,7 @@
 <template>
-  <div class="flex justify-between lg:justify-evenly items-center my-3 max-lg:mx-3">
+  <header class="flex justify-between lg:justify-evenly items-center my-3 max-lg:mx-3">
     <div class="flex flex-row gap-8">
       <ClientOnly>
-        <Button
-          v-if="user"
-          class="hidden self-center lg:flex"
-          :icon="sidebarButton"
-          @click="moveSideBar"
-        />
         <NuxtLink
           :to="localePath('index')"
           class="flex-none"
@@ -36,79 +30,92 @@
       </ClientOnly>
     </div>
 
-    <div class="hidden lg:flex flex-row gap-3">
+    <div class="hidden lg:flex flex-row gap-5 w-[40rem] justify-center">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
-        class="grid grid-cols-1 grid-rows-1"
+        class="flex-none"
       >
-        <NuxtLink
-          :to="localePath(tab.link)"
-          class="col-start-1 row-start-1 border-b-2 hover:font-semibold hover:text-[#D74141] hover:border-[#D74141]"
-          exact-active-class="border-b-2 border-[#D74141] text-[#D74141] font-semibold"
-        >
-          {{ tab.name }}
-        </NuxtLink>
-
-        <span
-          class="col-start-1 row-start-1 font-semibold invisible pointer-events-none"
-          aria-hidden="true"
-        >
-          {{ tab.name }}
-        </span>
+        <TheDropMenu :tab="tab" />
       </div>
     </div>
     <UserHeaderOptions :dark-mode="darkMode" />
     <div
       class="block lg:hidden"
     >
-      <MobileHeader />
+      <MobileHeader :tabs="tabs" />
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">
-import MobileHeader from './headerParts/MobileHeader.vue'
+import TheDropMenu from './headerParts/TheDropMenu.vue'
 import UserHeaderOptions from './headerParts/UserHeaderOptions.vue'
+import MobileHeader from './headerParts/MobileSidebar.vue'
 
 defineProps({
   darkMode: Boolean,
 })
-
-const emit = defineEmits(['sidebar-state'])
-const visible = ref<boolean>(true)
 const localePath = useLocalePath()
 const { t } = useI18n()
 const { user } = useAuth()
-
+const isUserLogin = computed(() => {
+  return !(Object.keys(user.value || {}).length === 0)
+})
 const tabs = computed(() => [
   {
-    name: t('layouts.main.pages.howThisWork'),
-    link: 'howThisWork',
+    label: t('layouts.main.pages.howThisWork'),
+    route: 'howThisWork',
+    auth: true,
   },
   {
-    name: t('layouts.main.pages.rules'),
-    link: 'rules',
+    label: t('layouts.main.pages.documentation'),
+    auth: true,
+    items: [
+      {
+        label: t('layouts.main.pages.rules.title'),
+        route: 'rules',
+        description: t('layouts.main.pages.rules.description'),
+        auth: true,
+      },
+      {
+        label: t('layouts.main.pages.privacyPolicy.title'),
+        route: 'privacyPolicy',
+        description: t('layouts.main.pages.privacyPolicy.description'),
+        auth: true,
+      },
+      {
+        label: t('layouts.main.pages.faq.title'),
+        route: 'faq',
+        description: t('layouts.main.pages.faq.description'),
+        auth: true,
+      },
+    ],
   },
   {
-    name: t('layouts.main.pages.aboutUs'),
-    link: 'aboutUs',
+    label: t('layouts.main.pages.aboutUs'),
+    route: 'aboutUs',
+    auth: true,
   },
   {
-    name: t('layouts.main.pages.contact'),
-    link: 'contact',
+    label: t('layouts.main.pages.contact'),
+    route: 'contact',
+    auth: true,
   },
   {
-    name: t('layouts.main.pages.downloadApp'),
-    link: 'downloadApp',
+    label: t('layouts.main.pages.downloadApp'),
+    route: 'downloadApp',
+    auth: true,
   },
-])
-const moveSideBar = () => {
-  visible.value = !visible.value
-  emit('sidebar-state', visible.value)
-}
-
-const sidebarButton = computed(() => {
-  return visible.value ? 'pi pi-arrow-left' : 'pi pi-arrow-right'
-})
+  {
+    label: 'Moje sale',
+    auth: isUserLogin.value,
+    items: [
+      {
+        label: 'Wszystkie sale',
+        auth: isUserLogin.value,
+      },
+    ],
+  },
+].filter(tab => tab.auth === true))
 </script>

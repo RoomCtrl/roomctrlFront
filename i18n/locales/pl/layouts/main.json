@@ -3,9 +3,19 @@
     "aboutUs": "O nas",
     "contact": "Kontakt",
     "howThisWork": "Jak to działa?",
-    "faq": "FAQ",
-    "rules": "Regulamin",
-    "privacyPolicy": "Polityka Prywatności",
+    "documentation": "Dokumentacja",
+    "faq": {
+      "title": "FAQ",
+      "description": "Najczęściej zadawane pytania"
+    },
+    "rules": {
+      "title": "Regulamin",
+      "description": "Zasady korzystania z serwisu"
+    },
+    "privacyPolicy": {
+      "title": "Polityka Prywatności",
+      "description": "Jak zbieramy i wykorzystujemy dane"
+    },
     "downloadApp": "Pobierz aplikacje"
   },
   "copyright": "2025 RoomCtrl. Wszystkie prawa zastrzeżone.",
