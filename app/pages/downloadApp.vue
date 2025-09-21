@@ -20,31 +20,38 @@
           </h1>
         </template>
         <template #content>
-          <div
-            ref="containerRef"
-            class="w-[20rem] md:w-[23rem] h-[40rem] md:h-[45rem]"
-            @mousemove="handleMouseMove"
-          >
-            <ImageCompare
-              ref="imageCompareRef"
-              pt:root:class="image-compare-root h-full"
+          <ClientOnly>
+            <div
+              ref="containerRef"
+              class="w-[20rem] md:w-[23rem] h-[40rem] md:h-[45rem]"
+              @mousemove="handleMouseMove"
             >
-              <template #right>
-                <img
-                  src="/images/app/android.png"
-                  alt="Android"
-                  class="compare-image"
-                />
-              </template>
-              <template #left>
-                <img
-                  src="/images/app/ios.png"
-                  alt="iOS"
-                  class="compare-image"
-                />
-              </template>
-            </ImageCompare>
-          </div>
+              <ImageCompare
+                ref="imageCompareRef"
+                pt:root:class="image-compare-root h-full"
+              >
+                <template #right>
+                  <img
+                    :src="'/images/app/' + androidImg"
+                    alt="Android"
+                    class="compare-image"
+                  />
+                </template>
+                <template #left>
+                  <img
+                    :src="'/images/app/' + iosImg"
+                    alt="iOS"
+                    class="compare-image"
+                  />
+                </template>
+              </ImageCompare>
+            </div>
+            <template #fallback>
+              <div class="w-[20rem] md:w-[23rem] h-[40rem] md:h-[45rem] flex justify-center items-center">
+                <ProgressSpinner />
+              </div>
+            </template>
+          </ClientOnly>
         </template>
       </Card>
     </div>
@@ -56,31 +63,46 @@ import { ref, onMounted, nextTick } from 'vue'
 import DeviceSysCard from '~/components/downloadApp/deviceSysCard.vue'
 
 const { t } = useI18n()
+const colorMode = useColorMode()
 const containerRef = ref()
 const imageCompareRef = ref()
+const isMounted = ref(false)
 
+const androidImg = computed(() => {
+  if (!isMounted.value) return 'android.png'
+  return colorMode.value === 'dark' ? 'android_dark.png' : 'android.png'
+})
+
+const iosImg = computed(() => {
+  if (!isMounted.value) return 'ios.png'
+  return colorMode.value === 'dark' ? 'ios_dark.png' : 'ios.png'
+})
 const android = {
   title: t('pages.downloadApp.android.title'),
   icon: 'pi pi-android',
   iconColor: 'green',
-  items: [
-    t('pages.downloadApp.android.list.1'),
-    t('pages.downloadApp.android.list.2'),
-    t('pages.downloadApp.android.list.3'),
-    t('pages.downloadApp.android.list.4'),
-    t('pages.downloadApp.android.list.5'),
-  ],
+  list: [{
+    key: 'minVersion',
+    value: 'Android 6.0',
+  }, {
+    key: 'size',
+    value: '20 MB',
+  }],
+  rating: 4,
 }
 
 const ios = {
   title: t('pages.downloadApp.ios.title'),
   icon: 'pi pi-apple',
   iconColor: 'gray',
-  items: [
-    t('pages.downloadApp.ios.list.1'),
-    t('pages.downloadApp.ios.list.2'),
-    t('pages.downloadApp.ios.list.3'),
-  ],
+  list: [{
+    key: 'minVersion',
+    value: 'iOS 13.0',
+  }, {
+    key: 'size',
+    value: '25 MB',
+  }],
+  rating: 4,
 }
 
 const handleMouseMove = (event) => {
@@ -102,6 +124,8 @@ const handleMouseMove = (event) => {
 
 onMounted(async () => {
   await nextTick()
+
+  isMounted.value = true
 })
 </script>
 

@@ -10,16 +10,16 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="relative group bg-green-50 rounded-xl shadow-lg p-6 animate-fade-in-up transition-all duration-700">
-        <h3 class="text-xl font-bold flex items-center gap-2 text-green-700">
+      <div class="relative group bg-[rgba(0,253,0,0.2)] rounded-xl shadow-lg p-6 animate-fade-in-up transition-all duration-700">
+        <h3 class="text-xl font-bold flex items-center gap-2 text-green-500">
           <i
-            class="pi pi-check-circle text-green-600"
+            class="pi pi-check-circle text-green-500"
             style="font-size: 1.5rem;"
           />
           {{ $t('common.roomCtrl') }}
         </h3>
 
-        <ul class="mt-4 space-y-2 text-green-900 list-disc list-inside">
+        <ul class="mt-4 space-y-2 text-green-600 list-disc list-inside">
           <li>{{ $t('pages.home.goodBadSection.goodSection.intuitive') }}</li>
           <li>{{ $t('pages.home.goodBadSection.goodSection.automatic') }}</li>
           <li>{{ $t('pages.home.goodBadSection.goodSection.support') }}</li>
@@ -37,16 +37,16 @@
       </div>
 
       <div
-        class="relative group bg-red-100 rounded-xl shadow-md p-6 animate-fade-in-up transition-all duration-700 delay-300"
+        class="relative group bg-[rgba(254,0,0,0.2)] rounded-xl shadow-md p-6 animate-fade-in-up transition-all duration-700 delay-300"
       >
-        <h3 class="text-xl font-bold flex items-center gap-2 text-red-700">
+        <h3 class="text-xl font-bold flex items-center gap-2 text-red-500">
           <i
             class="pi pi-times-circle text-red-500"
             style="font-size: 1.5rem"
           />
           {{ $t('pages.home.goodBadSection.badSection.title') }}
         </h3>
-        <ul class="mt-4 space-y-2 text-red-700 list-disc list-inside">
+        <ul class="mt-4 space-y-2 text-red-600 list-disc list-inside">
           <li>{{ $t('pages.home.goodBadSection.badSection.reservations') }}</li>
           <li>{{ $t('pages.home.goodBadSection.badSection.noAutomation') }}</li>
           <li>{{ $t('pages.home.goodBadSection.badSection.noAccess') }}</li>

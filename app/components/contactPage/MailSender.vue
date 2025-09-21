@@ -1,8 +1,8 @@
 <template>
-  <Card class="w-full lg:w-[60vw]">
+  <Card pt:root:class="w-full lg:w-[60vw]">
     <template #content>
       <div class="flex flex-col lg:flex-row gap-10 items-center w-full lg:w-[60vw]">
-        <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] lg:h-[45vh]">
+        <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] lg:h-[45vh] self-start">
           <template #header>
             <p class="font-semibold lg:text-2xl sm:text-xl mx-auto">
               {{ $t('pages.contact.contactDetails.title') }}

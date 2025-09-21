@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center">
     <div class="space-y-12">
-      <Card class="text-center shadow-sm">
+      <Card pt:root:class="text-center shadow-sm">
         <template #content>
           <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">
             {{ $t('pages.contact.title') }}

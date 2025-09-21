@@ -78,15 +78,15 @@ const pagesAboutPlatform = computed(() => [
 
 const pagesResources = computed(() => [
   {
-    name: t('layouts.main.pages.faq'),
+    name: t('layouts.main.pages.faq.title'),
     link: 'faq',
   },
   {
-    name: t('layouts.main.pages.rules'),
+    name: t('layouts.main.pages.rules.title'),
     link: 'rules',
   },
   {
-    name: t('layouts.main.pages.privacyPolicy'),
+    name: t('layouts.main.pages.privacyPolicy.title'),
     link: 'privacyPolicy',
   },
 ])
@@ -107,6 +107,5 @@ h1 {
 
 .footer-list {
   color: white;
-  margin-left: 1.5vh;
 }
 </style>

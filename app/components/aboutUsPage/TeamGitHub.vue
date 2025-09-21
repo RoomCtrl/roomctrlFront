@@ -41,16 +41,17 @@
           </template>
 
           <template #footer>
-            <NuxtLink
-              :to="member.link"
-              target="_blank"
-              class="flex justify-end"
-            >
-              <i
-                class="pi pi-github"
-                style="font-size: 1.7rem"
-              />
-            </NuxtLink>
+            <div class="flex justify-end">
+              <NuxtLink
+                :to="member.link"
+                target="_blank"
+              >
+                <i
+                  class="pi pi-github"
+                  style="font-size: 1.7rem"
+                />
+              </NuxtLink>
+            </div>
           </template>
         </Card>
       </div>

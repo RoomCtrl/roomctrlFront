@@ -1,22 +1,13 @@
 {
   "androidIos": "Android / iOS ",
   "title": "Pobierz aplikacje",
+  "usersRate": "Ocena użytkowników: ",
+  "minVersion": "Minimalna wersja: ",
+  "size": "Rozmiar",
   "android": {
-    "title": "Android",
-    "list": {
-      "1": "Minimalna wersja: Android 6.0",
-      "2": "Rozmiar: 20 MB",
-      "3": "Uprawnienia systemowe (kalendarz, powiadomienia, lokalizacja)",
-      "4": "Obsługa różnych rozdzielczości ekranu",
-      "5": "Tryb ciemny automatyczny (system)"
-    }
+    "title": "Android"
   },
   "ios": {
-    "title": "iOS",
-    "list": {
-      "1": "Minimalna wersja: iOS 13.0",
-      "2": "Rozmiar: 25 MB",
-      "3": "Tryb ciemny iOS"
-    }
+    "title": "iOS"
   }
 }
