@@ -69,25 +69,25 @@ const tabs = computed(() => [
     auth: true,
   },
   {
-    label: 'Dokumentacja',
+    label: t('layouts.main.pages.documentation'),
     auth: true,
     items: [
       {
-        label: t('layouts.main.pages.rules'),
+        label: t('layouts.main.pages.rules.title'),
         route: 'rules',
-        description: 'Poznaj regulamin strony.',
+        description: t('layouts.main.pages.rules.description'),
         auth: true,
       },
       {
-        label: t('layouts.main.pages.privacyPolicy'),
+        label: t('layouts.main.pages.privacyPolicy.title'),
         route: 'privacyPolicy',
-        description: 'Zaponzaj się z naszą polityką prywatności.',
+        description: t('layouts.main.pages.privacyPolicy.description'),
         auth: true,
       },
       {
-        label: t('layouts.main.pages.faq'),
+        label: t('layouts.main.pages.faq.title'),
         route: 'faq',
-        description: 'Najczęsciej zadawane pytania.',
+        description: t('layouts.main.pages.faq.description'),
         auth: true,
       },
     ],
