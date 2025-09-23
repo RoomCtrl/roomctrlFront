@@ -1,0 +1,22 @@
+{
+  "room": "Room no. ",
+  "size": "Room size: ",
+  "capacity": "Capacity: ",
+  "location": "Location: ",
+  "statuses": {
+    "tags": {
+      "available": "Available",
+      "occupied": "Occupied until ",
+      "closed": "Closed"
+    },
+    "roomTitle": {
+      "available": "The room is available",
+      "occupied": "Private reservation",
+      "closed": "The room is temporarily out of service"
+    }
+  },
+  "incoming": {
+    "title": "Upcoming",
+    "noRent": "No upcoming reservations"
+  }
+}

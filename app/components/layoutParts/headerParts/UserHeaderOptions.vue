@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="hidden lg:flex flex-row gap-4">
+    <div class="hidden xl:flex flex-row gap-4">
       <ClientOnly class="flex">
         <template #fallback>
           <Skeleton

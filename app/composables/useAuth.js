@@ -5,7 +5,6 @@ export const useAuth = () => {
   const token = useState('auth.token', () => null)
   const loading = useState('auth.loading', () => false)
   const authService = new AuthService()
-  const localePath = useLocalePath()
 
   const login = async (credentials) => {
     loading.value = true
@@ -20,15 +19,15 @@ export const useAuth = () => {
     }
   }
 
-  const logout = async () => {
+  const logout = async (redirectTo) => {
     loading.value = true
     try {
       await authService.logout(token.value)
       user.value = null
       token.value = null
 
-      if (import.meta.client) {
-        await navigateTo(localePath('/login'))
+      if (import.meta.client && redirectTo) {
+        await navigateTo(redirectTo)
       }
     }
     finally {

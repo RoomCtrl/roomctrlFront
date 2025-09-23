@@ -16,7 +16,12 @@
       "title": "Privacy Policy",
       "description": "How we collect and use your personal data"
     },
-    "downloadApp": "Download App"
+    "downloadApp": "Download App",
+    "roomsArea": "Strefa sal",
+    "roomsList": {
+      "title": "Lista sali",
+      "description": "Znajdź salę dopasowaną do swoich potrzeb – sprawdź dostępność i zarezerwuj"
+    }
   },
   "copyright": "2025 RoomCtrl. All rights reserved.",
   "footer": {

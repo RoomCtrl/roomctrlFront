@@ -107,7 +107,7 @@ const submitForm = handleSubmit(async (formValues: ILoginUser) => {
     resetForm()
 
     if (data.user.firstLogonStatus === true) {
-      await navigateTo('contact')
+      await navigateTo('rooms')
     }
     else {
       await navigateTo('/')

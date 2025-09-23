@@ -1,5 +1,5 @@
 <template>
-  <header class="flex justify-between lg:justify-evenly items-center my-3 max-lg:mx-3">
+  <header class="flex justify-between xl:justify-around items-center my-3 max-xl:mx-3">
     <div class="flex flex-row gap-8">
       <ClientOnly>
         <NuxtLink
@@ -30,7 +30,7 @@
       </ClientOnly>
     </div>
 
-    <div class="hidden lg:flex flex-row gap-5 w-[40rem] justify-center">
+    <div class="hidden xl:flex flex-row w-[40rem] justify-center">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -39,9 +39,11 @@
         <TheDropMenu :tab="tab" />
       </div>
     </div>
-    <UserHeaderOptions :dark-mode="darkMode" />
+    <UserHeaderOptions
+      :dark-mode="darkMode"
+    />
     <div
-      class="block lg:hidden"
+      class="block xl:hidden"
     >
       <MobileHeader :tabs="tabs" />
     </div>
@@ -108,11 +110,13 @@ const tabs = computed(() => [
     auth: true,
   },
   {
-    label: 'Moje sale',
+    label: t('layouts.main.pages.roomsArea'),
     auth: isUserLogin.value,
     items: [
       {
-        label: 'Wszystkie sale',
+        label: t('layouts.main.pages.roomsList.title'),
+        route: 'rooms',
+        description: t('layouts.main.pages.roomsList.description'),
         auth: isUserLogin.value,
       },
     ],
