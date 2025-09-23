@@ -1,0 +1,143 @@
+[
+  {
+    "roomId": 1,
+    "roomName": "201",
+    "status": "occupied",
+    "capacity": 21,
+    "size": "12 m",
+    "currentBooking": {
+      "title": "Spotkanie zespółu do spraw sprzedaży oraz techniczny",
+      "startedAt": "2025-08-11 11:00:00",
+      "endedAt": "2025-08-11 13:30:00",
+      "isPrivate": false
+    },
+    "nextBooking": {
+      "title": "Sprzatanie pomieszczenia",
+      "startedAt": "2025-08-11 14:00:00",
+      "endedAt": "2025-08-11 16:30:00",
+      "isPrivate": false
+    }
+  },
+  {
+    "roomId": 2,
+    "roomName": "202",
+    "status": "occupied",
+    "capacity": 10,
+    "size": "2 m",
+    "currentBooking": {
+      "title": "Spotkanie zespółu do spraw sprzedaży oraz techniczny",
+      "startedAt": "2025-08-11 11:00:00",
+      "endedAt": "2025-08-12 13:30:00",
+      "isPrivate": false
+    },
+    "nextBooking": {
+      "title": "Sprzatanie pomieszczenia",
+      "startedAt": "2025-08-12 14:00:00",
+      "endedAt": "2025-08-13 16:30:00",
+      "isPrivate": false
+    }
+  },
+  {
+    "roomId": 3,
+    "roomName": "201",
+    "status": "closed",
+    "capacity": 21,
+    "size": "23 m"
+  },
+  {
+    "roomId": 4,
+    "roomName": "201",
+    "status": "occupied",
+    "capacity": 21,
+    "size": "2 m",
+    "currentBooking": {
+      "title": "Spotkanie zespółu do spraw sprzedaży oraz techniczny",
+      "startedAt": "2025-08-11 11:00:00",
+      "endedAt": "2025-08-12 13:30:00",
+      "isPrivate": true
+    }
+  },
+  {
+    "roomId": 5,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m",
+    "nextBooking": {
+      "title": "Spotkanie zespółu do spraw sprzedaży oraz techniczny",
+      "startedAt": "2025-08-11 11:00:00",
+      "endedAt": "2025-08-12 13:30:00",
+      "isPrivate": true
+    }
+  },
+  {
+    "roomId": 6,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 7,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 8,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 9,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 10,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 11,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 12,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 13,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 14,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  },
+  {
+    "roomId": 15,
+    "roomName": "201",
+    "status": "avaiable",
+    "capacity": 21,
+    "size": "2 m"
+  }
+]

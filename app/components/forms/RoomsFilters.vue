@@ -7,7 +7,7 @@
           <Chip
             v-for="filter in filters"
             :key="filter.label"
-            severity="info"
+            pt:removeIcon:class="text-white"
             class="flex-none"
             removable
           >
@@ -39,7 +39,7 @@
             Rozmiar
           </h1>
           <div>
-            {{ size }}
+            {{ size[0] + ' - ' + size[1] }}
             <Slider
               v-model="size"
               range
@@ -51,7 +51,7 @@
             Pojemnosc
           </h1>
           <div>
-            {{ capacity }}
+            {{ capacity[0] + ' - ' + capacity[1] }}
             <Slider
               v-model="capacity"
               range

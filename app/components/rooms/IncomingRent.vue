@@ -4,22 +4,19 @@
       <h1
         class="font-medium lg:font-semibold lg:text-lg"
       >
-        Nadchodzące:
+        {{ $t('pages.allRooms.incoming.title') }}
       </h1>
       <StatusBadge
+        v-if="color"
         :color="color"
         :started-at="startedAt"
         :ended-at="endedAt"
       />
     </div>
-    <h2 v-if="!title">
-      Brak nadchodzących rezerwacji
-    </h2>
     <h2
-      v-else
       class="truncate"
     >
-      {{ isPrivate ? 'Prywatna rezerwacja' : title }}
+      {{ isPrivate ? $t('pages.allRooms.statuses.roomTitle.occupied') : title }}
     </h2>
     <div
       v-if="startedAt && endedAt"
@@ -32,10 +29,10 @@
 import StatusBadge from './RentBadge.vue'
 
 defineProps<{
-  title?: string
+  title: string
   startedAt?: string
   endedAt?: string
-  color: string
+  color?: string
   isPrivate?: boolean
 }>()
 </script>

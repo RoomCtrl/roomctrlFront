@@ -10,10 +10,13 @@
         class="flex flex-row gap-1 items-center"
       >
         <h3
-          v-if="endedAt"
+          v-if="current"
           class="text-md"
         >
-          {{ statusText + ' do ' + formatToHoursMinutes(endedAt) }}
+          {{ $t('pages.allRooms.statuses.tags.occupiedTo') + endedTime }}
+        </h3>
+        <h3 v-else>
+          {{ rentTimeRange }}
         </h3>
         <i class="pi pi-clock" />
         <div v-if="startedAt && endedAt && !isRangeTimeToday(startedAt, endedAt)">
@@ -33,7 +36,7 @@
           </div>
           <div class="flex flex-row gap-1 items-center">
             <h4 class="text-end">
-              {{ formatTimeRange(startedAt, endedAt) }}
+              {{ rentTimeRange }}
             </h4>
             <i class="pi pi-clock" />
           </div>
@@ -47,17 +50,31 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   color: string
   startedAt?: string
   endedAt?: string
+  current?: boolean
 }>()
 
-const statusText = computed(() => {
-  if (status === 'out_of_order') return 'Nieczynna'
-  if (status === 'occupied') return 'Zajęta'
-  return 'Dostępna'
-})
-
 const status = inject('roomStatus') as string
+const endedTime = computed(() => {
+  if (props.endedAt) {
+    return formatToHoursMinutes(props.endedAt)
+  }
+  return ''
+})
+const rentTimeRange = computed(() => {
+  if (props.endedAt && props.startedAt) {
+    return formatTimeRange(props.startedAt, props.endedAt)
+  }
+  return ''
+})
+const { t } = useI18n()
+
+const statusText = computed(() => {
+  if (status === 'closed') return t('pages.allRooms.statuses.tags.closed')
+  if (status === 'occupied') return t('pages.allRooms.statuses.tags.occupied')
+  return t('pages.allRooms.statuses.tags.available')
+})
 </script>

@@ -5,8 +5,8 @@
     <CurrentRentInfo
       :capacity="room.capacity"
       :size="room.size"
-      :room-name="room.room_name"
-      :current-booking="room.current_booking"
+      :room-name="room.roomName"
+      :current-booking="room.currentBooking"
       :show-more-info="showItem"
       :animate="animationClass"
     />
@@ -22,29 +22,39 @@
     >
       <template #header>
         <div
-          v-if="room.status !== 'out_of_order'"
           class="flex flex-row justify-between items-center gap-2 w-full"
         >
-          <h1
-            v-if="!room.current_booking.isPrivate"
-            v-tooltip.bottom="{
-              value: room.current_booking.title,
-              pt: {
-                root: 'max-w-[20rem]',
-                text: 'text-center',
-              },
-            }"
-            :class="{ 'blur-sm': animationClass === 'show' }"
-            class="text-lg lg:text-xl font-semibold lg:truncate"
+          <div
+            v-if="room.status !== 'closed' && room.currentBooking"
+            class="w-[90%]"
           >
-            {{ currentEvent }}
-          </h1>
+            <h1
+              v-if="!room.currentBooking.isPrivate"
+              v-tooltip.bottom="{
+                value: room.currentBooking.title,
+                pt: {
+                  root: 'max-w-[20rem]',
+                  text: 'text-center',
+                },
+              }"
+              :class="{ 'blur-sm': animationClass === 'show' }"
+              class="text-lg lg:text-xl font-semibold lg:truncate"
+            >
+              {{ room.currentBooking.title }}
+            </h1>
+            <h1
+              v-else-if="room.currentBooking"
+              :class="{ 'blur-sm': animationClass === 'show' }"
+              class="text-xl font-semibold truncate"
+            >
+              {{ $t('pages.allRooms.statuses.roomTitle.occupied') }}
+            </h1>
+          </div>
           <h1
             v-else
-            :class="{ 'blur-sm': animationClass === 'show' }"
-            class="text-xl font-semibold truncate"
+            class="text-xl font-semibold"
           >
-            Prywatna rezerwacja
+            {{ $t('pages.allRooms.statuses.roomTitle.available') }}
           </h1>
           <div class="hidden lg:block">
             <i
@@ -59,18 +69,22 @@
 
       <template #subtitle>
         <IncomingRent
-          v-if="room.status !== 'out_of_order'"
-          :title="room.next_booking.title"
-          :started-at="room.next_booking.startedAt"
-          :ended-at="room.next_booking.endedAt"
-          :is-private="room.next_booking.isPrivate"
+          v-if="room.status !== 'closed' && room.nextBooking"
+          :title="room.nextBooking.title"
+          :started-at="room.nextBooking.startedAt"
+          :ended-at="room.nextBooking.endedAt"
+          :is-private="room.nextBooking.isPrivate"
           color="info"
+        />
+        <IncomingRent
+          v-else-if="room.status !== 'closed'"
+          :title="noRentIncomingTitle"
         />
         <div
           v-else
           class="h-full text-center m-auto flex text-2xl font-black"
         >
-          Sala tymczasowo wyłączona z użytku
+          {{ $t('pages.allRooms.statuses.roomTitle.closed') }}
         </div>
       </template>
     </Card>
@@ -78,31 +92,31 @@
 </template>
 
 <script setup lang="ts">
+import type { IRoomCard } from '~/interfaces/RoomsIntefaces'
 import CurrentRentInfo from './CurrentRentInfo.vue'
 import IncomingRent from './IncomingRent.vue'
 
 const props = defineProps<{
-  room: IRoomAvailability
+  room: IRoomCard
 }>()
+const { t } = useI18n()
+const noRentIncomingTitle = t('pages.allRooms.incoming.noRent')
+const animationClass = ref('')
+const showItem = ref(false)
 
 provide('roomStatus', props.room.status)
 
-const currentEvent = computed(() => {
-  return props.room.current_booking.title ? props.room.current_booking.title : statusResponse
-})
-const showItem = ref(false)
 const statusColor = computed(() => {
   const map: Record<string, string> = {
-    avaiable: 'bg-green-600', // zielony
-    occupied: 'bg-red-600', // czerwony
-    out_of_order: 'bg-yellow-600', // żółty
+    avaiable: 'bg-green-600',
+    occupied: 'bg-red-600',
+    closed: 'bg-yellow-600',
   }
   return map[props.room.status] || map.default
 })
-const animationClass = ref('')
 
 const playShow = () => {
-  animationClass.value = '' // usuń poprzednią animację
+  animationClass.value = ''
   requestAnimationFrame(() => {
     animationClass.value = 'show'
   })
@@ -114,21 +128,4 @@ const playHide = () => {
     animationClass.value = 'hide'
   })
 }
-const statusResponse = computed(() => {
-  if (props.room.status === 'out_of_order') return 'Sala tymczasowo wyłączona z użytku'
-  if (props.room.status === 'occupied') return 'Sala jest zajęta'
-  return 'Sala jest dostępna'
-})
 </script>
-
-<style scoped>
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-</style>

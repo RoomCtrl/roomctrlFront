@@ -1,0 +1,23 @@
+{
+  "room": "Sala nr. ",
+  "size": "Rozmiar sali: ",
+  "capacity": "Pojemność: ",
+  "location": "Lokalizacja: ",
+  "statuses": {
+    "tags": {
+      "available": "Dostępna",
+      "occupiedTo": "Zajęta do ",
+      "occupiedBetween": "{startedAt} - {endedAt} ",
+      "closed": "Nieczynna"
+    },
+    "roomTitle": {
+      "available": "Sala jest dostępna",
+      "occupied": "Prywatna rezerwacja",
+      "closed": "Sala tymczasowo wyłączona z użytku"
+    }
+  },
+  "incoming": {
+    "title": "Nadchodzące",
+    "noRent": "Brak nadchodzących rezerwacji"
+  }
+}
