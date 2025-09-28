@@ -1,9 +1,18 @@
 <template>
-  <div class="w-full flex items-center py-[1vh] px-[2vw]">
-    <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8 w-full">
+  <div class="grid grid-cols-2 md:grid-cols-2 2xl:grid-cols-3 gap-8 py-[2vh] px-[2vw]">
+    <div
+      v-for="(room, index) in rooms"
+      :key="room.room_number + '-' + index"
+      class=" w-full"
+    >
+      <NuxtLink
+        v-if="room.status != 'closed'"
+        :to="'rooms/' + room.roomId"
+      >
+        <RoomCard :room="room" />
+      </NuxtLink>
       <RoomCard
-        v-for="(room, index) in rooms"
-        :key="room.room_number + '-' + index"
+        v-else
         :room="room"
       />
     </div>

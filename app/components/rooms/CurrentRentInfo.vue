@@ -16,16 +16,15 @@
           class="flex-none"
           :current="true"
           :color="badgeColor"
-          :status="status"
           :started-at="currentBooking.startedAt"
           :ended-at="currentBooking.endedAt"
+          size="sm"
         />
         <RentBadge
           v-else
           class="flex-none"
           :current="true"
-          :color="badgeColor"
-          :status="status"
+          size="sm"
         />
       </div>
     </div>
@@ -69,7 +68,7 @@ defineProps<{
 const colorMode = useColorMode()
 const isReady = ref(false)
 
-const status = inject('roomStatus') as string
+const roomStatus = inject<ComputedRef<string>>('roomStatus')
 
 const isDarkMode = computed(() => {
   if (!isReady.value) return false
@@ -77,28 +76,28 @@ const isDarkMode = computed(() => {
 })
 const statusColor = computed(() => {
   const lightMap: Record<string, string> = {
-    avaiable: 'bg-green-600',
+    available: 'bg-green-600',
     occupied: 'bg-red-600',
     closed: 'bg-yellow-600',
   }
 
   const darkMap: Record<string, string> = {
-    avaiable: 'bg-green-950',
+    available: 'bg-green-950',
     occupied: 'bg-red-950',
     closed: 'bg-yellow-950',
   }
 
   const currentMap = isDarkMode.value ? darkMap : lightMap
-  return currentMap[status] || lightMap.avaiable
+  return currentMap[roomStatus!.value] || lightMap.available
 })
 
 const badgeColor = computed(() => {
   const map: Record<string, string> = {
-    avaiable: 'success',
+    available: 'success',
     occupied: 'error',
     closed: 'warn',
   }
-  return map[status]
+  return map[roomStatus!.value]
 })
 
 onMounted(() => {

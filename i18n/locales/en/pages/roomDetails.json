@@ -1,0 +1,53 @@
+{
+  "buttons": {
+    "rentNow": "Book now",
+    "addFavorite": "Add to favorites"
+  },
+  "detailedInfo": {
+    "title": "Room information: ",
+    "parameters": {
+      "airConditioning": "Air conditioning: ",
+      "lighting": "Lighting: ",
+      "access": "Room access: "
+    },
+    "accessMethod": {
+      "magneticCard": "Magnetic card",
+      "pin": "PIN code",
+      "key": "Regular key"
+    }
+  },
+  "equipment": {
+    "title": "Equipment: "
+  },
+  "currentMeet": {
+    "title": "Current meeting: ",
+    "participants": "{participants} participants"
+  },
+  "upcomingMeetings": {
+    "title": "Upcoming meetings: ",
+    "none": "No upcoming meetings"
+  },
+  "weekCalendar": {
+    "title": "Current Week Calendar:",
+    "meetingTyp": "Type: {type}",
+    "participants": "Participants: ",
+    "public": "Public",
+    "private": "Private",
+    "availableRoom": "Room available for booking"
+  },
+  "cleaning": {
+    "title": "Cleaning",
+    "last": "Last: ",
+    "next": "Next: "
+  },
+  "maintenance": {
+    "title": "Maintenance",
+    "planned": "Planned: "
+  },
+  "contact": {
+    "title": "Contact",
+    "phone": "Tel: +48 123 456 789",
+    "insidePhone": "Extension tel: 2247",
+    "email": "Email: "
+  }
+}

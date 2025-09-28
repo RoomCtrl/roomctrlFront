@@ -1,0 +1,53 @@
+{
+  "buttons": {
+    "rentNow": "Zarezerwuj teraz",
+    "addFavorite": "Dodaj do ulubinych"
+  },
+  "detailedInfo": {
+    "title": "Informacje o sali: ",
+    "parameters": {
+      "airConditioning": "Klimatyzacja: ",
+      "lighting": "Oświetlenie: ",
+      "access": "Dostęp do sali: "
+    },
+    "accessMethod": {
+      "magneticCard": "Karta magnetyczna",
+      "pin": "Kod PIN",
+      "key": "Zwykły klucz"
+    }
+  },
+  "equipment": {
+    "title": "Wyposażenie: "
+  },
+  "currentMeet": {
+    "title": "Aktualne spotkanie: ",
+    "participants": "{participants} uczestników"
+  },
+  "upcomingMeetings": {
+    "title": "Nadchodzące spotkania: ",
+    "none": "Brak nadchodzących spoktań"
+  },
+  "weekCalendar": {
+    "title": "Kalendarz bieżącego tygodnia:",
+    "meetingTyp": "Typ: {type}",
+    "participants": "Uczestnicy: ",
+    "public": "Publiczne",
+    "private": "Prywatne",
+    "availableRoom": "Sala dostępna do rezerwacji"
+  },
+  "cleaning": {
+    "title": "Sprzątanie",
+    "last": "Ostatnie: ",
+    "next": "Następne: "
+  },
+  "maintenance": {
+    "title": "Konserwacja",
+    "planned": "Planowana: "
+  },
+  "contact": {
+    "title": "Kontakt",
+    "phone": "Tel: +48 123 456 789",
+    "insidePhone": "Wewnętrzny tel: 2247",
+    "email": "Email: "
+  }
+}
