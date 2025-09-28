@@ -6,7 +6,8 @@
   "statuses": {
     "tags": {
       "available": "Available",
-      "occupied": "Occupied until ",
+      "occupiedTo": "Occupied until ",
+      "occupiedBetween": "{startedAt} - {endedAt}",
       "closed": "Closed"
     },
     "roomTitle": {

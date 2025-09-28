@@ -7,10 +7,10 @@
         {{ $t('pages.allRooms.incoming.title') }}
       </h1>
       <StatusBadge
-        v-if="color"
-        :color="color"
+        :info-type="true"
         :started-at="startedAt"
         :ended-at="endedAt"
+        size="sm"
       />
     </div>
     <h2

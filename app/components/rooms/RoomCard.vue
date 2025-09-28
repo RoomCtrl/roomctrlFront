@@ -1,7 +1,6 @@
 <template>
-  <div
-    class="flex rounded-2xl flex-col justify-end h-full"
-  >
+  <div class="flex rounded-2xl flex-col justify-end h-full">
+    {{ available }}
     <CurrentRentInfo
       :capacity="room.capacity"
       :size="room.size"
@@ -17,7 +16,7 @@
       pt:body:class="h-full"
       pt:body:style="--p-card-body-padding: 0.25rem 1.25rem"
       :pt:subtitle:class="['h-full', { 'blur-sm': animationClass === 'show' }]"
-      pt:caption:class="flex flex-col justify-around lg:justify-between h-full"
+      pt:caption:class="flex flex-col h-full"
       :style="{ borderColor: statusColor }"
     >
       <template #header>
@@ -25,11 +24,11 @@
           class="flex flex-row justify-between items-center gap-2 w-full"
         >
           <div
-            v-if="room.status !== 'closed' && room.currentBooking"
+            v-if="room.status !== 'closed'"
             class="w-[90%]"
           >
             <h1
-              v-if="!room.currentBooking.isPrivate"
+              v-if="room.currentBooking && !room.currentBooking.isPrivate"
               v-tooltip.bottom="{
                 value: room.currentBooking.title,
                 pt: {
@@ -49,14 +48,15 @@
             >
               {{ $t('pages.allRooms.statuses.roomTitle.occupied') }}
             </h1>
+            <h1
+              v-else
+              class="text-xl font-semibold"
+            >
+              {{ $t('pages.allRooms.statuses.roomTitle.available') }}
+            </h1>
           </div>
-          <h1
-            v-else
-            class="text-xl font-semibold"
-          >
-            {{ $t('pages.allRooms.statuses.roomTitle.available') }}
-          </h1>
-          <div class="hidden lg:block">
+          <div v-else />
+          <div class="hidden lg:block flex">
             <i
               class="pi pi-info-circle"
               style="font-size: 1.25rem;"
@@ -69,12 +69,11 @@
 
       <template #subtitle>
         <IncomingRent
-          v-if="room.status !== 'closed' && room.nextBooking"
-          :title="room.nextBooking.title"
-          :started-at="room.nextBooking.startedAt"
-          :ended-at="room.nextBooking.endedAt"
-          :is-private="room.nextBooking.isPrivate"
-          color="info"
+          v-if="room.status !== 'closed' && firstNextBooking"
+          :title="firstNextBooking.title"
+          :started-at="firstNextBooking.startedAt"
+          :ended-at="firstNextBooking.endedAt"
+          :is-private="firstNextBooking.isPrivate"
         />
         <IncomingRent
           v-else-if="room.status !== 'closed'"
@@ -103,8 +102,16 @@ const { t } = useI18n()
 const noRentIncomingTitle = t('pages.allRooms.incoming.noRent')
 const animationClass = ref('')
 const showItem = ref(false)
-
-provide('roomStatus', props.room.status)
+const firstNextBooking = computed(() => {
+  if (props.room.nextBookings) {
+    return props.room.nextBookings[0]
+  }
+  else {
+    return false
+  }
+})
+const status = computed(() => props.room.status)
+provide('roomStatus', status)
 
 const statusColor = computed(() => {
   const map: Record<string, string> = {

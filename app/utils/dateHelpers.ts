@@ -52,6 +52,28 @@ export const formatDateRange = (startedAt: string, endedAt: string) => {
 }
 
 export const isRangeTimeToday = (startedAt: string, endedAt: string) => {
+  const today = new Date()
+  const todayDay = today.getDate()
+  const todayMonth = today.getMonth()
+  const todayYear = today.getFullYear()
+
+  const start = new Date(startedAt)
+  const end = new Date(endedAt)
+
+  const isStartToday
+    = start.getDate() === todayDay
+      && start.getMonth() === todayMonth
+      && start.getFullYear() === todayYear
+
+  const isEndToday
+    = end.getDate() === todayDay
+      && end.getMonth() === todayMonth
+      && end.getFullYear() === todayYear
+
+  return isStartToday && isEndToday
+}
+
+export const isRangeSameDay = (startedAt: string, endedAt: string) => {
   const startDay = formatToDay(startedAt)
   const startMonth = formatToMonth(startedAt)
   const endDay = formatToDay(endedAt)
@@ -59,3 +81,23 @@ export const isRangeTimeToday = (startedAt: string, endedAt: string) => {
 
   return startDay === endDay && startMonth === endMonth
 }
+
+export const dayOfWeekFullNames = [
+  'common.dayNames.Monday',
+  'common.dayNames.Tuesday',
+  'common.dayNames.Wednesday',
+  'common.dayNames.Thursday',
+  'common.dayNames.Friday',
+  'common.dayNames.Saturday',
+  'common.dayNames.Sunday',
+]
+
+export const dayOfWeekShortNames = [
+  'common.shortdayNames.Monday',
+  'common.shortdayNames.Tuesday',
+  'common.shortdayNames.Wednesday',
+  'common.shortdayNames.Thursday',
+  'common.shortdayNames.Friday',
+  'common.shortdayNames.Saturday',
+  'common.shortdayNames.Sunday',
+]

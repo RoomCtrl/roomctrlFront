@@ -1,6 +1,15 @@
 <template>
   <NuxtLayout>
-    <NuxtPage />
+    <ClientOnly>
+      <template #default>
+        <NuxtPage />
+      </template>
+      <template #fallback>
+        <div class="flex items-center justify-center min-h-[60vh]">
+          <ProgressSpinner />
+        </div>
+      </template>
+    </ClientOnly>
   </NuxtLayout>
 </template>
 
