@@ -30,7 +30,7 @@
     </div>
     <Message
       pt:root:class="mx-2 rounded-lg lg:text-center"
-      pt:text:class="flex flex-col justify-start lg:grid lg:grid-cols-2 lg:gap-y-1 w-full"
+      pt:text:class="grid grid-cols-2 gap-1 gap-x-4 w-full"
       :severity="badgeColor"
     >
       <div class="flex flex-row items-center gap-2 lg:m-auto text-sm">

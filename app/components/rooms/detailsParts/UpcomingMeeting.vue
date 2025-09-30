@@ -1,7 +1,7 @@
 <template>
   <Card
     pt:body:class="h-full"
-    pt:content:class="h-full flex justify-center"
+    pt:content:class="h-full"
   >
     <template #title>
       <h1 class="text-2xl font-semibold pb-4">

@@ -1,6 +1,5 @@
 <template>
   <div class="flex rounded-2xl flex-col justify-end h-full">
-    {{ available }}
     <CurrentRentInfo
       :capacity="room.capacity"
       :size="room.size"

@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 md:grid-cols-2 2xl:grid-cols-3 gap-8 py-[2vh] px-[2vw]">
+  <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8 py-[2vh] px-[2vw]">
     <div
       v-for="(room, index) in rooms"
       :key="room.room_number + '-' + index"

@@ -41,7 +41,8 @@
   </Card>
   <Card
     v-else
-    pt:root:class="border-l-4 border-amber-600 bg-amber-200/80 text-amber-900"
+    pt:root:class="border-l-4 border-amber-600 overflow-hidden"
+    pt:body:class="bg-amber-200/80 text-amber-900 w-full h-full"
     pt:content:class="text-lg font-extrabold"
   >
     <template #content>
