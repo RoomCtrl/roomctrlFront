@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/i18n',
     '@nuxtjs/color-mode',
+    '@hypernym/nuxt-anime',
   ],
   devtools: { enabled: true },
   app: {

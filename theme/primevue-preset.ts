@@ -142,6 +142,20 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
+    datepicker: {
+      colorScheme: {
+        dark: {
+          date: {
+            rangeSelectedBackground: '{surface.250}',
+          },
+        },
+        light: {
+          date: {
+            rangeSelectedBackground: '{surface.100}',
+          },
+        },
+      },
+    },
     dialog: {
       colorScheme: {
         dark: {

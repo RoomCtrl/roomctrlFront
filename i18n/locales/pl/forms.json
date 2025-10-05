@@ -1,4 +1,13 @@
 {
+  "filters": {
+    "title": "Filtrowanie",
+    "fields": {
+      "rentTitle": "Tytuł rezerwacji",
+      "rentStatus": "Status",
+      "rentDateRange": "Zakres dni"
+    },
+    "search": "Szukaj"
+  },
   "titles": {
     "contactForm": "Formularz kontaktowy",
     "loginForm": "Logowanie"

@@ -21,6 +21,10 @@
     "roomsList": {
       "title": "Lista sali",
       "description": "Znajdź salę dopasowaną do swoich potrzeb – sprawdź dostępność i zarezerwuj"
+    },
+    "reservationHistory": {
+      "title": "Moja historia",
+      "description": "Tu znajduję się historia twoich rezerwacji."
     }
   },
   "copyright": "2025 RoomCtrl. Wszystkie prawa zastrzeżone.",

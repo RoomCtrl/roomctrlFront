@@ -17,10 +17,14 @@
       "description": "How we collect and use your personal data"
     },
     "downloadApp": "Download App",
-    "roomsArea": "Strefa sal",
+    "roomsArea": "Rooms area",
     "roomsList": {
-      "title": "Lista sali",
-      "description": "Znajdź salę dopasowaną do swoich potrzeb – sprawdź dostępność i zarezerwuj"
+      "title": "Room list",
+      "description": "Find a room that suits your needs – check availability and book"
+    },
+    "reservationHistory": {
+      "title": "My history",
+      "description": "Here is the history of your reservations."
     }
   },
   "copyright": "2025 RoomCtrl. All rights reserved.",

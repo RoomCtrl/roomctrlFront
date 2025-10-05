@@ -1,0 +1,21 @@
+{
+  "incomingRent": "My upcoming reservations:",
+  "completedRent": "Completed reservations:",
+  "rentTitle": "Reservation title: ",
+  "rentStart": "Start: ",
+  "rentEnd": "End: ",
+  "rentStatus": "Status: ",
+  "participants": "Participants: ",
+  "roomName": "Room name: ",
+  "participantsNumber": "{number} participants",
+  "details": "Details",
+  "statuses": {
+    "all": "All",
+    "planned": "Planned",
+    "cancelled": "Cancelled",
+    "ended": "Ended",
+    "toApprove": "To approve"
+  },
+  "noRent": "No reservations",
+  "comeToRoom": "Go to room"
+}

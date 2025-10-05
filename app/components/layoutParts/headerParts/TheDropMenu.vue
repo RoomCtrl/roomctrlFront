@@ -52,11 +52,11 @@
       <div
         v-for="item in tab.items"
         :key="item.label"
-        class="group cursor-pointer "
+        class="group cursor-pointer"
       >
         <NuxtLink
           :to="localePath(item.route)"
-          class="p-card-link block p-3 rounded-lg transition-all duration-200 hover:bg-gray-50 border border-transparent hover:border-gray-200 "
+          class="p-card-link block p-3 rounded-lg transition-all duration-200 hover:bg-gray-50 border border-transparent hover:border-gray-200 h-full"
           exact-active-class="bg-[#D74141]/20 border-[#D74141]/20"
           @click="hideDropDown"
         >

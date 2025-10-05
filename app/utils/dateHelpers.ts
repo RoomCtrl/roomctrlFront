@@ -28,6 +28,16 @@ export const formatToDayMonth = (timestampStr: string): string => {
   return `${day}.${month}`
 }
 
+export const formatToTimeAndDate = (timestampStr: string): string => {
+  const date = new Date(timestampStr.replace(' ', 'T'))
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+  const hours = date.getHours().toString().padStart(2, '0')
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+
+  return `${hours}:${minutes} ${day}.${month}`
+}
+
 export const formatTimeRange = (startedAt: string, endedAt: string) => {
   const startTime = formatToHoursMinutes(startedAt)
   const endTime = formatToHoursMinutes(endedAt)
@@ -80,6 +90,13 @@ export const isRangeSameDay = (startedAt: string, endedAt: string) => {
   const endMonth = formatToMonth(endedAt)
 
   return startDay === endDay && startMonth === endMonth
+}
+
+export const isEarlierThanNow = (dateString: string): boolean => {
+  const inputDate = new Date(dateString)
+  const now = new Date()
+
+  return inputDate < now
 }
 
 export const dayOfWeekFullNames = [
