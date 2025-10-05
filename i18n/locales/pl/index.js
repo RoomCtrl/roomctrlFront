@@ -2,7 +2,7 @@ import main from './layouts/main.json'
 import common from './common.json'
 import forms from './forms.json'
 import services from './services.json'
-import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails } from './pages'
+import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails, reservationsHistory } from './pages'
 
 export default () => ({
   common,
@@ -19,6 +19,7 @@ export default () => ({
     downloadApp,
     allRooms,
     roomDetails,
+    reservationsHistory,
   },
   layouts: {
     main,

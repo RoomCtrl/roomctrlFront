@@ -6,7 +6,8 @@
   "logoAlt": "Logo RoomCtrl",
   "buttons": {
     "logIn": "Zaloguj się",
-    "logOut": "Wyloguj się"
+    "logOut": "Wyloguj się",
+    "filter": "Filtruj"
   },
   "roomParameters": {
     "capacity": "Pojemność: ",

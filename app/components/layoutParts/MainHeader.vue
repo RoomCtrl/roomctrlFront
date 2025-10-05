@@ -67,7 +67,7 @@ const isUserLogin = computed(() => {
 const tabs = computed(() => [
   {
     label: t('layouts.main.pages.howThisWork'),
-    route: 'howThisWork',
+    route: '/howThisWork',
     auth: true,
   },
   {
@@ -76,19 +76,19 @@ const tabs = computed(() => [
     items: [
       {
         label: t('layouts.main.pages.rules.title'),
-        route: 'rules',
+        route: '/rules',
         description: t('layouts.main.pages.rules.description'),
         auth: true,
       },
       {
         label: t('layouts.main.pages.privacyPolicy.title'),
-        route: 'privacyPolicy',
+        route: '/privacyPolicy',
         description: t('layouts.main.pages.privacyPolicy.description'),
         auth: true,
       },
       {
         label: t('layouts.main.pages.faq.title'),
-        route: 'faq',
+        route: '/faq',
         description: t('layouts.main.pages.faq.description'),
         auth: true,
       },
@@ -96,17 +96,17 @@ const tabs = computed(() => [
   },
   {
     label: t('layouts.main.pages.aboutUs'),
-    route: 'aboutUs',
+    route: '/aboutUs',
     auth: true,
   },
   {
     label: t('layouts.main.pages.contact'),
-    route: 'contact',
+    route: '/contact',
     auth: true,
   },
   {
     label: t('layouts.main.pages.downloadApp'),
-    route: 'downloadApp',
+    route: '/downloadApp',
     auth: true,
   },
   {
@@ -115,8 +115,14 @@ const tabs = computed(() => [
     items: [
       {
         label: t('layouts.main.pages.roomsList.title'),
-        route: 'rooms',
+        route: '/rooms',
         description: t('layouts.main.pages.roomsList.description'),
+        auth: isUserLogin.value,
+      },
+      {
+        label: t('layouts.main.pages.reservationHistory.title'),
+        route: '/reservations/history',
+        description: t('layouts.main.pages.reservationHistory.description'),
         auth: isUserLogin.value,
       },
     ],
