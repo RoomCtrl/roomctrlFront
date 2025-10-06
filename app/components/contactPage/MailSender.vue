@@ -4,14 +4,14 @@
       <div class="flex flex-col lg:flex-row gap-10 items-center w-full lg:w-[60vw]">
         <Panel class="flex-none w-full shadow-md text-xl sm:text-2xl lg:w-[17vw] lg:h-[45vh] self-start">
           <template #header>
-            <p class="font-semibold lg:text-2xl sm:text-xl mx-auto">
+            <p class="font-semibold lg:text-2xl sm:text-xl">
               {{ $t('pages.contact.contactDetails.title') }}
             </p>
           </template>
           <div
             v-for="contactDetail in contactUsDetails"
             :key="contactDetail.label"
-            class="text-sm sm:text-base px-[1vw] py-[1vh] text-left"
+            class="text-sm sm:text-base py-[1vh] text-left"
           >
             <div class="flex flex-row items-center gap-2">
               <i :class="contactDetail.icon" />

@@ -6,7 +6,7 @@ interface Reservation {
   startedAt: string
   endedAt: string
   status: ReservationStatus
-  roomId: number // od 1 do 15
+  roomId: number
   participants: number
 }
 

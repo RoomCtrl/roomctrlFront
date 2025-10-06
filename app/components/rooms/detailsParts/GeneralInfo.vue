@@ -8,7 +8,7 @@
         <RentBadge
           :started-at="startedAt"
           :ended-at="endedAt"
-          :current="true"
+          :info-type="false"
           size="lg"
         />
       </div>

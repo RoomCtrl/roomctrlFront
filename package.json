@@ -41,6 +41,7 @@
     "@types/animejs": "^3.1.13",
     "@vee-validate/nuxt": "^4.15.1",
     "eslint-plugin-json": "^4.0.1",
+    "nuxt-qrcode": "^0.4.8",
     "prettier": "^3.6.2"
   }
 }

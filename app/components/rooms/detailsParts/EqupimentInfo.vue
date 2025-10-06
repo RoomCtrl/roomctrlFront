@@ -6,16 +6,19 @@
     :toggleable="isMobile"
   >
     <Card
-      v-for="equipment in equpiments"
-      :key="equipment.name"
+      v-for="equipment in paddedEquipments"
+      :key="equipment.name || Math.random()"
       pt:root:class="overflow-hidden"
       pt:body:class="bg-gray-500/20"
     >
       <template #content>
-        <div class="flex flex-row gap-2 items-center">
-          <i :class="equipmentIcon(equipment.category)" />
+        <div
+          class="flex flex-row gap-2 items-center"
+          :class="{ 'opacity-30': !equipment.name }"
+        >
+          <i :class="equipment.name ? equipmentIcon(equipment.category) : 'pi pi-inbox'" />
           <h1 class="truncate">
-            {{ equipment.quantity + 'x ' + equipment.name }}
+            {{ equipment.name ? equipment.quantity + 'x ' + equipment.name : $t('pages.roomDetails.equipment.empty') }}
           </h1>
         </div>
       </template>
@@ -24,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   equpiments: [{
     name: string
     category: string
@@ -42,6 +45,14 @@ const equipmentIcon = (equpiment: string) => {
     }
   }
 }
+
+const paddedEquipments = computed(() => {
+  const arr = [...props.equpiments]
+  while (arr.length < 8) {
+    arr.push({ name: '', quantity: 0, category: 'empty' })
+  }
+  return arr
+})
 
 const isMobile = ref(false)
 

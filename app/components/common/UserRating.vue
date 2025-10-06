@@ -1,5 +1,8 @@
 <template>
-  <div class="flex items-center gap-2">
+  <div
+    v-tooltip.bottom="ratingHint"
+    class="flex items-center gap-2"
+  >
     <span
       v-for="i in max"
       :key="i"
@@ -17,10 +20,12 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   max: number
   rateValue: number
 }>()
+
+const ratingHint = props.rateValue + '/5'
 </script>
 
 <style scoped>

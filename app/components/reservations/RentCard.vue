@@ -156,6 +156,9 @@ const toggleDetails = () => {
 </script>
 
 <style scoped>
+.light .p-card {
+  background-color: var(--p-gray-100);
+}
 h3 {
   font-size: 0.9rem;
   font-weight: 600;

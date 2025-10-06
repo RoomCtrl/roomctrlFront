@@ -4,6 +4,7 @@
   "usersRate": "User rating: ",
   "minVersion": "Minimum version: ",
   "size": "Size: ",
+  "copy": "Copy",
   "android": {
     "title": "Android"
   },

@@ -10,7 +10,7 @@
     />
 
     <Card
-      pt:root:class="max-sm:rounded-t flex-grow lg:-mr-6 -my-1 z-10"
+      pt:root:class="max-sm:rounded-t flex-grow -my-1 z-10"
       pt:header:class="py-2 px-3"
       pt:body:class="h-full"
       pt:body:style="--p-card-body-padding: 0.25rem 1.25rem"
@@ -55,7 +55,10 @@
             </h1>
           </div>
           <div v-else />
-          <div class="hidden lg:block flex">
+          <div
+            v-if="status != 'closed'"
+            class="hidden lg:block flex"
+          >
             <i
               class="pi pi-info-circle"
               style="font-size: 1.25rem;"
