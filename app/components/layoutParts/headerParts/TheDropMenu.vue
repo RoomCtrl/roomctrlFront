@@ -20,7 +20,8 @@
     <div class="flex items-center gap-2">
       {{ tab.label }}
       <i
-        class="text-sm transition-transform duration-200"
+        class="transition-transform duration-200"
+        style="font-size:0.875rem ;"
         :class="{
           'pi pi-angle-up': arrowPosition,
           'pi pi-angle-down': !arrowPosition,
@@ -64,7 +65,10 @@
             <h3 class="font-semibold group-hover:text-[#D74141] transition-colors duration-200">
               {{ item.label }}
             </h3>
-            <i class="pi pi-arrow-right text-xs text-[#D74141] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            <i
+              class="pi pi-arrow-right text-[#D74141] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              style="font-size: 0.75rem;"
+            />
           </div>
 
           <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed">

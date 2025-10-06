@@ -1,8 +1,8 @@
 <template>
   <Message
     v-if="customColor"
-    :pt:root:class="color"
-    pt:root:style="--p-message-border-radius: 1.5rem"
+    :pt:root:style="color"
+
     pt:content:style="--p-message-content-padding: 0.25rem 0.5rem "
   >
     <div

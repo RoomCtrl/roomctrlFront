@@ -34,7 +34,8 @@
     <Message
       severity="info"
       class="custom-message"
-      :pt:root:class="[statusBadgeColor, 'mx-2 rounded-lg lg:text-center overflow-hidden']"
+      :pt:root:style="statusBadgeColor"
+      :pt:root:class="'mx-2 rounded-lg lg:text-center overflow-hidden'"
       pt:text:class="grid grid-cols-2 gap-1 gap-x-4 w-full "
     >
       <div class="flex flex-row items-center gap-2 lg:m-auto text-sm">
@@ -92,14 +93,14 @@ const statusColor = computed(() => {
 
 const statusBadgeColor = computed(() => {
   const lightMap: Record<string, string> = {
-    available: 'bg-green-800 outline-green-800 text-green-200',
-    occupied: 'bg-red-800 outline-red-800 text-red-200',
-    closed: 'bg-yellow-800 outline-yellow-800 text-yellow-200',
+    available: '--p-message-info-background: var(--p-green-800); --p-message-info-border-color: var(--p-green-800); --p-message-info-color: var(--p-green-200)',
+    occupied: '--p-message-info-background: var(--p-red-800); --p-message-info-border-color: var(--p-red-800); --p-message-info-color: var(--p-red-200)',
+    closed: '--p-message-info-background: var(--p-yellow-800); --p-message-info-border-color: var(--p-yellow-800); --p-message-info-color: var(--p-yellow-200)',
   }
   const darkMap: Record<string, string> = {
-    available: 'bg-green-950 outline-green-950 text-green-400',
-    occupied: 'bg-red-950 outline-red-950 text-red-400',
-    closed: 'bg-yellow-950 outline-yellow-950 text-yellow-400',
+    available: '--p-message-info-background: var(--p-green-950); --p-message-info-border-color: var(--p-green-950); --p-message-info-color: var(--p-green-400)',
+    occupied: '--p-message-info-background: var(--p-red-950); --p-message-info-border-color: var(--p-red-950); --p-message-info-color: var(--p-red-400)',
+    closed: '--p-message-info-background: var(--p-yellow-950); --p-message-info-border-color: var(--p-yellow-950); --p-message-info-color: var(--p-yellow-400)',
   }
   const currentMap = isDarkMode.value ? darkMap : lightMap
   return currentMap[roomStatus!.value] || lightMap.available

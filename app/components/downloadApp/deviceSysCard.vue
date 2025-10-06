@@ -79,7 +79,7 @@
         </div>
         <Button
           :label="$t('pages.downloadApp.copy')"
-          class="rounded-l-none"
+          pt:root:class="rounded-l-none"
           @click="copyText"
         />
       </div>
@@ -128,7 +128,10 @@ const hideAnimation = () => {
   }
 }
 function copyText() {
-  navigator.clipboard.writeText(text)
+  navigator.clipboard.writeText(text).then(() => {
+    console.log('some2')
+  })
+  console.log('some')
   toast.add({ severity: 'success', summary: t('toast.success'), detail: t('toast.messages.copied'), life: 3000 })
 }
 </script>
