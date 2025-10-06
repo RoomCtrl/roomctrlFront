@@ -1,20 +1,31 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-8 py-[2vh] px-[2vw]">
+  <div class="py-[2vh] px-[1vw] w-full">
     <div
-      v-for="(room, index) in rooms"
-      :key="room.room_number + '-' + index"
-      class=" w-full"
+      v-if="rooms.length > 0"
+      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 2xl:grid-rows-3 gap-8 "
     >
-      <NuxtLink
-        v-if="room.status != 'closed'"
-        :to="'rooms/' + room.roomId"
+      <div
+        v-for="(room, index) in rooms"
+        :key="room.room_number + '-' + index"
+        class=" w-full"
       >
-        <RoomCard :room="room" />
-      </NuxtLink>
-      <RoomCard
-        v-else
-        :room="room"
-      />
+        <NuxtLink
+          v-if="room.status != 'closed'"
+          :to="'rooms/' + room.roomId"
+        >
+          <RoomCard :room="room" />
+        </NuxtLink>
+        <RoomCard
+          v-else
+          :room="room"
+        />
+      </div>
+    </div>
+    <div
+      v-else
+      class="flex justify-center items-center font-bold text-2xl h-[35rem]"
+    >
+      Nie znaleziono sal
     </div>
   </div>
 </template>

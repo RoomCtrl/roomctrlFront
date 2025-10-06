@@ -43,7 +43,6 @@
         </h2>
         <div class="flex max-lg:flex-row max-lg:gap-2 max-lg:items-center">
           <UserRating
-            v-tooltip.bottom="ratingHint"
             :max="5"
             :rate-value="content.rating"
           />
@@ -63,20 +62,25 @@
   </Card>
   <Dialog
     v-model:visible="visible"
+    :header="content.title"
     pt:content:class="flex flex-col gap-2"
     modal
   >
-    <div class="w-[20rem] h-[20rem] border-2" />
+    <Toast />
+    <div class="border-2">
+      <Qrcode :value="text" />
+    </div>
     <div class="flex justify-center">
-      <div class="grid grid-cols-2">
-        <div class="border-2 rounded-l-xl">
-          <h1 class=" text-center y-auto">
-            some
+      <div class="grid grid-cols-4">
+        <div class="col-span-3 rounded-l-xl">
+          <h1 class="flex h-full justify-center items-center text-center border-y-2 border-l-2 rounded-l-xl truncate px-2">
+            http://185.25.151.154:3000/pl
           </h1>
         </div>
         <Button
-          label="skopiuj"
+          :label="$t('pages.downloadApp.copy')"
           class="rounded-l-none"
+          @click="copyText"
         />
       </div>
     </div>
@@ -86,12 +90,14 @@
 <script setup>
 import UserRating from '../common/UserRating.vue'
 
-const { t } = useI18n()
-const visible = ref(false)
 const props = defineProps({
   content: Object,
 })
-const ratingHint = props.content.rating + '/5'
+
+const { t } = useI18n()
+const visible = ref(false)
+const toast = useToast()
+const text = 'http://185.25.151.154:3000/pl'
 
 const animate = ref(false)
 const hasInteracted = ref(false)
@@ -120,6 +126,10 @@ const hideAnimation = () => {
   if (hasInteracted.value) {
     animate.value = false
   }
+}
+function copyText() {
+  navigator.clipboard.writeText(text)
+  toast.add({ severity: 'success', summary: t('toast.success'), detail: t('toast.messages.copied'), life: 3000 })
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[statusColor, animate]"
-    class="rounded-t-xl lg:rounded-xl flex flex-col lg:-mb-20 lg:mr-3 py-3"
+    class="rounded-t-xl lg:rounded-xl flex flex-col lg:-mb-20 lg:mr-9 py-3"
   >
     <div class="flex flex-row justify-between px-2 pb-5 text-white max-sm:items-center">
       <h1 class="lg:flex-1 text-lg font-bold">
@@ -15,13 +15,16 @@
           v-if="currentBooking"
           class="flex-none"
           :current="true"
-          :color="badgeColor"
+          custom-color
+          :color="statusBadgeColor"
           :started-at="currentBooking.startedAt"
           :ended-at="currentBooking.endedAt"
           size="sm"
         />
         <RentBadge
           v-else
+          custom-color
+          :color="statusBadgeColor"
           class="flex-none"
           :current="true"
           size="sm"
@@ -29,9 +32,10 @@
       </div>
     </div>
     <Message
-      pt:root:class="mx-2 rounded-lg lg:text-center"
-      pt:text:class="grid grid-cols-2 gap-1 gap-x-4 w-full"
-      :severity="badgeColor"
+      severity="info"
+      class="custom-message"
+      :pt:root:class="[statusBadgeColor, 'mx-2 rounded-lg lg:text-center overflow-hidden']"
+      pt:text:class="grid grid-cols-2 gap-1 gap-x-4 w-full "
     >
       <div class="flex flex-row items-center gap-2 lg:m-auto text-sm">
         <i class="pi pi-arrow-up-right-and-arrow-down-left-from-center" />
@@ -64,12 +68,9 @@ defineProps<{
   }
   animate: string
 }>()
-
 const colorMode = useColorMode()
 const isReady = ref(false)
-
 const roomStatus = inject<ComputedRef<string>>('roomStatus')
-
 const isDarkMode = computed(() => {
   if (!isReady.value) return false
   return colorMode.value === 'dark' || colorMode.preference === 'dark'
@@ -80,17 +81,29 @@ const statusColor = computed(() => {
     occupied: 'bg-red-600',
     closed: 'bg-yellow-600',
   }
-
   const darkMap: Record<string, string> = {
-    available: 'bg-green-950',
-    occupied: 'bg-red-950',
-    closed: 'bg-yellow-950',
+    available: 'bg-green-900',
+    occupied: 'bg-red-900',
+    closed: 'bg-yellow-900',
   }
-
   const currentMap = isDarkMode.value ? darkMap : lightMap
   return currentMap[roomStatus!.value] || lightMap.available
 })
 
+const statusBadgeColor = computed(() => {
+  const lightMap: Record<string, string> = {
+    available: 'bg-green-800 outline-green-800 text-green-200',
+    occupied: 'bg-red-800 outline-red-800 text-red-200',
+    closed: 'bg-yellow-800 outline-yellow-800 text-yellow-200',
+  }
+  const darkMap: Record<string, string> = {
+    available: 'bg-green-950 outline-green-950 text-green-400',
+    occupied: 'bg-red-950 outline-red-950 text-red-400',
+    closed: 'bg-yellow-950 outline-yellow-950 text-yellow-400',
+  }
+  const currentMap = isDarkMode.value ? darkMap : lightMap
+  return currentMap[roomStatus!.value] || lightMap.available
+})
 const badgeColor = computed(() => {
   const map: Record<string, string> = {
     available: 'success',
@@ -99,7 +112,6 @@ const badgeColor = computed(() => {
   }
   return map[roomStatus!.value]
 })
-
 onMounted(() => {
   isReady.value = true
 })
@@ -107,37 +119,36 @@ onMounted(() => {
 
 <style scoped>
 @keyframes showUpCard {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-100px);
-    z-index: 20;
-  }
-  100% {
-    transform: translateY(0px);
-    z-index: 20;
-  }
+ 0% {
+transform: translateY(0px);
+ }
+ 50% {
+transform: translateY(-100px);
+z-index: 20;
+ }
+ 100% {
+transform: translateY(0px);
+z-index: 20;
+ }
 }
-
 @keyframes hideUpCard {
-  0% {
-    transform: translateY(0px);
-    z-index: 20
-  }
-  50% {
-    transform: translateY(-100px);
-    z-index: 20;
-  }
-  100% {
-    transform: translateY(0px);
-    z-index: 0;
-  }
+ 0% {
+transform: translateY(0px);
+z-index: 20
+ }
+ 50% {
+transform: translateY(-100px);
+z-index: 20;
+ }
+ 100% {
+transform: translateY(0px);
+z-index: 0;
+ }
 }
 .show {
-  animation: showUpCard 0.5s forwards;
+animation: showUpCard 0.5s forwards;
 }
 .hide {
-  animation: hideUpCard 0.5s forwards;
+animation: hideUpCard 0.5s forwards;
 }
 </style>

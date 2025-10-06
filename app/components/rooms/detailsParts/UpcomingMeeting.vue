@@ -4,7 +4,7 @@
     pt:content:class="h-full"
   >
     <template #title>
-      <h1 class="text-2xl font-semibold pb-4">
+      <h1 class="text-xl font-semibold pb-4">
         {{ $t('pages.roomDetails.upcomingMeetings.title') }}
       </h1>
     </template>
@@ -33,12 +33,15 @@
           </template>
         </Timeline>
       </div>
-      <h1
+      <div
         v-else
-        class="h-full flex flex-col justify-center"
+        class="h-full flex flex-row gap-1 justify-center items-center"
       >
-        {{ $t('pages.roomDetails.upcomingMeetings.none') }}
-      </h1>
+        <i class="pi pi-stopwatch" />
+        <h1>
+          {{ $t('pages.roomDetails.upcomingMeetings.none') }}
+        </h1>
+      </div>
     </template>
   </Card>
 </template>

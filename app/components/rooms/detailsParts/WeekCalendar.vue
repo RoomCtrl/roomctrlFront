@@ -25,7 +25,12 @@
             <Chip
               v-for="hour in hours"
               :key="`${day.date}-${hour}`"
-              v-tooltip.bottom="getTooltipText(day.date, hour)"
+              v-tooltip.bottom="{
+                value: getTooltipText(day.date, hour),
+                pt: {
+                  text: 'text-center',
+                },
+              }"
               :pt:root:style="getCellClass(day.date, hour)"
               class="flex-1"
               :label="formatHour(hour)"
@@ -161,9 +166,9 @@ const getTooltipText = (date: string, hour: number) => {
   const dayName = t(weekDays.value.find(d => d.date === date)?.fullName)
 
   if (booking) {
-    return `${dayName} ${formatHour(hour)} - ${booking.title} (${booking.participants} osób)`
+    return `${dayName} ${formatHour(hour)} \n ${booking.title} (${booking.participants} osób)`
   }
-  return `${dayName} ${formatHour(hour)} - Dostępne`
+  return `${dayName} ${formatHour(hour)} \n Dostępne`
 }
 
 const handleCellClick = (date, hour) => {

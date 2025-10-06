@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/color-mode',
     '@hypernym/nuxt-anime',
+    'nuxt-qrcode',
   ],
   devtools: { enabled: true },
   app: {

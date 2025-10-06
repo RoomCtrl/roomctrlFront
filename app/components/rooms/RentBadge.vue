@@ -1,6 +1,32 @@
 <template>
   <Message
+    v-if="customColor"
+    :pt:root:class="color"
+    pt:root:style="--p-message-border-radius: 1.5rem"
+    pt:content:style="--p-message-content-padding: 0.25rem 0.5rem "
+  >
+    <div
+      v-if="startedAt && endedAt"
+      class="flex flex-row gap-1 items-center"
+    >
+      <DateTimeDisplay
+        :started-at="startedAt"
+        :ended-at="endedAt"
+        :current="current"
+        :size="size"
+      />
+    </div>
+    <div
+      v-else
+      :class="fontSize"
+    >
+      {{ statusText }}
+    </div>
+  </Message>
+  <Message
+    v-else
     :severity="badgeColor"
+    variant="outlined"
     pt:root:style="--p-message-border-radius: 1.5rem"
     pt:content:style="--p-message-content-padding: 0.25rem 0.5rem "
   >
@@ -29,8 +55,10 @@ import DateTimeDisplay from '../common/DateTimeDisplay.vue'
 
 const props = defineProps<{
   startedAt?: string
+  color?: string
   endedAt?: string
   current?: boolean
+  customColor: boolean
   infoType?: boolean
   size: string
 }>()

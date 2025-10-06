@@ -38,7 +38,7 @@
 
     <Card
       pt:root:class="border-l-4 border-blue-900 max-lg:order-3 lg:max-2xl:order-3 order-7 overflow-hidden"
-      pt:body:class="bg-blue-300/40 h-full text-blue-950"
+      pt:body:class="bg-blue-300/60 h-full text-blue-950"
       pt:content:class="flex flex-col font-medium"
     >
       <template #title>
@@ -47,18 +47,28 @@
         </h1>
       </template>
       <template #content>
-        <span>
-          {{ $t('pages.roomDetails.cleaning.last') + 'wczoraj 18:00' }}
-        </span>
-        <span>
-          {{ $t('pages.roomDetails.cleaning.next') + 'dzisiaj 18:00' }}
-        </span>
+        <div class="flex flex-row gap-1">
+          <h1 class="font-semibold">
+            {{ $t('pages.roomDetails.cleaning.last') }}
+          </h1>
+          <h2>
+            wczoraj 15:00
+          </h2>
+        </div>
+        <div class="flex flex-row gap-1">
+          <h1 class="font-semibold">
+            {{ $t('pages.roomDetails.cleaning.next') }}
+          </h1>
+          <h2>
+            dzisiaj 15:00
+          </h2>
+        </div>
       </template>
     </Card>
 
     <Card
       pt:root:class="border-l-4 border-green-900 max-lg:order-4 lg:max-2xl:order-4 order-8 overflow-hidden"
-      pt:body:class="bg-green-300/40 text-green-950 h-full"
+      pt:body:class="bg-green-300/60 text-green-950 h-full"
       pt:content:class="flex flex-col"
     >
       <template #title>
@@ -67,18 +77,23 @@
         </h1>
       </template>
       <template #content>
-        <span>
-          {{ $t('pages.roomDetails.maintenance.planned') + 'piątek 08:00' }}
-        </span>
-        <span>
+        <div class="flex flex-row gap-1">
+          <h1>
+            {{ $t('pages.roomDetails.maintenance.planned') }}
+          </h1>
+          <h2>
+            piątek 08:00
+          </h2>
+        </div>
+        <h2>
           Klimatyzacja + sprzęt AV
-        </span>
+        </h2>
       </template>
     </Card>
 
     <Card
-      pt:root:class="max-lg:order-9 order-9 overflow-hidden"
-      pt:body:class="bg-yellow-300/40 text-yellow-950"
+      pt:root:class="border-l-4 border-yellow-900 max-lg:order-9 order-9 overflow-hidden"
+      pt:body:class="bg-amber-200/70 text-yellow-950"
       pt:content:class="flex flex-col font-medium"
     >
       <template #title>
