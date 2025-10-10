@@ -26,22 +26,22 @@ export const roomsDetailsData: IRoomDetails[] = [
     nextBookings: [
       {
         title: 'Warsztaty IT',
-        startedAt: '2025-10-06T10:00:00',
-        endedAt: '2025-10-06T12:00:00',
+        startedAt: '2025-10-08T10:00:00',
+        endedAt: '2025-10-08T12:00:00',
         participants: 5,
         isPrivate: true,
       },
       {
         title: 'Warsztaty UXs',
-        startedAt: '2025-10-06T13:00:00',
-        endedAt: '2025-10-06T14:00:00',
+        startedAt: '2025-10-08T13:00:00',
+        endedAt: '2025-10-08T14:00:00',
         participants: 4,
         isPrivate: true,
       },
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -87,8 +87,8 @@ export const roomsDetailsData: IRoomDetails[] = [
       },
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -150,8 +150,8 @@ export const roomsDetailsData: IRoomDetails[] = [
       },
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -197,8 +197,8 @@ export const roomsDetailsData: IRoomDetails[] = [
       },
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -209,7 +209,7 @@ export const roomsDetailsData: IRoomDetails[] = [
   },
   {
     roomId: 6,
-    roomName: '206',
+    roomName: '208',
     status: 'available',
     capacity: 8,
     size: '10 m²',
@@ -222,8 +222,8 @@ export const roomsDetailsData: IRoomDetails[] = [
     nextBookings: [
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -269,8 +269,8 @@ export const roomsDetailsData: IRoomDetails[] = [
       },
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -294,8 +294,8 @@ export const roomsDetailsData: IRoomDetails[] = [
     nextBookings: [
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -334,8 +334,8 @@ export const roomsDetailsData: IRoomDetails[] = [
       },
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -359,8 +359,8 @@ export const roomsDetailsData: IRoomDetails[] = [
     nextBookings: [
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -398,8 +398,8 @@ export const roomsDetailsData: IRoomDetails[] = [
       },
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -422,8 +422,8 @@ export const roomsDetailsData: IRoomDetails[] = [
     nextBookings: [
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -461,8 +461,8 @@ export const roomsDetailsData: IRoomDetails[] = [
       },
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -486,8 +486,8 @@ export const roomsDetailsData: IRoomDetails[] = [
     nextBookings: [
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },
@@ -513,8 +513,8 @@ export const roomsDetailsData: IRoomDetails[] = [
     nextBookings: [
       {
         title: 'Sprzątanie sali',
-        startedAt: '2025-10-06T15:00:00',
-        endedAt: '2025-10-06T16:00:00',
+        startedAt: '2025-10-08T15:00:00',
+        endedAt: '2025-10-08T16:00:00',
         participants: 1,
         isPrivate: false,
       },

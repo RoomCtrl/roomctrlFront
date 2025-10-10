@@ -1,118 +1,120 @@
 <template>
-  <div
-    v-if="roomDetails"
-    class="flex flex-col lg:grid lg:grid-cols-6 gap-2 mx-1 lg:mx-5"
-  >
-    <GeneralInfo
-      class="col-span-3 max-lg:order-1 order-1"
-      :room-name="roomDetails.roomName"
-      :room-description="roomDetails.description"
-      :started-at="roomDetails.currentBooking?.startedAt"
-      :ended-at="roomDetails.currentBooking?.endedAt"
-    />
-
-    <DetailedInfo
-      class="col-span-2 lg:max-2xl:col-span-3 row-span-2 max-lg:order-5 lg:max-2xl:order-5 order-2"
-      :room-parameters="roomDetails"
-    />
-
-    <CurrentMeeting
+  <div class="flex">
+    <div
       v-if="roomDetails"
-      class="max-lg:order-2 lg:max-2xl:order-2 order-3"
-      :current-booking="roomDetails.currentBooking"
-    />
-
-    <WeekCalendar
-      class="col-span-3 lg:max-2xl:col-span-5 row-span-4 2xl:row-span-3 max-lg:order-8 lg:max-2xl:order-8 order-4"
-      :current-booking="roomDetails?.currentBooking"
-      :next-bookings="roomDetails?.nextBookings"
-    />
-    <UpcomingMeeting
-      class="row-span-4 lg:max-2xl:row-span-5 max-lg:order-5 lg:max-2xl:order-7 order-5"
-      :meetings="roomDetails?.nextBookings"
-    />
-    <EqupimentInfo
-      class="col-span-2 lg:max-2xl:col-span-2 row-span-2 2xl:row-span-3 max-lg:order-6 lg:max-2xl:order-6 order-6"
-      :equpiments="roomDetails?.equipment"
-    />
-
-    <Card
-      pt:root:class="border-l-4 border-blue-900 max-lg:order-3 lg:max-2xl:order-3 order-7 overflow-hidden"
-      pt:body:class="bg-blue-300/60 h-full text-blue-950"
-      pt:content:class="flex flex-col font-medium"
+      class="grid max-sm:flex max-sm:flex-col lg:grid-cols-4 2xl:grid-cols-6 gap-2 mx-1 lg:mx-5 h-full w-full"
     >
-      <template #title>
-        <h1 class="lg:text-2xl font-semibold">
-          {{ $t('pages.roomDetails.cleaning.title') }}
-        </h1>
-      </template>
-      <template #content>
-        <div class="flex flex-row gap-1">
-          <h1 class="font-semibold">
-            {{ $t('pages.roomDetails.cleaning.last') }}
-          </h1>
-          <h2>
-            wczoraj 15:00
-          </h2>
-        </div>
-        <div class="flex flex-row gap-1">
-          <h1 class="font-semibold">
-            {{ $t('pages.roomDetails.cleaning.next') }}
-          </h1>
-          <h2>
-            dzisiaj 15:00
-          </h2>
-        </div>
-      </template>
-    </Card>
+      <GeneralInfo
+        class="order-1 col-span-2 lg:col-span-3 xl:row-span-2 "
+        :room-name="roomDetails.roomName"
+        :room-description="roomDetails.description"
+        :started-at="roomDetails.currentBooking?.startedAt"
+        :ended-at="roomDetails.currentBooking?.endedAt"
+      />
 
-    <Card
-      pt:root:class="border-l-4 border-green-900 max-lg:order-4 lg:max-2xl:order-4 order-8 overflow-hidden"
-      pt:body:class="bg-green-300/60 text-green-950 h-full"
-      pt:content:class="flex flex-col"
-    >
-      <template #title>
-        <h1 class="lg:text-2xl font-semibold">
-          {{ $t('pages.roomDetails.maintenance.title') }}
-        </h1>
-      </template>
-      <template #content>
-        <div class="flex flex-row gap-1">
-          <h1>
-            {{ $t('pages.roomDetails.maintenance.planned') }}
-          </h1>
-          <h2>
-            piątek 08:00
-          </h2>
-        </div>
-        <h2>
-          Klimatyzacja + sprzęt AV
-        </h2>
-      </template>
-    </Card>
+      <DetailedInfo
+        class="order-2 max-lg:order-5 lg:max-2xl:order-5 lg:max-xl:col-span-full xl:max-2xl:col-span-3 col-span-2 row-span-2 lg:max-xl:row-span-1 xl:row-span-4"
+        :room-parameters="roomDetails"
+      />
 
-    <Card
-      pt:root:class="border-l-4 border-yellow-900 max-lg:order-9 order-9 overflow-hidden"
-      pt:body:class="bg-amber-200/70 text-yellow-950"
-      pt:content:class="flex flex-col font-medium"
-    >
-      <template #title>
-        <h1 class="text-2xl font-semibold">
-          {{ $t('pages.roomDetails.contact.title') }}
-        </h1>
-      </template>
-      <template #content>
-        <span>
-          {{ $t('pages.roomDetails.contact.phone') }}
-        </span>
-        <span>
-          {{ $t('pages.roomDetails.contact.insidePhone') }}
-        </span>
-        <span>
-          {{ $t('pages.roomDetails.contact.email') + 'it-support@firma.com' }}
-        </span>
-      </template>
-    </Card>
+      <CurrentMeeting
+        v-if="roomDetails"
+        class="order-2 2xl:order-3 row-span-2 lg:max-xl:row-span-1"
+        :current-booking="roomDetails.currentBooking"
+      />
+
+      <WeekCalendar
+        class="order-4 col-span-2 max-lg:order-7 xl:col-span-3 lg:max-2xl:col-span-4 row-span-5 2xl:row-span-5"
+        :current-booking="roomDetails?.currentBooking"
+        :next-bookings="roomDetails?.nextBookings"
+      />
+      <UpcomingMeeting
+        class="order-4 max-lg:order-6 lg:max-xl:order-6 row-span-4 sm:max-lg:col-span-2 xl:max-2xl:row-span-9 xl:row-span-6"
+        :meetings="roomDetails?.nextBookings"
+      />
+      <EqupimentInfo
+        class="order-5 max-lg:order-7 xl:max-2xl:order-6 col-span-2 lg:max-xl:col-span-3  xl:max-2xl:col-span-3 row-span-2 xl:max-2xl:row-span-2 row-span-4 lg:max-xl:row-span-3"
+        :equpiments="roomDetails?.equipment"
+      />
+
+      <Card
+        pt:root:class="order-7 sm:max-lg:order-3 xl:max-2xl:order-7 border-l-4 border-blue-900 overflow-hidden bg-blue-300/60 h-full text-blue-950"
+        pt:body:class="p-0"
+        pt:content:class="flex flex-col font-medium"
+      >
+        <template #header>
+          <h1 class="lg:text-2xl font-semibold">
+            {{ $t('pages.roomDetails.cleaning.title') }}
+          </h1>
+        </template>
+        <template #content>
+          <div class="flex flex-row gap-1">
+            <h1 class="font-semibold">
+              {{ $t('pages.roomDetails.cleaning.last') }}
+            </h1>
+            <h2>
+              wczoraj 15:00
+            </h2>
+          </div>
+          <div class="flex flex-row gap-1">
+            <h1 class="font-semibold">
+              {{ $t('pages.roomDetails.cleaning.next') }}
+            </h1>
+            <h2>
+              dzisiaj 15:00
+            </h2>
+          </div>
+        </template>
+      </Card>
+
+      <Card
+        pt:root:class="order-8 sm:max-lg:order-4 xl:max-2xl:order-7 lg:max-2xl:order-8 border-l-4 border-blue-900 overflow-hidden bg-blue-300/60 text-blue-950"
+        pt:body:class="p-0"
+        pt:content:class="flex flex-col font-medium"
+      >
+        <template #header>
+          <h1 class="lg:text-2xl font-semibold">
+            {{ $t('pages.roomDetails.maintenance.title') }}
+          </h1>
+        </template>
+        <template #content>
+          <div class="flex flex-row gap-1">
+            <h1>
+              {{ $t('pages.roomDetails.maintenance.planned') }}
+            </h1>
+            <h2>
+              piątek 08:00
+            </h2>
+          </div>
+          <h2>
+            Klimatyzacja + sprzęt AV
+          </h2>
+        </template>
+      </Card>
+
+      <Card
+        pt:root:class="order-9 max-lg:order-9 lg:max-2xl:order-9 sm:max-lg:col-span-2 border-l-4 border-blue-900 overflow-hidden bg-blue-300/60 h-full text-blue-950"
+        pt:body:class="p-0"
+        pt:content:class="flex flex-col font-medium"
+      >
+        <template #header>
+          <h1 class="text-2xl font-semibold">
+            {{ $t('pages.roomDetails.contact.title') }}
+          </h1>
+        </template>
+        <template #content>
+          <span>
+            {{ $t('pages.roomDetails.contact.phone') }}
+          </span>
+          <span>
+            {{ $t('pages.roomDetails.contact.insidePhone') }}
+          </span>
+          <span>
+            {{ $t('pages.roomDetails.contact.email') + 'it-support@firma.com' }}
+          </span>
+        </template>
+      </Card>
+    </div>
   </div>
 </template>
 

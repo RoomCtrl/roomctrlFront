@@ -71,9 +71,14 @@ const tabs = computed(() => [
     auth: true,
   },
   {
-    label: t('layouts.main.pages.documentation'),
+    label: t('layouts.main.pages.resources'),
     auth: true,
     items: [
+      {
+        label: t('layouts.main.pages.downloadApp'),
+        route: '/downloadApp',
+        auth: true,
+      },
       {
         label: t('layouts.main.pages.rules.title'),
         route: '/rules',
@@ -81,15 +86,15 @@ const tabs = computed(() => [
         auth: true,
       },
       {
-        label: t('layouts.main.pages.privacyPolicy.title'),
-        route: '/privacyPolicy',
-        description: t('layouts.main.pages.privacyPolicy.description'),
-        auth: true,
-      },
-      {
         label: t('layouts.main.pages.faq.title'),
         route: '/faq',
         description: t('layouts.main.pages.faq.description'),
+        auth: true,
+      },
+      {
+        label: t('layouts.main.pages.privacyPolicy.title'),
+        route: '/privacyPolicy',
+        description: t('layouts.main.pages.privacyPolicy.description'),
         auth: true,
       },
     ],
@@ -102,11 +107,6 @@ const tabs = computed(() => [
   {
     label: t('layouts.main.pages.contact'),
     route: '/contact',
-    auth: true,
-  },
-  {
-    label: t('layouts.main.pages.downloadApp'),
-    route: '/downloadApp',
     auth: true,
   },
   {

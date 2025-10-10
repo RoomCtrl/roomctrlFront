@@ -19,6 +19,7 @@
                 {{ slotProps.item.title }}
               </h2>
               <DateTimeDisplay
+                layout="vertical"
                 :current="false"
                 :started-at="slotProps.item.startedAt"
                 :ended-at="slotProps.item.endedAt"

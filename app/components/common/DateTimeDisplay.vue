@@ -23,7 +23,7 @@
     </div>
     <div v-else-if="startedAt && endedAt">
       <div
-        :class="[fontSize, 'flex flex-row gap-2 items-center']"
+        :class="[fontSize, textLayout, 'flex gap-2 items-center']"
       >
         <div class="flex flex-row gap-1 items-center">
           <h3>
@@ -52,6 +52,7 @@ const props = defineProps<{
   endedAt: string
   current: boolean
   size: string
+  layout: 'vertical' | 'horizontial'
 }>()
 
 const endedTime = computed(() => {
@@ -65,6 +66,15 @@ const rentTimeRange = computed(() => {
     return formatTimeRange(props.startedAt, props.endedAt)
   }
   return ''
+})
+
+const textLayout = computed(() => {
+  if (props.layout === 'vertical') {
+    return 'flex-col'
+  }
+  else {
+    return 'flex-row'
+  }
 })
 
 const iconSize = computed(() => {
