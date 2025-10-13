@@ -145,13 +145,26 @@ const MyCustomPreset = definePreset(Aura, {
     datepicker: {
       colorScheme: {
         dark: {
+          dropdown: {
+            background: '{surface.250}',
+            hoverColor: '{surface.250}',
+          },
           date: {
+            hoverBackground: '{surface.250}',
             rangeSelectedBackground: '{surface.250}',
+          },
+          today: {
+            color: '{text.color}',
           },
         },
         light: {
+          dropdown: {
+            color: '{text.focusColor}',
+          },
           date: {
+            hoverColor: '{text.focusColor}',
             rangeSelectedBackground: '{surface.100}',
+            rangeSelectedColor: '{text.focusColor}',
           },
         },
       },

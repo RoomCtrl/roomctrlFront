@@ -18,7 +18,7 @@
         >
           <i :class="equipment.name ? equipmentIcon(equipment.category) : 'pi pi-inbox'" />
           <h1 class="truncate">
-            {{ equipment.name ? equipment.quantity + 'x ' + equipment.name : $t('pages.roomDetails.equipment.empty') }}
+            {{ equipment.name ? equipment.quantity + 'x ' + equipment.name : '---' }}
           </h1>
         </div>
       </template>

@@ -2,7 +2,10 @@
   "pages": {
     "aboutUs": "O nas",
     "contact": "Kontakt",
-    "howThisWork": "Jak to działa?",
+    "howThisWork": {
+      "title": "Jak to działa?",
+      "description": "Krótki przewodnik po funkcjach i możliwościach naszego serwisu."
+    },
     "resources": "Zasoby",
     "faq": {
       "title": "FAQ",
@@ -16,7 +19,7 @@
       "title": "Polityka Prywatności",
       "description": "Jak zbieramy i wykorzystujemy dane"
     },
-    "downloadApp": "Pobierz aplikacje",
+    "downloadApp": "Pobierz aplikację mobilną",
     "roomsArea": "Strefa sal",
     "roomsList": {
       "title": "Lista sali",
@@ -28,9 +31,6 @@
     }
   },
   "copyright": "2025 RoomCtrl. Wszystkie prawa zastrzeżone.",
-  "header": {
-    "helloUser": "Witaj, {firstName} {lastName} !"
-  },
   "footer": {
     "resources": "Zasoby:",
     "aboutPlatform": "O platformie :",

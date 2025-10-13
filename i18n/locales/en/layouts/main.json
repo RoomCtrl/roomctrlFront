@@ -2,7 +2,10 @@
   "pages": {
     "aboutUs": "About Us",
     "contact": "Contact",
-    "howThisWork": "How does it work?",
+    "howThisWork": {
+      "title": "How does it work?",
+      "description": "A short guide to the features and capabilities of our service."
+    },
     "resources": "Resources",
     "faq": {
       "title": "FAQ",
@@ -16,7 +19,7 @@
       "title": "Privacy Policy",
       "description": "How we collect and use your personal data"
     },
-    "downloadApp": "Download App",
+    "downloadApp": "Download the mobile app",
     "roomsArea": "Rooms area",
     "roomsList": {
       "title": "Room list",

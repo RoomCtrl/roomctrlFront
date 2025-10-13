@@ -1,7 +1,7 @@
 <template>
   <Panel
     :header="t('pages.roomDetails.detailedInfo.title')"
-    pt:content:class="grid grid-cols-2 max-sm:grid-cols-1 lg:max-2xl:grid-cols-3 lg:max-xl:grid-rows-3 gap-2  self-center"
+    pt:content:class="grid grid-cols-2 max-sm:grid-cols-1 lg:max-2xl:grid-cols-3 max-sm:grid-rows-6 lg:max-xl:grid-rows-2 grid-rows-3 gap-2  self-center"
     pt:header:class="text-2xl 2xl:text-3xl font-semibold mb-3"
     :toggleable="isMobile"
   >

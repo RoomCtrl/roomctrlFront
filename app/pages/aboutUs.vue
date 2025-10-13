@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:px-[10vw]">
+  <div class="lg:px-[3rem]">
     <AboutUsInfo />
   </div>
 </template>

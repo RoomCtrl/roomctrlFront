@@ -25,9 +25,8 @@ export const useAuth = () => {
       await authService.logout(token.value)
       user.value = null
       token.value = null
-
-      if (import.meta.client && redirectTo) {
-        await navigateTo(redirectTo)
+      if (import.meta.client) {
+        window.location.href = redirectTo || '/'
       }
     }
     finally {

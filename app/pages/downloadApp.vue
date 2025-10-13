@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col lg:flex-row justify-between md:justify-center gap-5">
-    <div class="flex flex flex-col gap-5">
+    <div class="flex flex flex-col md:max-lg:flex-row gap-5">
       <DeviceSysCard
         :content="android"
         class="self-center"

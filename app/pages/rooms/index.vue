@@ -1,11 +1,12 @@
 <template>
   <div class="flex flex-col xl:flex-col">
-    <div class="flex flex-row justify-between px-4">
+    <div class="flex flex-wrap lg:flex-row justify-start max-lg:gap-4 lg:justify-between px-4 pb-4">
       <Card
+        class="max-lg:order-2"
         pt:content:class="flex flex-row justify-between items-center"
       >
         <template #content>
-          <div class="flex flex-row gap-1">
+          <div class="flex flex-wrap md:flex-row gap-1">
             <div
               v-for="button in statusButtons"
               :key="button.label"
@@ -22,15 +23,7 @@
           </div>
         </template>
       </Card>
-      <Paginator
-        class="flex self-center"
-        :first="first"
-        :rows="rowsPerPage"
-        :totalRecords="filteredRooms.length"
-        :rowsPerPageOptions="[12, 18, 24]"
-        @page="onPageChange"
-      />
-      <Card>
+      <Card class="max-lg:order-1">
         <template #content>
           <div class="flex flex-row gap-2">
             <FloatLabel variant="on">
@@ -48,6 +41,15 @@
         </template>
       </Card>
     </div>
+
+    <Paginator
+      class="flex self-center"
+      :first="first"
+      :rows="rowsPerPage"
+      :totalRecords="filteredRooms.length"
+      :rowsPerPageOptions="[12, 18, 24]"
+      @page="onPageChange"
+    />
 
     <div class="flex flex-row items-center gap-1">
       <RoomGrid

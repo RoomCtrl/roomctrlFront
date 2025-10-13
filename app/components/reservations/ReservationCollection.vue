@@ -49,7 +49,7 @@
       class="flex justify-center items-center min-h-[30rem]"
     >
       <div class="font-bold text-2xl">
-        {{ $t('pages.reservationHistory.noRent') }}
+        {{ $t('pages.reservationsHistory.noRent') }}
       </div>
     </div>
     <Paginator

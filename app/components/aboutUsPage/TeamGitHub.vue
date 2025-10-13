@@ -5,7 +5,7 @@
         {{ $t('pages.aboutUs.authors.title') }}
       </h1>
     </template>
-    <div class="flex flex-col lg:flex-row lg:justify-evenly gap-2 lg:gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 lg:justify-evenly gap-2 lg:gap-2">
       <div
         v-for="(member, index) in ourTeam"
         :key="index"

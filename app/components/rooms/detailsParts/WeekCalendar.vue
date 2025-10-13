@@ -2,9 +2,7 @@
   <Panel
     pt:root:class="flex flex-col"
     :header=" $t('pages.roomDetails.weekCalendar.title')"
-    pt:header:class="text-2xl lg:text-3xl font-bold mb-6"
-    pt:content:class="h-full flex"
-    pt:contentContainer:class="h-full"
+    pt:header:class="text-2xl lg:text-3xl font-bold pb-10"
     :toggleable="isMobile"
   >
     <div class="flex flex-col h-full w-full justify-center">
@@ -53,23 +51,23 @@
           {{ selectedSlot.booking.isPrivate ? selectedSlot.booking.title : 'Rezerwacja prywatna' }}
         </h1>
       </template>
-      <div class="grid grid-cols-3 border-2 rounded-lg">
-        <h2>
+      <div class="grid grid-cols-3 border-2 border-red-800 rounded-lg">
+        <h2 class="rounded-tl-md">
           Dnia:
         </h2>
         <h2>
           O godzinie:
         </h2>
-        <h2>
+        <h2 class="rounded-tr-md">
           Ilosc uczestników:
         </h2>
-        <h2>
+        <h2 class="rounded-bl-md">
           {{ selectedSlot.date }} ({{ $t(selectedSlot.day) }})
         </h2>
         <h2>
           {{ formatHour(selectedSlot.hour) }}
         </h2>
-        <h2>
+        <h2 class="rounded-br-md">
           {{ selectedSlot.booking.participants }}
         </h2>
       </div>
@@ -221,7 +219,7 @@ onBeforeUnmount(() => {
 <style scoped>
 h2 {
   padding: 2px 10px ;
-  border: 1px solid;
+  border: 1px solid var(--p-red-800);
 }
 .p-chip {
   border-radius: 0.75rem

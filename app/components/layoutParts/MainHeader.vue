@@ -66,8 +66,8 @@ const isUserLogin = computed(() => {
 })
 const tabs = computed(() => [
   {
-    label: t('layouts.main.pages.howThisWork'),
-    route: '/howThisWork',
+    label: t('layouts.main.pages.aboutUs'),
+    route: '/aboutUs',
     auth: true,
   },
   {
@@ -75,8 +75,9 @@ const tabs = computed(() => [
     auth: true,
     items: [
       {
-        label: t('layouts.main.pages.downloadApp'),
-        route: '/downloadApp',
+        label: t('layouts.main.pages.howThisWork.title'),
+        route: '/howThisWork',
+        description: t('layouts.main.pages.howThisWork.description'),
         auth: true,
       },
       {
@@ -100,8 +101,8 @@ const tabs = computed(() => [
     ],
   },
   {
-    label: t('layouts.main.pages.aboutUs'),
-    route: '/aboutUs',
+    label: t('layouts.main.pages.downloadApp'),
+    route: '/downloadApp',
     auth: true,
   },
   {

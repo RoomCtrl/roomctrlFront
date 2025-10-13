@@ -2,51 +2,38 @@
   "title": "Kim jesteśmy? ",
   "ourMission": {
     "title": "Nasza misja",
-    "description": "Ułatwiamy dostęp do przestrzeni, aby każdy mógł znaleźć idealne miejsce na swoje wydarzenie bez zbędnych formalności."
+    "description": "Chcemy, aby rezerwacja sal w dużych firmach była szybka, intuicyjna i wolna od chaosu. Zależy nam, by każdy pracownik mógł z łatwością znaleźć i zarezerwować odpowiednią przestrzeń, a menedżerowie mieli pełną kontrolę nad dostępnością, wykorzystaniem i kosztami. \n Naszym priorytetem jest efektywność, przejrzystość i maksymalne uproszczenie procesu zarządzania przestrzenią biurową."
   },
   "ourVision": {
     "title": "Nasza wizja",
-    "description": "Chcemy stworzyć społeczność, w której wolne sale znajdują swoje zastosowanie, a proces rezerwacji jest szybki i wygodny."
+    "description": "Wierzymy, że nowoczesne biura powinny działać tak płynnie, jak zespoły, które w nich pracują. Naszym celem jest stworzenie środowiska, w którym technologia wspiera ludzi — pomaga im szybciej się komunikować, lepiej planować i w pełni wykorzystywać dostępne przestrzenie. Chcemy, aby każda sala, niezależnie od wielkości firmy, była miejscem, w którym praca staje się prostsza i bardziej efektywna."
   },
   "subtitle": "Jesteśmy zespołem, który specjalizuje się w nowoczesnych rozwiązaniach dla biznesu. Tworzymy system, który pomaga korporacjom i dużym organizacjom w sprawnym zarządzaniu salami spotkań, konferencyjnymi oraz przestrzeniami biurowymi. Naszym celem jest usprawnienie codziennej pracy zespołów i działów administracyjnych poprzez automatyzację procesów rezerwacji i lepsze wykorzystanie dostępnych zasobów.",
-  "howThisWorks": {
-    "title": "Jak to działa?",
-    "findRoom": {
-      "title": "Znajdź salę",
-      "description": "Przeglądaj dostępne przestrzenie w dogodnej lokalizacji."
-    },
-    "reserve": {
-      "title": "Zarezerwuj",
-      "description": "Wybierz termin i dokonaj rezerwacji w kilka kliknięć."
-    },
-    "use": {
-      "title": "Korzystaj",
-      "description": "Spotkaj się, szkol się, twórz – bez zbędnych formalności."
-    }
-  },
-  "ourFillars": {
-    "title": "Nasze filary",
-    "strategy": {
-      "title": "Strategia",
-      "description": "Łączymy ludzi i miejsca, zapewniając szybki dostęp do sal w różnych lokalizacjach. "
-    },
-    "innovaction": {
-      "title": "Innowacyjne technologie",
-      "description": "Wykorzystujemy nowoczesne rozwiązania dla prostego i bezpiecznego procesu rezerwacji."
-    },
-    "teamwork": {
-      "title": "Zespół i współpraca",
-      "description": "Tworzymy społeczność, w której każdy może korzystać z dostępnych przestrzeni."
-    }
-  },
   "chooseUs": {
     "title": "Dlaczego warto nas wybrać?",
-    "features": {
-      "noAdditionalFees": "Brak ukrytych kosztów",
-      "fastBooking": "Szybka i prosta rezerwacja online",
-      "securePayment": "Bezpieczne płatności",
-      "flexible": "Elastyczność – wynajem na godziny lub dni",
-      "coummity": "Społeczność zaufanych partnerów"
+    "corpoNeeds": {
+      "title": "Znamy potrzeby korporacji",
+      "description": "Rozumiemy wyzwania związane z zarządzaniem dużą liczbą sal, zespołów i spotkań."
+    },
+    "automationProcess": {
+      "title": "Automatyzujemy procesy",
+      "description": "Nasz system eliminuje ręczne planowanie i minimalizuje ryzyko podwójnych rezerwacji."
+    },
+    "fullControl": {
+      "title": "Oferujemy pełną kontrolę i przejrzystość",
+      "description": "Zapewniamy raporty, analitykę oraz wgląd w wykorzystanie sal w czasie rzeczywistym."
+    },
+    "simplicity": {
+      "title": "Stawiamy na prostotę i intuicyjność",
+      "description": "Interfejs jest zaprojektowany tak, aby każdy użytkownik mógł szybko znaleźć i zarezerwować odpowiednią salę."
+    },
+    "dataSecurity": {
+      "title": "Zapewniamy bezpieczeństwo danych",
+      "description": "Stosujemy najwyższe standardy ochrony informacji i zgodność z RODO."
+    },
+    "growthAndScalability": {
+      "title": "Skalowalność i rozwój",
+      "description": "System rozwija się wraz z Twoją firmą — niezależnie od tego, czy obsługujesz jedno biuro, czy globalną sieć oddziałów."
     }
   },
   "opinions": {

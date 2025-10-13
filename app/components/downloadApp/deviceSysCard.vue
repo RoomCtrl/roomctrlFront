@@ -1,7 +1,7 @@
 <template>
   <Card
     :class="[animationClass]"
-    pt:root:class="w-[80vw] lg:w-[25vw]"
+    pt:root:class="w-full lg:w-[30vw]"
     pt:body:class="h-full"
     pt:content:class="flex-grow"
     pt:footer:class="flex justify-center"
@@ -175,7 +175,7 @@ function copyText() {
   background-image: url('/images/mobileOS/apple_logo_grey.png');
   background-repeat: no-repeat;
   background-size: 60px;
-  background-position: 410px;
+  background-position: calc(100% - 10px) center;
   animation: showIos 0.5s forwards;
 }
 
@@ -183,7 +183,7 @@ function copyText() {
   background-image: url('/images/mobileOS/apple_logo_grey.png');
   background-repeat: no-repeat;
   background-size: 60px;
-  background-position: 410px;
+  background-position: calc(100% - 10px) center;
   animation: hideIos 0.5s forwards;
 }
 </style>

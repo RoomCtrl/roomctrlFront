@@ -3,6 +3,7 @@
   "size": "Room size: ",
   "capacity": "Capacity: ",
   "location": "Location: ",
+  "notFoundRooms": "No rooms found",
   "statuses": {
     "tags": {
       "available": "Available",

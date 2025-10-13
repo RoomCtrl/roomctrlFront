@@ -13,7 +13,7 @@
       </template>
       <template #content>
         <div class="flex flex-col gap-10 lg:gap-20 max-lg:items-center">
-          <div class="grid grid-cols-2 gap-x-4">
+          <div class="grid lg:grid-cols-2 max-lg:gap-y-4 gap-x-4">
             <Card
               v-for="(card, index) in whoWeAre"
               :key="index"
@@ -34,7 +34,7 @@
             <h2 class="text-2xl lg:text-4xl font-bold text-center mb-[2vh]">
               {{ $t('pages.aboutUs.chooseUs.title') }}
             </h2>
-            <div class="grid grid-cols-3 grid-rows-2 gap-y-2 gap-x-6 p-6">
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 md:grid-rows-3 xl:grid-rows-2 gap-y-2 gap-x-6 p-6">
               <WhyWeCard
                 v-for="item in whyWe"
                 :key="item.header"
@@ -92,7 +92,7 @@ const { t } = useI18n()
 const whoWeAre = [
   {
     header: t('pages.aboutUs.ourMission.title'),
-    content: 'Chcemy, aby rezerwacja sal w dużych firmach była szybka, intuicyjna i wolna od chaosu. Zależy nam, by każdy pracownik mógł z łatwością znaleźć i zarezerwować odpowiednią przestrzeń, a menedżerowie mieli pełną kontrolę nad dostępnością, wykorzystaniem i kosztami. \n Naszym priorytetem jest efektywność, przejrzystość i maksymalne uproszczenie procesu zarządzania przestrzenią biurową.',
+    content: t('pages.aboutUs.ourMission.description'),
   },
   {
     header: t('pages.aboutUs.ourVision.title'),
@@ -102,28 +102,28 @@ const whoWeAre = [
 
 const whyWe = [
   {
-    header: 'Znamy potrzeby korporacji',
-    content: 'Rozumiemy wyzwania związane z zarządzaniem dużą liczbą sal, zespołów i spotkań.',
+    header: t('pages.aboutUs.chooseUs.corpoNeeds.title'),
+    content: t('pages.aboutUs.chooseUs.corpoNeeds.description'),
   },
   {
-    header: 'Automatyzujemy procesy',
-    content: 'Nasz system eliminuje ręczne planowanie i minimalizuje ryzyko podwójnych rezerwacji.',
+    header: t('pages.aboutUs.chooseUs.automationProcess.title'),
+    content: t('pages.aboutUs.chooseUs.automationProcess.description'),
   },
   {
-    header: 'Oferujemy pełną kontrolę i przejrzystość',
-    content: 'Zapewniamy raporty, analitykę oraz wgląd w wykorzystanie sal w czasie rzeczywistym.',
+    header: t('pages.aboutUs.chooseUs.fullControl.title'),
+    content: t('pages.aboutUs.chooseUs.fullControl.description'),
   },
   {
-    header: 'Stawiamy na prostotę i intuicyjność',
-    content: 'Interfejs jest zaprojektowany tak, aby każdy użytkownik mógł szybko znaleźć i zarezerwować odpowiednią salę.',
+    header: t('pages.aboutUs.chooseUs.simplicity.title'),
+    content: t('pages.aboutUs.chooseUs.simplicity.description'),
   },
   {
-    header: 'Zapewniamy bezpieczeństwo danych',
-    content: 'Stosujemy najwyższe standardy ochrony informacji i zgodność z RODO.',
+    header: t('pages.aboutUs.chooseUs.dataSecurity.title'),
+    content: t('pages.aboutUs.chooseUs.dataSecurity.description'),
   },
   {
-    header: 'Skalowalność i rozwój',
-    content: 'System rozwija się wraz z Twoją firmą — niezależnie od tego, czy obsługujesz jedno biuro, czy globalną sieć oddziałów.',
+    header: t('pages.aboutUs.chooseUs.growthAndScalability.title'),
+    content: t('pages.aboutUs.chooseUs.growthAndScalability.description'),
   },
 ]
 </script>

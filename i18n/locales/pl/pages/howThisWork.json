@@ -1,14 +1,15 @@
 {
   "title": "Jak działa nasza platforma ?",
-  "content": {
-    "useApp": "Korzystanie z aplikacji jest proste i intuicyjne:",
-    "procesIsSafe": "Cały proces jest bezpieczny i odbywa się w obrębie Twojej organizacji.",
-    "stepsList": {
-      "stepOne": "Skontaktuj się z administratorem swojej organizacji, aby otrzymać dane do logowania.",
-      "stepTwo": "Zaloguj się do systemu.",
-      "stepThree": "Przeglądaj dostępne sale i wybierz termin, który Ci odpowiada.",
-      "stepFour": "Zarezerwuj salę jednym kliknięciem.",
-      "stepFive": "Zarządzaj swoimi rezerwacjami w panelu użytkownika."
+  "instructions": {
+    "login": {
+      "title": "Szybka instrukcja logowania",
+      "steps": {
+        "stepOne": "Administrator tworzy konto i przekazuje login oraz tymczasowe hasło.",
+        "stepTwo": "Wejdź na stronę logowania i wpisz otrzymane dane.",
+        "stepThree": "Kliknij „Zaloguj się”.",
+        "stepFour": "Przy pierwszym logowaniu zmień hasło na własne.",
+        "stepFive": "Po zmianie hasła możesz korzystać z systemu i rezerwować sale."
+      }
     }
   }
 }
