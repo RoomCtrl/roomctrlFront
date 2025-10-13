@@ -1,6 +1,7 @@
 <template>
   <Card
-    :pt:root:class="[{ slideCard: toMoveCard, slideBackCard: !toMoveCard }, 'bg-[rgba(223,71,71,0.2)] border-y border-r border-l-4 border-red-900']"
+    :pt:root:class="[{ slideCard: toMoveCard, slideBackCard: !toMoveCard }, ' border-y border-r border-l-4 border-red-900']"
+    pt:root:style="--p-card-background: rgba(223,71,71,0.2)"
     pt:title:class="text-center text-xl font-bold"
     @mouseenter="moveCard"
     @mouseleave="moveCard"

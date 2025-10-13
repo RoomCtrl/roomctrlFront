@@ -17,7 +17,7 @@
             <Card
               v-for="(card, index) in whoWeAre"
               :key="index"
-              pt:root:class="bg-[rgba(223,71,71,0.2)]"
+              pt:root:style="--p-card-background: rgba(223,71,71,0.2)"
             >
               <template #title>
                 <h1 class="text-2xl font-semibold text-center">
