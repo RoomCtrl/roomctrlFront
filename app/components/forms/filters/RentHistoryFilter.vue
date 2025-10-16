@@ -2,9 +2,6 @@
   <div>
     <form @submit.prevent="submitFilter">
       <div class="flex flex-col">
-        <h1 class="hidden lg:block text-xl font-bold pb-4">
-          {{ $t('forms.filters.title') }}
-        </h1>
         <div class="flex flex-col lg:flex-row items-center gap-2">
           <FloatLabel
             class="max-lg:w-full"

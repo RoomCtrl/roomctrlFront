@@ -8,17 +8,19 @@ interface Reservation {
   status: ReservationStatus
   roomId: number
   participants: number
+  reservationsType: string
 }
 
 export const reservationsData: Reservation[] = [
   {
     id: 1,
     title: 'Spotkanie zespołu',
-    startedAt: '2025-10-01T09:00:00',
-    endedAt: '2025-10-01T10:00:00',
+    startedAt: '2025-10-21T09:00:00',
+    endedAt: '2025-10-21T10:00:00',
     status: 'planned',
     roomId: 1,
     participants: 21,
+    reservationsType: 'public',
   },
   {
     id: 2,
@@ -28,6 +30,7 @@ export const reservationsData: Reservation[] = [
     status: 'planned',
     roomId: 2,
     participants: 15,
+    reservationsType: 'public',
   },
   {
     id: 3,
@@ -37,6 +40,7 @@ export const reservationsData: Reservation[] = [
     status: 'ended',
     roomId: 3,
     participants: 20,
+    reservationsType: 'public',
   },
   {
     id: 4,
@@ -46,6 +50,7 @@ export const reservationsData: Reservation[] = [
     status: 'planned',
     roomId: 4,
     participants: 10,
+    reservationsType: 'public',
   },
   {
     id: 5,
@@ -55,6 +60,7 @@ export const reservationsData: Reservation[] = [
     status: 'cancelled',
     roomId: 5,
     participants: 30,
+    reservationsType: 'public',
   },
   {
     id: 6,
@@ -64,6 +70,7 @@ export const reservationsData: Reservation[] = [
     status: 'planned',
     roomId: 6,
     participants: 20,
+    reservationsType: 'public',
   },
   {
     id: 7,
@@ -73,6 +80,7 @@ export const reservationsData: Reservation[] = [
     status: 'ended',
     roomId: 7,
     participants: 21,
+    reservationsType: 'public',
   },
   {
     id: 8,
@@ -82,6 +90,7 @@ export const reservationsData: Reservation[] = [
     status: 'toApprove',
     roomId: 8,
     participants: 5,
+    reservationsType: 'public',
   },
   {
     id: 9,
@@ -91,6 +100,7 @@ export const reservationsData: Reservation[] = [
     status: 'toApprove',
     roomId: 9,
     participants: 20,
+    reservationsType: 'public',
   },
   {
     id: 10,
@@ -100,6 +110,7 @@ export const reservationsData: Reservation[] = [
     status: 'cancelled',
     roomId: 10,
     participants: 17,
+    reservationsType: 'public',
   },
   {
     id: 11,
@@ -109,6 +120,7 @@ export const reservationsData: Reservation[] = [
     status: 'planned',
     roomId: 11,
     participants: 18,
+    reservationsType: 'public',
   },
   {
     id: 12,
@@ -118,6 +130,7 @@ export const reservationsData: Reservation[] = [
     status: 'ended',
     roomId: 12,
     participants: 22,
+    reservationsType: 'public',
   },
   {
     id: 13,
@@ -127,6 +140,7 @@ export const reservationsData: Reservation[] = [
     status: 'planned',
     roomId: 13,
     participants: 5,
+    reservationsType: 'public',
   },
   {
     id: 14,
@@ -136,6 +150,7 @@ export const reservationsData: Reservation[] = [
     status: 'planned',
     roomId: 14,
     participants: 13,
+    reservationsType: 'public',
   },
   {
     id: 15,
@@ -145,5 +160,6 @@ export const reservationsData: Reservation[] = [
     status: 'planned',
     roomId: 15,
     participants: 20,
+    reservationsType: 'public',
   },
 ]

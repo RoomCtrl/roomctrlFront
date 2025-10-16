@@ -1,12 +1,12 @@
 {
   "incomingRent": "Nadchodzące moje rezerwacje:",
   "completedRent": "Zrealizowane rezerwacje:",
-  "rentTitle": "Tytuł rezerwacji: ",
-  "rentStart": "Rozpoczęcie: ",
-  "rentEnd": "Zakończenie: ",
-  "rentStatus": "Status: ",
+  "rentTitle": "Tytuł rezerwacji",
+  "rentStart": "Rozpoczęcie",
+  "rentEnd": "Zakończenie",
+  "rentStatus": "Status",
   "participants": "Uczestnicy: ",
-  "roomName": "Nazwa sali: ",
+  "roomName": "Sala nr",
   "participantsNumber": "{number} uczestników",
   "details": "Szczegóły",
   "statuses": {
@@ -15,6 +15,10 @@
     "cancelled": "Anulowana",
     "ended": "Zakończona",
     "toApprove": "Do akceptacji"
+  },
+  "reservationTypes": {
+    "public": "Publiczna",
+    "private": "Prywatna"
   },
   "noRent": "Brak rezerwacji",
   "comeToRoom": "Przejdź do sali"
