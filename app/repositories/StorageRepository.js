@@ -1,93 +1,57 @@
+// repositories/StorageRepository.js
 export class StorageRepository {
   constructor() {
     this.tokenKey = 'auth.token'
     this.userKey = 'auth.user'
+    this.rolesKey = 'auth.roles'
   }
 
   saveToken(token) {
-    if (!token) return
-    const tokenCookie = useCookie(this.tokenKey, {
-      default: () => null,
-      httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7,
-    })
-    tokenCookie.value = token
     if (import.meta.client) {
       localStorage.setItem(this.tokenKey, token)
     }
   }
 
   getToken() {
-    const tokenCookie = useCookie(this.tokenKey, {
-      default: () => null,
-    })
-    if (tokenCookie.value) {
-      return tokenCookie.value
-    }
     if (import.meta.client) {
-      const token = localStorage.getItem(this.tokenKey)
-      return token || null
+      return localStorage.getItem(this.tokenKey)
     }
     return null
   }
 
   saveUser(user) {
-    if (!user) return
-    const userCookie = useCookie(this.userKey, {
-      default: () => null,
-      httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24 * 7,
-    })
-    userCookie.value = user
     if (import.meta.client) {
       localStorage.setItem(this.userKey, JSON.stringify(user))
     }
   }
 
   getUser() {
-    const userCookie = useCookie(this.userKey, {
-      default: () => null,
-    })
-    if (userCookie.value) {
-      return userCookie.value
-    }
     if (import.meta.client) {
-      const userData = localStorage.getItem(this.userKey)
-      if (userData) {
-        try {
-          return JSON.parse(userData)
-        }
-        catch {
-          localStorage.removeItem(this.userKey)
-          return null
-        }
-      }
+      const user = localStorage.getItem(this.userKey)
+      return user ? JSON.parse(user) : null
     }
     return null
   }
 
-  async clearToken() {
-    const tokenCookie = useCookie(this.tokenKey)
-    tokenCookie.value = null
+  saveRoles(roles) {
     if (import.meta.client) {
-      localStorage.removeItem(this.tokenKey)
+      localStorage.setItem(this.rolesKey, JSON.stringify(roles))
     }
   }
 
-  async clearUser() {
-    const userCookie = useCookie(this.userKey)
-    userCookie.value = null
+  getRoles() {
     if (import.meta.client) {
-      localStorage.removeItem(this.userKey)
+      const roles = localStorage.getItem(this.rolesKey)
+      return roles ? JSON.parse(roles) : []
     }
+    return []
   }
 
   async clearAll() {
-    await this.clearToken()
-    await this.clearUser()
+    if (import.meta.client) {
+      localStorage.removeItem(this.tokenKey)
+      localStorage.removeItem(this.userKey)
+      localStorage.removeItem(this.rolesKey)
+    }
   }
 }
