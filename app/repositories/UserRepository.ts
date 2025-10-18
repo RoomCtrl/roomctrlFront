@@ -1,5 +1,6 @@
 import { useAuth } from '~/composables/useAuth'
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
+import type { IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
 
 export class UserRepository {
   private token: string | null = null
@@ -9,8 +10,8 @@ export class UserRepository {
     this.token = token.value
   }
 
-  async getUsers() {
-    return await fetch('/api/v1/users', {
+  async getUsers(withDetails: boolean): Promise<IUserResponse[]> {
+    return await fetch(`/api/v1/users?withDetails=${withDetails}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -18,16 +19,7 @@ export class UserRepository {
     }).then(res => res.json())
   }
 
-  async getUser(guid: string) {
-    return await fetch(`/api/v1/users/${guid}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${this.token}`,
-      },
-    }).then(res => res.json())
-  }
-
-  async addUser(newUser: IAddUserForm) {
+  async addUser(newUser: IUserAddResponse) {
     return await fetch('/api/v1/users', {
       method: 'POST',
       body: JSON.stringify(newUser),
@@ -38,18 +30,29 @@ export class UserRepository {
     }).then(res => res.json())
   }
 
-  async deletelUser(guid: string) {
-    return await fetch(`/api/v1/users/${guid}`, {
-      method: 'DELETE',
+  async getUser(guid: string, withDetails: boolean): Promise<IUserResponse> {
+    return await fetch(`/api/v1/users/${guid}?withDetails=${withDetails}`, {
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
     }).then(res => res.json())
   }
 
-  async updateUser(guid: string) {
+  async updateUser(guid: string, updatedUser: IAddUserForm) {
     return await fetch(`/api/v1/users/${guid}`, {
       method: 'PUT',
+      body: JSON.stringify(updatedUser),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`,
+      },
+    }).then(res => res.json())
+  }
+
+  async deletelUser(guid: string) {
+    return await fetch(`/api/v1/users/${guid}`, {
+      method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,
       },

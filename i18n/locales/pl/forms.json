@@ -14,8 +14,13 @@
   },
   "fields": {
     "name": "Imię i nazwisko",
+    "username": "Nazwa użytkownika",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "roles": "Role",
     "email": "Email",
     "subject": "Temat",
+    "phone": "Telefon",
     "message": "Wiadomość",
     "login": "Login",
     "password": "Hasło"

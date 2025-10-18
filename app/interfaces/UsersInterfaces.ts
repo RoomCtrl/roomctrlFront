@@ -1,8 +1,24 @@
-export interface IUserResponse {
+interface IUser {
+  id: string
   username: string
-  password: string
   firstName: string
   lastName: string
+  email: string
+  phone: string
   roles: string[]
   firstLoginStatus: true
+}
+
+export interface IUserResponse extends IUser {
+  organization: {
+    id: string
+    regon: string
+    name: string
+    email: string
+  }
+}
+
+export interface IUserAddResponse extends IUser {
+  password: string
+  organizationId: string
 }

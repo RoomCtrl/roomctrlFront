@@ -283,6 +283,45 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
+    multiselect: {
+      colorScheme: {
+        dark: {
+          root: {
+            color: '{text.color}',
+            borderColor: '{content.borderColor}',
+            focusBorderColor: '{content.focusBorderColor}',
+            background: '{surface.50}',
+          },
+          overlay: {
+            background: '{surface.50}',
+            borderColor: '{content.borderColor}',
+          },
+          option: {
+            color: '{text.color}',
+            focusColor: '{text.color}',
+            focusBackground: '{surface.200}',
+            selectedBackground: '{surface.250}',
+            selectedColor: '{text.color}',
+            selectedFocusBackground: '{surface.250}',
+          },
+        },
+        light: {
+          root: {
+            color: '{text.color}',
+            focusBorderColor: '{surface.150}',
+          },
+          option: {
+            color: '{text.color}',
+            focusColor: '{text.focusColor}',
+            focusBackground: '{surface.100}',
+            selectedBackground: '{surface.100}',
+            selectedColor: '{text.focusColor}',
+            selectedFocusBackground: '{surface.100}',
+            selectedFocusColor: '{text.focusColor}',
+          },
+        },
+      },
+    },
     panel: {
       colorScheme: {
         dark: {
