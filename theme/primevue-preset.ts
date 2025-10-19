@@ -407,6 +407,12 @@ const MyCustomPreset = definePreset(Aura, {
           success: {
             detailColor: '{text.color}',
           },
+          info: {
+            detailColor: '{text.color}',
+          },
+          error: {
+            detailColor: '{text.color}',
+          },
         },
       },
     },

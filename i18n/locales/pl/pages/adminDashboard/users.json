@@ -6,6 +6,13 @@
     "user": "Użytkownik",
     "admin": "Administrator"
   },
+  "deleteUser": {
+    "title": "Napewno chcesz usunąć użytkownika ?"
+  },
+  "toast": {
+    "success": "Utworzono nowego użytkownika",
+    "update": "Zaktualizowano dane użytkownika"
+  },
   "buttons": {
     "add": "Dodaj użytkownika",
     "update": "Zaktualizuj dane",
@@ -13,5 +20,6 @@
       "delete": "Usuń użytkownika",
       "edit": "Edytuj użytkownika"
     }
-  }
+  },
+  "notFoundUsers": "Nie znaleziono użytkowników"
 }

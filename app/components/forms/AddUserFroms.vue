@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="grid grid-cols-2 grid-rows-4 gap-2 py-[0.4rem]">
+    <div class="grid grid-cols-3 grid-rows-4 gap-2 py-[0.4rem]">
       <div class="w-[70vw] md:w-[23rem]">
         <InputGroup>
           <InputGroupAddon>
@@ -17,42 +17,16 @@
             <label for="username">{{ $t('forms.fields.username') }}</label>
           </FloatLabel>
         </InputGroup>
-        <Message
-          v-if="usernameError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ usernameError }}
-        </Message>
-      </div>
-
-      <div class="w-[70vw] md:w-[23rem]">
-        <InputGroup>
-          <InputGroupAddon>
-            <i class="pi pi-users" />
-          </InputGroupAddon>
-          <FloatLabel variant="on">
-            <MultiSelect
-              id="roles"
-              v-model="roles"
-              :class="{ 'p-invalid': rolesError }"
-              :options="listOfRoles"
-              optionLabel="label"
-              optionValue="code"
-              @blur="rolesBlur"
-            />
-            <label for="roles">{{ $t('forms.fields.roles') }}</label>
-          </FloatLabel>
-        </InputGroup>
-        <Message
-          v-if="rolesError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ rolesError }}
-        </Message>
+        <div class="min-h-[1.1rem] pt-1">
+          <Message
+            v-if="usernameError"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
+            {{ usernameError }}
+          </Message>
+        </div>
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
@@ -71,14 +45,16 @@
             <label for="firstName">{{ $t('forms.fields.firstName') }}</label>
           </FloatLabel>
         </InputGroup>
-        <Message
-          v-if="firstNameError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ firstNameError }}
-        </Message>
+        <div class="min-h-[1.1rem] pt-1">
+          <Message
+            v-if="firstNameError"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
+            {{ firstNameError }}
+          </Message>
+        </div>
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
@@ -97,14 +73,16 @@
             <label for="lastName">{{ $t('forms.fields.lastName') }}</label>
           </FloatLabel>
         </InputGroup>
-        <Message
-          v-if="lastNameError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ lastNameError }}
-        </Message>
+        <div class="min-h-[1.1rem] pt-1">
+          <Message
+            v-if="lastNameError"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
+            {{ lastNameError }}
+          </Message>
+        </div>
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
@@ -123,14 +101,16 @@
             <label for="email">{{ $t('forms.fields.email') }}</label>
           </FloatLabel>
         </InputGroup>
-        <Message
-          v-if="emailError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ emailError }}
-        </Message>
+        <div class="min-h-[1.1rem] pt-1">
+          <Message
+            v-if="emailError"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
+            {{ emailError }}
+          </Message>
+        </div>
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
@@ -149,14 +129,47 @@
             <label for="phone">{{ $t('forms.fields.phone') }}</label>
           </FloatLabel>
         </InputGroup>
-        <Message
-          v-if="phoneError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ phoneError }}
-        </Message>
+        <div class="min-h-[1.1rem] pt-1">
+          <Message
+            v-if="phoneError"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
+            {{ phoneError }}
+          </Message>
+        </div>
+      </div>
+
+      <div class="w-[70vw] md:w-[23rem]">
+        <InputGroup>
+          <InputGroupAddon>
+            <i class="pi pi-users" />
+          </InputGroupAddon>
+          <FloatLabel variant="on">
+            <MultiSelect
+              id="roles"
+              v-model="roles"
+              :class="{ 'p-invalid': rolesError }"
+              :options="listOfRoles"
+              optionLabel="label"
+              optionValue="code"
+              filter
+              @blur="rolesBlur"
+            />
+            <label for="roles">{{ $t('forms.fields.roles') }}</label>
+          </FloatLabel>
+        </InputGroup>
+        <div class="min-h-[1.1rem] pt-1">
+          <Message
+            v-if="rolesError"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
+            {{ rolesError }}
+          </Message>
+        </div>
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
@@ -178,15 +191,18 @@
             <label for="password">{{ $t('forms.fields.password') }}</label>
           </FloatLabel>
         </InputGroup>
-        <Message
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ passwordError }}
-        </Message>
+        <div class="min-h-[1.1rem] pt-1">
+          <Message
+            v-if="passwordError"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
+            {{ passwordError }}
+          </Message>
+        </div>
       </div>
-      <div class="col-span-2">
+      <div class="flex justify-center pt-4 col-span-3">
         <Button
           type="submit"
           label="Dodaj"
@@ -209,11 +225,13 @@ defineRule('required', required)
 
 const { addUser } = useUser()
 const { t } = useI18n()
+const toast = useToast()
 const { handleSubmit, resetForm } = useForm<IUserAddResponse>({
   validationSchema: {
     username: 'required|min:3',
     firstName: 'min:3',
     lastName: 'min:3',
+    email: 'email',
     password: 'required',
     roles: 'required',
   },
@@ -250,6 +268,11 @@ const submitForm = handleSubmit(async (formValues: IUserAddResponse) => {
     resetForm()
   }
   finally {
+    toast.add({
+      severity: 'success',
+      summary: t('common.toast.success'),
+      detail: t('pages.adminDashboard.users.toast.success'),
+      life: 3000 })
     emit('updateVisible', false)
     loading.value = false
   }

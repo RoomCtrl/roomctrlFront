@@ -1,7 +1,7 @@
 <template>
   <div>
     <Button
-      v-tooltip="{ value: $t('pages.adminDashboard.users.buttons.tooltip.edit') }"
+      v-tooltip.left="{ value: $t('pages.adminDashboard.users.buttons.tooltip.edit') }"
       icon="pi pi-user-edit"
       @click="visible = true"
     />
@@ -9,6 +9,7 @@
       v-model:visible="visible"
       :header="$t('pages.adminDashboard.users.updateUser')"
       pt:title:class="text-3xl font-bold"
+      modal
     >
       <UpdateUserForms
         :userId="userId"
