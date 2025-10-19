@@ -9,7 +9,6 @@
     @mouseleave="hideAnimation"
   >
     <template #title>
-      {{ qrValue }}
       <div class="flex flex-row gap-2 justify-center">
         <i
           :class="content.icon"

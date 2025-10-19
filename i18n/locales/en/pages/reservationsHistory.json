@@ -1,12 +1,12 @@
 {
   "incomingRent": "My upcoming reservations:",
   "completedRent": "Completed reservations:",
-  "rentTitle": "Reservation title: ",
-  "rentStart": "Start: ",
-  "rentEnd": "End: ",
-  "rentStatus": "Status: ",
-  "participants": "Participants: ",
-  "roomName": "Room name: ",
+  "rentTitle": "Reservation title",
+  "rentStart": "Start",
+  "rentEnd": "End",
+  "rentStatus": "Status",
+  "rentType": "Reservation type",
+  "roomName": "Room no.",
   "participantsNumber": "{number} participants",
   "details": "Details",
   "statuses": {
@@ -14,7 +14,11 @@
     "planned": "Planned",
     "cancelled": "Cancelled",
     "ended": "Ended",
-    "toApprove": "To approve"
+    "toApprove": "Pending approval"
+  },
+  "reservationTypes": {
+    "public": "Public",
+    "private": "Private"
   },
   "noRent": "No reservations",
   "comeToRoom": "Go to room"

@@ -5,7 +5,7 @@
   "rentStart": "Rozpoczęcie",
   "rentEnd": "Zakończenie",
   "rentStatus": "Status",
-  "participants": "Uczestnicy: ",
+  "rentType": "Typ rezerwacji",
   "roomName": "Sala nr",
   "participantsNumber": "{number} uczestników",
   "details": "Szczegóły",

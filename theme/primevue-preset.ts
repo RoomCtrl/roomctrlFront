@@ -135,9 +135,22 @@ const MyCustomPreset = definePreset(Aura, {
     datatable: {
       colorScheme: {
         dark: {
+          headerCell: {
+            selectedBackground: '{surface.250}',
+          },
           row: {
             background: '{surface.100}',
             color: '{text.color}',
+          },
+        },
+        light: {
+          headerCell: {
+            hoverColor: '{text.focusColor}',
+            selectedBackground: '{surface.100}',
+            selectedColor: '{text.focusColor}',
+          },
+          sortIcon: {
+            hoverColor: '{text.focusColor}',
           },
         },
       },

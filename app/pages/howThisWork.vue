@@ -6,7 +6,9 @@
       pt:title:class="text-xl md:text-4xl font-bold text-center"
     >
       <template #title>
-        {{ $t('pages.howThisWork.title') }}
+        <div class="font-black text-3xl md:text-4xl text-center py-[2vh] text-white">
+          {{ $t('pages.howThisWork.title') }}
+        </div>
       </template>
     </Card>
     <HowWorkList />

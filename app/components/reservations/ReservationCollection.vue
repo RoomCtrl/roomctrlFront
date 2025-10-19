@@ -16,7 +16,7 @@
     <Column
       field="roomName"
       :header="$t('pages.reservationsHistory.roomName')"
-      class="w-[5%]"
+      class="w-[10%]"
       sortable
       :showFilterMenu="false"
     >
@@ -25,6 +25,7 @@
           id="rentTitle"
           v-model="filterModel.value"
           class="w-full"
+          :placeholder="$t('forms.filters.search')"
           @input="filterCallback()"
         />
       </template>
@@ -33,13 +34,14 @@
       field="title"
       :header="$t('pages.reservationsHistory.rentTitle')"
       sortable
-      class="w-[30%]"
+      class="w-[25%]"
     >
       <template #filter="{ filterModel, filterCallback }">
         <InputText
           id="rentTitle"
           v-model="filterModel.value"
           class="w-full"
+          :placeholder="$t('forms.filters.search')"
           @input="filterCallback()"
         />
       </template>
@@ -52,13 +54,28 @@
       class="w-[12%]"
     >
       <template #body="{ data }">
-        {{ formatToTimeAndDate(data.startedAt) }}
+        <div class="flex flex-row gap-2 items-center">
+          <div class="flex flex-row gap-1 items-center">
+            <h1>
+              {{ formatToHoursMinutes(data.startedAt) }}
+            </h1>
+            <i class="pi pi-clock" />
+          </div>
+          <div class="flex flex-row gap-1 items-center">
+            <h1>
+              {{ formatToDayMonth(data.startedAt) }}
+            </h1>
+            <i class="pi pi-calendar" />
+          </div>
+        </div>
       </template>
       <template #filter="{ filterModel, filterCallback }">
         <DatePicker
           v-model="filterModel.value"
+          dateFormat="dd/mm/yy"
           showButtonBar
           showClear
+          :placeholder="$t('forms.filters.search')"
           @date-select="filterCallback()"
           @clear-click="handleClearDate(filterModel, filterCallback)"
         />
@@ -72,13 +89,28 @@
       class="w-[12%]"
     >
       <template #body="{ data }">
-        {{ formatToTimeAndDate(data.endedAt) }}
+        <div class="flex flex-row gap-2 items-center">
+          <div class="flex flex-row gap-1 items-center">
+            <h1>
+              {{ formatToHoursMinutes(data.startedAt) }}
+            </h1>
+            <i class="pi pi-clock" />
+          </div>
+          <div class="flex flex-row gap-1 items-center">
+            <h1>
+              {{ formatToDayMonth(data.startedAt) }}
+            </h1>
+            <i class="pi pi-calendar" />
+          </div>
+        </div>
       </template>
       <template #filter="{ filterModel, filterCallback }">
         <DatePicker
           v-model="filterModel.value"
+          dateFormat="dd/mm/yy"
           showButtonBar
           showClear
+          :placeholder="$t('forms.filters.search')"
           @date-select="filterCallback()"
           @clear-click="handleClearDate(filterModel, filterCallback)"
         />
@@ -105,6 +137,7 @@
           id="rentStatus"
           v-model="filterModel.value"
           class="w-full"
+          :placeholder="$t('forms.filters.choose')"
           :options="statuses"
           optionLabel="name"
           optionValue="code"
@@ -114,7 +147,7 @@
     </Column>
     <Column
       field="reservationsType"
-      header="Typ rezerwacji"
+      :header="$t('pages.reservationsHistory.rentType')"
       class="w-[11%]"
     >
       <template #body="{ data }">
@@ -125,6 +158,7 @@
           id="rentStatus"
           v-model="filterModel.value"
           class="w-full"
+          :placeholder="$t('forms.filters.choose')"
           :options="typesOfReservation"
           optionLabel="name"
           optionValue="code"
@@ -138,18 +172,24 @@
       <template #body="{ data }">
         <div class="flex justify-center gap-4">
           <Button
-            v-if="!completed"
-            label="Edytuj"
-          />
-          <Button
-            v-if="!completed"
-            label="Anuluj"
-          />
-          <Button
-            :label="$t('pages.reservationsHistory.comeToRoom')"
+            v-tooltip.left="{ value: $t('pages.reservationsHistory.comeToRoom') }"
+            icon="pi pi-sign-out"
             as="a"
             :href="localePath(`/rooms/` + data.roomId)"
+            variant="outlined"
             class="flex-none"
+          />
+          <Button
+            v-if="!completed"
+            v-tooltip.left="{ value: $t('common.buttons.edit') }"
+            icon="pi pi-pencil"
+            variant="outlined"
+          />
+          <Button
+            v-if="!completed"
+            v-tooltip.left="{ value: $t('common.buttons.cancel') }"
+            icon="pi pi-times"
+            variant="outlined"
           />
         </div>
       </template>
@@ -196,15 +236,18 @@ const customDateFilter = (value: any, filter: any): boolean => {
     return true
   }
 
-  // Konwertuj obie daty do formatu bez czasu (tylko dzień/miesiąc/rok)
   const valueDate = new Date(value)
   const filterDate = new Date(filter)
 
-  // Normalizuj daty do początku dnia (00:00:00)
-  valueDate.setHours(0, 0, 0, 0)
-  filterDate.setHours(0, 0, 0, 0)
+  if (isNaN(valueDate.getTime()) || isNaN(filterDate.getTime())) {
+    return false
+  }
 
-  return valueDate.getTime() === filterDate.getTime()
+  return (
+    valueDate.getFullYear() === filterDate.getFullYear()
+    && valueDate.getMonth() === filterDate.getMonth()
+    && valueDate.getDate() === filterDate.getDate()
+  )
 }
 
 const handleClearDate = (filterModel: any, filterCallback: Function) => {
@@ -245,6 +288,7 @@ const statusColor = computed(() => ({
   ended: 'success',
   planned: 'info',
   toApprove: 'warn',
+  all: 'primary',
 }))
 
 const statuses = ref([

@@ -8,6 +8,7 @@
     "logIn": "Zaloguj się",
     "logOut": "Wyloguj się",
     "filter": "Filtruj",
+    "edit": "Edytuj",
     "cancel": "Anuluj",
     "delete": "Usuń"
   },
@@ -20,23 +21,5 @@
     "capacity": "Pojemność: ",
     "size": "Powierzchnia: ",
     "location": "Lokalizacja: "
-  },
-  "dayNames": {
-    "Monday": "Poniedziałek",
-    "Tuesday": "Wtorek",
-    "Wednesday": "Środa",
-    "Thursday": "Czwartek",
-    "Friday": "Piątek",
-    "Saturday": "Sobota",
-    "Sunday": "Niedziela"
-  },
-  "shortdayNames": {
-    "Monday": "Pon",
-    "Tuesday": "Wt",
-    "Wednesday": "Śr",
-    "Thursday": "Czw",
-    "Friday": "Pt",
-    "Saturday": "Sob",
-    "Sunday": "Nie"
   }
 }

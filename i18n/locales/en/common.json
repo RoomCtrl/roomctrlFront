@@ -5,9 +5,10 @@
   "roomCtrl": "RoomCtrl",
   "logoAlt": "RoomCtrl Logo",
   "buttons": {
-    "logIn": "Log in",
-    "logOut": "Log out",
+    "logIn": "Log In",
+    "logOut": "Log Out",
     "filter": "Filter",
+    "edit": "Edit",
     "cancel": "Cancel",
     "delete": "Delete"
   },
@@ -16,28 +17,9 @@
     "success": "Success",
     "update": "Updated"
   },
-
   "roomParameters": {
     "capacity": "Capacity: ",
     "size": "Area: ",
     "location": "Location: "
-  },
-  "dayNames": {
-    "Monday": "Monday",
-    "Tuesday": "Tuesday",
-    "Wednesday": "Wednesday",
-    "Thursday": "Thursday",
-    "Friday": "Friday",
-    "Saturday": "Saturday",
-    "Sunday": "Sunday"
-  },
-  "shortdayNames": {
-    "Monday": "Mon",
-    "Tuesday": "Tue",
-    "Wednesday": "Wed",
-    "Thursday": "Thu",
-    "Friday": "Fri",
-    "Saturday": "Sat",
-    "Sunday": "Sun"
   }
 }
