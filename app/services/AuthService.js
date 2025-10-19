@@ -19,10 +19,16 @@ export class AuthService {
       this.storageRepository.saveToken(token)
       this.storageRepository.saveUser(userData)
 
+      // Zapisz role jeśli są w userData
+      if (userData.roles) {
+        this.storageRepository.saveRoles(userData.roles)
+      }
+
       return {
         success: true,
         user: userData,
         token,
+        roles: userData.roles || [],
       }
     }
     catch (error) {
@@ -37,12 +43,19 @@ export class AuthService {
   async refreshUserToken(token) {
     try {
       const response = await this.authRepository.refreshToken(token)
-
       if (response.success && response.data?.token) {
         this.storageRepository.saveToken(response.data.token)
-        return response.data.token
-      }
 
+        // Jeśli refresh zwraca też nowe dane usera z rolami
+        if (response.data.user?.roles) {
+          this.storageRepository.saveRoles(response.data.user.roles)
+        }
+
+        return {
+          token: response.data.token,
+          roles: response.data.user?.roles,
+        }
+      }
       throw new Error('Nie udało się odświeżyć tokenu')
     }
     catch (error) {
@@ -55,9 +68,16 @@ export class AuthService {
       const userData = await this.authRepository.getUserProfile(token)
       if (userData) {
         this.storageRepository.saveUser(userData)
+
+        // Zapisz role
+        if (userData.roles) {
+          this.storageRepository.saveRoles(userData.roles)
+        }
+
         return {
           valid: true,
           user: userData,
+          roles: userData.roles || [],
         }
       }
       return { valid: false }
@@ -69,7 +89,6 @@ export class AuthService {
 
   isTokenExpired(token) {
     if (!token) return true
-
     try {
       const payload = JSON.parse(atob(token.split('.')[1]))
       const currentTime = Date.now() / 1000
@@ -86,5 +105,9 @@ export class AuthService {
 
   getStoredUser() {
     return this.storageRepository.getUser()
+  }
+
+  getStoredRoles() {
+    return this.storageRepository.getRoles()
   }
 }

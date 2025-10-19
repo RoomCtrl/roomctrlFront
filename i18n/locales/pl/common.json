@@ -7,7 +7,14 @@
   "buttons": {
     "logIn": "Zaloguj się",
     "logOut": "Wyloguj się",
-    "filter": "Filtruj"
+    "filter": "Filtruj",
+    "cancel": "Anuluj",
+    "delete": "Usuń"
+  },
+  "toast": {
+    "danger": "Uwaga!",
+    "success": "Sukces",
+    "update": "Zaktualizowano"
   },
   "roomParameters": {
     "capacity": "Pojemność: ",

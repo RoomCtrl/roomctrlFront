@@ -4,6 +4,8 @@ export const useAuth = () => {
   const user = useState('auth.user', () => null)
   const token = useState('auth.token', () => null)
   const loading = useState('auth.loading', () => false)
+  const roles = useState('auth.roles', () => [])
+
   const authService = new AuthService()
 
   const login = async (credentials) => {
@@ -12,6 +14,7 @@ export const useAuth = () => {
       const result = await authService.login(credentials)
       user.value = result.user
       token.value = result.token
+      roles.value = result.roles
       return result
     }
     finally {
@@ -25,8 +28,10 @@ export const useAuth = () => {
       await authService.logout(token.value)
       user.value = null
       token.value = null
-      if (import.meta.client) {
-        window.location.href = redirectTo || '/'
+      roles.value = []
+
+      if (import.meta.client && redirectTo) {
+        await navigateTo(redirectTo)
       }
     }
     finally {
@@ -58,6 +63,7 @@ export const useAuth = () => {
       const validation = await authService.validateToken(currentToken)
       if (validation.valid) {
         user.value = validation.user
+        roles.value = validation.roles || []
         return true
       }
       else {
@@ -79,8 +85,11 @@ export const useAuth = () => {
       return false
     }
     try {
-      const newToken = await authService.refreshUserToken(token.value)
-      token.value = newToken
+      const result = await authService.refreshUserToken(token.value)
+      token.value = result.token
+      if (result.roles) {
+        roles.value = result.roles
+      }
       return true
     }
     catch {
@@ -103,11 +112,34 @@ export const useAuth = () => {
         user.value = storedUser
       }
     }
+
+    if (!roles.value.length) {
+      const storedRoles = authService.getStoredRoles?.()
+      if (storedRoles) {
+        roles.value = storedRoles
+      }
+    }
   }
 
   const isAuthenticated = computed(() => {
     return !!user.value && !!token.value
   })
+
+  const isAdmin = computed(() => {
+    return roles.value.includes('ROLE_ADMIN')
+  })
+
+  const hasRole = (role) => {
+    return roles.value.includes(role)
+  }
+
+  const hasAnyRole = (rolesList) => {
+    return rolesList.some(role => roles.value.includes(role))
+  }
+
+  const hasAllRoles = (rolesList) => {
+    return rolesList.every(role => roles.value.includes(role))
+  }
 
   if (import.meta.server) {
     syncFromStorage()
@@ -117,7 +149,12 @@ export const useAuth = () => {
     user: readonly(user),
     token: readonly(token),
     loading: readonly(loading),
+    roles: readonly(roles),
     isAuthenticated,
+    isAdmin,
+    hasRole,
+    hasAnyRole,
+    hasAllRoles,
     login,
     logout,
     checkAuth,

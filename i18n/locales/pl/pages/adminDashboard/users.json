@@ -1,0 +1,25 @@
+{
+  "title": "Tabela użytkowników",
+  "updateUser": "Aktualizacja danych użytkownika",
+  "addUser": "Nowy użytkownik",
+  "roles": {
+    "user": "Użytkownik",
+    "admin": "Administrator"
+  },
+  "deleteUser": {
+    "title": "Napewno chcesz usunąć użytkownika ?"
+  },
+  "toast": {
+    "success": "Utworzono nowego użytkownika",
+    "update": "Zaktualizowano dane użytkownika"
+  },
+  "buttons": {
+    "add": "Dodaj użytkownika",
+    "update": "Zaktualizuj dane",
+    "tooltip": {
+      "delete": "Usuń użytkownika",
+      "edit": "Edytuj użytkownika"
+    }
+  },
+  "notFoundUsers": "Nie znaleziono użytkowników"
+}

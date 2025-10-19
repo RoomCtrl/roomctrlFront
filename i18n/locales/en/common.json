@@ -5,10 +5,18 @@
   "roomCtrl": "RoomCtrl",
   "logoAlt": "RoomCtrl Logo",
   "buttons": {
-    "logIn": "Log In",
-    "logOut": "Log Out",
-    "filter": "Filter"
+    "logIn": "Log in",
+    "logOut": "Log out",
+    "filter": "Filter",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
+  "toast": {
+    "danger": "Warning!",
+    "success": "Success",
+    "update": "Updated"
+  },
+
   "roomParameters": {
     "capacity": "Capacity: ",
     "size": "Area: ",
