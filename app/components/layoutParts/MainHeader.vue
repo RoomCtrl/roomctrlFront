@@ -66,24 +66,24 @@ const isUserLogin = computed(() => {
 })
 const tabs = computed(() => [
   {
-    label: t('layouts.main.pages.howThisWork'),
-    route: '/howThisWork',
+    label: t('layouts.main.pages.aboutUs'),
+    route: '/aboutUs',
     auth: true,
   },
   {
-    label: t('layouts.main.pages.documentation'),
+    label: t('layouts.main.pages.resources'),
     auth: true,
     items: [
+      {
+        label: t('layouts.main.pages.howThisWork.title'),
+        route: '/howThisWork',
+        description: t('layouts.main.pages.howThisWork.description'),
+        auth: true,
+      },
       {
         label: t('layouts.main.pages.rules.title'),
         route: '/rules',
         description: t('layouts.main.pages.rules.description'),
-        auth: true,
-      },
-      {
-        label: t('layouts.main.pages.privacyPolicy.title'),
-        route: '/privacyPolicy',
-        description: t('layouts.main.pages.privacyPolicy.description'),
         auth: true,
       },
       {
@@ -92,21 +92,22 @@ const tabs = computed(() => [
         description: t('layouts.main.pages.faq.description'),
         auth: true,
       },
+      {
+        label: t('layouts.main.pages.privacyPolicy.title'),
+        route: '/privacyPolicy',
+        description: t('layouts.main.pages.privacyPolicy.description'),
+        auth: true,
+      },
     ],
   },
   {
-    label: t('layouts.main.pages.aboutUs'),
-    route: '/aboutUs',
+    label: t('layouts.main.pages.downloadApp'),
+    route: '/downloadApp',
     auth: true,
   },
   {
     label: t('layouts.main.pages.contact'),
     route: '/contact',
-    auth: true,
-  },
-  {
-    label: t('layouts.main.pages.downloadApp'),
-    route: '/downloadApp',
     auth: true,
   },
   {

@@ -1,39 +1,47 @@
 <template>
-  <Card class="flex items-center">
-    <template #title>
-      <h1 class="flex justify-center text-xl md:text-4xl font-bold py-[3vh] mb-[3vh] bg-[#D74141] rounded-xl text-white text-center">
-        {{ $t('pages.howThisWork.title') }}
-      </h1>
-    </template>
-    <template #content>
-      <div class="flex flex-col gap-4 md:text-lg">
-        <h1 class="font-semibold">
-          {{ $t('pages.howThisWork.content.useApp') }}
-        </h1>
-        <ol class="px-[3vw] md:px-[1vw]">
-          <li
-            v-for="(step, index) in stepsList"
-            :key="index"
-            class="max-md:text-sm"
-          >
-            {{ (index + 1) + '. ' + step }}
-          </li>
-        </ol>
-        <h1 class="font-semibold">
-          {{ $t('pages.howThisWork.content.procesIsSafe') }}
-        </h1>
-      </div>
-    </template>
-  </Card>
+  <div
+    v-for="instruction in instructions"
+    :key="instruction.header"
+    class="flex flex-col"
+  >
+    <InsctructionCard
+      :class="[{ 'self-start': !instruction.right, 'self-end': instruction.right }, 'self-start lg:w-[75%]']"
+      :header="instruction.header"
+      :steps="instruction.steps"
+      :image="instruction.image"
+      :right="instruction.right"
+    />
+  </div>
 </template>
 
 <script setup>
+import InsctructionCard from './InsctructionCard.vue'
+
 const { t } = useI18n()
-const stepsList = [
-  t('pages.howThisWork.content.stepsList.stepOne'),
-  t('pages.howThisWork.content.stepsList.stepTwo'),
-  t('pages.howThisWork.content.stepsList.stepThree'),
-  t('pages.howThisWork.content.stepsList.stepFour'),
-  t('pages.howThisWork.content.stepsList.stepFive'),
+const instructions = [
+  {
+    header: t('pages.howThisWork.instructions.login.title'),
+    steps: [
+      t('pages.howThisWork.instructions.login.steps.stepOne'),
+      t('pages.howThisWork.instructions.login.steps.stepTwo'),
+      t('pages.howThisWork.instructions.login.steps.stepThree'),
+      t('pages.howThisWork.instructions.login.steps.stepFour'),
+      t('pages.howThisWork.instructions.login.steps.stepFive'),
+    ],
+    image: '/images/screens/login_screen.png',
+    right: false,
+  },
+  {
+    header: t('pages.howThisWork.instructions.login.title'),
+    steps: [
+      t('pages.howThisWork.instructions.login.steps.stepOne'),
+      t('pages.howThisWork.instructions.login.steps.stepTwo'),
+      t('pages.howThisWork.instructions.login.steps.stepThree'),
+      t('pages.howThisWork.instructions.login.steps.stepFour'),
+      t('pages.howThisWork.instructions.login.steps.stepFive'),
+    ],
+    image: '/images/screens/login_screen.png',
+    right: true,
+  },
 ]
 </script>

@@ -1,7 +1,7 @@
 <template>
   <Card
     :class="[animationClass]"
-    pt:root:class="w-[80vw] lg:w-[25vw]"
+    pt:root:class="w-full lg:w-[30vw]"
     pt:body:class="h-full"
     pt:content:class="flex-grow"
     pt:footer:class="flex justify-center"
@@ -68,13 +68,13 @@
   >
     <Toast />
     <div class="border-2">
-      <Qrcode :value="text" />
+      <Qrcode :value="qrValue" />
     </div>
     <div class="flex justify-center">
       <div class="grid grid-cols-4">
         <div class="col-span-3 rounded-l-xl">
           <h1 class="flex h-full justify-center items-center text-center border-y-2 border-l-2 rounded-l-xl truncate px-2">
-            http://185.25.151.154:3000/pl
+            {{ qrValue }}
           </h1>
         </div>
         <Button
@@ -87,7 +87,7 @@
   </Dialog>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import UserRating from '../common/UserRating.vue'
 
 const props = defineProps({
@@ -97,12 +97,20 @@ const props = defineProps({
 const { t } = useI18n()
 const visible = ref(false)
 const toast = useToast()
-const text = 'http://185.25.151.154:3000/pl'
 
 const animate = ref(false)
 const hasInteracted = ref(false)
 
 const isAndroid = computed(() => props.content.title === 'Android')
+
+const qrValue = computed(() => {
+  if (isAndroid.value) {
+    return 'http://185.25.151.154/api/v1/download/android'
+  }
+  else {
+    return 'http://185.25.151.154/api/v1/download/ios'
+  }
+})
 
 const animationClass = computed(() => {
   if (!hasInteracted.value) {
@@ -129,9 +137,7 @@ const hideAnimation = () => {
 }
 function copyText() {
   navigator.clipboard.writeText(text).then(() => {
-    console.log('some2')
   })
-  console.log('some')
   toast.add({ severity: 'success', summary: t('toast.success'), detail: t('toast.messages.copied'), life: 3000 })
 }
 </script>
@@ -175,7 +181,7 @@ function copyText() {
   background-image: url('/images/mobileOS/apple_logo_grey.png');
   background-repeat: no-repeat;
   background-size: 60px;
-  background-position: 410px;
+  background-position: calc(100% - 10px) center;
   animation: showIos 0.5s forwards;
 }
 
@@ -183,7 +189,7 @@ function copyText() {
   background-image: url('/images/mobileOS/apple_logo_grey.png');
   background-repeat: no-repeat;
   background-size: 60px;
-  background-position: 410px;
+  background-position: calc(100% - 10px) center;
   animation: hideIos 0.5s forwards;
 }
 </style>

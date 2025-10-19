@@ -1,15 +1,15 @@
 <template>
   <Panel
     :header="t('pages.roomDetails.detailedInfo.title')"
-    pt:content:class="grid sm:max-lg:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-2 w-[95%] self-center"
+    pt:content:class="grid grid-cols-2 max-sm:grid-cols-1 lg:max-2xl:grid-cols-3 max-sm:grid-rows-6 lg:max-xl:grid-rows-2 grid-rows-3 gap-2  self-center"
     pt:header:class="text-2xl 2xl:text-3xl font-semibold mb-3"
     :toggleable="isMobile"
   >
     <Card
       v-for="info in Informations"
       :key="info.title"
-      pt:root:class="border-l-8 border-y-2 border-r-2 border-blue-900/80 overflow-hidden"
-      pt:body:class="bg-sky-500/10 h-full"
+      pt:root:class="border-l-8 border-y-2 border-r-2 border-gray-600 overflow-hidden"
+      pt:body:class="bg-gray-500/20 h-full"
       pt:body:style="--p-card-body-padding: 0.25rem 1rem"
       pt:caption:style="--p-card-caption-gap: 0rem"
     >

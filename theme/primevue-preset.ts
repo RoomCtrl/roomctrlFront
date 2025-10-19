@@ -135,9 +135,22 @@ const MyCustomPreset = definePreset(Aura, {
     datatable: {
       colorScheme: {
         dark: {
+          headerCell: {
+            selectedBackground: '{surface.250}',
+          },
           row: {
             background: '{surface.100}',
             color: '{text.color}',
+          },
+        },
+        light: {
+          headerCell: {
+            hoverColor: '{text.focusColor}',
+            selectedBackground: '{surface.100}',
+            selectedColor: '{text.focusColor}',
+          },
+          sortIcon: {
+            hoverColor: '{text.focusColor}',
           },
         },
       },
@@ -145,13 +158,26 @@ const MyCustomPreset = definePreset(Aura, {
     datepicker: {
       colorScheme: {
         dark: {
+          dropdown: {
+            background: '{surface.250}',
+            hoverColor: '{surface.250}',
+          },
           date: {
+            hoverBackground: '{surface.250}',
             rangeSelectedBackground: '{surface.250}',
+          },
+          today: {
+            color: '{text.color}',
           },
         },
         light: {
+          dropdown: {
+            color: '{text.focusColor}',
+          },
           date: {
+            hoverColor: '{text.focusColor}',
             rangeSelectedBackground: '{surface.100}',
+            rangeSelectedColor: '{text.focusColor}',
           },
         },
       },

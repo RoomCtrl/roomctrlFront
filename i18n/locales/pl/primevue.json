@@ -1,0 +1,25 @@
+{
+  "filters": {
+    "startsWith": "Zaczyna się od",
+    "contains": "Zawiera",
+    "notContains": "Nie zawiera",
+    "endsWith": "Kończy się na",
+    "equals": "Równa się",
+    "notEquals": "Nie równa się",
+    "dateIs": "W dniu",
+    "dateIsNot": "Nie w dniu",
+    "dateBefore": "Przed",
+    "dateAfter": "Po",
+    "clear": "Wyczyść",
+    "apply": "Zastosuj",
+    "noFilter": "Brak filtra",
+    "lt": "Mniejsze niż",
+    "lte": "Mniejsze lub równe",
+    "gt": "Większe niż",
+    "gte": "Większe lub równe",
+    "matchAll": "Dopasuj wszystkie",
+    "matchAny": "Dopasuj którykolwiek",
+    "addRule": "Dodaj regułę",
+    "removeRule": "Usuń regułę"
+  }
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col lg:flex-row justify-between md:justify-center gap-5">
-    <div class="flex flex flex-col gap-5">
+    <div class="flex flex flex-col md:max-lg:flex-row gap-5">
       <DeviceSysCard
         :content="android"
         class="self-center"
@@ -78,6 +78,7 @@ const iosImg = computed(() => {
   return colorMode.value === 'dark' ? 'ios_dark.png' : 'ios.png'
 })
 const android = {
+  id: 'android',
   title: t('pages.downloadApp.android.title'),
   icon: 'pi pi-android',
   iconColor: 'green',
@@ -92,6 +93,7 @@ const android = {
 }
 
 const ios = {
+  od: 'ios',
   title: t('pages.downloadApp.ios.title'),
   icon: 'pi pi-apple',
   iconColor: 'gray',

@@ -2,23 +2,22 @@
   <div class="flex flex-col gap-10">
     <Card>
       <template #title>
-        <h1 class="text-4xl lg:text-6xl font-extrabold mb-4 text-center">
+        <h1 class="text-4xl lg:text-6xl font-extrabold my-4 text-center">
           {{ $t('pages.aboutUs.title') }}
         </h1>
       </template>
       <template #subtitle>
-        <p class="text-lg text-center mb-4 lg:mb-8 lg:px-[18vw]">
+        <p class="text-lg text-center mb-4 lg:mb-8 lg:px-[5vw]">
           {{ $t('pages.aboutUs.subtitle') }}
         </p>
       </template>
       <template #content>
         <div class="flex flex-col gap-10 lg:gap-20 max-lg:items-center">
-          <div class="flex flex-col lg:flex-row max-lg:gap-3 justify-center lg:justify-evenly text-center">
+          <div class="grid lg:grid-cols-2 max-lg:gap-y-4 gap-x-4">
             <Card
               v-for="(card, index) in whoWeAre"
               :key="index"
-              pt:root:class="w-[70vw] lg:w-[30vw] overflow-hidden"
-              pt:body:class="bg-[rgba(223,71,71,0.2)]"
+              pt:root:style="--p-card-background: rgba(223,71,71,0.2)"
             >
               <template #title>
                 <h1 class="text-2xl font-semibold text-center">
@@ -32,63 +31,17 @@
           </div>
 
           <div>
-            <h1 class="font-bold text-2xl lg:text-4xl text-center">
-              {{ $t('pages.aboutUs.howThisWorks.title') }}
-            </h1>
-            <div class="flex flex-col lg:flex-row max-lg:gap-3 justify-center lg:justify-evenly text-center pt-[1vh] lg:pt-[5vh]">
-              <Card
-                v-for="(step, index) in howThisWork"
-                :key="index"
-                pt:root:class="w-[70vw] lg:w-[23vw] overflow-hidden"
-                pt:body:class="bg-[rgba(47,152,223,0.2)] h-full"
-              >
-                <template #title>
-                  <h1 class="font-semibold">
-                    {{ (index + 1) + '. ' + step.header }}
-                  </h1>
-                </template>
-                <template #content>
-                  {{ step.content }}
-                </template>
-              </Card>
-            </div>
-          </div>
-
-          <div>
-            <h1 class="font-bold text-2xl lg:text-4xl text-center">
-              {{ $t('pages.aboutUs.ourFillars.title') }}
-            </h1>
-            <div class="flex flex-col lg:flex-row max-lg:gap-3 justify-evenly text-center pt-[1vh] lg:pt-[5vh]">
-              <Card
-                v-for="(filar, index) in filars"
-                :key="index"
-                pt:root:class="w-[80vw] lg:w-[23vw] overflow-hidden"
-                pt:body:class="bg-[rgba(47,152,223,0.2)] h-full"
-              >
-                <template #title>
-                  <h1 class="font-semibold">
-                    {{ filar.header }}
-                  </h1>
-                </template>
-                <template #content>
-                  {{ filar.content }}
-                </template>
-              </Card>
-            </div>
-          </div>
-
-          <div>
             <h2 class="text-2xl lg:text-4xl font-bold text-center mb-[2vh]">
               {{ $t('pages.aboutUs.chooseUs.title') }}
             </h2>
-            <ul class="max-w-3xl mx-auto lg:ml-[31vw] space-y-3 text-lg list-disc list-inside">
-              <li
-                v-for="(feature, index) in features"
-                :key="index"
-              >
-                {{ feature }}
-              </li>
-            </ul>
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 md:grid-rows-3 xl:grid-rows-2 gap-y-2 gap-x-6 p-6">
+              <WhyWeCard
+                v-for="item in whyWe"
+                :key="item.header"
+                :header="item.header"
+                :content="item.content"
+              />
+            </div>
           </div>
 
           <div class="bg-[rgba(151,151,151,0.2)] border-2 p-10 rounded-2xl text-center inset-shadow-sm">
@@ -132,6 +85,7 @@
 
 <script setup lang="ts">
 import TeamGitHub from './TeamGitHub.vue'
+import WhyWeCard from './WhyWeCard.vue'
 
 const { t } = useI18n()
 
@@ -146,41 +100,30 @@ const whoWeAre = [
   },
 ]
 
-const howThisWork = [
+const whyWe = [
   {
-    header: t('pages.aboutUs.howThisWorks.findRoom.title'),
-    content: t('pages.aboutUs.howThisWorks.findRoom.description'),
+    header: t('pages.aboutUs.chooseUs.corpoNeeds.title'),
+    content: t('pages.aboutUs.chooseUs.corpoNeeds.description'),
   },
   {
-    header: t('pages.aboutUs.howThisWorks.reserve.title'),
-    content: t('pages.aboutUs.howThisWorks.reserve.description'),
+    header: t('pages.aboutUs.chooseUs.automationProcess.title'),
+    content: t('pages.aboutUs.chooseUs.automationProcess.description'),
   },
   {
-    header: t('pages.aboutUs.howThisWorks.use.title'),
-    content: t('pages.aboutUs.howThisWorks.use.description'),
-  },
-]
-
-const filars = [
-  {
-    header: t('pages.aboutUs.ourFillars.strategy.title'),
-    content: t('pages.aboutUs.ourFillars.strategy.description'),
+    header: t('pages.aboutUs.chooseUs.fullControl.title'),
+    content: t('pages.aboutUs.chooseUs.fullControl.description'),
   },
   {
-    header: t('pages.aboutUs.ourFillars.innovaction.title'),
-    content: t('pages.aboutUs.ourFillars.innovaction.description'),
+    header: t('pages.aboutUs.chooseUs.simplicity.title'),
+    content: t('pages.aboutUs.chooseUs.simplicity.description'),
   },
   {
-    header: t('pages.aboutUs.ourFillars.teamwork.title'),
-    content: t('pages.aboutUs.ourFillars.teamwork.description'),
+    header: t('pages.aboutUs.chooseUs.dataSecurity.title'),
+    content: t('pages.aboutUs.chooseUs.dataSecurity.description'),
   },
-]
-
-const features = [
-  t('pages.aboutUs.chooseUs.features.noAdditionalFees'),
-  t('pages.aboutUs.chooseUs.features.fastBooking'),
-  t('pages.aboutUs.chooseUs.features.securePayment'),
-  t('pages.aboutUs.chooseUs.features.flexible'),
-  t('pages.aboutUs.chooseUs.features.coummity'),
+  {
+    header: t('pages.aboutUs.chooseUs.growthAndScalability.title'),
+    content: t('pages.aboutUs.chooseUs.growthAndScalability.description'),
+  },
 ]
 </script>

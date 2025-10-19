@@ -3,6 +3,7 @@
   "size": "Rozmiar sali: ",
   "capacity": "Pojemność: ",
   "location": "Lokalizacja: ",
+  "notFoundRooms": "Nie znaleziono sal",
   "statuses": {
     "tags": {
       "available": "Dostępna",

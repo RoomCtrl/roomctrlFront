@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-h-[70vh]">
     <RentHistoryTabs />
   </div>
 </template>

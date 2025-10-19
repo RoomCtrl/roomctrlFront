@@ -1,66 +1,77 @@
 <template>
   <Panel
+    pt:root:class="flex flex-col"
     :header=" $t('pages.roomDetails.weekCalendar.title')"
-    pt:header:class="text-2xl lg:text-3xl font-bold mb-6"
-    pt:content:class="h-full flex"
+    pt:header:class="text-2xl lg:text-3xl font-bold pb-10"
     :toggleable="isMobile"
   >
-    <div class="flex flex-row gap-4 h-full w-full">
-      <div class="flex flex-wrap sm:max-xl:grid md:max-lg:grid-cols-2 lg:max-xl:grid-cols-4 lg:flex-col gap-1 w-full">
-        <div
-          v-for="day in weekDays"
-          :key="day.date"
-          class="flex max-xl:flex-col xl:flex-nowrap gap-1 w-full"
-        >
-          <Chip
-            pt:root:class="rounded-xl"
-            pt:root:style="--p-chip-background:color-mix(in srgb, var(--p-gray-500) 70%, transparent)"
-            class="flex-none xl:w-[7vw] flex flex-row justify-between"
+    <div class="flex flex-col h-full w-full justify-center">
+      <div class="flex flex-row gap-4 w-full">
+        <div class="flex flex-wrap sm:max-xl:grid md:max-lg:grid-cols-2 lg:max-xl:grid-cols-4 lg:flex-col gap-1 w-full">
+          <div
+            v-for="day in weekDays"
+            :key="day.date"
+            class="flex max-xl:flex-col xl:flex-nowrap gap-1 w-full"
           >
-            <span class="hidden lg:block">{{ $t(day.name) }}</span>
-            <span class="block lg:hidden">{{ $t(day.fullName) }}</span>
-            <span>({{ day.dayNumber + '.' + day.month }})</span>
-          </Chip>
-          <div class="grid grid-cols-4 lg:max-xl:grid-cols-2 xl:flex xl:flex-wrap gap-1 flex-1">
             <Chip
-              v-for="hour in hours"
-              :key="`${day.date}-${hour}`"
-              v-tooltip.bottom="{
-                value: getTooltipText(day.date, hour),
-                pt: {
-                  text: 'text-center',
-                },
-              }"
-              :pt:root:style="getCellClass(day.date, hour)"
-              class="flex-1"
-              :label="formatHour(hour)"
-              @click="handleCellClick(day.date, hour)"
-            />
+              pt:root:class="rounded-xl"
+              pt:root:style="--p-chip-background:color-mix(in srgb, var(--p-gray-500) 70%, transparent)"
+              class="flex-none xl:w-[7vw] flex flex-row justify-between"
+            >
+              <span class="hidden lg:block">{{ $t(day.name) }}</span>
+              <span class="block lg:hidden">{{ $t(day.fullName) }}</span>
+              <span>({{ day.dayNumber + '.' + day.month }})</span>
+            </Chip>
+            <div class="grid grid-cols-4 lg:max-xl:grid-cols-2 xl:flex xl:flex-wrap gap-1 flex-1">
+              <Chip
+                v-for="hour in hours"
+                :key="`${day.date}-${hour}`"
+                v-tooltip.bottom="getBookingForSlot(day.date, hour) ? {
+                  value: getTooltipText(day.date, hour),
+                  pt: {
+                    text: 'text-center',
+                  },
+                } : null"
+                :pt:root:style="getCellClass(day.date, hour)"
+                class="flex-1"
+                :label="formatHour(hour)"
+                @click="handleCellClick(day.date, hour)"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <Dialog
-        v-if="isMobile"
-        v-model:visible="selectedSlot"
-        :dismissable-mask="true"
-        class="block lg:hidden mt-6"
-      >
-        <template #header>
-          <h3 class="text-lg font-semibold mb-2">
-            {{ $t(selectedSlot.day) }} {{ formatHour(selectedSlot.hour) }}
-          </h3>
-        </template>
-
-        <div v-if="selectedSlot.booking">
-          <p><strong>{{ selectedSlot.booking.title }}</strong></p>
-          <p>{{ $t('pages.roomDetails.weekCalendar.participants') + selectedSlot.booking.participants }}</p>
-          <p>{{ $t('pages.roomDetails.weekCalendar.meetingTyp', { type: meetingType }) }}</p>
-        </div>
-        <div v-else>
-          <p>{{ $t('pages.roomDetails.weekCalendar.availableRoom') }}</p>
-        </div>
-      </Dialog>
     </div>
+    <Dialog
+      v-model:visible="visible"
+      modal
+    >
+      <template #header>
+        <h1 class="font-bold text-2xl">
+          {{ selectedSlot.booking.isPrivate ? selectedSlot.booking.title : 'Rezerwacja prywatna' }}
+        </h1>
+      </template>
+      <div class="grid grid-cols-3 border-2 border-red-800 rounded-lg">
+        <h2 class="rounded-tl-md">
+          Dnia:
+        </h2>
+        <h2>
+          O godzinie:
+        </h2>
+        <h2 class="rounded-tr-md">
+          Ilosc uczestników:
+        </h2>
+        <h2 class="rounded-bl-md">
+          {{ selectedSlot.date }} ({{ $t(selectedSlot.day) }})
+        </h2>
+        <h2>
+          {{ formatHour(selectedSlot.hour) }}
+        </h2>
+        <h2 class="rounded-br-md">
+          {{ selectedSlot.booking.participants }}
+        </h2>
+      </div>
+    </Dialog>
   </Panel>
 </template>
 
@@ -77,6 +88,8 @@ const props = defineProps({
     default: () => [],
   },
 })
+
+const visible = ref(false)
 const { t } = useI18n()
 const isMobile = ref(false)
 const isReady = ref(false)
@@ -174,7 +187,9 @@ const getTooltipText = (date: string, hour: number) => {
 const handleCellClick = (date, hour) => {
   const booking = getBookingForSlot(date, hour)
   const dayName = weekDays.value.find(d => d.date === date)?.fullName
-
+  if (booking) {
+    visible.value = true
+  }
   selectedSlot.value = {
     day: dayName,
     hour,
@@ -202,6 +217,10 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+h2 {
+  padding: 2px 10px ;
+  border: 1px solid var(--p-red-800);
+}
 .p-chip {
   border-radius: 0.75rem
 }

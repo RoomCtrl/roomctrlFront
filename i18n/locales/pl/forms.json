@@ -6,7 +6,8 @@
       "rentStatus": "Status",
       "rentDateRange": "Zakres dni"
     },
-    "search": "Szukaj"
+    "search": "Szukaj",
+    "choose": "Wybierz"
   },
   "titles": {
     "contactForm": "Formularz kontaktowy",

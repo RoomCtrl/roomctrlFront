@@ -17,8 +17,7 @@
     }
   },
   "equipment": {
-    "title": "Wyposażenie: ",
-    "empty": "Brak wyposażenia"
+    "title": "Wyposażenie: "
   },
   "currentMeet": {
     "title": "Aktualne spotkanie: ",
@@ -47,8 +46,8 @@
   },
   "contact": {
     "title": "Kontakt",
-    "phone": "Tel: +48 123 456 789",
-    "insidePhone": "Wewnętrzny tel: 2247",
+    "phone": "Tel: ",
+    "insidePhone": "Wewnętrzny tel: ",
     "email": "Email: "
   }
 }

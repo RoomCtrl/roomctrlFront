@@ -1,7 +1,7 @@
 <template>
   <Panel
     :header="$t('pages.roomDetails.equipment.title')"
-    pt:content:class="flex flex-col lg:grid lg:grid-cols-1 xl:grid-cols-2 gap-2 w-[95%] self-center"
+    pt:content:class="grid max-sm:flex max-sm:flex-col grid-cols-2 lg:grid-cols-3 2xl:grid-cols-2 gap-2 w-[95%] self-center"
     pt:header:class="text-2xl 2xl:text-3xl font-semibold mb-3"
     :toggleable="isMobile"
   >
@@ -18,7 +18,7 @@
         >
           <i :class="equipment.name ? equipmentIcon(equipment.category) : 'pi pi-inbox'" />
           <h1 class="truncate">
-            {{ equipment.name ? equipment.quantity + 'x ' + equipment.name : $t('pages.roomDetails.equipment.empty') }}
+            {{ equipment.name ? equipment.quantity + 'x ' + equipment.name : '---' }}
           </h1>
         </div>
       </template>

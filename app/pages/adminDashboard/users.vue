@@ -4,8 +4,8 @@
     <ConfirmDialog />
     <DataTable
       v-model:filters="filters"
-      pt:root:class="min-h-[60vh]"
-      pt:tableContainer:class="min-h-[60vh]"
+      pt:root:class="min-h-[70vh]"
+      pt:tableContainer:class="min-h-[70vh]"
       :value="users"
       filterDisplay="row"
       :rows="rows"
@@ -129,7 +129,9 @@
         </template>
       </Column>
       <template #empty>
-        Nie znaleziono uzytkownikow
+        <h1 class="flex justify-center items-center min-h-[60vh] font-bold text-2xl">
+          {{ $t('pages.adminDashboard.users.notFoundUsers') }}
+        </h1>
       </template>
     </DataTable>
   </div>

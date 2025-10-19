@@ -122,21 +122,21 @@ export const isEarlierThanNow = (dateString: string): boolean => {
 }
 
 export const dayOfWeekFullNames = [
-  'common.dayNames.Monday',
-  'common.dayNames.Tuesday',
-  'common.dayNames.Wednesday',
-  'common.dayNames.Thursday',
-  'common.dayNames.Friday',
-  'common.dayNames.Saturday',
-  'common.dayNames.Sunday',
+  'date.dayNames.monday',
+  'date.dayNames.tuesday',
+  'date.dayNames.wednesday',
+  'date.dayNames.thursday',
+  'date.dayNames.friday',
+  'date.dayNames.saturday',
+  'date.dayNames.sunday',
 ]
 
 export const dayOfWeekShortNames = [
-  'common.shortdayNames.Monday',
-  'common.shortdayNames.Tuesday',
-  'common.shortdayNames.Wednesday',
-  'common.shortdayNames.Thursday',
-  'common.shortdayNames.Friday',
-  'common.shortdayNames.Saturday',
-  'common.shortdayNames.Sunday',
+  'date.dayShortNames.monday',
+  'date.dayShortNames.tuesday',
+  'date.dayShortNames.wednesday',
+  'date.dayShortNames.thursday',
+  'date.dayShortNames.friday',
+  'date.dayShortNames.saturday',
+  'date.dayShortNames.sunday',
 ]

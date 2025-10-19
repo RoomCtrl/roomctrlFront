@@ -25,7 +25,7 @@
       v-else
       class="flex justify-center items-center font-bold text-2xl h-[35rem]"
     >
-      Nie znaleziono sal
+      {{ $t('pages.allRooms.notFoundRooms') }}
     </div>
   </div>
 </template>

@@ -129,8 +129,19 @@ const showToast = (severity: string, summary: string, detail: string) => {
 }
 
 const { t } = useI18n()
+const { user } = useAuth()
+const isUserLogin = computed(() => {
+  return !(Object.keys(user.value || {}).length === 0)
+})
 
-const subjects = getSubjects(t)
+const subjects = computed(() => {
+  if (isUserLogin.value) {
+    return [...getUserSubjects(t), ...getGuestSubjects(t)]
+  }
+  else {
+    return getGuestSubjects(t)
+  }
+})
 
 const { sendContactMessage } = useMailer()
 

@@ -10,6 +10,7 @@
       class="flex flex-row gap-1 items-center"
     >
       <DateTimeDisplay
+        layout="horizontial"
         :started-at="startedAt"
         :ended-at="endedAt"
         :current="current"
@@ -35,6 +36,7 @@
       class="flex flex-row gap-1 items-center"
     >
       <DateTimeDisplay
+        layout="horizontial"
         :started-at="startedAt"
         :ended-at="endedAt"
         :current="current"

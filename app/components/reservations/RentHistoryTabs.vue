@@ -1,7 +1,7 @@
 <template>
   <Tabs
     value="0"
-    class="lg:px-8"
+    class="lg:px-8 min-h-[70vh]"
   >
     <TabList>
       <Tab
@@ -12,10 +12,13 @@
         {{ tab.title }}
       </Tab>
     </TabList>
-    <TabPanels>
+    <TabPanels
+      pt:root:class="min-h-[65vh]"
+    >
       <TabPanel
         v-for="tab in tabs"
         :key="tab.title"
+        pt:root:class="min-h-[60vh]"
         :value="tab.value"
       >
         <ReservationCollection

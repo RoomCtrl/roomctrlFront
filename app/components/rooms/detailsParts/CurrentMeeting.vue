@@ -2,16 +2,17 @@
   <Card
     v-if="currentBooking"
     pt:root:class="flex border-l-4 border-amber-600 justify-center overflow-hidden"
-    pt:body:class="bg-amber-200/80 text-amber-900 w-full h-full"
+    pt:body:class="bg-amber-200/80 text-amber-900 justify-center w-full h-full"
   >
     <template #title>
-      <h2 class="lg:text-xl 2xl:text-2xl font-extrabold">
+      <h2 class="lg:text-xl font-extrabold">
         {{ $t('pages.roomDetails.currentMeet.title') }}
       </h2>
       <h1
         v-if="currentBooking"
-        v-tooltip.bottom="currentBooking.title"
-        class="max-xl:text-base font-bold truncate"
+        v-tooltip.bottom="tooltipConfig"
+        class="max-xl:text-base text-lg font-bold truncate"
+        @mouseenter="checkOverflow"
       >
         {{ meetTitle }}
       </h1>
@@ -49,9 +50,9 @@
       <div class="flex flex-row gap-2 items-center">
         <i
           class="pi pi-book"
-          style="font-size: 1.3rem;"
+          style="font-size: 1.8rem;"
         />
-        <h1>
+        <h1 class="text-2xl">
           {{ $t('pages.allRooms.statuses.roomTitle.available') }}
         </h1>
       </div>
@@ -70,7 +71,28 @@ const props = defineProps<{
   }
 }>()
 const { t } = useI18n()
+const titleElement = ref(null)
+const shouldShowTooltip = ref(false)
 const meetTitle = computed(() => {
   return props.currentBooking?.isPrivate ? props.currentBooking.title : t('pages.allRooms.statuses.roomTitle.occupied')
+})
+
+const checkOverflow = () => {
+  if (titleElement.value) {
+    shouldShowTooltip.value
+      = titleElement.value.scrollWidth > titleElement.value.clientWidth
+  }
+}
+
+const tooltipConfig = computed(() => {
+  if (!shouldShowTooltip.value) return null
+
+  return {
+    value: props.currentBooking.title,
+    pt: {
+      root: 'max-w-[20rem]',
+      text: 'text-center',
+    },
+  }
 })
 </script>

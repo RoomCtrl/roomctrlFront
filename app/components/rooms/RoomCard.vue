@@ -28,15 +28,11 @@
           >
             <h1
               v-if="room.currentBooking && !room.currentBooking.isPrivate"
-              v-tooltip.bottom="{
-                value: room.currentBooking.title,
-                pt: {
-                  root: 'max-w-[20rem]',
-                  text: 'text-center',
-                },
-              }"
+              ref="titleElement"
+              v-tooltip.bottom="tooltipConfig"
               :class="{ 'blur-sm': animationClass === 'show' }"
               class="text-lg lg:text-xl font-semibold lg:truncate"
+              @mouseenter="checkOverflow"
             >
               {{ room.currentBooking.title }}
             </h1>
@@ -104,6 +100,8 @@ const { t } = useI18n()
 const noRentIncomingTitle = t('pages.allRooms.incoming.noRent')
 const animationClass = ref('')
 const showItem = ref(false)
+const titleElement = ref(null)
+const shouldShowTooltip = ref(false)
 const firstNextBooking = computed(() => {
   if (props.room.nextBookings) {
     return props.room.nextBookings[0]
@@ -137,4 +135,21 @@ const playHide = () => {
     animationClass.value = 'hide'
   })
 }
+const checkOverflow = () => {
+  if (titleElement.value) {
+    shouldShowTooltip.value
+      = titleElement.value.scrollWidth > titleElement.value.clientWidth
+  }
+}
+const tooltipConfig = computed(() => {
+  if (!shouldShowTooltip.value) return null
+
+  return {
+    value: props.room.currentBooking.title,
+    pt: {
+      root: 'max-w-[20rem]',
+      text: 'text-center',
+    },
+  }
+})
 </script>

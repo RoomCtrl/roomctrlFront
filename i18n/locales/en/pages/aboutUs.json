@@ -2,70 +2,57 @@
   "title": "Who are we?",
   "ourMission": {
     "title": "Our Mission",
-    "description": "We make access to spaces easier so that everyone can find the perfect place for their event without unnecessary formalities."
+    "description": "We want booking rooms in large companies to be fast, intuitive, and free from chaos. We aim for every employee to easily find and reserve the right space, while managers have full control over availability, utilization, and costs.\nOur priority is efficiency, transparency, and maximum simplification of office space management processes."
   },
   "ourVision": {
     "title": "Our Vision",
-    "description": "We aim to create a community where available rooms find their purpose, and the booking process is fast and convenient."
+    "description": "We believe that modern offices should operate as smoothly as the teams that work in them. Our goal is to create an environment where technology supports people — helping them communicate faster, plan better, and make full use of available spaces. We want every room, regardless of company size, to be a place where work becomes simpler and more efficient."
   },
-  "subtitle": "Our app is a platform that connects space owners with those who need them. We don’t own any rooms ourselves – we make reservations and space management simple, secure, and quick.",
-  "howThisWorks": {
-    "title": "How does it work?",
-    "findRoom": {
-      "title": "Find a room",
-      "description": "Browse available spaces in a convenient location."
-    },
-    "reserve": {
-      "title": "Book",
-      "description": "Choose a date and make a reservation in just a few clicks."
-    },
-    "use": {
-      "title": "Enjoy",
-      "description": "Meet, learn, create – without unnecessary formalities."
-    }
-  },
-  "ourFillars": {
-    "title": "Our Pillars",
-    "strategy": {
-      "title": "Strategy",
-      "description": "We connect people and places, providing quick access to rooms in various locations."
-    },
-    "innovaction": {
-      "title": "Innovative Technologies",
-      "description": "We use modern solutions for a simple and secure booking process."
-    },
-    "teamwork": {
-      "title": "Team and Collaboration",
-      "description": "We create a community where everyone can benefit from available spaces."
-    }
-  },
+  "subtitle": "We are a team specializing in modern business solutions. We create a system that helps corporations and large organizations efficiently manage meeting rooms, conference spaces, and office areas. Our goal is to streamline daily work for teams and administrative departments through booking process automation and better utilization of available resources.",
   "chooseUs": {
-    "title": "Why Choose Us?",
-    "features": {
-      "noAdditionalFees": "No hidden costs",
-      "fastBooking": "Quick and easy online booking",
-      "securePayment": "Secure payments",
-      "flexible": "Flexibility – rent by the hour or by the day",
-      "coummity": "A community of trusted partners"
+    "title": "Why choose us?",
+    "corpoNeeds": {
+      "title": "We understand corporate needs",
+      "description": "We understand the challenges of managing a large number of rooms, teams, and meetings."
+    },
+    "automationProcess": {
+      "title": "We automate processes",
+      "description": "Our system eliminates manual planning and minimizes the risk of double bookings."
+    },
+    "fullControl": {
+      "title": "We offer full control and transparency",
+      "description": "We provide reports, analytics, and real-time insights into room utilization."
+    },
+    "simplicity": {
+      "title": "We focus on simplicity and intuitiveness",
+      "description": "The interface is designed so that every user can quickly find and book the right room."
+    },
+    "dataSecurity": {
+      "title": "We ensure data security",
+      "description": "We adhere to the highest standards of information protection and GDPR compliance."
+    },
+    "growthAndScalability": {
+      "title": "Scalability and growth",
+      "description": "The system grows with your company — whether you manage a single office or a global network of branches."
     }
   },
   "opinions": {
     "title": "What do our users say?",
-    "feedback": "“Finally, a simple and fast tool for booking rooms – no calls, no complications!”",
-    "inProgress": "(Reviews section coming soon)"
+    "feedback": "\"Finally, a simple and fast tool for booking rooms – no calls, no complications!\"",
+    "inProgress": "(Feedback section in progress)"
   },
   "joinUs": {
     "title": "Want to join?",
-    "subtitle": "Contact us to gain access to the platform. Discover how simple booking a room can be!",
+    "subtitle": "Contact us to get access to the platform and see how simple room booking can be!",
     "button": "Contact us"
   },
   "authors": {
     "title": "Meet our team",
     "descriptions": {
-      "jp": "Specializes in building efficient and modern interfaces in Nuxt.js. Ensures speed and a user-friendly app design.",
-      "kr": "Responsible for backend and system integration. Creates robust APIs and ensures stable connections between front-end and server.",
-      "as": "Designs and develops mobile apps in Ionic. Focuses on responsiveness and smooth performance across devices.",
-      "fm": "The guardian of software quality. Hunts bugs and ensures the final product runs flawlessly."
+      "jp": "Specializes in creating efficient and modern interfaces in Nuxt.js. Ensures app speed and user-friendly design.",
+      "kr": "Responsible for backend and system integration. Builds robust APIs and ensures stable connections between frontend and server.",
+      "as": "Designs and develops mobile applications in Ionic. Focuses on responsiveness and smooth performance across devices.",
+      "fm": "Software quality guardian. Finds bugs and ensures the final product works flawlessly."
     }
   }
 }
