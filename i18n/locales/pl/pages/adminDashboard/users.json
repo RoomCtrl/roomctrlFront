@@ -1,4 +1,17 @@
 {
   "title": "Tabela użytkowników",
-  "updateUser": "Aktualizacja danych użytkownika"
+  "updateUser": "Aktualizacja danych użytkownika",
+  "addUser": "Nowy użytkownik",
+  "roles": {
+    "user": "Użytkownik",
+    "admin": "Administrator"
+  },
+  "buttons": {
+    "add": "Dodaj użytkownika",
+    "update": "Zaktualizuj dane",
+    "tooltip": {
+      "delete": "Usuń użytkownika",
+      "edit": "Edytuj użytkownika"
+    }
+  }
 }

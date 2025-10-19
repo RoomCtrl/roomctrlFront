@@ -30,6 +30,34 @@
       <div class="w-[70vw] md:w-[23rem]">
         <InputGroup>
           <InputGroupAddon>
+            <i class="pi pi-users" />
+          </InputGroupAddon>
+          <FloatLabel variant="on">
+            <MultiSelect
+              id="roles"
+              v-model="roles"
+              :class="{ 'p-invalid': rolesError }"
+              :options="listOfRoles"
+              optionLabel="label"
+              optionValue="code"
+              @blur="rolesBlur"
+            />
+            <label for="roles">{{ $t('forms.fields.roles') }}</label>
+          </FloatLabel>
+        </InputGroup>
+        <Message
+          v-if="rolesError"
+          severity="error"
+          size="small"
+          variant="simple"
+        >
+          {{ rolesError }}
+        </Message>
+      </div>
+
+      <div class="w-[70vw] md:w-[23rem]">
+        <InputGroup>
+          <InputGroupAddon>
             <i class="pi pi-user" />
           </InputGroupAddon>
           <FloatLabel variant="on">
@@ -82,7 +110,7 @@
       <div class="w-[70vw] md:w-[23rem]">
         <InputGroup>
           <InputGroupAddon>
-            <i class="pi pi-user" />
+            <i class="pi pi-at" />
           </InputGroupAddon>
           <FloatLabel variant="on">
             <InputText
@@ -108,7 +136,7 @@
       <div class="w-[70vw] md:w-[23rem]">
         <InputGroup>
           <InputGroupAddon>
-            <i class="pi pi-user" />
+            <i class="pi pi-phone" />
           </InputGroupAddon>
           <FloatLabel variant="on">
             <InputText
@@ -131,37 +159,14 @@
         </Message>
       </div>
 
-      <div class="w-[70vw] md:w-[23rem]">
-        <InputGroup>
-          <InputGroupAddon>
-            <i class="pi pi-user" />
-          </InputGroupAddon>
-          <FloatLabel variant="on">
-            <MultiSelect
-              id="roles"
-              v-model="roles"
-              :class="{ 'p-invalid': rolesError }"
-              :options="listOfRoles"
-              @blur="rolesBlur"
-            />
-            <label for="roles">{{ $t('forms.fields.roles') }}</label>
-          </FloatLabel>
-        </InputGroup>
-        <Message
-          v-if="rolesError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ rolesError }}
-        </Message>
+      <div class="flex justify-center pt-4 col-span-2">
+        <Button
+          type="submit"
+          :label="$t('pages.adminDashboard.users.buttons.update')"
+          :loading="loading"
+          class="w-[65vw] md:w-[15rem]"
+        />
       </div>
-      <Button
-        type="submit"
-        label="Dodaj"
-        :loading="loading"
-        class="w-[65vw] md:w-[15rem]"
-      />
     </div>
   </form>
 </template>
@@ -170,13 +175,16 @@
 import { useForm, useField, defineRule } from 'vee-validate'
 import { required } from '@vee-validate/rules'
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
+import type { IUserResponse } from '~/interfaces/UsersInterfaces'
 
 const props = defineProps<{
   userId: string
 }>()
-
+const emit = defineEmits(['updateVisible'])
 defineRule('required', required)
-const user = ref(null)
+
+const user = ref<IUserResponse>()
+const { t } = useI18n()
 const { updateUser, fetchUser } = useUser()
 const { handleSubmit, resetForm } = useForm<IAddUserForm>({
   validationSchema: {
@@ -186,8 +194,14 @@ const { handleSubmit, resetForm } = useForm<IAddUserForm>({
 })
 
 const listOfRoles = ref([
-  'ROLE_ADMIN',
-  'ROLE_USER',
+  {
+    label: t('pages.adminDashboard.users.roles.admin'),
+    code: 'ROLE_ADMIN',
+  },
+  {
+    label: t('pages.adminDashboard.users.roles.user'),
+    code: 'ROLE_USER',
+  },
 ])
 
 const { value: username, errorMessage: usernameError, handleBlur: usernameBlur } = useField<string>('username')
@@ -203,11 +217,11 @@ const submitForm = handleSubmit(async (formValues: IAddUserForm) => {
   loading.value = true
 
   try {
-    console.log(formValues)
     await updateUser(props.userId, formValues)
     resetForm()
   }
   finally {
+    emit('updateVisible', false)
     loading.value = false
   }
 })

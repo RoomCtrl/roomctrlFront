@@ -6,10 +6,12 @@
       class="w-full"
       :value="users"
       filterDisplay="row"
-      :rows="10"
+      :rows="rows"
       :rowsPerPageOptions="[10, 20, 30]"
       :loading="loading"
       paginator
+      :paginatorPosition="paginatorPosition"
+      @update:rows=""
     >
       <template #header>
         <div class="flex flex-row justify-between">
@@ -93,18 +95,26 @@
         class="w-[20%]"
         field="roles"
         :header="$t('forms.fields.roles')"
-      />
+      >
+        <template #body="{ data }">
+          {{ translateRoles(data.roles) }}
+        </template>
+      </Column>
       <Column class="w-[10%]">
         <template #body="{ data }">
           <div class="flex flex-row gap-2">
             <EditButton :userId="data.id" />
             <Button
+              v-tooltip="{ value: $t('pages.adminDashboard.users.buttons.tooltip.delete') }"
               icon="pi pi-user-minus"
               @click="handleDeleteUser(data.id)"
             />
           </div>
         </template>
       </Column>
+      <template #empty>
+        Nie znaleziono uzytkownikow
+      </template>
     </DataTable>
   </div>
 </template>
@@ -123,11 +133,11 @@ definePageMeta({
 
 const toast = useToast()
 const { users, loading, fetchUsers, deleteUser } = useUser()
-
-const handleDeleteUser = async (guid: string) => {
-  await deleteUser(guid)
-  toast.add({ severity: 'error', summary: 'Delete user', detail: 'Message Content', life: 3000 })
-}
+const { t } = useI18n()
+const rows = ref(10)
+const paginatorPosition = computed(() => {
+  return rows.value > 10 ? 'both' : 'bottom'
+})
 
 const filters = ref({
   username: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -136,6 +146,21 @@ const filters = ref({
   email: { value: null, matchMode: FilterMatchMode.CONTAINS },
   phone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 })
+
+const handleDeleteUser = async (guid: string) => {
+  await deleteUser(guid)
+  toast.add({ severity: 'error', summary: 'Delete user', detail: 'Message Content', life: 3000 })
+}
+
+const translateRoles = (roles) => {
+  const map = {
+    ROLE_ADMIN: t('pages.adminDashboard.users.roles.admin'),
+    ROLE_USER: t('pages.adminDashboard.users.roles.user'),
+    ROLE_MANAGER: t('pages.adminDashboard.users.roles.manager'),
+  }
+
+  return roles.map(role => map[role] || role).join(', ')
+}
 
 onMounted(async () => {
   await fetchUsers(false)

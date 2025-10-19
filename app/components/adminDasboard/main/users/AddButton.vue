@@ -1,12 +1,14 @@
 <template>
   <Button
     icon="pi pi-user-plus"
-    label="Dodaj uzytkownika"
+    :label="$t('pages.adminDashboard.users.buttons.add')"
     @click="visible = true"
   />
   <Dialog
     v-model:visible="visible"
+    :header="$t('pages.adminDashboard.users.addUser')"
     modal
+    pt:title:class="text-3xl font-bold"
   >
     <AddUserFroms @update-visible="onAdd" />
   </Dialog>

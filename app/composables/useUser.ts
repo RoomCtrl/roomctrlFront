@@ -4,13 +4,17 @@ import { UserService } from '~/services/UserService'
 
 export const useUser = () => {
   const userService = new UserService()
-  const users = ref<IUserResponse[]>([])
-  const loading = ref(false)
+  const users = useState<IUserResponse[]>('users', () => [])
+  const loading = useState<boolean>('users-loading', () => false)
 
   const fetchUsers = async (withDetails: boolean) => {
     loading.value = true
-    users.value = await userService.getUsers(withDetails)
-    loading.value = false
+    try {
+      users.value = await userService.getUsers(withDetails)
+    }
+    finally {
+      loading.value = false
+    }
   }
 
   const fetchUser = async (guid: string, withDetails: boolean) => {
@@ -27,10 +31,12 @@ export const useUser = () => {
 
   const addUser = async (newUser: IUserAddResponse) => {
     await userService.addUser(newUser)
+    await fetchUsers(false)
   }
 
   const updateUser = async (guid: string, updatedUser: IAddUserForm) => {
     await userService.updateUser(guid, updatedUser)
+    await fetchUsers(false)
   }
 
   return {
