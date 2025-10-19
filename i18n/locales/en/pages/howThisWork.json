@@ -1,14 +1,15 @@
 {
   "title": "How does our platform work?",
-  "content": {
-    "useApp": "Using the application is simple and intuitive:",
-    "procesIsSafe": "The entire process is secure and takes place within your organization.",
-    "stepsList": {
-      "stepOne": "Contact your organization's administrator to receive your login credentials.",
-      "stepTwo": "Log in to the system.",
-      "stepThree": "Browse available rooms and choose a time slot that suits you.",
-      "stepFour": "Book the room with a single click.",
-      "stepFive": "Manage your reservations in the user panel."
+  "instructions": {
+    "login": {
+      "title": "Quick login guide",
+      "steps": {
+        "stepOne": "The administrator creates an account and provides the login and a temporary password.",
+        "stepTwo": "Go to the login page and enter the provided credentials.",
+        "stepThree": "Click 'Log In'.",
+        "stepFour": "On your first login, change the password to your own.",
+        "stepFive": "After changing the password, you can use the system and book rooms."
+      }
     }
   }
 }
