@@ -13,13 +13,19 @@
     "loginForm": "Login"
   },
   "fields": {
-    "name": "Full Name",
+    "name": "Full name",
+    "username": "Username",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "roles": "Roles",
     "email": "Email",
     "subject": "Subject",
+    "phone": "Phone",
     "message": "Message",
-    "login": "Username",
+    "login": "Login",
     "password": "Password"
   },
+
   "fieldMessages": {
     "error": {
       "email": "Enter a valid email address",

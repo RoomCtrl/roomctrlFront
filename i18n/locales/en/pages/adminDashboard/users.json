@@ -1,0 +1,25 @@
+{
+  "title": "User Table",
+  "updateUser": "Update User Data",
+  "addUser": "New User",
+  "roles": {
+    "user": "User",
+    "admin": "Administrator"
+  },
+  "deleteUser": {
+    "title": "Are you sure you want to delete this user?"
+  },
+  "toast": {
+    "success": "New user has been created",
+    "update": "User data has been updated"
+  },
+  "buttons": {
+    "add": "Add User",
+    "update": "Update Data",
+    "tooltip": {
+      "delete": "Delete User",
+      "edit": "Edit User"
+    }
+  },
+  "notFoundUsers": "No users found"
+}

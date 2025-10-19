@@ -36,6 +36,11 @@ export default defineNuxtConfig({
     classSuffix: '',
     storageKey: 'nuxt-color-mode',
   },
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://185.25.151.154/api/v1',
+    },
+  },
   compatibilityDate: '2025-05-15',
   nitro: {
     compressPublicAssets: true,
