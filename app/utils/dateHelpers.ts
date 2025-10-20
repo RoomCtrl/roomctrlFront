@@ -3,22 +3,25 @@ export const lastWeekdaysArray = () => {
   let count = 0
   let i = 0
 
-  while (count < 7) { // chcemy 7 dni roboczych
+  while (count < 7) {
     const date = new Date()
     date.setDate(date.getDate() - i)
     const day = date.getDay()
 
-    if (day !== 0 && day !== 6) { // pomijamy niedzielę (0) i sobotę (6)
-      const formattedDate = date.toLocaleDateString('pl-CA')
-      const dayOfWeek = dayOfWeekFullNames[(day + 6) % 7]
-      days.push(dayOfWeek)
+    if (day !== 0 && day !== 6) {
+      const formattedDate = date.toLocaleDateString('pl-PL', {
+        day: '2-digit',
+        month: '2-digit',
+      })
+      const dayOfWeek = dayOfWeekShortNames[(day + 6) % 7]
+      days.push({ weekDay: dayOfWeek, date: formattedDate })
       count++
     }
 
     i++
   }
 
-  return days.reverse() // od najstarszego do najnowszego
+  return days.reverse()
 }
 export const formatToHoursMinutes = (timestampStr: string): string => {
   const date = new Date(timestampStr.replace(' ', 'T'))

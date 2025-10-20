@@ -10,6 +10,8 @@
     <template #content>
       <DatePicker
         v-model="date"
+        pt:panel:class="border-2 min-h-[36vh]"
+        pt:dayView:class="items-center"
         class="w-full self-end"
         inline
         @date-select="visible = true"

@@ -1,7 +1,8 @@
 <template>
   <Card
-    pt:body:class="p-0"
+    pt:body:class="p-0 h-full"
     pt:title:class="font-bold text-3xl"
+    pt:content:class="flex flex-col justify-end h-full"
   >
     <template #title>
       Liczba rezerwacji
@@ -24,9 +25,7 @@ date.setDate(date.getDate() - 1)
 const chartOptions = ref()
 const { t } = useI18n()
 
-const test = lastWeekdaysArray()
-
-const weekChart = lastWeekdaysArray().map(d => d = t(d))
+const weekChart = lastWeekdaysArray().map(d => d.weekDay = t(d.weekDay) + ' ' + d.date)
 
 const setChartData = () => {
   const documentStyle = getComputedStyle(document.documentElement)
@@ -36,9 +35,9 @@ const setChartData = () => {
     datasets: [
       {
         label: 'Rezerwacje',
-        data: [20, 10, 30, 22, 31, 22, 10],
+        data: [20, 10, 30, 22, 31, 22, 10, 20, 10, 30, 22, 31, 22, 10, 20, 10, 30, 22, 31, 22, 10, 20, 10, 30, 22, 31, 22, 10, 31, 22, 10],
         fill: false,
-        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+        borderColor: documentStyle.getPropertyValue('--p-red-800'),
         tension: 0.4,
       },
     ],

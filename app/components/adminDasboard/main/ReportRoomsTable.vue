@@ -1,11 +1,21 @@
 <template>
   <Card
     pt:body:class="p-2 h-full"
-    pt:title:class="font-bold text-3xl"
     pt:content:class="flex flex-col justify-end h-full"
   >
     <template #title>
-      Zgłoszenia sal
+      <div class="flex flex-row justify-between">
+        <h1 class="font-bold text-3xl">
+          Zgłoszenia sal
+        </h1>
+        <div>
+          <Button
+            icon="pi pi-arrow-right"
+            variant="outlined"
+            rounded
+          />
+        </div>
+      </div>
     </template>
     <template #content>
       <DataTable
@@ -14,6 +24,10 @@
         :rows="3"
       >
         <Column
+          field="room"
+          header="Sala"
+        />
+        <Column
           field="hour"
           header="Godzina"
         />
@@ -21,18 +35,18 @@
           field="date"
           header="Dzien"
         />
-        <Column
-          field="room"
-          header="Sala"
-        />
-        <Column
-          field="bookedBy"
-          header="Rezerwujacy"
-        />
-        <Column
-          field="status"
-          header="Status"
-        />
+        <Column>
+          <template #body>
+            <div>
+              <Button
+                class="p-1 bg-gray-900"
+                label="szczegoly"
+                variant="text"
+                raised
+              />
+            </div>
+          </template>
+        </Column>
       </DataTable>
     </template>
   </Card>
