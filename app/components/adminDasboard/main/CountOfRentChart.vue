@@ -8,7 +8,12 @@
       Liczba rezerwacji
     </template>
     <template #content>
+      <div>
+        <Button label="Ostatni tydzien" />
+        <Button label="Ostatnie 2 tygodnie" />
+      </div>
       <Chart
+        class="w-full h-full"
         type="line"
         :data="chartData"
       />
