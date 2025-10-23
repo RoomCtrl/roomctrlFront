@@ -1,5 +1,5 @@
 <template>
-  <div class="inset-4 flex flex-col overflow-hidden pl-[4rem] pr-[1rem]">
+  <div class="inset-4 flex flex-col overflow-hidden">
     <div class="grid grid-cols-2 gap-x-2 h-full">
       <div class="grid grid-cols-12 grid-rows-13 gap-2 h-full">
         <CardInfoAllRooms
@@ -48,7 +48,7 @@ import ReportRoomsTable from '~/components/adminDasboard/main/ReportRoomsTable.v
 
 definePageMeta({
   middleware: ['admin'],
-  layout: 'adminDashboard',
+  layout: 'admin-dashboard',
 })
 
 const maxRooms = ref(50)

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center h-[100vh] pl-[4rem] pr-[1rem]">
+  <div class="flex flex-col justify-center h-[100vh] pr-[1rem]">
     <Toast />
     <ConfirmDialog />
     <DataTable
@@ -147,7 +147,7 @@ import DeleteUserButton from '~/components/adminDasboard/main/users/DeleteUserBu
 
 definePageMeta({
   middleware: 'admin',
-  layout: 'adminDashboard',
+  layout: 'admin-dashboard',
 })
 
 const { users, loading, fetchUsers } = useUser()
