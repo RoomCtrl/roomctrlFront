@@ -1,6 +1,7 @@
 <template>
   <Card
-    pt:body:class="p-2"
+    pt:body:class="p-2 h-full"
+    pt:content:class="flex flex-col justify-end h-full"
   >
     <template #title>
       <div class="flex flex-row justify-between">
@@ -8,6 +9,7 @@
           {{ header }}
         </h1>
         <Button
+          v-tooltip.left="{ value: $t('pages.adminDashboard.dashboard.tables.tooltip') }"
           icon="pi pi-arrow-right"
           class="flex"
           variant="outlined"
@@ -17,30 +19,31 @@
     </template>
     <template #content>
       <DataTable
+        pt:root:class="h-full flex flex-col justify-between"
         :value="tableData"
         paginator
         :rows="rows"
       >
         <Column
-          field="hour"
-          header="Godzina"
-        />
-        <Column
-          field="date"
-          header="Dzien"
-        />
-        <Column
           field="room"
-          header="Sala"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.room')"
         />
         <Column
           field="bookedBy"
-          header="Rezerwujacy"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.reserver')"
+        />
+        <Column
+          field="date"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.day')"
+        />
+        <Column
+          field="hour"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.hour')"
         />
         <Column
           pt:root:class=""
           field="status"
-          header="Status"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.status')"
         >
           <template #body="{ data }">
             <Message

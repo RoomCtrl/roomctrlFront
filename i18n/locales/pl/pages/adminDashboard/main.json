@@ -1,0 +1,16 @@
+{
+  "tables": {
+    "titles": {
+      "incomingRents": "Najblizsze rezerwacje",
+      "rentsToConfirm": "Rezerwacje do potwierdznia"
+    },
+    "headers": {
+      "room": "Sala",
+      "reserver": "Rezerwujący",
+      "day": "Dzień",
+      "hour": "Godzina",
+      "status": "Status"
+    },
+    "tooltip": "Przejdź do pełnej tabeli"
+  }
+}

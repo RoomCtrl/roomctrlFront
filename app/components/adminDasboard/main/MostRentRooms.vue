@@ -6,8 +6,20 @@
   >
     <template #content>
       <div class="flex flex-row gap-2 justify-center">
-        <Button label="Najczesciej wybierane" />
-        <Button label="Najrzadziej wybierane" />
+        <Button
+          size="small"
+          raised
+          class="bg-gray-800"
+          variant="text"
+          label="Najczesciej wybierane"
+        />
+        <Button
+          size="small"
+          raised
+          class="bg-gray-800"
+          variant="text"
+          label="Najrzadziej wybierane"
+        />
       </div>
       <h1 class="text-center font-semibold text-xl">
         Top 5 najczęściej wybierane sale:
@@ -19,7 +31,7 @@
         circular
       >
         <template #item="{ data }">
-          <div class="flex flex-col border-4 rounded-lg p-1">
+          <div class="flex flex-col border-4 rounded-lg mx-2 p-1">
             <h1 class="font-semibold text-xl">
               {{ data.roomName }}
             </h1>

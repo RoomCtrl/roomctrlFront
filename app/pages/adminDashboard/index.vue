@@ -1,5 +1,5 @@
 <template>
-  <div class="inset-4 flex flex-col overflow-hidden">
+  <div class="inset-4 flex flex-col pr-[0.5rem] h-[100vh] py-[0.5rem]">
     <div class="grid grid-cols-2 gap-x-2 h-full">
       <div class="grid grid-cols-12 grid-rows-13 gap-2 h-full">
         <CardInfoAllRooms
@@ -16,8 +16,7 @@
         <ReportRoomsTable class="col-span-full row-span-5 min-h-0 overflow-hidden" />
       </div>
       <div class="flex flex-col gap-2 h-full">
-        <div class="grid grid-cols-2 gap-x-2 min-h-0">
-          <CountOfRentChart class="min-h-0 overflow-hidden" />
+        <div>
           <MostRentRooms class="min-h-0 overflow-hidden" />
         </div>
         <IncomingRentsTable

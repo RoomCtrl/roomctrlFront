@@ -2,7 +2,7 @@
   <div class="flex h-screen">
     <Menu
       :model="items"
-      :pt:root:class="['sticky flex flex-col justify-between py-4 h-full z-10', isCollapsed ? 'w-[4rem] px-2' : 'w-[22rem] px-4']"
+      :pt:root:class="['fixed flex flex-col justify-between py-4 h-full z-10', isCollapsed ? 'w-[4rem] px-2' : 'w-[22rem] px-4']"
       pt:root:style="min-width: 4rem; --p-menu-background: #1B2532; --p-menu-item-color: #ffffff "
       :pt:list:class="['h-full', { 'items-center': isCollapsed }]"
       :pt:start:class="['flex flex-col']"
@@ -34,7 +34,6 @@
             />
             <LanguageSelect size="small" />
           </div>
-          <ColorModeToggleButton />
         </div>
       </template>
 
@@ -84,7 +83,8 @@
 
         <Divider />
 
-        <div class="flex flex-row justify-end">
+        <div class="flex flex-row justify-between">
+          <ColorModeSwitch v-if="!isCollapsed" />
           <Button
             v-tooltip.right="{ value: $t('common.buttons.logOut'), disabled: !isCollapsed }"
             raised
@@ -105,7 +105,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ColorModeToggleButton from '~/components/layoutParts/ColorModeToggleButton.vue'
+import ColorModeSwitch from '~/components/layoutParts/ColorModeSwitch.vue'
 import LanguageSelect from '~/components/layoutParts/LanguageSelect.vue'
 
 const localePath = useLocalePath()

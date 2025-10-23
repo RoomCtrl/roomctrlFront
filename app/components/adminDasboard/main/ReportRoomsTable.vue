@@ -39,7 +39,7 @@
           <template #body>
             <div>
               <Button
-                class="p-1 bg-gray-900"
+                class="p-1 bg-gray-800"
                 label="szczegoly"
                 variant="text"
                 raised

@@ -13,9 +13,27 @@
     </template>
     <template #content>
       <div class="flex flex-row justify-center gap-2 w-full">
-        <Button label="Dzisiaj" />
-        <Button label="Ten tydzień" />
-        <Button label="Ten miesiac" />
+        <Button
+          size="small"
+          raised
+          class="bg-gray-800"
+          variant="text"
+          label="Dzisiaj"
+        />
+        <Button
+          size="small"
+          raised
+          class="bg-gray-800"
+          variant="text"
+          label="Ten tydzień"
+        />
+        <Button
+          size="small"
+          raised
+          class="bg-gray-800"
+          variant="text"
+          label="Ten miesiac"
+        />
       </div>
       <div class="flex flex-col justify-center items-center w-full h-full">
         <Chart

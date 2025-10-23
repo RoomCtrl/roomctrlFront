@@ -6,7 +6,7 @@ import services from './services.json'
 import toast from './toast.json'
 import primevue from './primevue.json'
 import date from './date.json'
-import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails, reservationsHistory, users } from './pages'
+import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails, reservationsHistory, users, dashboard } from './pages'
 
 export default () => ({
   common,
@@ -27,6 +27,7 @@ export default () => ({
     reservationsHistory,
     adminDashboard: {
       users,
+      dashboard,
     },
   },
   primevue,
