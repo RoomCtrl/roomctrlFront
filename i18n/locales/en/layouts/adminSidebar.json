@@ -1,0 +1,10 @@
+{
+  "items": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "rentsToConfirm": "Bookings to Confirm",
+    "reportsOfRooms": "Room Reports",
+    "statistics": "Statistics",
+    "settings": "Settings"
+  }
+}

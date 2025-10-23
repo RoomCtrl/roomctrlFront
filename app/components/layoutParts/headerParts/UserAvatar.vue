@@ -43,7 +43,7 @@ const { user, logout } = useAuth() as {
 }
 
 const handleLogout = async () => {
-  await logout()
+  await logout('/')
 }
 const toggle = (event) => {
   op.value.toggle(event)

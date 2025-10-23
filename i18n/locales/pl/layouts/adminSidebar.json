@@ -1,0 +1,10 @@
+{
+  "items": {
+    "dashboard": "Dashboard",
+    "users": "Użytkownicy",
+    "rentsToConfirm": "Rezerwacje do potwierdzenia",
+    "reportsOfRooms": "Zgłoszenia sal",
+    "statistics": "Statystyki",
+    "settings": "Ustawienia"
+  }
+}
