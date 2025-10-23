@@ -103,15 +103,10 @@ const submitForm = handleSubmit(async (formValues: ILoginUser) => {
   loading.value = true
 
   try {
-    const data = await login(formValues)
+    await login(formValues)
     resetForm()
 
-    if (data.user.firstLogonStatus === true) {
-      await navigateTo('rooms')
-    }
-    else {
-      await navigateTo('/')
-    }
+    await navigateTo('rooms')
   }
   catch {
     password.value = ''

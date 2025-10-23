@@ -471,6 +471,24 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
+    password: {
+      colorScheme: {
+        dark: {
+          icon: {
+            color: '{text.color}',
+          },
+        },
+      },
+    },
+    inputgroup: {
+      colorScheme: {
+        dark: {
+          addon: {
+            color: '{text.color}',
+          },
+        },
+      },
+    },
   },
 })
 

@@ -1,4 +1,5 @@
 import main from './layouts/main.json'
+import adminSidebar from './layouts/adminSidebar.json'
 import common from './common.json'
 import forms from './forms.json'
 import services from './services.json'
@@ -32,5 +33,6 @@ export default () => ({
   date,
   layouts: {
     main,
+    adminSidebar,
   },
 })
