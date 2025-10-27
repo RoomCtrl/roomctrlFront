@@ -1,11 +1,13 @@
 <template>
   <Card
-    pt:body:class="p-2 h-full"
+    pt:root:style="--p-card-body-padding: 0.5rem"
+    pt:body:class="h-full"
     pt:content:class="flex flex-col justify-end h-full"
   >
     <template #title>
       <div class="flex flex-row justify-between">
-        <h1 class="font-bold text-3xl">
+        <div />
+        <h1 class="font-bold text-3xl ">
           {{ header }}
         </h1>
         <Button

@@ -1,15 +1,18 @@
 <template>
   <Card
-    pt:body:class="p-2 h-full"
+    pt:root:style="--p-card-body-padding:  0.2rem 0.5rem 0.1rem 0.5rem "
+    pt:body:class="h-full"
     pt:content:class="flex flex-col justify-end h-full"
   >
     <template #title>
       <div class="flex flex-row justify-between">
+        <div />
         <h1 class="font-bold text-3xl">
-          Zgłoszenia sal
+          {{ $t('pages.adminDashboard.dashboard.tables.titles.reportRooms') }}
         </h1>
         <div>
           <Button
+            v-tooltip.left="{ value: $t('pages.adminDashboard.dashboard.tables.tooltip') }"
             icon="pi pi-arrow-right"
             variant="outlined"
             rounded
@@ -19,29 +22,34 @@
     </template>
     <template #content>
       <DataTable
+        pt:root:class="h-full flex flex-col justify-evenly"
         :value="reservations"
         paginator
-        :rows="3"
+        :rows="6"
       >
         <Column
+          class="w-[50%]"
           field="room"
-          header="Sala"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.room')"
         />
         <Column
-          field="hour"
-          header="Godzina"
-        />
-        <Column
+          class="w-[20%]"
           field="date"
-          header="Dzien"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.day')"
         />
-        <Column>
+        <Column
+          class="w-[20%]"
+          field="hour"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.hour')"
+        />
+        <Column class="w-[10%]">
           <template #body>
             <div>
               <Button
-                class="p-1 bg-gray-800"
-                label="szczegoly"
-                variant="text"
+                pt:root:style="--p-button-padding-y: 0.2rem; --p-button-padding-x: 0.2rem"
+                :label="$t('pages.adminDashboard.dashboard.tables.buttons.details')"
+                severity="info"
+                variant="outlined"
                 raised
               />
             </div>

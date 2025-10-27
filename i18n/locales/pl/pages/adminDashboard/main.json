@@ -1,8 +1,44 @@
 {
+  "calendar": {
+    "title": "Kalendarz rezerwacji"
+  },
+  "chart": {
+    "title": "Obłożenie sal",
+    "buttons": {
+      "today": "Dzisiaj",
+      "thisWeek": "Ostatnie 7 dni",
+      "thisMonth": "Ostatnie 30 dni"
+    }
+  },
+  "knob": {
+    "generally": "Ogólnie: ",
+    "rent": {
+      "title": "Zarezerwoane sale",
+      "count": "Zarezerwowanych: "
+    },
+    "available": {
+      "title": "Dostępne sale",
+      "count": "Dostępnych: "
+    },
+    "closed": {
+      "title": "Nieczynne sale",
+      "count": "Nieczynnych: "
+    }
+  },
+  "carousel": {
+    "title": {
+      "rentRooms": "Rezerwacje sal",
+      "mostOftenUse": "TOP 5 najczęściej",
+      "leastOftenUse": "TOP 5 najrzadziej"
+    },
+    "weekly": "Tygodniowo",
+    "monthly": "Miesięcznie"
+  },
   "tables": {
     "titles": {
       "incomingRents": "Najblizsze rezerwacje",
-      "rentsToConfirm": "Rezerwacje do potwierdznia"
+      "rentsToConfirm": "Rezerwacje do potwierdzenia",
+      "reportRooms": "Zgłoszenia sal"
     },
     "headers": {
       "room": "Sala",
@@ -10,6 +46,9 @@
       "day": "Dzień",
       "hour": "Godzina",
       "status": "Status"
+    },
+    "buttons": {
+      "details": "Szczegóły"
     },
     "tooltip": "Przejdź do pełnej tabeli"
   }
