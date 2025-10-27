@@ -144,6 +144,9 @@ const MyCustomPreset = definePreset(Aura, {
           },
         },
         light: {
+          root: {
+            borderColor: '{text.focusColor}',
+          },
           headerCell: {
             hoverColor: '{text.focusColor}',
             selectedBackground: '{surface.100}',

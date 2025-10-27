@@ -1,0 +1,55 @@
+{
+  "calendar": {
+    "title": "Booking Calendar"
+  },
+  "chart": {
+    "title": "Room Occupancy",
+    "buttons": {
+      "today": "Today",
+      "thisWeek": "Last 7 days",
+      "thisMonth": "Last 30 days"
+    }
+  },
+  "knob": {
+    "generally": "Overall: ",
+    "rent": {
+      "title": "Reserved Rooms",
+      "count": "Reserved: "
+    },
+    "available": {
+      "title": "Available Rooms",
+      "count": "Available: "
+    },
+    "closed": {
+      "title": "Closed Rooms",
+      "count": "Closed: "
+    }
+  },
+  "carousel": {
+    "title": {
+      "rentRooms": "Room Bookings",
+      "mostOftenUse": "Top 5 Most Used",
+      "leastOftenUse": "Top 5 Least Used"
+    },
+    "weekly": "Weekly",
+    "monthly": "Monthly"
+  },
+  "tables": {
+    "titles": {
+      "incomingRents": "Upcoming Bookings",
+      "rentsToConfirm": "Bookings to Confirm",
+      "reportRooms": "Room Reports"
+    },
+    "headers": {
+      "room": "Room",
+      "reserver": "Reserver",
+      "day": "Day",
+      "hour": "Hour",
+      "status": "Status"
+    },
+    "buttons": {
+      "details": "Details"
+    },
+    "tooltip": "Go to full table"
+  }
+}
