@@ -16,6 +16,9 @@
           <p>
             Ustawienia
           </p>
+          <NuxtLink :to="localePath('/adminDashboard')">
+            Admin panel
+          </NuxtLink>
         </div>
 
         <div class="flex justify-end">
@@ -37,6 +40,7 @@ import type { IGetUserProfileResponse } from '~/app/interfaces/RepositoriesInter
 
 const op = ref()
 const { t } = useI18n()
+const localePath = useLocalePath()
 const { user, logout } = useAuth() as {
   user: Ref<IGetUserProfileResponse | null>
   logout: () => Promise<void>

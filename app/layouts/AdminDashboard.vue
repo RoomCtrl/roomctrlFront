@@ -1,8 +1,8 @@
 <template>
-  <div class="flex h-screen">
+  <div class="p-content flex h-screen overflow-hidden">
     <Menu
       :model="items"
-      :pt:root:class="['sticky flex flex-col justify-between py-4 h-full z-10', isCollapsed ? 'w-[4rem] px-2' : 'w-[22rem] px-4']"
+      :pt:root:class="['fixed flex flex-col justify-between py-4 h-full z-10', isCollapsed ? 'w-[4rem] px-2' : 'w-[22rem] px-4']"
       pt:root:style="min-width: 4rem; --p-menu-background: #1B2532; --p-menu-item-color: #ffffff "
       :pt:list:class="['h-full', { 'items-center': isCollapsed }]"
       :pt:start:class="['flex flex-col']"
@@ -34,7 +34,6 @@
             />
             <LanguageSelect size="small" />
           </div>
-          <ColorModeToggleButton />
         </div>
       </template>
 
@@ -45,6 +44,7 @@
           :to="localePath(item.link)"
           custom
         >
+
           <a
             v-ripple
             :href="href"
@@ -84,7 +84,11 @@
 
         <Divider />
 
-        <div class="flex flex-row justify-end">
+        <div class="flex flex-row justify-between">
+          <ColorModeSwitch
+            v-if="!isCollapsed"
+            class="text-white"
+          />
           <Button
             v-tooltip.right="{ value: $t('common.buttons.logOut'), disabled: !isCollapsed }"
             raised
@@ -96,8 +100,8 @@
         </div>
       </template>
     </Menu>
-    <div class="absolute flex pl-[5rem]">
-      <slot class="z-20" />
+    <div class="flex-1 h-full overflow-hidden ml-[4rem]">
+      <slot />
     </div>
   </div>
 </template>
@@ -105,7 +109,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ColorModeToggleButton from '~/components/layoutParts/ColorModeToggleButton.vue'
+import ColorModeSwitch from '~/components/layoutParts/ColorModeSwitch.vue'
 import LanguageSelect from '~/components/layoutParts/LanguageSelect.vue'
 
 const localePath = useLocalePath()
@@ -165,3 +169,9 @@ const handleLogout = async () => {
   await logout('/')
 }
 </script>
+
+<style scoped>
+.light .p-content {
+  background-color: var(--p-gray-300);
+}
+</style>

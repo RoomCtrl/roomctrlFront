@@ -1,16 +1,23 @@
 <template>
   <Card
-    pt:body:class="p-0 h-full"
+    pt:root:style="--p-card-body-padding: 0rem"
+    pt:body:class="h-full"
     pt:content:class="flex h-full"
-    pt:title:class="font-bold text-3xl px-2 pt-2"
   >
     <template #title>
-      Mini kalendarz
+      <div class="font-bold text-3xl text-center px-2 pt-2">
+        {{ $t('pages.adminDashboard.dashboard.calendar.title') }}
+      </div>
     </template>
     <template #content>
       <DatePicker
         v-model="date"
-        class="w-full self-end"
+        pt:root:class="h-full w-full"
+        pt:root:style="--p-datepicker-panel-border-radius: 0.75rem"
+        pt:monthView:class="flex flex-wrap h-[80%] justify-center font-semibold text-xl"
+        pt:yearView:class="flex flex-wrap h-[80%] justify-center font-semibold text-xl"
+        pt:panel:class="h-full"
+        pt:dayView:class="h-[95%]"
         inline
         @date-select="visible = true"
       />
