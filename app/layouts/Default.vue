@@ -8,7 +8,7 @@
         @sidebar-state="handleSideBarState"
       />
     </div>
-    <div class="p-content pb-[2rem] lg:pb-[3rem] pt-[7rem] lg:pt-[8rem] min-h-[79vh] justify-center max-lg:px-[3vw]">
+    <div class="p-content pb-[2rem] lg:pb-[3rem] pt-[7rem] lg:pt-[8rem] min-h-[79vh] justify-center px-[1rem] max-sm:px-[0.5rem] xl:px-[2rem]">
       <slot class="flex-none" />
     </div>
 
@@ -67,6 +67,6 @@ background-color: #1B2532;
   border-top: 1px solid #404040;
 }
 .light .p-content {
-  background-color: var(--p-gray-100);
+  background-color: var(--p-gray-200);
 }
 </style>

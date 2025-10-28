@@ -6,7 +6,7 @@
     option-label="name"
     option-value="code"
     placeholder="Select Language"
-    class="w-[7rem]"
+    pt:label:class="pr-0 pl-2"
     variant="filled"
     @change="onLanguageSelect"
   />

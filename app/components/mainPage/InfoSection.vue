@@ -11,7 +11,7 @@
         <div
           v-for="info in informations"
           :key="info.title"
-          class="p-sub-card border border-gray-300 rounded-lg shadow-sm p-4 text-xs sm:text-sm lg:text-base bg-white transform transition duration-300 hover:scale-[1.03] hover:shadow-lg cursor-pointer"
+          class="p-sub-card border border-gray-300 rounded-lg shadow-sm p-4 text-xs sm:text-sm lg:text-base bg-white transform transition duration-300 hover:scale-[1.03] hover:shadow-lg cursor-default"
         >
           <div class="font-bold flex items-center gap-2 mb-2">
             <i :class="info.icon" /> {{ info.title }}

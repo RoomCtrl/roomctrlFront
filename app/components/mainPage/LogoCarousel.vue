@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center ">
+  <div class="flex justify-center shadow-lg">
     <Galleria
       :value="images"
       :show-thumbnails="false"
@@ -14,10 +14,10 @@
 
           <div class="absolute inset-0 flex items-center justify-center px-4">
             <div class="backdrop-blur bg-black/30 rounded-lg px-4 py-3 text-center max-w-full">
-              <div class="text-white text-3xl sm:text-5xl md:text-7xl font-bold leading-tight">
+              <div class="text-white text-3xl sm:text-5xl md:text-7xl font-bold leading-tight cursor-default">
                 {{ $t('common.roomCtrl') }}
               </div>
-              <div class="text-white text-sm sm:text-base md:text-xl mt-2">
+              <div class="text-white text-sm sm:text-base md:text-xl mt-2 cursor-default">
                 {{ $t('pages.home.carousel.subTitle') }}
               </div>
             </div>
