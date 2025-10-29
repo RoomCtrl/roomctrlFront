@@ -145,7 +145,7 @@ const items = computed(() => [
   },
   {
     label: t('layouts.adminSidebar.items.rentsToConfirm'),
-    link: '/',
+    link: '/adminDashboard/rentsToConfirm',
     icon: 'pi pi-check-circle',
   },
   {
