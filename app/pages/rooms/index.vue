@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col xl:flex-col">
-    <div class="flex flex-wrap lg:flex-row justify-start max-lg:gap-4 lg:justify-between px-4 pb-4">
+    <div class="flex flex-wrap lg:flex-row justify-start max-lg:gap-4 lg:justify-between pb-4">
       <Card
         class="max-lg:order-2"
         pt:content:class="flex flex-row justify-between items-center"

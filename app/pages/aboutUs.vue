@@ -1,7 +1,5 @@
 <template>
-  <div class="lg:px-[3rem]">
-    <AboutUsInfo />
-  </div>
+  <AboutUsInfo />
 </template>
 
 <script setup>
