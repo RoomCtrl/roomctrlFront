@@ -1,0 +1,8 @@
+{
+  "title": "Witaj w systemie!",
+  "subtitle": "Wybierz panel, do którego chcesz przejść",
+  "descriptions": {
+    "admin": "Panel administratora - pełny dostęp do zarządzania systemem i użytkownikami",
+    "user": "Panel użytkownika - dostęp do podstawowych funkcji aplikacji"
+  }
+}
