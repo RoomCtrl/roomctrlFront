@@ -1,0 +1,8 @@
+{
+  "title": "Welcome to the system!",
+  "subtitle": "Select the panel you want to access",
+  "descriptions": {
+    "admin": "Administrator panel - full access to system and user management",
+    "user": "User panel - access to the basic application features"
+  }
+}
