@@ -103,6 +103,14 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
+    button: {
+      colorScheme: {
+        light: {
+          root: {
+          },
+        },
+      },
+    },
     card: {
       colorScheme: {
         dark: {

@@ -21,7 +21,7 @@
           :label="button.title"
           size="small"
           raised
-          :variant="isActive === button.id ? '' : 'outlined'"
+          :variant="isActive === button.id ? 'outlined': ''"
           severity="info"
           @click="changeDateRange(button.data, button.id, button.title)"
         />

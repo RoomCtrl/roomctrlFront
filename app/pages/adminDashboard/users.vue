@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col justify-center h-[100vh] pr-[1rem]">
+  <div class="flex flex-col h-full">
     <Toast />
     <ConfirmDialog />
     <DataTable
       v-model:filters="filters"
-      pt:root:class="min-h-[70vh]"
-      pt:tableContainer:class="min-h-[70vh]"
+      pt:root:class="flex flex-col h-full"
+      pt:tableContainer:class="h-full"
       :value="users"
       filterDisplay="row"
       :rows="rows"

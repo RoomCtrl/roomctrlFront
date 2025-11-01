@@ -1,0 +1,29 @@
+.p-datatable {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.p-datatable-table-container {
+  flex: 1;
+  overflow: auto;
+}
+.dark .p-datatable-table-container {
+  background-color: #18181b;
+}
+.light .p-datatable-table-container {
+  background-color: white;
+}
+
+.p-datatable-tbody {
+  height: 100%;
+}
+
+.p-datatable-empty-message {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #18181b;
+}
