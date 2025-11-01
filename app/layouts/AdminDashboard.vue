@@ -100,7 +100,7 @@
         </div>
       </template>
     </Menu>
-    <div class="flex-1 h-full overflow-hidden ml-[4rem]">
+    <div class="flex-1 overflow-hidden ml-[4.5rem] mr-[0.5rem] my-[0.5rem]">
       <slot />
     </div>
   </div>

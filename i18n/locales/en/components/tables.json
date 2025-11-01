@@ -1,0 +1,22 @@
+{
+  "titles": {
+    "rentsToConfirm": "Reservations to Confirm"
+  },
+  "headers": {
+    "roomName": "Room",
+    "booker": "Booker",
+    "day": "Day",
+    "hour": "Hour",
+    "status": "Status",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "emptyMessages": {
+    "noRentsToConfirm": "No reservations to confirm"
+  },
+  "buttonsTooltip": {
+    "goToRoom": "Go to room",
+    "approveRent": "Approve reservation",
+    "deniedRent": "Reject reservation"
+  }
+}

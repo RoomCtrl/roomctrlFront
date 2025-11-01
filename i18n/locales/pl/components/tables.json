@@ -1,0 +1,22 @@
+{
+  "titles": {
+    "rentsToConfirm": "Rezerwacje do potwierdzenia"
+  },
+  "headers": {
+    "roomName": "Sala",
+    "booker": "Rezerwujący",
+    "day": "Dzień",
+    "hour": "Godzina",
+    "status": "Status",
+    "email": "Email",
+    "phone": "Telefon"
+  },
+  "emptyMessages": {
+    "noRentsToConfirm": "Brak rezerwacji do potwierdzenia"
+  },
+  "buttonsTooltip": {
+    "goToRoom": "Przejdź do sali",
+    "approveRent": "Zakceptuj rezerwacje",
+    "deniedRent": "Odrzuć rezerwacje"
+  }
+}
