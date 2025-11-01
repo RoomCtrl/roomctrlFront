@@ -6,6 +6,8 @@ import primevue from './primevue.json'
 import date from './date.json'
 import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails, reservationsHistory, users, dashboard } from './pages'
 import { forms, toast, tables } from './components'
+import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails,
+  reservationsHistory, users, dashboard, panelSelector } from './pages'
 
 export default () => ({
   common,
@@ -21,6 +23,7 @@ export default () => ({
     faq,
     privacyPolicy,
     rules,
+    panelSelector,
     downloadApp,
     allRooms,
     roomDetails,

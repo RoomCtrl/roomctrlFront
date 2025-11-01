@@ -12,14 +12,17 @@
           {{ user?.firstName }} {{ user?.lastName }}
         </h1>
 
-        <div class="px-[1vw]">
-          <p>
-            Ustawienia
-          </p>
-          <NuxtLink :to="localePath('/adminDashboard')">
-            Admin panel
-          </NuxtLink>
-        </div>
+        <ul class="px-[1vw]">
+          <li
+            v-for="option in options"
+            :key="option.id"
+          >
+            <NuxtLink :to="localePath(option.route)">
+              <i :class="option.icon" />
+              {{ option.title }}
+            </NuxtLink>
+          </li>
+        </ul>
 
         <div class="flex justify-end">
           <Button
@@ -41,7 +44,7 @@ import type { IGetUserProfileResponse } from '~/app/interfaces/RepositoriesInter
 const op = ref()
 const { t } = useI18n()
 const localePath = useLocalePath()
-const { user, logout } = useAuth() as {
+const { user, logout, isAdmin } = useAuth() as {
   user: Ref<IGetUserProfileResponse | null>
   logout: () => Promise<void>
 }
@@ -52,4 +55,21 @@ const handleLogout = async () => {
 const toggle = (event) => {
   op.value.toggle(event)
 }
+
+const options = computed(() => [
+  {
+    id: 'settings',
+    title: 'Ustawienia',
+    icon: 'pi pi-cog',
+    route: '/',
+    auth: true,
+  },
+  {
+    id: 'adminPanel',
+    title: 'Panel admin',
+    icon: 'pi pi-hammer',
+    route: '/adminDashboard',
+    auth: isAdmin.value,
+  },
+].filter(option => option.auth === true))
 </script>

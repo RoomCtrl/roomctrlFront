@@ -84,7 +84,7 @@ interface ILoginUser {
   password: string
 }
 
-const { login, isAuthenticated } = useAuth()
+const { isAdmin, login, isAuthenticated } = useAuth()
 
 const { handleSubmit, resetForm } = useForm<ILoginUser>({
   validationSchema: {
@@ -105,8 +105,12 @@ const submitForm = handleSubmit(async (formValues: ILoginUser) => {
   try {
     await login(formValues)
     resetForm()
-
-    await navigateTo('rooms')
+    if (isAdmin.value) {
+      await navigateTo('panelSelector')
+    }
+    else {
+      await navigateTo('rooms')
+    }
   }
   catch {
     password.value = ''
