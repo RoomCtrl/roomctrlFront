@@ -1,0 +1,17 @@
+{
+  "title": "Zgłoszenia sal",
+  "subtitle": "Zarządzaj zgłoszeniami problemów w salach",
+  "status": {
+    "closed": "Zamknięte",
+    "new": "Nowe",
+    "inProgress": "W trakcie"
+  },
+  "priority": {
+    "critical": "Krytyczny",
+    "high": "Wysoki",
+    "mid": "Średni",
+    "low": "Niski"
+  },
+  "reported": "Zgłosił: ",
+  "empty": "Brak zgłoszeń pasujących do wybranych filtrów"
+}

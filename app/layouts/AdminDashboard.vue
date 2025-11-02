@@ -150,7 +150,7 @@ const items = computed(() => [
   },
   {
     label: t('layouts.adminSidebar.items.reportsOfRooms'),
-    link: '/',
+    link: '/adminDashboard/roomIssueReports',
     icon: 'pi pi-exclamation-circle',
   },
   {
