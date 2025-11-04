@@ -1,23 +1,28 @@
 <template>
   <DataView
     :value="filteredIssues"
+    pt:header:class="flex flex-row justify-between"
     pt:emptyMessage:class="flex flex-col justify-center items-center h-[43.5rem]"
+    :sortOrder="sortOrder"
+    :sortField="sortField"
     layout="grid"
     paginator
     :rows="6"
   >
     <template #header>
-      <ReportDataFilters :issues="issues" @FilterIssues="handleFilterIssues"/>
+      <ReportDataFilters :issues="issues" @FilterIssues="handleFilterIssues" class=""/>
+      <Select v-model="sortKey" :options="sortOptions" optionLabel="label" @change="onSortChange($event)"/>
     </template>
     <template #grid="slotProps">
       <div class="grid grid-cols-2 grid-rows-3">
         <Card
+        pt:caption:style="--p-card-caption-gap: 0"
           v-for="issue in slotProps.items"
           :key="issue.id"
           class="shadow-sm hover:shadow-md transition-shadow m-2"
         >
           <template #title>
-            <div class="flex justify-between items-start mb-3">
+            <div class="flex justify-between items-start">
               <div class="flex items-center gap-3">
                 <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg font-semibold">
                   {{ issue.room }}
@@ -113,7 +118,25 @@ const props = defineProps<{
   }>
 }>()
 
-const filteredIssues = props.issues
+const filteredIssues = ref([...props.issues])
+const colorMode = useColorMode()
+const sortKey = ref();
+const sortOrder = ref();
+const sortField = ref();
+const sortOptions = ref([
+    {label: 'Price High to Low', value: '!priority'},
+    {label: 'Price Low to High', value: 'priority'},
+]);
+
+
+const isDarkMode = computed({
+  get() {
+    return colorMode.value === 'dark'
+  },
+  set(value) {
+    colorMode.preference = value ? 'dark' : 'light'
+  },
+})
 
 const updateStatus = (id: number, newStatus: string) => {
   const issue = props.issues.find(i => i.id === id)
@@ -122,9 +145,8 @@ const updateStatus = (id: number, newStatus: string) => {
   }
 }
 
-const handleFilterIssues = (issues) => {
-  filteredIssues.length = 0
-  filteredIssues.push(issues)
+const handleFilterIssues = (issues: any[]) => {
+  filteredIssues.value = [...issues]
 }
 
 const getStatusColor = (status: string) => {
@@ -137,6 +159,7 @@ const getStatusColor = (status: string) => {
 }
 
 const getPriorityColor = (priority: string) => {
+
   switch (priority) {
     case 'critical': return 'text-red-600'
     case 'high': return 'text-orange-600'
@@ -145,4 +168,20 @@ const getPriorityColor = (priority: string) => {
     default: return 'text-gray-600'
   }
 }
+
+const onSortChange = (event) => {
+    const value = event.value.value;
+    const sortValue = event.value;
+
+    if (value.indexOf('!') === 0) {
+        sortOrder.value = -1;
+        sortField.value = value.substring(1, value.length);
+        sortKey.value = sortValue;
+    }
+    else {
+        sortOrder.value = 1;
+        sortField.value = value;
+        sortKey.value = sortValue;
+    }
+};
 </script>

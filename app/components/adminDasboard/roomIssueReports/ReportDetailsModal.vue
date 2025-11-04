@@ -23,13 +23,12 @@
         </div>
   </template>
     <div
-      class="bg-white rounded-xl shadow-2xl w-full overflow-y-auto"
+      class="bg-white dark:bg-zinc-900 rounded-xl shadow-2xl w-full overflow-y-auto"
     >
 
       <div class="p-6 space-y-6">
-        <!-- Status i priorytet -->
         <div class="grid grid-cols-2 gap-4">
-          <div class="bg-gray-50 rounded-lg p-4">
+          <div class="bg-gray-200/60 rounded-lg p-4">
             <div class="text-sm text-gray-600 mb-2">
               Status
             </div>
@@ -37,7 +36,7 @@
               {{ selectedIssue.status }}
             </span>
           </div>
-          <div class="bg-gray-50 rounded-lg p-4">
+          <div class="bg-gray-200/60 rounded-lg p-4">
             <div class="text-sm text-gray-600 mb-2">
               Priorytet
             </div>
@@ -47,9 +46,8 @@
           </div>
         </div>
 
-        <!-- Informacje podstawowe -->
         <div class="border-t border-gray-200 pt-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">
+          <h3 class="text-lg font-semibold mb-4">
             Informacje podstawowe
           </h3>
           <div class="grid grid-cols-2 gap-4">
@@ -57,7 +55,7 @@
               <div class="text-sm text-gray-600 mb-1">
                 Kategoria
               </div>
-              <div class="text-base font-medium text-gray-900">
+              <div class="text-base font-medium">
                 {{ selectedIssue.category }}
               </div>
             </div>
@@ -65,7 +63,7 @@
               <div class="text-sm text-gray-600 mb-1">
                 Numer sali
               </div>
-              <div class="text-base font-medium text-gray-900">
+              <div class="text-base font-medium">
                 {{ selectedIssue.room }}
               </div>
             </div>
@@ -73,7 +71,7 @@
               <div class="text-sm text-gray-600 mb-1">
                 Data zgłoszenia
               </div>
-              <div class="text-base font-medium text-gray-900">
+              <div class="text-base font-medium">
                 {{ selectedIssue.date }} {{ selectedIssue.time }}
               </div>
             </div>
@@ -81,7 +79,7 @@
               <div class="text-sm text-gray-600 mb-1">
                 Zgłaszający
               </div>
-              <div class="text-base font-medium text-gray-900">
+              <div class="text-base font-medium">
                 {{ selectedIssue.reporter }}
               </div>
             </div>
@@ -90,7 +88,7 @@
 
         <!-- Opis problemu -->
         <div class="border-t border-gray-200 pt-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+          <h3 class="text-lg font-semibold mb-3">
             Opis problemu
           </h3>
           <div class="bg-gray-50 rounded-lg p-4">
@@ -102,7 +100,7 @@
 
         <!-- Historia działań -->
         <div class="border-t border-gray-200 pt-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">
+          <h3 class="text-lg font-semibold mb-4">
             Historia działań
           </h3>
           <div class="space-y-3">
@@ -113,7 +111,7 @@
             >
               <div class="w-2 h-2 bg-blue-500 rounded-full mt-2" />
               <div class="flex-1">
-                <div class="text-sm text-gray-900 font-medium">
+                <div class="text-sm font-medium">
                   {{ log.action }}
                 </div>
                 <div class="text-xs text-gray-500">
@@ -126,7 +124,7 @@
 
         <!-- Notatki serwisowe -->
         <div class="border-t border-gray-200 pt-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+          <h3 class="text-lg font-semibold mb-3">
             Notatki serwisowe
           </h3>
           <div
@@ -156,7 +154,7 @@
 
         <!-- Dodaj notatkę -->
         <div class="border-t border-gray-200 pt-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+          <h3 class="text-lg font-semibold mb-3">
             Dodaj notatkę
           </h3>
           <textarea

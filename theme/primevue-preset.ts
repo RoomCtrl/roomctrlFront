@@ -166,6 +166,15 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
+    dataview: {
+      colorScheme: {
+        light: {
+          content: {
+            background: '{surface.50}',
+          },
+        },
+      },
+    },
     datepicker: {
       colorScheme: {
         dark: {

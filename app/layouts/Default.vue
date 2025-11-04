@@ -39,6 +39,7 @@ const isDarkMode = computed({
     colorMode.preference = value ? 'dark' : 'light'
   },
 })
+
 const handleSideBarState = (sideBarBoolean: boolean) => {
   if (!isMobile.value) {
     stateFromHeader.value = sideBarBoolean
