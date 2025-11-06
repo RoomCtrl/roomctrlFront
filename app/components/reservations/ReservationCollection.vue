@@ -2,16 +2,19 @@
   <DataTable
     v-model:filters="filters"
     pt:root:class="min-h-[60vh]"
-    pt:tableContainer:class="min-h-[60vh]"
+    pt:tableContainer:class="flex flex-col justify-betwen h-full"
+    :pt:table:class="tableDisplay"
     pt:thead:class="grid grid-cols-6 border-2"
     :value="filteredRents"
     filterDisplay="row"
     paginator
+    size="small"
     stripedRows
     :paginatorPosition="paginatorPosition"
-    :rows="rowsPerPage"
-    :rowsPerPageOptions="[9, 18, 27]"
+    :rows="rows"
+    :rowsPerPageOptions="[10, 20, 30]"
     @update:rows="handelUpdateRows"
+    @filter="onFilter"
   >
     <Column
       field="roomName"
@@ -214,6 +217,9 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const localePath = useLocalePath()
+const rows = ref(10)
+const isTableEmpty = ref(false)
+
 const filteredRents = computed(() => {
   return props.reservations.map((rent: any) => {
     const room = roomsDetailsData.find(r => r.roomId === rent.roomId)
@@ -255,10 +261,6 @@ const handleClearDate = (filterModel: any, filterCallback: Function) => {
   filterCallback()
 }
 
-onMounted(() => {
-  FilterService.register('statusEquals', customStatusFilter)
-  FilterService.register('dateEquals', customDateFilter)
-})
 
 const filters = ref({
   roomName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -269,13 +271,16 @@ const filters = ref({
   reservationsType: { value: null, matchmode: FilterMatchMode.EQUALS },
 })
 
-const rowsPerPage = ref(9)
-const handelUpdateRows = (value: number) => {
-  rowsPerPage.value = value
-}
-
+const tableDisplay = computed(() => {
+  if (isTableEmpty.value || filteredRents.value.length === 0) {
+    return 'flex flex-col h-full'
+  }
+  else {
+    return ''
+  }
+})
 const paginatorPosition = computed(() => {
-  if (rowsPerPage.value === 9) {
+  if (rows.value === 10) {
     return 'bottom'
   }
   else {
@@ -313,6 +318,7 @@ const statuses = ref([
     code: 'toApprove',
   },
 ])
+
 const typesOfReservation = ref([
   {
     name: t('pages.reservationsHistory.reservationTypes.public'),
@@ -323,6 +329,18 @@ const typesOfReservation = ref([
     code: 'private',
   },
 ])
+
+const handelUpdateRows = (value: number) => {
+  rowsPerPage.value = value
+}
+const onFilter = (event) => {
+  isTableEmpty.value = event.filteredValue.length === 0
+}
+
+onMounted(() => {
+  FilterService.register('statusEquals', customStatusFilter)
+  FilterService.register('dateEquals', customDateFilter)
+})
 </script>
 
 <style scoped>

@@ -2,6 +2,8 @@
   <Card
     pt:caption:class="text-center mb-5"
     pt:title:class="text-2xl sm:text-3xl font-bold"
+    pt:body:class="h-full"
+    pt:content:class="h-full"
   >
     <template #title>
       {{ $t('pages.home.goodBadSection.title') }}
@@ -10,7 +12,7 @@
       {{ $t('pages.home.goodBadSection.subTitle') }}
     </template>
     <template #content>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="flex flex-col justify-around h-full gap-6">
         <div
           v-for="section in sections"
           :key="section.id"

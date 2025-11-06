@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center shadow-lg">
+  <div class="flex justify-center shadow-lg mx-[-2rem]">
     <Galleria
       :value="images"
       :show-thumbnails="false"

@@ -24,6 +24,7 @@
         pt:root:class="h-full flex flex-col justify-between"
         :value="tableData"
         paginator
+        size="small"
         :rows="rows"
       >
         <Column

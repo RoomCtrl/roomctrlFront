@@ -1,32 +1,32 @@
 <template>
   <div class="relative flex flex-col lg:flex-row gap-4">
-    <TableOfContents
-      :data="pageContent"
-      class="min-lg:flex-1"
-    />
-    <div class="px-[4vw] lg:px-[25vw] min-lg:flex-1">
-      <div class="px-[10vw]">
-        <Card
-          pt:root:class="overflow-hidden"
-          pt:body:class="bg-[#D74141]"
-        >
-          <template #title>
-            <h1 class="font-black text-3xl md:text-4xl text-center py-[2vh] text-white">
-              {{ title }}
-            </h1>
-          </template>
-          <template #subtitle>
-            <h2 class="flex justify-center text-gray-300">
-              {{ lastUpdate }}
-            </h2>
-          </template>
-        </Card>
-      </div>
+    <div class="w-full flex flex-col items-start">
+      <div class="min-lg:flex-1 w-[75%]">
+      <Card
+        pt:root:class="overflow-hidden"
+        pt:body:class="bg-[#D74141]"
+      >
+        <template #title>
+          <h1 class="font-black text-3xl md:text-4xl text-center py-[2vh] text-white">
+            {{ title }}
+          </h1>
+        </template>
+        <template #subtitle>
+          <h2 class="flex justify-center text-gray-300">
+            {{ lastUpdate }}
+          </h2>
+        </template>
+      </Card>
       <InfoListCard
         :infoSectionContent="pageContent"
         :numberedSubList="numberedSubList"
       />
+      </div>
     </div>
+        <TableOfContents
+      :data="pageContent"
+      class="min-lg:flex-1"
+    />
   </div>
 </template>
 

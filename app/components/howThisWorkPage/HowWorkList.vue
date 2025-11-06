@@ -1,15 +1,11 @@
 <template>
-  <div
-    v-for="instruction in instructions"
-    :key="instruction.header"
-    class="flex flex-col"
-  >
+  <div class="grid grid-cols-2 gap-2">
     <InsctructionCard
-      :class="[{ 'self-start': !instruction.right, 'self-end': instruction.right }, 'self-start lg:w-[75%]']"
+      v-for="instruction in instructions"
+      :key="instruction.header"
       :header="instruction.header"
       :steps="instruction.steps"
       :image="instruction.image"
-      :right="instruction.right"
     />
   </div>
 </template>
@@ -29,7 +25,6 @@ const instructions = [
       t('pages.howThisWork.instructions.login.steps.stepFive'),
     ],
     image: '/images/screens/login_screen.png',
-    right: false,
   },
   {
     header: t('pages.howThisWork.instructions.login.title'),
@@ -41,7 +36,6 @@ const instructions = [
       t('pages.howThisWork.instructions.login.steps.stepFive'),
     ],
     image: '/images/screens/login_screen.png',
-    right: true,
   },
 ]
 </script>

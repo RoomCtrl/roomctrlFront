@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col gap-5">
-    <LogoCarousel />
+  <div class="grid grid-cols-3 gap-5">
+    <LogoCarousel class="col-span-3" />
 
     <GoodBadSection />
 
-    <InfoSection />
+    <InfoSection class="col-span-2" />
   </div>
 </template>
 

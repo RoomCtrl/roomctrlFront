@@ -1,31 +1,32 @@
 <template>
   <Card
     pt:root:style="--p-card-body-padding:  0.2rem 0.5rem 0.1rem 0.5rem "
-    pt:body:class="h-full"
-    pt:content:class="flex flex-col justify-end h-full"
+    pt:caption:class="h-full"
+    pt:title:class="h-full"
+    pt:body:class="flex justify-between h-full"
+    pt:content:class="flex flex-col justify-between"
   >
     <template #title>
-      <div class="flex flex-row justify-between">
-        <div />
-        <h1 class="font-bold text-3xl">
+      <div class="flex flex-row justify-between items-center h-full">
+        <h1 class="font-bold text-3xl text-center self-center w-full">
           {{ $t('pages.adminDashboard.dashboard.tables.titles.reportRooms') }}
         </h1>
-        <div>
-          <Button
-            v-tooltip.left="{ value: $t('pages.adminDashboard.dashboard.tables.tooltip') }"
-            icon="pi pi-arrow-right"
-            variant="outlined"
-            rounded
-          />
-        </div>
+        <Button
+          v-tooltip.left="{ value: $t('pages.adminDashboard.dashboard.tables.tooltip') }"
+          icon="pi pi-arrow-right"
+          variant="outlined"
+          rounded
+        />
       </div>
     </template>
     <template #content>
       <DataTable
-        pt:root:class="h-full flex flex-col justify-evenly"
+        pt:root:class="h-full flex flex-col"
+        pt:tableContainer:class="flex flex-col justify-end"
         :value="reservations"
         paginator
-        :rows="6"
+        size="small"
+        :rows="7"
       >
         <Column
           class="w-[50%]"

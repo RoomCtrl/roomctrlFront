@@ -1,16 +1,18 @@
 <template>
-  <div class="flex flex-col lg:flex-row justify-between md:justify-center gap-5">
-    <div class="flex flex flex-col md:max-lg:flex-row gap-5">
+  <div class="flex flex-col lg:flex-row justify-around items-center gap-5">
+    <div class="order-1">
       <DeviceSysCard
         :content="android"
         class="self-center"
       />
+    </div>
+    <div class="order-3">
       <DeviceSysCard
         :content="ios"
         class="self-center"
       />
     </div>
-    <div class="max-lg:flex max-lg:order-last max-lg:justify-center">
+    <div class="max-lg:flex order-2 max-lg:order-last max-lg:justify-center">
       <Card
         pt:root:class="h-full items-center py-2 max-lg:w-[90vw]"
       >
