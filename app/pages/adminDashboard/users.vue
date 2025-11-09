@@ -4,8 +4,11 @@
     <ConfirmDialog />
     <DataTable
       v-model:filters="filters"
-      pt:root:class="flex flex-col h-full"
-      pt:tableContainer:class="h-full"
+      :pt="{
+        root: { class: 'flex flex-col h-full' },
+        tableContainer: { class: 'h-full' },
+        table: { class: tableDisplay },
+      }"
       :value="users"
       filterDisplay="row"
       :rows="rows"
@@ -13,7 +16,8 @@
       :loading="loading"
       paginator
       :paginatorPosition="paginatorPosition"
-      @update:rows="handelUpdateRows"
+      @update:rows="handleUpdateRows"
+      @filter="onFilter"
     >
       <template #header>
         <div class="flex flex-row justify-between">
@@ -23,103 +27,59 @@
           <AddUserButton />
         </div>
       </template>
-      <Column
+      <BaseTextFilterColumn
+        :key="'username'"
         field="username"
+        :header="$t('forms.fields.username')"
         class="w-[10%]"
         sortable
-        :header="$t('forms.fields.username')"
-      >
-        <template #filter="{ filterModel, filterCallback }">
-          <InputText
-            v-model="filterModel.value"
-            class="w-full"
-            :placeholder="$t('forms.filters.search')"
-            @input="filterCallback()"
-          />
-        </template>
-      </Column>
-      <Column
+        filter
+      />
+      <BaseTextFilterColumn
+        :key="'firstName'"
         field="firstName"
-        class="w-[15%]"
-        sortable
         :header="$t('forms.fields.firstName')"
-      >
-        <template #filter="{ filterModel, filterCallback }">
-          <InputText
-            v-model="filterModel.value"
-            class="w-full"
-            :placeholder="$t('forms.filters.search')"
-            @input="filterCallback()"
-          />
-        </template>
-      </Column>
-      <Column
+        class="w-[15%]"
+        sortable
+        filter
+      />
+      <BaseTextFilterColumn
+        :key="'lastName'"
         field="lastName"
-        class="w-[15%]"
-        sortable
         :header="$t('forms.fields.lastName')"
-      >
-        <template #filter="{ filterModel, filterCallback }">
-          <InputText
-            v-model="filterModel.value"
-            class="w-full"
-            :placeholder="$t('forms.filters.search')"
-            @input="filterCallback()"
-          />
-        </template>
-      </Column>
-      <Column
-        field="email"
-        class="w-[20%]"
-        sortable
-        :header="$t('forms.fields.email')"
-      >
-        <template #filter="{ filterModel, filterCallback }">
-          <InputText
-            v-model="filterModel.value"
-            class="w-full"
-            :placeholder="$t('forms.filters.search')"
-            @input="filterCallback()"
-          />
-        </template>
-      </Column>
-      <Column
-        field="phone"
         class="w-[15%]"
         sortable
-        :header="$t('forms.fields.phone')"
-      >
-        <template #filter="{ filterModel, filterCallback }">
-          <InputText
-            v-model="filterModel.value"
-            class="w-full"
-            :placeholder="$t('forms.filters.search')"
-            @input="filterCallback()"
-          />
-        </template>
-      </Column>
-      <Column
+        filter
+      />
+      <BaseTextFilterColumn
+        :key="'email'"
+        field="email"
+        :header="$t('forms.fields.email')"
         class="w-[20%]"
+        sortable
+        filter
+      />
+      <BaseTextFilterColumn
+        :key="'phone'"
+        field="phone"
+        :header="$t('forms.fields.phone')"
+        class="w-[15%]"
+        sortable
+        filter
+      />
+      <BaseSelectFilterColumn
+        :key="'roles'"
         field="roles"
         :header="$t('forms.fields.roles')"
+        class="w-[20%]"
+        :options="listOfRoles"
         sortable
+        filter
       >
-        <template #body="{ data }">
-          {{ translateRoles(data.roles) }}
+        <template #body="slotProps">
+          {{ translateRoles(slotProps.data.roles) }}
         </template>
-        <template #filter="{ filterModel, filterCallback }">
-          <MultiSelect
-            v-model="filterModel.value"
-            class="w-full"
-            :options="listOfRoles"
-            optionLabel="label"
-            optionValue="code"
-            filter
-            :placeholder="$t('forms.filters.search')"
-            @change="filterCallback()"
-          />
-        </template>
-      </Column>
+      </BaseSelectFilterColumn>
       <Column class="w-[5%]">
         <template #body="{ data }">
           <div class="flex flex-row gap-2">
@@ -144,6 +104,8 @@ import { useUser } from '@/composables/useUser'
 import EditUserButton from '~/components/adminDasboard/main/users/EditUserButton.vue'
 import AddUserButton from '~/components/adminDasboard/main/users/AddUserButton.vue'
 import DeleteUserButton from '~/components/adminDasboard/main/users/DeleteUserButton.vue'
+import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseTextFilterColumn.vue'
+import BaseSelectFilterColumn from '~/components/common/datatable/columns/BaseSelectFilterColumn.vue'
 
 definePageMeta({
   middleware: 'admin',
@@ -152,19 +114,16 @@ definePageMeta({
 
 const { users, loading, fetchUsers } = useUser()
 const { t } = useI18n()
-const rows = ref(10)
 const rowsPerPage = ref([10, 20, 30])
-const paginatorPosition = computed(() => {
-  return rows.value > 10 ? 'both' : 'bottom'
-})
+const { rows, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 10)
 
 const listOfRoles = ref([
   {
-    label: t('pages.adminDashboard.users.roles.admin'),
+    name: t('pages.adminDashboard.users.roles.admin'),
     code: 'ROLE_ADMIN',
   },
   {
-    label: t('pages.adminDashboard.users.roles.user'),
+    name: t('pages.adminDashboard.users.roles.user'),
     code: 'ROLE_USER',
   },
 ])
@@ -182,14 +141,9 @@ const translateRoles = (roles: string[]) => {
   const map = {
     ROLE_ADMIN: t('pages.adminDashboard.users.roles.admin'),
     ROLE_USER: t('pages.adminDashboard.users.roles.user'),
-    ROLE_MANAGER: t('pages.adminDashboard.users.roles.manager'),
   }
 
   return roles.map(role => map[role] || role).join(', ')
-}
-
-const handelUpdateRows = (value: number) => {
-  rows.value = value
 }
 
 onMounted(async () => {

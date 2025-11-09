@@ -1,7 +1,7 @@
 interface IBooking {
   title: string
-  startedAt: string
-  endedAt: string
+  startedAt: Date
+  endedAt: Date
   participants: number
   isPrivate: boolean
 }
