@@ -1,6 +1,6 @@
 <template>
   <Card
-    pt:root:style="--p-card-body-padding: 0rem 0.5rem 0.5rem 0.5rem"
+    pt:root:style="--p-card-body-padding: 0rem 0.5rem 0rem 0.5rem"
     pt:body:class="h-full"
     pt:content:class="grid grid-cols-2 h-full"
   >

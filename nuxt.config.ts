@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://185.25.151.154/api/v1',
+      apiBase: 'http://185.25.151.154:8080/api/v1',
     },
   },
   compatibilityDate: '2025-05-15',
@@ -46,13 +46,13 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
     devProxy: {
       '/api': {
-        target: 'http://185.25.151.154/api/',
+        target: 'http://185.25.151.154:8080/api/',
         changeOrigin: true,
       },
     },
     routeRules: {
       '/api/**': {
-        proxy: 'http://185.25.151.154/api/**',
+        proxy: 'http://185.25.151.154:8080/api/**',
       },
     },
   },
@@ -62,9 +62,6 @@ export default defineNuxtConfig({
     },
   },
   i18n: {
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
     locales: [
       { code: 'en', iso: 'en-US', file: 'en/index.js' },
       { code: 'pl', iso: 'pl-PL', file: 'pl/index.js' },

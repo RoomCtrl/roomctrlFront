@@ -1,17 +1,17 @@
 <template>
-  <div class="h-full p-2 overflow-hidden">
+  <div class="h-[98.2vh] p-2 overflow-hidden">
     <div class="grid grid-cols-2 gap-1 h-full">
       <div class="flex flex-col gap-1 h-full overflow-hidden">
-        <MostRentRooms class="h-[28%] min-h-0 overflow-auto" />
+        <MostRentRooms class="h-[26%] min-h-0 overflow-auto" />
         <IncomingRentsTable
-          class="h-[36%] min-h-0 overflow-auto"
-          :rows="3"
+          class="h-[37%] min-h-0 overflow-auto"
+          :rows="4"
           :header="$t('pages.adminDashboard.dashboard.tables.titles.incomingRents')"
           :to-approve="false"
         />
         <IncomingRentsTable
-          class="h-[36%] min-h-0 overflow-auto"
-          :rows="3"
+          class="h-[37%] min-h-0 overflow-auto"
+          :rows="4"
           :header="$t('pages.adminDashboard.dashboard.tables.titles.rentsToConfirm')"
           :to-approve="true"
         />
@@ -45,7 +45,7 @@ import RentMonthCalendar from '~/components/adminDasboard/main/RentMonthCalendar
 import ReportRoomsTable from '~/components/adminDasboard/main/ReportRoomsTable.vue'
 
 definePageMeta({
-  middleware: ['admin'],
+  // middleware: ['admin'],
   layout: 'admin-dashboard',
 })
 

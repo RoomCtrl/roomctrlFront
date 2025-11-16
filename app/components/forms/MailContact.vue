@@ -2,7 +2,7 @@
   <Toast class="pt-[7vh]" />
   <form @submit.prevent="sendMail">
     <div
-      class="flex flex-col gap-3 w-full lg:w-[35vw]"
+      class="flex flex-col gap-3 w-full 2xl:w-[35vw]"
     >
       <h1 class="flex justify-center text-xl font-bold">
         {{ $t('forms.titles.contactForm') }}

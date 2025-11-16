@@ -17,7 +17,7 @@
             <Card
               v-for="(card, index) in whoWeAre"
               :key="index"
-              pt:root:style="--p-card-background: rgba(223,71,71,0.2)"
+              pt:root:class="[--p-card-background:--p-zinc-300] dark:[--p-card-background:--p-zinc-700]"
             >
               <template #title>
                 <h1 class="text-2xl font-semibold text-center">
@@ -44,7 +44,7 @@
             </div>
           </div>
 
-          <div class="bg-[rgba(151,151,151,0.2)] border-2 p-10 rounded-2xl text-center inset-shadow-sm">
+          <div class="bg-[rgba(150,151,140,0.2)] border-2 p-10 rounded-2xl text-center inset-shadow-sm">
             <h2 class="text-2xl lg:text-4xl font-bold mb-4">
               {{ $t('pages.aboutUs.opinions.title') }}
             </h2>

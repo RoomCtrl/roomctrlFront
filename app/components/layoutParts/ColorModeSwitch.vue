@@ -3,6 +3,7 @@
     <i class="pi pi-sun mr-2" />
     <ToggleSwitch
       v-model="isDarkMode"
+      aria-label="Switch mode"
       class="mx-2"
     />
     <i class="pi pi-moon ml-2" />

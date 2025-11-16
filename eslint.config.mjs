@@ -1,6 +1,7 @@
 import withNuxt from './.nuxt/eslint.config.mjs'
 import stylistic from '@stylistic/eslint-plugin'
 import jsoncParser from 'jsonc-eslint-parser'
+import vueA11y from 'eslint-plugin-vuejs-accessibility'
 
 const baseRules = {
   'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
@@ -39,16 +40,33 @@ const additionalRules = {
   'array-bracket-spacing': ['error', 'never'],
 }
 
+const accessibilityRules = {
+  'vuejs-accessibility/alt-text': 'warn',
+  'vuejs-accessibility/click-events-have-key-events': 'warn',
+  'vuejs-accessibility/form-control-has-label': 'warn',
+  'vuejs-accessibility/interactive-supports-focus': 'warn',
+  'vuejs-accessibility/mouse-events-have-key-events': 'warn',
+  'vuejs-accessibility/label-has-for': 'warn',
+  'vuejs-accessibility/tabindex-no-positive': 'warn',
+  'vuejs-accessibility/anchor-has-content': 'warn',
+  'vuejs-accessibility/heading-has-content': 'warn',
+  'vuejs-accessibility/no-redundant-roles': 'warn',
+  'vuejs-accessibility/media-has-caption': 'warn',
+  'vuejs-accessibility/iframe-has-title': 'warn',
+}
+
 export default withNuxt(
   {
     plugins: {
       '@stylistic': stylistic,
+      'vuejs-accessibility': vueA11y,
     },
     rules: {
       ...baseRules,
       ...vueRules,
       ...stylisticRules,
       ...additionalRules,
+      ...accessibilityRules,
     },
   },
   {

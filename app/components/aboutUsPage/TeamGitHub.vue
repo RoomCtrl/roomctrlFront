@@ -45,6 +45,7 @@
               <NuxtLink
                 :to="member.link"
                 target="_blank"
+                aria-label="GitHub profile"
               >
                 <i
                   class="pi pi-github"

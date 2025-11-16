@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col mx-[3vw] gap-4">
+  <div class="flex flex-col gap-4">
     <Card
       pt:root:class="font-bold rounded-xl text-white text-center"
       pt:root:style="--p-card-background: #D74141"

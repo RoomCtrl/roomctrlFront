@@ -1,21 +1,20 @@
 <template>
-  <div class="flex flex-col h-full">
+  <div :class="[{ 'h-[95vh]': isTableEmpty }, 'flex flex-col']">
     <Toast />
     <ConfirmDialog />
     <DataTable
       v-model:filters="filters"
-      class="h-full"
-      pt:tableContainer:class="flex flex-col justify-betwen h-full"
-      :pt:table:class="tableDisplay"
+      :pt="{
+        table: { class: tableDisplay },
+      }"
       filterDisplay="row"
       :value="reservations"
       :rows="rows"
       :rowsPerPageOptions="rowsPerPage"
       paginator
-      stripedRows
-      size="small"
       :paginatorPosition="paginatorPosition"
-      @update:rows="handelUpdateRows"
+      size="small"
+      @update:rows="handleUpdateRows"
       @filter="onFilter"
     >
       <template #header>
@@ -26,102 +25,64 @@
           <QuickDateFilters @selected-button="handleSelected" />
         </div>
       </template>
-      <Column
+      <BaseTextFilterColumn
+        :key="'room'"
         field="room"
-        class="w-[10%]"
-        sortable
         :header="$t('tables.headers.roomName')"
-      >
-        <template #filter="{ filterModel, filterCallback }">
-          <InputText
-            v-model="filterModel.value"
-            class="w-full"
-            :placeholder="$t('forms.filters.search')"
-            @input="filterCallback()"
-          />
-        </template>
-      </Column>
-      <Column
+        class="w-[12%]"
+        sortable
+        filter
+      />
+      <BaseTextFilterColumn
+        :key="'bookedBy'"
         field="bookedBy"
+        :header="$t('tables.headers.booker')"
         class="w-[15%]"
         sortable
-        :header="$t('tables.headers.booker')"
-      >
-        <template #filter="{ filterModel, filterCallback }">
-          <InputText
-            v-model="filterModel.value"
-            class="w-full"
-            :placeholder="$t('forms.filters.search')"
-            @input="filterCallback()"
-          />
-        </template>
-      </Column>
-      <Column
-        filterField="date"
-        class="w-[10%]"
-        dataType="date"
-        sortable
+        filter
+      />
+      <BaseDateFilterColumn
+        :key="'date'"
+        field="date"
         :header="$t('tables.headers.day')"
-      >
-        <template #body="{ data }">
-          {{ data.date.toISOString().split('T')[0] }}
-        </template>
-        <template #filter="{ filterModel, filterCallback }">
-          <DatePicker
-            v-model="filterModel.value"
-            showButtonBar
-            showClear
-            date-format="yy/mm/dd"
-            :placeholder="$t('forms.filters.search')"
-            @date-select="filterCallback()"
-            @clear-click="handleClearDate(filterModel, filterCallback)"
-          />
-        </template>
-      </Column>
-      <Column
-        field="hour"
         class="w-[10%]"
         sortable
+        filter
+      />
+      <BaseDateFilterColumn
+        :key="'hour'"
+        field="date"
         :header="$t('tables.headers.hour')"
-      >
-        <template #filter="{ filterModel, filterCallback }">
-          <DatePicker
-            v-model="filterModel.value"
-            showButtonBar
-            showClear
-            timeOnly
-            :placeholder="$t('forms.filters.search')"
-            @date-select="filterCallback()"
-            @clear-click="handleClearDate(filterModel, filterCallback)"
-          />
-        </template>
-      </Column>
-      <Column
-        class="w-[25%]"
+        class="w-[10%]"
+        onlyTime
+        sortable
+        filter
+      />
+      <BaseTextFilterColumn
+        :key="'email'"
         field="email"
         :header="$t('tables.headers.email')"
+        class="w-[25%]"
+        sortable
+        filter
       />
-      <Column
-        class="w-[10%]"
+      <BaseTextFilterColumn
+        :key="'phone'"
         field="phone"
         :header="$t('tables.headers.phone')"
+        class="w-[10%]"
+        sortable
+        filter
+      />
+      <BaseSelectMessageFilter
+        :key="'status'"
+        field="status"
+        :header="$t('tables.headers.status')"
+        class="w-[10%]"
       />
       <Column
-        field="status"
-        class="w-[10%]"
-        :header="$t('tables.headers.status')"
+        class="w-[8%]"
       >
-        <template #body="{ data }">
-          <Message
-            pt:content:style="--p-message-content-padding: 0.25rem "
-            pt:text:class="text-center w-full text-md"
-            severity="warn"
-          >
-            {{ $t('pages.reservationsHistory.statuses.' + data.status) }}
-          </Message>
-        </template>
-      </Column>
-      <Column class="w-[10%]">
         <template #body="{ data }">
           <div class="flex flex-row gap-2">
             <Button
@@ -158,7 +119,11 @@
 
 <script setup lang="ts">
 import { FilterMatchMode, FilterService } from '@primevue/core/api'
+import { reservations } from '~/assets/data/rentsToConfirmData'
 import QuickDateFilters from '~/components/adminDasboard/main/rentsToConfirm/QuickDateFilters.vue'
+import BaseDateFilterColumn from '~/components/common/datatable/columns/BaseDateFilterColumn.vue'
+import BaseSelectMessageFilter from '~/components/common/datatable/columns/BaseSelectMessageFilter.vue'
+import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseTextFilterColumn.vue'
 
 definePageMeta({
   middleware: 'admin',
@@ -167,160 +132,17 @@ definePageMeta({
 
 const rows = ref(12)
 const rowsPerPage = ref([12, 24, 36])
-const isTableEmpty = ref(false)
-const paginatorPosition = computed(() => {
-  return rows.value > 12 ? 'both' : 'bottom'
-})
 
-const reservations = [
-  {
-    id: 1,
-    hour: '08:00',
-    date: new Date(2025, 9, 14),
-    room: 'Room 101',
-    bookedBy: 'Alice Johnson',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 2,
-    hour: '09:30',
-    date: new Date(2025, 9, 15),
-    room: 'Room 102',
-    bookedBy: 'Michael Brown',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 3,
-    hour: '10:00',
-    date: new Date(2025, 9, 16),
-    room: 'Room 103',
-    bookedBy: 'Sophie Lee',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 4,
-    hour: '11:15',
-    date: new Date(2025, 9, 16),
-    room: 'Room 104',
-    bookedBy: 'David Smith',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 5,
-    hour: '12:00',
-    date: new Date(2025, 9, 16),
-    room: 'Room 105',
-    bookedBy: 'Emma Wilson',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 6,
-    hour: '13:30',
-    date: new Date(2025, 9, 16),
-    room: 'Room 201',
-    bookedBy: 'Olivia Harris',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 7,
-    hour: '14:45',
-    date: new Date(2025, 9, 16),
-    room: 'Room 202',
-    bookedBy: 'Liam Walker',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 8,
-    hour: '15:00',
-    date: new Date(2025, 9, 16),
-    room: 'Room 203',
-    bookedBy: 'Noah Davis',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 8,
-    hour: '15:00',
-    date: new Date(2025, 9, 16),
-    room: 'Room 203',
-    bookedBy: 'Noah Davis',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 8,
-    hour: '15:00',
-    date: new Date(2025, 9, 16),
-    room: 'Room 203',
-    bookedBy: 'Noah Davis',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 8,
-    hour: '15:00',
-    date: new Date(2025, 9, 16),
-    room: 'Room 203',
-    bookedBy: 'Noah Davis',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-  {
-    id: 8,
-    hour: '15:00',
-    date: new Date(2025, 9, 16),
-    room: 'Room 203',
-    bookedBy: 'Noah Davis',
-    status: 'toApprove',
-    phone: '777888999',
-    email: 'me@me.pl',
-  },
-]
+const { tableDisplay, isTableEmpty, paginatorPosition, onFilter, handleUpdateRows } = useDataTable(reservations, 12)
+const { customDateFilter, customTimeFilter } = useCustomFilterMatch()
 
 const filters = ref({
   room: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   bookedBy: { value: null, matchMode: FilterMatchMode.CONTAINS },
   date: { value: null, matchMode: 'dateEquals' },
   hour: { value: null, matchMode: 'timeEquals' },
-})
-
-const handelUpdateRows = (value: number) => {
-  rows.value = value
-}
-
-const handleClearDate = (filterModel: any, filterCallback: Function) => {
-  filterModel.value = null
-  filterCallback()
-}
-const onFilter = (event) => {
-  isTableEmpty.value = event.filteredValue.length === 0
-}
-
-const tableDisplay = computed(() => {
-  if (isTableEmpty.value) {
-    return 'flex flex-col h-full'
-  }
-  else {
-    return ''
-  }
+  email: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  phone: { value: null, matchMode: FilterMatchMode.CONTAINS },
 })
 
 const handelTest = (roomId: number) => {

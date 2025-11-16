@@ -1,11 +1,10 @@
 <template>
   <Card
-    pt:root:style="--p-card-body-padding: 0.5rem"
-    pt:body:class="h-full"
-    pt:content:class="flex flex-col justify-end h-full"
+    pt:root:style="--p-card-body-padding:  0.2rem 0rem 0rem 0rem "
+    pt:body:class="h-full justify-between"
   >
     <template #title>
-      <div class="flex flex-row justify-between">
+      <div class="flex flex-row justify-between pt-2 px-2">
         <div />
         <h1 class="font-bold text-3xl ">
           {{ header }}
@@ -21,9 +20,16 @@
     </template>
     <template #content>
       <DataTable
-        pt:root:class="h-full flex flex-col justify-between"
+        :pt="{
+          root: {
+            class: 'h-full flex flex-col',
+            style: '--p-datatable-paginator-bottom-border-width: 0; --p-paginator-border-radius: 0px',
+          },
+          tableContainer: { class: 'flex flex-col justify-end' },
+        }"
         :value="tableData"
         paginator
+        size="small"
         :rows="rows"
       >
         <Column
@@ -51,7 +57,7 @@
             <Message
               pt:content:style="--p-message-content-padding: 0.25rem "
               pt:text:class="text-center w-full text-md"
-              :severity="statusColor[ data.status]"
+              :severity="statusColor[ data.status as keyof typeof statusColor]"
             >
               {{ $t('pages.reservationsHistory.statuses.' + data.status) }}
             </Message>
@@ -68,7 +74,7 @@ const props = defineProps<{
   header: string
   toApprove: boolean
 }>()
-const reservations = [
+const reservations = ref([
   {
     hour: '08:00',
     date: '2025-10-16',
@@ -139,15 +145,15 @@ const reservations = [
     bookedBy: 'James Anderson',
     status: 'toApprove',
   },
-]
-const toApproveReservations = reservations.filter(r => r.status === 'toApprove')
+])
+const toApproveReservations = reservations.value.filter(r => r.status === 'toApprove')
 
 const tableData = computed(() => {
   if (props.toApprove) {
     return toApproveReservations
   }
   else {
-    return reservations
+    return reservations.value
   }
 })
 
