@@ -1,12 +1,12 @@
 <template>
   <DataTable
+    ref="dataTable"
     v-model:filters="filters"
     :pt="{
       root: { class: 'min-h-[60vh]' },
       tableContainer: { class: 'justify-between h-full' },
       table: { class: tableDisplay },
     }"
-    ref="dataTable"
     :value="filteredRents"
     filterDisplay="row"
     paginator
@@ -35,7 +35,7 @@
       sortable
       filter
     />
-    <BaseDateFilterColumn 
+    <BaseDateFilterColumn
       :key="'startedAt'"
       field="startedAt"
       :header="$t('pages.reservationsHistory.rentStart')"
@@ -45,7 +45,7 @@
       showTime
       filter
     />
-    <BaseDateFilterColumn 
+    <BaseDateFilterColumn
       :key="'endedAt'"
       field="endedAt"
       :header="$t('pages.reservationsHistory.rentEnd')"
@@ -55,7 +55,7 @@
       showTime
       filter
     />
-    <BaseSelectMessageFilter 
+    <BaseSelectMessageFilter
       :key="'status'"
       field="status"
       :header="$t('pages.reservationsHistory.rentStatus')"
@@ -64,7 +64,7 @@
       :options="statuses"
       filter
     />
-    <BaseSelectFilterColumn 
+    <BaseSelectFilterColumn
       :key="'reservationsType'"
       class="w-[11%]"
       field="reservationsType"
@@ -85,12 +85,14 @@
             as="a"
             :href="localePath(`/rooms/` + data.roomId)"
             variant="outlined"
+            severity="info"
             class="flex-none"
           />
           <Button
             v-show="!completed"
             v-tooltip.left="{ value: $t('common.buttons.edit') }"
             icon="pi pi-pencil"
+            severity="success"
             variant="outlined"
           />
           <Button
@@ -114,10 +116,10 @@
 <script setup lang="ts">
 import { FilterMatchMode, FilterService } from '@primevue/core/api'
 import { roomsDetailsData } from '~/assets/data/roomsDetails'
-import BaseTextFilterColumn from '../common/datatable/columns/BaseTextFilterColumn.vue';
-import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectMessageFilter.vue';
-import BaseDateFilterColumn from '../common/datatable/columns/BaseDateFilterColumn.vue';
-import BaseSelectFilterColumn from '../common/datatable/columns/BaseSelectFilterColumn.vue';
+import BaseTextFilterColumn from '../common/datatable/columns/BaseTextFilterColumn.vue'
+import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectMessageFilter.vue'
+import BaseDateFilterColumn from '../common/datatable/columns/BaseDateFilterColumn.vue'
+import BaseSelectFilterColumn from '../common/datatable/columns/BaseSelectFilterColumn.vue'
 
 const props = defineProps<{
   title?: string
@@ -140,7 +142,7 @@ const filteredRents = computed(() => {
   })
 })
 
-const {rows, tableDisplay, paginatorPosition, handleUpdateRows, onFilter} = useDataTable(filteredRents, 10)
+const { rows, tableDisplay, paginatorPosition, handleUpdateRows, onFilter } = useDataTable(filteredRents, 10)
 
 const filters = ref({
   roomName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },

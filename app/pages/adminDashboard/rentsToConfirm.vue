@@ -46,6 +46,7 @@
         field="date"
         :header="$t('tables.headers.day')"
         class="w-[10%]"
+        sortable
         filter
       />
       <BaseDateFilterColumn
@@ -54,6 +55,7 @@
         :header="$t('tables.headers.hour')"
         class="w-[10%]"
         onlyTime
+        sortable
         filter
       />
       <BaseTextFilterColumn

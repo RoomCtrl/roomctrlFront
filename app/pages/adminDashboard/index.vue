@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full p-2 overflow-hidden">
+  <div class="h-[98.2vh] p-2 overflow-hidden">
     <div class="grid grid-cols-2 gap-1 h-full">
       <div class="flex flex-col gap-1 h-full overflow-hidden">
         <MostRentRooms class="h-[26%] min-h-0 overflow-auto" />
