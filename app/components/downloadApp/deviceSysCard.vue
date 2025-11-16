@@ -6,7 +6,9 @@
     pt:content:class="flex-grow"
     pt:footer:class="flex justify-center"
     @mouseenter="showAnimation"
+    @focusin="showAnimation"
     @mouseleave="hideAnimation"
+    @focusout="hideAnimation"
   >
     <template #title>
       <div class="flex flex-row gap-2 justify-center">
@@ -46,9 +48,6 @@
             :max="5"
             :rate-value="content.rating"
           />
-          <p class="block lg:hidden">
-            {{ ratingHint }}
-          </p>
         </div>
       </div>
     </template>
@@ -80,7 +79,7 @@
         <Button
           :label="$t('pages.downloadApp.copy')"
           pt:root:class="rounded-l-none"
-          @click="copyText"
+          @click="copyText(qrValue)"
         />
       </div>
     </div>
@@ -88,11 +87,22 @@
 </template>
 
 <script setup lang="ts">
+import { item } from '@primeuix/themes/aura/breadcrumb'
 import UserRating from '../common/UserRating.vue'
 
-const props = defineProps({
-  content: Object,
-})
+const props = defineProps<{
+  content: {
+    id: number
+    title: string
+    icon: string
+    iconColor: string
+    list: {
+      key: string
+      value: string
+    }[]
+    rating: number
+  }
+}>()
 
 const { t } = useI18n()
 const visible = ref(false)
@@ -135,8 +145,33 @@ const hideAnimation = () => {
     animate.value = false
   }
 }
-function copyText() {
-  navigator.clipboard.writeText(text).then(() => {
+function copyText(text: string) {
+  if (navigator.clipboard && window.isSecureContext) {
+    toast.add({ severity: 'success', summary: t('toast.success'), detail: t('toast.messages.copied'), life: 3000 })
+    return navigator.clipboard.writeText(text)
+  }
+
+  return new Promise((resolve, reject) => {
+    try {
+      const textarea = document.createElement('textarea')
+      textarea.value = text
+
+      textarea.style.position = 'fixed'
+      textarea.style.opacity = '0'
+
+      document.body.appendChild(textarea)
+      textarea.focus()
+      textarea.select()
+
+      const success = document.execCommand('copy')
+      document.body.removeChild(textarea)
+
+      if (success) resolve()
+      else reject()
+    }
+    catch (err) {
+      reject(err)
+    }
   })
   toast.add({ severity: 'success', summary: t('toast.success'), detail: t('toast.messages.copied'), life: 3000 })
 }

@@ -1,7 +1,7 @@
 <template>
   <Tabs
     value="0"
-    class="lg:px-8 min-h-[70vh]"
+    class="min-h-[70vh]"
   >
     <TabList>
       <Tab

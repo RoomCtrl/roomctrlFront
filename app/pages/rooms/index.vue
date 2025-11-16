@@ -1,54 +1,14 @@
 <template>
   <div class="flex flex-col xl:flex-col">
-    <div class="flex flex-wrap lg:flex-row justify-start max-lg:gap-4 lg:justify-between px-4 pb-4">
-      <Card
-        class="max-lg:order-2"
-        pt:content:class="flex flex-row justify-between items-center"
-      >
-        <template #content>
-          <div class="flex flex-wrap md:flex-row gap-1">
-            <div
-              v-for="button in statusButtons"
-              :key="button.label"
-            >
-              <div
-                class="border-2 rounded-xl px-3 py-2 font-semibold"
-                :class="[roomStatus === button.value ? button.selected : button.style]"
-                variant="raised"
-                @click="filterByStatus(button.value)"
-              >
-                {{ button.label }}
-              </div>
-            </div>
-          </div>
-        </template>
-      </Card>
-      <Card class="max-lg:order-1">
-        <template #content>
-          <div class="flex flex-row gap-2">
-            <FloatLabel variant="on">
-              <InputNumber
-                id="roomName"
-                v-model="roomName"
-              />
-              <label for="roomName">Numer sali</label>
-            </FloatLabel>
-            <Button
-              label="Szukaj"
-              @click="filterRooms"
-            />
-          </div>
-        </template>
-      </Card>
-    </div>
-
     <Paginator
+      v-if="paginatorPosition"
       class="flex self-center"
       :first="first"
-      :rows="rowsPerPage"
+      :rows="rows"
       :totalRecords="filteredRooms.length"
       :rowsPerPageOptions="[12, 18, 24]"
       @page="onPageChange"
+      @update:rows="handelUpdateRows"
     />
 
     <div class="flex flex-row items-center gap-1">
@@ -59,10 +19,11 @@
     <Paginator
       class="flex self-center"
       :first="first"
-      :rows="rowsPerPage"
+      :rows="rows"
       :totalRecords="filteredRooms.length"
       :rowsPerPageOptions="[12, 18, 24]"
       @page="onPageChange"
+      @update:rows="handelUpdateRows"
     />
   </div>
 </template>
@@ -76,54 +37,21 @@ definePageMeta({
 })
 
 const first = ref(0)
-const rowsPerPage = ref(12)
-const rooms = roomsDetailsData
+const rows = ref(12)
 const filteredRooms = ref(roomsDetailsData)
-const roomName = ref()
-const roomStatus = ref('all')
 const paginatedRooms = computed(() => {
-  return filteredRooms.value.slice(first.value, first.value + rowsPerPage.value)
+  return filteredRooms.value.slice(first.value, first.value + rows.value)
 })
-const statusButtons = ref([
-  {
-    label: 'Wszystkie',
-    value: 'all',
-    selected: 'bg-gray-700 border-gray-700 text-white',
-  },
-  {
-    label: 'Dostepna',
-    value: 'available',
-    selected: 'bg-green-700 border-green-700 text-white',
-  },
-  {
-    label: 'Zajete',
-    value: 'occupied',
-    selected: 'bg-red-700 border-red-700 text-white',
-  },
-  {
-    label: 'Nieczynne',
-    value: 'closed',
-    selected: 'bg-yellow-700 border-yellow-700 text-white',
-  },
-])
-
-const filterByStatus = (status: string) => {
-  roomStatus.value = status
-  filterRooms()
-}
-
-const filterRooms = () => {
-  filteredRooms.value = rooms.filter((r) => {
-    const matchesTitles = roomName.value ? r.roomName?.includes(roomName.value) : true
-
-    const matchesStatus = roomStatus.value === 'all' ? true : r.status === roomStatus.value
-
-    return matchesTitles && matchesStatus
-  })
-}
+const paginatorPosition = computed(() => {
+  return rows.value > 12
+})
 
 function onPageChange(event: any) {
   first.value = event.first
-  rowsPerPage.value = event.rows
+  rows.value = event.rows
+}
+
+const handelUpdateRows = (value: number) => {
+  rows.value = value
 }
 </script>

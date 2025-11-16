@@ -51,6 +51,7 @@
         <ProgressBar
           :pt:value:class="progressColorClass"
           :value="utilizationRate"
+          aria-label="Percentage of room utilization"
         />
       </div>
 

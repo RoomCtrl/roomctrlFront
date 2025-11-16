@@ -3,8 +3,8 @@ type ReservationStatus = 'planned' | 'ended' | 'cancelled' | 'toApprove'
 interface Reservation {
   id: number
   title: string
-  startedAt: string
-  endedAt: string
+  startedAt: Date
+  endedAt: Date
   status: ReservationStatus
   roomId: number
   participants: number
@@ -15,8 +15,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 1,
     title: 'Spotkanie zespołu',
-    startedAt: '2025-10-21T09:00:00',
-    endedAt: '2025-10-21T10:00:00',
+    startedAt: new Date(2025, 11, 7, 9),
+    endedAt: new Date(2025, 11, 7, 10),
     status: 'planned',
     roomId: 1,
     participants: 21,
@@ -25,8 +25,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 2,
     title: 'Warsztaty IT',
-    startedAt: '2025-10-01T11:00:00',
-    endedAt: '2025-10-01T13:00:00',
+    startedAt: new Date(2025, 11, 7, 11),
+    endedAt: new Date(2025, 11, 7, 13),
     status: 'planned',
     roomId: 2,
     participants: 15,
@@ -35,8 +35,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 3,
     title: 'Szkolenie BHP',
-    startedAt: '2025-10-02T09:00:00',
-    endedAt: '2025-10-02T11:00:00',
+    startedAt: new Date(2025, 11, 8, 9),
+    endedAt: new Date(2025, 11, 8, 11),
     status: 'ended',
     roomId: 3,
     participants: 20,
@@ -45,8 +45,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 4,
     title: 'Konferencja biznesowa',
-    startedAt: '2025-10-02T12:00:00',
-    endedAt: '2025-10-02T15:00:00',
+    startedAt: new Date(2025, 11, 8, 12),
+    endedAt: new Date(2025, 11, 8, 15),
     status: 'planned',
     roomId: 4,
     participants: 10,
@@ -55,8 +55,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 5,
     title: 'Prezentacja produktu',
-    startedAt: '2025-10-03T10:00:00',
-    endedAt: '2025-10-03T12:00:00',
+    startedAt: new Date(2025, 11, 9, 10),
+    endedAt: new Date(2025, 11, 9, 12),
     status: 'cancelled',
     roomId: 5,
     participants: 30,
@@ -65,8 +65,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 6,
     title: 'Warsztaty marketingowe',
-    startedAt: '2025-10-03T13:00:00',
-    endedAt: '2025-10-03T15:00:00',
+    startedAt: new Date(2025, 11, 9, 13),
+    endedAt: new Date(2025, 11, 9, 15),
     status: 'planned',
     roomId: 6,
     participants: 20,
@@ -75,8 +75,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 7,
     title: 'Spotkanie HR',
-    startedAt: '2025-10-04T09:00:00',
-    endedAt: '2025-10-04T10:30:00',
+    startedAt: new Date(2025, 11, 10, 9),
+    endedAt: new Date(2025, 11, 10, 10, 30),
     status: 'ended',
     roomId: 7,
     participants: 21,
@@ -85,8 +85,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 8,
     title: 'Analiza danych',
-    startedAt: '2025-10-04T11:00:00',
-    endedAt: '2025-10-04T13:00:00',
+    startedAt: new Date(2025, 11, 10, 11),
+    endedAt: new Date(2025, 11, 10, 13),
     status: 'toApprove',
     roomId: 8,
     participants: 5,
@@ -95,8 +95,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 9,
     title: 'Spotkanie sprzedażowe',
-    startedAt: '2025-10-05T09:00:00',
-    endedAt: '2025-10-05T11:00:00',
+    startedAt: new Date(2025, 11, 11, 9),
+    endedAt: new Date(2025, 11, 11, 11),
     status: 'toApprove',
     roomId: 9,
     participants: 20,
@@ -105,8 +105,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 10,
     title: 'Konsultacje klienta',
-    startedAt: '2025-10-05T13:00:00',
-    endedAt: '2025-10-05T14:00:00',
+    startedAt: new Date(2025, 11, 7, 13),
+    endedAt: new Date(2025, 11, 7, 14),
     status: 'cancelled',
     roomId: 10,
     participants: 17,
@@ -115,8 +115,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 11,
     title: 'Warsztaty UX',
-    startedAt: '2025-10-06T09:00:00',
-    endedAt: '2025-10-06T12:00:00',
+    startedAt: new Date(2025, 11, 12, 9),
+    endedAt: new Date(2025, 11, 12, 12),
     status: 'planned',
     roomId: 11,
     participants: 18,
@@ -125,8 +125,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 12,
     title: 'Planowanie sprintu',
-    startedAt: '2025-10-06T13:00:00',
-    endedAt: '2025-10-06T15:00:00',
+    startedAt: new Date(2025, 11, 12, 13),
+    endedAt: new Date(2025, 11, 12, 15),
     status: 'ended',
     roomId: 12,
     participants: 22,
@@ -135,8 +135,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 13,
     title: 'Strategia marketingowa',
-    startedAt: '2025-10-07T10:00:00',
-    endedAt: '2025-10-07T12:00:00',
+    startedAt: new Date(2025, 11, 13, 10),
+    endedAt: new Date(2025, 11, 13, 12),
     status: 'planned',
     roomId: 13,
     participants: 5,
@@ -145,8 +145,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 14,
     title: 'Przegląd projektów',
-    startedAt: '2025-10-07T13:00:00',
-    endedAt: '2025-10-07T15:00:00',
+    startedAt: new Date(2025, 11, 13, 13),
+    endedAt: new Date(2025, 11, 13, 15),
     status: 'planned',
     roomId: 14,
     participants: 13,
@@ -155,8 +155,8 @@ export const reservationsData: Reservation[] = [
   {
     id: 15,
     title: 'Warsztaty końcowe',
-    startedAt: '2025-10-08T09:00:00',
-    endedAt: '2025-10-08T12:00:00',
+    startedAt: new Date(2025, 11, 14, 9),
+    endedAt: new Date(2025, 11, 14, 12),
     status: 'planned',
     roomId: 15,
     participants: 20,

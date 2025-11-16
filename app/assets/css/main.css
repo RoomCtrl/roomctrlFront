@@ -9,7 +9,7 @@
   overflow: auto;
 }
 .dark .p-datatable-table-container {
-  background-color: #18181b;
+  background-color: #262626;
 }
 .light .p-datatable-table-container {
   background-color: white;

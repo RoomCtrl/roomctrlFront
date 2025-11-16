@@ -3,11 +3,11 @@ import Aura from '@primeuix/themes/aura'
 
 const MyCustomPreset = definePreset(Aura, {
   semantic: {
-    primary: '#D74141',
+    primary: '#ad3636ff',
     colorScheme: {
       light: {
         primary: {
-          color: '#D74141',
+          color: '#ad3636ff',
           contrastColor: '#ffffff',
           hoverColor: '#FF0000',
           activeColor: '#FF0000',
@@ -15,7 +15,7 @@ const MyCustomPreset = definePreset(Aura, {
         surface: {
           0: '#ffffff',
           50: '{gray.100}',
-          100: '#D74141',
+          100: '#ad3636ff',
           150: '#000000ff',
         },
         text: {
@@ -25,7 +25,7 @@ const MyCustomPreset = definePreset(Aura, {
       },
       dark: {
         primary: {
-          color: '#D74141',
+          color: '#ad3636ff',
           contrastColor: '#ffffff',
           hoverColor: '#FF0000',
           activeColor: '#FF0000',
@@ -36,7 +36,7 @@ const MyCustomPreset = definePreset(Aura, {
           100: '#262626',
           150: '#404040',
           200: '#36475eff',
-          250: '#D74141',
+          250: '#ad3636ff',
         },
         content: {
           color: '#ffffff',
@@ -105,8 +105,8 @@ const MyCustomPreset = definePreset(Aura, {
     },
     button: {
       colorScheme: {
-        light: {
-          root: {
+        dark: {
+          text: {
           },
         },
       },

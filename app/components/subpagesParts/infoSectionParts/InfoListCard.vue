@@ -23,7 +23,7 @@
       <div
         v-for="(content, subIndex) in data.content"
         :key="subIndex"
-        class="px-[5vw] lg:px-[8vw]"
+        class="flex flex-row justify-center"
       >
         <ul
           v-if="content.list"

@@ -1,7 +1,7 @@
 # PowerShell deployment script for Windows
 
-$REMOTE = "root@185.25.151.154"
-$REMOTE_PATH = "/var/www/html/roomctrlFront"
+$REMOTE = "roomctrl_admin@185.25.151.154"
+$REMOTE_PATH = "roomctrlFront"
 
 Write-Host "Building the application..." -ForegroundColor Green
 npm run build
@@ -20,4 +20,4 @@ Write-Host "Uploading new .output version..." -ForegroundColor Green
 scp -r .output "${REMOTE}:${REMOTE_PATH}"
 
 Write-Host "Application started, press ctrl + c..." -ForegroundColor Green
-ssh $REMOTE "cd $REMOTE_PATH && /root/.nvm/versions/node/v22.17.1/bin/node .output/server/index.mjs --host 0.0.0.0 --port 3000 > out.log 2>&1 < /dev/null & disown"
+ssh $REMOTE "cd $REMOTE_PATH && node .output/server/index.mjs --host 0.0.0.0 --port 3000 > out.log 2>&1 < /dev/null & disown"

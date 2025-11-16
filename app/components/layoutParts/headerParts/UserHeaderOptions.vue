@@ -8,7 +8,9 @@
             height="2.5rem"
           />
         </template>
-        <LanguageSelect size="base" />
+        <LanguageSelect
+          size="base"
+        />
       </ClientOnly>
 
       <ClientOnly>

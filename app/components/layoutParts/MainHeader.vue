@@ -1,5 +1,5 @@
 <template>
-  <header class="flex justify-between xl:justify-around items-center my-3 max-xl:mx-3">
+  <div class="flex justify-between items-center my-3 max-lg:px-[3vw] px-[1rem] max-sm:px-[0.5rem] xl:px-[2rem]">
     <div class="flex flex-row gap-8">
       <ClientOnly>
         <NuxtLink
@@ -47,7 +47,7 @@
     >
       <MobileHeader :tabs="tabs" />
     </div>
-  </header>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -106,11 +106,6 @@ const tabs = computed(() => [
     auth: true,
   },
   {
-    label: t('layouts.main.pages.contact'),
-    route: '/contact',
-    auth: true,
-  },
-  {
     label: t('layouts.main.pages.roomsArea'),
     auth: isUserLogin.value,
     items: [
@@ -127,6 +122,11 @@ const tabs = computed(() => [
         auth: isUserLogin.value,
       },
     ],
+  },
+  {
+    label: t('layouts.main.pages.contact'),
+    route: '/contact',
+    auth: true,
   },
 ].filter(tab => tab.auth === true))
 </script>

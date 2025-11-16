@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex flex-col lg:flex-row">
+  <div>
     <ListWithContents
       :pageContent="privacyPolicyPageContent"
       :title="$t('pages.privacyPolicy.title')"

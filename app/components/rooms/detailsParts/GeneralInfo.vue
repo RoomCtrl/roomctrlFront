@@ -33,9 +33,11 @@
       />
       <div class="flex flex-wrap max-lg:justify-around gap-2">
         <Button
-          v-for="button in buttons"
-          :key="button"
-          :label="button"
+          :label="t('pages.roomDetails.buttons.rentNow')"
+        />
+        <Button
+          icon="pi pi-heart"
+          rounded
         />
       </div>
     </template>

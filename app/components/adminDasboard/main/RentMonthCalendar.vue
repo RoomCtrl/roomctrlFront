@@ -17,7 +17,6 @@
         pt:monthView:class="flex flex-wrap h-[80%] justify-center font-semibold text-xl"
         pt:yearView:class="flex flex-wrap h-[80%] justify-center font-semibold text-xl"
         pt:panel:class="h-full"
-        pt:dayView:class="h-[95%]"
         inline
         @date-select="visible = true"
       />

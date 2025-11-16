@@ -23,38 +23,33 @@ export const lastWeekdaysArray = () => {
 
   return days.reverse()
 }
-export const formatToHoursMinutes = (timestampStr: string): string => {
-  const date = new Date(timestampStr.replace(' ', 'T'))
+export const formatToHoursMinutes = (date: Date): string => {
   const hours = date.getHours().toString().padStart(2, '0')
   const minutes = date.getMinutes().toString().padStart(2, '0')
 
   return `${hours}:${minutes}`
 }
 
-export const formatToDay = (timestampStr: string): string => {
-  const date = new Date(timestampStr.replace(' ', 'T'))
+export const formatToDay = (date: Date): string => {
   const day = date.getDate().toString().padStart(2, '0')
 
   return `${day}`
 }
 
-export const formatToMonth = (timestampStr: string): string => {
-  const date = new Date(timestampStr.replace(' ', 'T'))
+export const formatToMonth = (date: Date): string => {
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
 
   return `${month}`
 }
 
-export const formatToDayMonth = (timestampStr: string): string => {
-  const date = new Date(timestampStr.replace(' ', 'T'))
+export const formatToDayMonth = (date: Date): string => {
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
   const day = date.getDate().toString().padStart(2, '0')
 
   return `${day}.${month}`
 }
 
-export const formatToTimeAndDate = (timestampStr: string): string => {
-  const date = new Date(timestampStr.replace(' ', 'T'))
+export const formatToTimeAndDate = (date: Date): string => {
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
   const day = date.getDate().toString().padStart(2, '0')
   const hours = date.getHours().toString().padStart(2, '0')
@@ -63,14 +58,14 @@ export const formatToTimeAndDate = (timestampStr: string): string => {
   return `${hours}:${minutes} ${day}.${month}`
 }
 
-export const formatTimeRange = (startedAt: string, endedAt: string) => {
+export const formatTimeRange = (startedAt: Date, endedAt: Date) => {
   const startTime = formatToHoursMinutes(startedAt)
   const endTime = formatToHoursMinutes(endedAt)
 
   return `${startTime}-${endTime} `
 }
 
-export const formatDateRange = (startedAt: string, endedAt: string) => {
+export const formatDateRange = (startedAt: Date, endedAt: Date) => {
   const startDay = formatToDay(startedAt)
   const startMonth = formatToMonth(startedAt)
   const endDay = formatToDay(endedAt)
@@ -86,29 +81,26 @@ export const formatDateRange = (startedAt: string, endedAt: string) => {
   }
 }
 
-export const isRangeTimeToday = (startedAt: string, endedAt: string) => {
+export const isRangeTimeToday = (startedAt: Date, endedAt: Date) => {
   const today = new Date()
   const todayDay = today.getDate()
   const todayMonth = today.getMonth()
   const todayYear = today.getFullYear()
 
-  const start = new Date(startedAt)
-  const end = new Date(endedAt)
-
   const isStartToday
-    = start.getDate() === todayDay
-      && start.getMonth() === todayMonth
-      && start.getFullYear() === todayYear
+    = startedAt.getDate() === todayDay
+      && startedAt.getMonth() === todayMonth
+      && startedAt.getFullYear() === todayYear
 
   const isEndToday
-    = end.getDate() === todayDay
-      && end.getMonth() === todayMonth
-      && end.getFullYear() === todayYear
+    = endedAt.getDate() === todayDay
+      && endedAt.getMonth() === todayMonth
+      && endedAt.getFullYear() === todayYear
 
   return isStartToday && isEndToday
 }
 
-export const isRangeSameDay = (startedAt: string, endedAt: string) => {
+export const isRangeSameDay = (startedAt: Date, endedAt: Date) => {
   const startDay = formatToDay(startedAt)
   const startMonth = formatToMonth(startedAt)
   const endDay = formatToDay(endedAt)
@@ -117,11 +109,10 @@ export const isRangeSameDay = (startedAt: string, endedAt: string) => {
   return startDay === endDay && startMonth === endMonth
 }
 
-export const isEarlierThanNow = (dateString: string): boolean => {
-  const inputDate = new Date(dateString)
+export const isEarlierThanNow = (dateString: Date): boolean => {
   const now = new Date()
 
-  return inputDate < now
+  return dateString < now
 }
 
 export const dayOfWeekFullNames = [

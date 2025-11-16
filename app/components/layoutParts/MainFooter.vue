@@ -100,7 +100,7 @@ const pagesResources = computed(() => [
 }
 
 h1 {
-  color: #D74141;
+  color: var(--p-red-400);
   font-weight: 700;
   font-size: 1.125rem;
 }

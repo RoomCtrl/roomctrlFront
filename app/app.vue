@@ -13,6 +13,19 @@
   </NuxtLayout>
 </template>
 
+<script setup lang="ts">
+const { locale } = useI18n()
+
+onMounted(() => {
+  watch(locale,
+    (newLocale) => {
+      document.documentElement.lang = newLocale
+    },
+    { immediate: true },
+  )
+})
+</script>
+
 <style>
 .page-enter-active,
 .page-leave-active {

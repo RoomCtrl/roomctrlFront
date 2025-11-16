@@ -1,15 +1,13 @@
 <template>
   <Card
     pt:header:class="font-extrabold text-3xl text-center pt-4"
-    pt:content:class="flex flex-col-reverse lg:flex-row gap-2 w-full"
+    pt:content:class="flex flex-col gap-2 w-full"
   >
     <template #header>
       {{ header }}
     </template>
     <template #content>
-      <div :class="[{ 'lg:order-1': right }, 'basis-1/2']">
-        <img :src="image" />
-      </div>
+      <img :src="image" />
       <div>
         <ol>
           <li
@@ -29,6 +27,5 @@ defineProps<{
   header: string
   steps: Array<string>
   image: string
-  right: string
 }>()
 </script>
