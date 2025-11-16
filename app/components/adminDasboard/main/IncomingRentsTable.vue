@@ -1,10 +1,10 @@
 <template>
   <Card
     pt:root:style="--p-card-body-padding:  0.2rem 0rem 0rem 0rem "
-    pt:body:class="h-full justify-end"
+    pt:body:class="h-full justify-between"
   >
     <template #title>
-      <div class="flex flex-row justify-between">
+      <div class="flex flex-row justify-between pt-2 px-2">
         <div />
         <h1 class="font-bold text-3xl ">
           {{ header }}
@@ -27,7 +27,7 @@
           },
           tableContainer: { class: 'flex flex-col justify-end' },
         }"
-        :value="displayReservations"
+        :value="tableData"
         paginator
         size="small"
         :rows="rows"
@@ -57,7 +57,7 @@
             <Message
               pt:content:style="--p-message-content-padding: 0.25rem "
               pt:text:class="text-center w-full text-md"
-              :severity="statusColor[ data.status]"
+              :severity="statusColor[ data.status as keyof typeof statusColor]"
             >
               {{ $t('pages.reservationsHistory.statuses.' + data.status) }}
             </Message>
@@ -153,7 +153,7 @@ const tableData = computed(() => {
     return toApproveReservations
   }
   else {
-    return reservations
+    return reservations.value
   }
 })
 
@@ -163,22 +163,4 @@ const statusColor = computed(() => ({
   planned: 'info',
   toApprove: 'warn',
 }))
-
-
-const displayReservations = computed(() => {
-  const data = [...reservations.value]
-  
-  // Dodaj puste wiersze jeśli potrzeba
-  while (data.length < 4) {
-    data.push({ 
-      hour: '',
-      date: '',
-      room: '',
-      bookedBy: '',
-      status: ''
-    })
-  }
-  
-  return data
-})
 </script>

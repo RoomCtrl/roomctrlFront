@@ -7,7 +7,7 @@
     pt:content:class="flex flex-col justify-between"
   >
     <template #title>
-      <div class="flex flex-row justify-between items-center h-full">
+      <div class="flex flex-row justify-between items-center h-full px-2">
         <h1 class="font-bold text-3xl text-center self-center w-full">
           {{ $t('pages.adminDashboard.dashboard.tables.titles.reportRooms') }}
         </h1>
