@@ -3,13 +3,11 @@
     <div class="order-1">
       <DeviceSysCard
         :content="android"
-        class="self-center"
       />
     </div>
     <div class="order-3">
       <DeviceSysCard
         :content="ios"
-        class="self-center"
       />
     </div>
     <div class="max-lg:flex order-2 max-lg:order-last max-lg:justify-center">

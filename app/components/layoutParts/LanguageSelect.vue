@@ -8,6 +8,7 @@
     placeholder="Select Language"
     pt:label:class="pr-0 pl-2"
     variant="filled"
+    aria-label="Language select"
     @change="onLanguageSelect"
   />
 </template>

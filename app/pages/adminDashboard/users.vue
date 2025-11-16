@@ -14,6 +14,7 @@
       :rows="rows"
       :rowsPerPageOptions="rowsPerPage"
       :loading="loading"
+      size="small"
       paginator
       :paginatorPosition="paginatorPosition"
       @update:rows="handleUpdateRows"
@@ -114,8 +115,8 @@ definePageMeta({
 
 const { users, loading, fetchUsers } = useUser()
 const { t } = useI18n()
-const rowsPerPage = ref([10, 20, 30])
-const { rows, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 10)
+const rowsPerPage = ref([12, 24, 36])
+const { rows, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 12)
 
 const listOfRoles = ref([
   {

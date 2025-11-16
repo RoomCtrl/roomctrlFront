@@ -1,6 +1,5 @@
 <template>
-  <div class="scroll-wrapper mt-[-5rem] mb-[-4rem]">
-    <!-- Sekcja 1: Logo Carousel -->
+  <div class="scroll-wrapper flex flex-col mt-[-2rem] mb-[-2rem] gap-5">
     <section class="section section-1">
       <div class="section-overlay" />
       <div class="section-content">
@@ -8,18 +7,9 @@
       </div>
     </section>
 
-    <!-- Sekcja 2: Good/Bad Section -->
     <section class="section section-2">
       <div class="section-overlay" />
-      <div class="section-content">
-        <GoodBadSection />
-      </div>
-    </section>
-
-    <!-- Sekcja 3: Info Section -->
-    <section class="section section-3">
-      <div class="section-overlay" />
-      <div class="section-content">
+      <div class="section-content ">
         <InfoSection />
       </div>
     </section>
@@ -27,17 +17,15 @@
 </template>
 
 <script setup lang="ts">
-import GoodBadSection from '~/components/mainPage/GoodBadSection.vue'
 import InfoSection from '~/components/mainPage/InfoSection.vue'
-import LogoCarousel from '~/components/mainPage/LogoCarousel.vue'
+import LogoCarousel from '~/components/mainPage/VisitView.vue'
 </script>
 
 <style scoped>
 .scroll-wrapper {
   width: 100%;
-  height: 79vh;
+  height: 100%;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
 
@@ -54,6 +42,25 @@ import LogoCarousel from '~/components/mainPage/LogoCarousel.vue'
   padding: 4rem 2rem;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  -webkit-mask-image:
+    linear-gradient(to right,
+      rgba(0,0,0,0),
+      rgba(0,0,0,1) 1%,
+      rgba(0,0,0,1) 99%,
+      rgba(0,0,0,0)
+    ),
+
+    linear-gradient(to bottom,
+      rgba(0,0,0,0),
+      rgba(0,0,0,1) 0.9%,
+      rgba(0,0,0,1) 99.1%,
+      rgba(0,0,0,0)
+    );
+
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+  mask-repeat: no-repeat;
+  mask-size: cover;
 }
 
 .section-overlay {
@@ -70,6 +77,7 @@ import LogoCarousel from '~/components/mainPage/LogoCarousel.vue'
   position: relative;
   z-index: 2;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-self: center;
@@ -81,10 +89,6 @@ import LogoCarousel from '~/components/mainPage/LogoCarousel.vue'
 }
 
 .section-2 {
-  background-image: url('/images/mainPage/compare.jpg');
-}
-
-.section-3 {
   background-image: url('/images/mainPage/school.jpg');
 }
 

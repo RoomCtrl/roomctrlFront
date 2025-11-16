@@ -1,8 +1,7 @@
 <template>
   <Card
-    pt:root:style="--p-card-body-padding: 0.5rem"
-    pt:body:class="h-full"
-    pt:content:class="flex flex-col justify-end h-full"
+    pt:root:style="--p-card-body-padding:  0.2rem 0rem 0rem 0rem "
+    pt:body:class="h-full justify-end"
   >
     <template #title>
       <div class="flex flex-row justify-between">
@@ -21,8 +20,14 @@
     </template>
     <template #content>
       <DataTable
-        pt:root:class="h-full flex flex-col justify-between"
-        :value="tableData"
+        :pt="{
+          root: {
+            class: 'h-full flex flex-col',
+            style: '--p-datatable-paginator-bottom-border-width: 0; --p-paginator-border-radius: 0px',
+          },
+          tableContainer: { class: 'flex flex-col justify-end' },
+        }"
+        :value="displayReservations"
         paginator
         size="small"
         :rows="rows"
@@ -69,7 +74,7 @@ const props = defineProps<{
   header: string
   toApprove: boolean
 }>()
-const reservations = [
+const reservations = ref([
   {
     hour: '08:00',
     date: '2025-10-16',
@@ -140,8 +145,8 @@ const reservations = [
     bookedBy: 'James Anderson',
     status: 'toApprove',
   },
-]
-const toApproveReservations = reservations.filter(r => r.status === 'toApprove')
+])
+const toApproveReservations = reservations.value.filter(r => r.status === 'toApprove')
 
 const tableData = computed(() => {
   if (props.toApprove) {
@@ -158,4 +163,22 @@ const statusColor = computed(() => ({
   planned: 'info',
   toApprove: 'warn',
 }))
+
+
+const displayReservations = computed(() => {
+  const data = [...reservations.value]
+  
+  // Dodaj puste wiersze jeśli potrzeba
+  while (data.length < 4) {
+    data.push({ 
+      hour: '',
+      date: '',
+      room: '',
+      bookedBy: '',
+      status: ''
+    })
+  }
+  
+  return data
+})
 </script>

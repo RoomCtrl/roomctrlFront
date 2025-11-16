@@ -134,7 +134,7 @@ onUnmounted(() => {
 <style scoped>
 .dark .p-card-link:hover {
   background-color: #0f1419;
-  border-color: #D74141;
+  border-color: #ad3636ff;
 }
 
 .line-clamp-2 {

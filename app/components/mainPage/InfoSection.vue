@@ -1,34 +1,35 @@
 <template>
-  <Card
-    pt:body:class="flex flex-col h-full justify-between"
-    pt:title:class="text-2xl sm:text-3xl font-bold text-center"
-    pt:content:class="flex items-center h-[85%]"
-  >
-    <template #title>
-      {{ $t('pages.home.infoSection.title') }}
-    </template>
-
-    <template #content>
-      <div class="grid grid-col-1 sm:grid-cols-2 gap-4 h-[85%]">
-        <div
-          v-for="info in informations"
-          :key="info.title"
-          class="p-sub-card border border-gray-300 rounded-lg shadow-sm p-4 text-xs sm:text-sm lg:text-base bg-white transform transition duration-300 hover:scale-[1.03] hover:shadow-lg cursor-default"
-        >
-          <div class="font-bold text-xl flex items-center gap-2 mb-2">
-            <i
-              :class="info.icon"
-              style="font-size: 1.3rem;"
-            />
-            {{ info.title }}
-          </div>
-          <p>
-            {{ info.content }}
-          </p>
+  <div class="flex flex-col gap-10 h-full justify-center">
+    <div class="flex justify-center">
+      <Card
+        pt:body:class="flex flex-col justify-between"
+        pt:title:class="text-2xl sm:text-3xl font-bold text-center"
+        pt:content:class="flex items-center h-[85%]"
+      >
+        <template #title>
+          {{ $t('pages.home.infoSection.title') }}
+        </template>
+      </Card>
+    </div>
+    <div class="grid grid-col-1 sm:grid-cols-3 grid-rows-2 gap-4">
+      <div
+        v-for="info in informations"
+        :key="info.title"
+        class="p-sub-card border border-gray-300 rounded-lg shadow-sm p-4 text-xs sm:text-sm lg:text-base bg-white transform transition duration-300 hover:scale-[1.03] hover:shadow-lg cursor-default"
+      >
+        <div class="font-bold text-xl flex items-center gap-2 mb-2">
+          <i
+            :class="info.icon"
+            style="font-size: 1.3rem;"
+          />
+          {{ info.title }}
         </div>
+        <p>
+          {{ info.content }}
+        </p>
       </div>
-    </template>
-  </Card>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

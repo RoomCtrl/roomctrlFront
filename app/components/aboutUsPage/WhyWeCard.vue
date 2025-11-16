@@ -1,10 +1,14 @@
 <template>
   <Card
-    :pt:root:class="[{ slideCard: toMoveCard, slideBackCard: !toMoveCard }, ' border-y border-r border-l-4 border-white']"
-    pt:root:style="--p-card-background: #404040"
+    :pt:root:class="[
+      { slideCard: toMoveCard, slideBackCard: !toMoveCard },
+      '[--p-card-background:--p-zinc-300] dark:[--p-card-background:--p-zinc-700] border-y border-r border-l-4 border-black dark:border-white',
+    ]"
     pt:title:class="text-center text-xl font-bold"
     @mouseenter="moveCard"
+    @focusin="moveCard"
     @mouseleave="moveCard"
+    @focusout="moveCard"
   >
     <template #title>
       {{ header }}

@@ -1,6 +1,6 @@
 <template>
   <Card
-    pt:root:style="--p-card-body-padding:  0.2rem 0.5rem 0.1rem 0.5rem "
+    pt:root:style="--p-card-body-padding:  0.2rem 0rem 0rem 0rem "
     pt:caption:class="h-full"
     pt:title:class="h-full"
     pt:body:class="flex justify-between h-full"
@@ -21,12 +21,17 @@
     </template>
     <template #content>
       <DataTable
-        pt:root:class="h-full flex flex-col"
-        pt:tableContainer:class="flex flex-col justify-end"
+        :pt="{
+          root: {
+            class: 'h-full flex flex-col',
+            style: '--p-datatable-paginator-bottom-border-width: 0; --p-paginator-border-radius: 0px',
+          },
+          tableContainer: { class: 'flex flex-col justify-end' },
+        }"
         :value="reservations"
         paginator
         size="small"
-        :rows="7"
+        :rows="8"
       >
         <Column
           class="w-[50%]"
@@ -62,6 +67,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Style } from '#components'
+
 const reservations = [
   {
     hour: '08:00',

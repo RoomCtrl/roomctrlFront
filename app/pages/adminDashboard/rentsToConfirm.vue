@@ -1,20 +1,19 @@
 <template>
-  <div class="flex flex-col h-full">
+  <div :class="[{ 'h-[95vh]': isTableEmpty }, 'flex flex-col']">
     <Toast />
     <ConfirmDialog />
     <DataTable
       v-model:filters="filters"
-      class="h-full"
-      pt:tableContainer:class="flex flex-col justify-betwen h-full"
-      :pt:table:class="tableDisplay"
+      :pt="{
+        table: { class: tableDisplay },
+      }"
       filterDisplay="row"
       :value="reservations"
       :rows="rows"
       :rowsPerPageOptions="rowsPerPage"
       paginator
-      stripedRows
-      size="small"
       :paginatorPosition="paginatorPosition"
+      size="small"
       @update:rows="handleUpdateRows"
       @filter="onFilter"
     >
@@ -30,7 +29,7 @@
         :key="'room'"
         field="room"
         :header="$t('tables.headers.roomName')"
-        class="w-[10%]"
+        class="w-[12%]"
         sortable
         filter
       />
@@ -79,7 +78,9 @@
         :header="$t('tables.headers.status')"
         class="w-[10%]"
       />
-      <Column class="w-[10%]">
+      <Column
+        class="w-[8%]"
+      >
         <template #body="{ data }">
           <div class="flex flex-row gap-2">
             <Button
@@ -130,7 +131,7 @@ definePageMeta({
 const rows = ref(12)
 const rowsPerPage = ref([12, 24, 36])
 
-const { tableDisplay, paginatorPosition, onFilter, handleUpdateRows } = useDataTable(reservations)
+const { tableDisplay, isTableEmpty, paginatorPosition, onFilter, handleUpdateRows } = useDataTable(reservations, 12)
 const { customDateFilter, customTimeFilter } = useCustomFilterMatch()
 
 const filters = ref({
