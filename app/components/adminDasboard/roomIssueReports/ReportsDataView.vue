@@ -10,16 +10,26 @@
     :rows="6"
   >
     <template #header>
-      <ReportDataFilters :issues="issues" @FilterIssues="handleFilterIssues" class=""/>
-      <Select v-model="sortKey" :options="sortOptions" optionLabel="label" @change="onSortChange($event)"/>
+      <ReportDataFilters
+        :issues="issues"
+        class=""
+        @filter-issues="handleFilterIssues"
+      />
+      <Select
+        v-model="sortKey"
+        :options="sortOptions"
+        optionLabel="label"
+        aria-label="Sort by priority"
+        @change="onSortChange($event)"
+      />
     </template>
     <template #grid="slotProps">
       <div class="grid grid-cols-2 grid-rows-3">
         <Card
-        pt:caption:style="--p-card-caption-gap: 0"
           v-for="issue in slotProps.items"
           :key="issue.id"
-          class="shadow-sm hover:shadow-md transition-shadow m-2"
+          pt:caption:style="--p-card-caption-gap: 0"
+          class="shadow-sm hover:shadow-md transition-shadow m-2 dark:bg-gray-900"
         >
           <template #title>
             <div class="flex justify-between items-start">
@@ -45,7 +55,7 @@
           <template #content>
             <div class="mb-3">
               <div class="flex items-center gap-2 mb-2">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-100/50">{{ issue.category }}</span>
+                <span class="text-sm font-medium text-gray-400">{{ issue.category }}</span>
                 <span :class="['text-sm font-semibold', getPriorityColor(issue.priority)]">
                   • {{ $t('pages.adminDashboard.roomIssueReports.priority.'+ issue.priority) }}
                 </span>
@@ -55,9 +65,9 @@
               </p>
             </div>
             <div class="flex items-center justify-between pt-3 border-t">
-              <div class="text-sm text-gray-500 dark:text-gray-100/50">
+              <div class="text-sm text-gray-400">
                 {{ $t('pages.adminDashboard.roomIssueReports.reported') }}
-                <span class="font-medium">{{ issue.reporter }}</span>
+                <span class="font-medium text-white">{{ issue.reporter }}</span>
               </div>
               <div class="flex gap-2">
                 <Button
@@ -74,7 +84,7 @@
                   size="small"
                   @click="updateStatus(issue.id, 'closed')"
                 />
-                <ReportDetailsModal :selectedIssue="issue"/>
+                <ReportDetailsModal :selectedIssue="issue" />
               </div>
             </div>
           </template>
@@ -82,7 +92,7 @@
       </div>
     </template>
     <template #empty>
- <i
+      <i
         class="pi pi-exclamation-triangle"
         style="font-size: 4rem"
       />
@@ -94,8 +104,8 @@
 </template>
 
 <script setup lang="ts">
-import ReportDataFilters from './ReportDataFilters.vue';
-import ReportDetailsModal from './ReportDetailsModal.vue';
+import ReportDataFilters from './ReportDataFilters.vue'
+import ReportDetailsModal from './ReportDetailsModal.vue'
 
 const props = defineProps<{
   issues: Array<{
@@ -120,14 +130,13 @@ const props = defineProps<{
 
 const filteredIssues = ref([...props.issues])
 const colorMode = useColorMode()
-const sortKey = ref();
-const sortOrder = ref();
-const sortField = ref();
+const sortKey = ref()
+const sortOrder = ref()
+const sortField = ref()
 const sortOptions = ref([
-    {label: 'Price High to Low', value: '!priority'},
-    {label: 'Price Low to High', value: 'priority'},
-]);
-
+  { label: 'Price High to Low', value: '!priority' },
+  { label: 'Price Low to High', value: 'priority' },
+])
 
 const isDarkMode = computed({
   get() {
@@ -151,37 +160,36 @@ const handleFilterIssues = (issues: any[]) => {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'new': return 'bg-blue-100 text-blue-800'
-    case 'inProgress': return 'bg-yellow-100 text-yellow-800'
-    case 'closed': return 'bg-green-100 text-green-800'
-    default: return 'bg-gray-100 text-gray-800'
+    case 'new': return 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100'
+    case 'inProgress': return 'bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-100'
+    case 'closed': return 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100'
+    default: return 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100'
   }
 }
 
 const getPriorityColor = (priority: string) => {
-
   switch (priority) {
-    case 'critical': return 'text-red-600'
-    case 'high': return 'text-orange-600'
-    case 'mid': return 'text-yellow-600'
-    case 'low': return 'text-green-600'
-    default: return 'text-gray-600'
+    case 'critical': return 'text-red-500'
+    case 'high': return 'text-orange-500'
+    case 'mid': return 'text-yellow-500'
+    case 'low': return 'text-green-500'
+    default: return 'text-gray-500'
   }
 }
 
 const onSortChange = (event) => {
-    const value = event.value.value;
-    const sortValue = event.value;
+  const value = event.value.value
+  const sortValue = event.value
 
-    if (value.indexOf('!') === 0) {
-        sortOrder.value = -1;
-        sortField.value = value.substring(1, value.length);
-        sortKey.value = sortValue;
-    }
-    else {
-        sortOrder.value = 1;
-        sortField.value = value;
-        sortKey.value = sortValue;
-    }
-};
+  if (value.indexOf('!') === 0) {
+    sortOrder.value = -1
+    sortField.value = value.substring(1, value.length)
+    sortKey.value = sortValue
+  }
+  else {
+    sortOrder.value = 1
+    sortField.value = value
+    sortKey.value = sortValue
+  }
+}
 </script>

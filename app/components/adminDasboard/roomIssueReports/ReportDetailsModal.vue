@@ -9,35 +9,29 @@
     v-model:visible="visible"
     modal
     class="w-[50%]"
+    aria-label="Details info about report"
   >
-  <template #header>
-        <div class="flex justify-between items-start">
-          <div>
-            <h2 class="text-2xl font-bold mb-2">
-              Szczegóły zgłoszenia #{{ selectedIssue.id }}
-            </h2>
-            <p class="text-blue-100">
-              {{ selectedIssue.room }}
-            </p>
-          </div>
+    <template #header>
+      <div class="flex justify-between items-start">
+        <div>
+          <h2 class="text-2xl font-bold mb-2">
+            Szczegóły zgłoszenia #{{ selectedIssue.id }}
+          </h2>
+          <p class="text-blue-100">
+            {{ selectedIssue.room }}
+          </p>
         </div>
-  </template>
-    <div
-      class="bg-white dark:bg-zinc-900 rounded-xl shadow-2xl w-full overflow-y-auto"
-    >
-
-      <div class="p-6 space-y-6">
         <div class="grid grid-cols-2 gap-4">
-          <div class="bg-gray-200/60 rounded-lg p-4">
-            <div class="text-sm text-gray-600 mb-2">
+          <div class="bg-neutral-800 rounded-lg p-4">
+            <div class="text-sm text-gray-400 mb-2">
               Status
             </div>
             <span :class="['inline-block px-4 py-2 rounded-full text-sm font-medium', getStatusColor(selectedIssue.status)]">
               {{ selectedIssue.status }}
             </span>
           </div>
-          <div class="bg-gray-200/60 rounded-lg p-4">
-            <div class="text-sm text-gray-600 mb-2">
+          <div class="bg-neutral-800 rounded-lg p-4">
+            <div class="text-sm text-gray-400 mb-2">
               Priorytet
             </div>
             <span :class="['text-lg font-bold', getPriorityColor(selectedIssue.priority)]">
@@ -45,60 +39,44 @@
             </span>
           </div>
         </div>
-
-        <div class="border-t border-gray-200 pt-6">
+      </div>
+    </template>
+    <div
+      class="bg-white dark:bg-gray-900 rounded-xl shadow-2xl w-full overflow-y-auto"
+    >
+      <div class="p-6 space-y-6">
+        <div>
           <h3 class="text-lg font-semibold mb-4">
             Informacje podstawowe
           </h3>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <div class="text-sm text-gray-600 mb-1">
-                Kategoria
+          <div
+            class="grid grid-cols-2 gap-4"
+          >
+            <div
+              v-for="info in baseReportInfo"
+              :key="info.title"
+            >
+              <div class="text-sm text-gray-400 mb-1">
+                {{ info.title }}
               </div>
               <div class="text-base font-medium">
-                {{ selectedIssue.category }}
-              </div>
-            </div>
-            <div>
-              <div class="text-sm text-gray-600 mb-1">
-                Numer sali
-              </div>
-              <div class="text-base font-medium">
-                {{ selectedIssue.room }}
-              </div>
-            </div>
-            <div>
-              <div class="text-sm text-gray-600 mb-1">
-                Data zgłoszenia
-              </div>
-              <div class="text-base font-medium">
-                {{ selectedIssue.date }} {{ selectedIssue.time }}
-              </div>
-            </div>
-            <div>
-              <div class="text-sm text-gray-600 mb-1">
-                Zgłaszający
-              </div>
-              <div class="text-base font-medium">
-                {{ selectedIssue.reporter }}
+                {{ info.value }}
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Opis problemu -->
         <div class="border-t border-gray-200 pt-6">
           <h3 class="text-lg font-semibold mb-3">
             Opis problemu
           </h3>
-          <div class="bg-gray-50 rounded-lg p-4">
-            <p class="text-gray-800 leading-relaxed">
+          <div class="bg-gray-500 rounded-lg p-4">
+            <p class="leading-relaxed">
               {{ selectedIssue.description }}
             </p>
           </div>
         </div>
 
-        <!-- Historia działań -->
         <div class="border-t border-gray-200 pt-6">
           <h3 class="text-lg font-semibold mb-4">
             Historia działań
@@ -114,7 +92,7 @@
                 <div class="text-sm font-medium">
                   {{ log.action }}
                 </div>
-                <div class="text-xs text-gray-500">
+                <div class="text-xs text-gray-400">
                   {{ log.date }} {{ log.time }} - {{ log.user }}
                 </div>
               </div>
@@ -122,7 +100,6 @@
           </div>
         </div>
 
-        <!-- Notatki serwisowe -->
         <div class="border-t border-gray-200 pt-6">
           <h3 class="text-lg font-semibold mb-3">
             Notatki serwisowe
@@ -146,13 +123,12 @@
           </div>
           <div
             v-else
-            class="text-gray-500 text-sm italic"
+            class="text-gray-400 text-sm italic"
           >
             Brak notatek
           </div>
         </div>
 
-        <!-- Dodaj notatkę -->
         <div class="border-t border-gray-200 pt-6">
           <h3 class="text-lg font-semibold mb-3">
             Dodaj notatkę
@@ -162,6 +138,7 @@
             placeholder="Wpisz notatkę dotyczącą tego zgłoszenia..."
             rows="3"
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Add new note"
           />
           <button
             class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
@@ -171,17 +148,16 @@
           </button>
         </div>
 
-        <!-- Akcje -->
         <div class="border-t border-gray-200 pt-6 flex gap-3">
           <button
-            v-if="selectedIssue.status === 'Nowe'"
+            v-if="selectedIssue.status === 'new'"
             class="flex-1 bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition-colors font-medium"
             @click="updateStatusFromModal('W trakcie')"
           >
             Rozpocznij naprawę
           </button>
           <button
-            v-if="selectedIssue.status === 'W trakcie'"
+            v-if="selectedIssue.status === 'inProgress'"
             class="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
             @click="updateStatusFromModal('Zamknięte')"
           >
@@ -217,6 +193,41 @@ const props = defineProps<{
   }
 }>()
 
+const newNote = ref('')
+
+const baseReportInfo = computed(() => [
+  {
+    title: 'Kategoria',
+    value: props.selectedIssue.category,
+  },
+  {
+    title: 'Numer sali',
+    value: props.selectedIssue.room,
+  },
+  {
+    title: 'Data zgłoszenia',
+    value: props.selectedIssue.date,
+  },
+  {
+    title: 'Zgłaszjący',
+    value: props.selectedIssue.reporter,
+  },
+])
+
+const updateStatus = (id, newStatus) => {
+  const issue = props.selectedIssue
+  if (issue) {
+    issue.status = newStatus
+    const now = new Date()
+    issue.activityLog.push({
+      action: `Status zmieniony na: ${newStatus}`,
+      date: now.toISOString().split('T')[0],
+      time: now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' }),
+      user: 'System',
+    })
+  }
+}
+
 const updateStatusFromModal = (newStatus) => {
   if (props.selectedIssue) {
     updateStatus(props.selectedIssue.id, newStatus)
@@ -235,7 +246,7 @@ const addNote = () => {
   }
 }
 
-const getStatusColor = (status) => {
+const getStatusColor = (status: string) => {
   switch (status) {
     case 'new': return 'bg-blue-100 text-blue-800'
     case 'inProgress': return 'bg-yellow-100 text-yellow-800'
@@ -244,7 +255,7 @@ const getStatusColor = (status) => {
   }
 }
 
-const getPriorityColor = (priority) => {
+const getPriorityColor = (priority: string) => {
   switch (priority) {
     case 'critical': return 'text-red-600'
     case 'high': return 'text-orange-600'

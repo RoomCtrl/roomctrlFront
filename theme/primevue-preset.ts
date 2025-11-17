@@ -168,6 +168,11 @@ const MyCustomPreset = definePreset(Aura, {
     },
     dataview: {
       colorScheme: {
+        dark: {
+          content: {
+            background: '{surface.100}',
+          },
+        },
         light: {
           content: {
             background: '{surface.50}',

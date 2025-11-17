@@ -24,7 +24,6 @@
         optionValue="value"
       />
     </div>
-
   </div>
 </template>
 
@@ -67,12 +66,12 @@ const options = ref([
 const filteredIssues = computed(() => {
   return props.issues.filter((issue) => {
     const search = searchTerm.value.toLowerCase()
-    const matchesSearch =
-      issue.room?.toLowerCase().includes(search) ||
-      issue.description?.toLowerCase().includes(search)
+    const matchesSearch
+      = issue.room?.toLowerCase().includes(search)
+        || issue.description?.toLowerCase().includes(search)
 
-    const matchesFilter =
-      filterStatus.value === 'all' || issue.status === filterStatus.value
+    const matchesFilter
+      = filterStatus.value === 'all' || issue.status === filterStatus.value
 
     return matchesSearch && matchesFilter
   })
