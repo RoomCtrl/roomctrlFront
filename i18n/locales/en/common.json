@@ -11,7 +11,10 @@
     "filter": "Filter",
     "edit": "Edit",
     "cancel": "Cancel",
-    "delete": "Delete"
+    "delete": "Delete",
+    "close": "Close",
+    "start": "Start",
+    "details": "Details"
   },
   "toast": {
     "danger": "Warning!",
@@ -22,5 +25,8 @@
     "capacity": "Capacity: ",
     "size": "Area: ",
     "location": "Location: "
+  },
+  "filters": {
+    "all": "All"
   }
 }

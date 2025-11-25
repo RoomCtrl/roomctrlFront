@@ -1,0 +1,34 @@
+{
+  "title": "Zgłoszenia sal",
+  "subtitle": "Zarządzaj zgłoszeniami problemów w salach",
+  "status": {
+    "closed": "Zamknięte",
+    "new": "Nowe",
+    "inProgress": "W trakcie"
+  },
+  "priority": {
+    "critical": "Krytyczny",
+    "high": "Wysoki",
+    "mid": "Średni",
+    "low": "Niski"
+  },
+  "reported": "Zgłosił: ",
+  "empty": "Brak zgłoszeń pasujących do wybranych filtrów",
+  "modal": {
+    "title": "Szczegóły zgłoszenia #{issueNumber}",
+    "status": "Status",
+    "priority": "Priorytet",
+    "baseInfo": "Informacje podstawowe",
+    "category": "Kategoria",
+    "roomNumber": "Numer sali",
+    "reportDate": "Data zgłoszenia",
+    "reporter": "Zgłaszjący",
+    "issueDescription": "Opis problemu",
+    "historyOfWork": "Historia działań",
+    "serviceNotes": "Notatki serwisowe",
+    "noNotes": "Brak notatek",
+    "addNote": "Dodaj  notatkę",
+    "startRepair": "Rozpocznij naprawę",
+    "closeIssue": "Zamknij zgłoeszenie"
+  }
+}

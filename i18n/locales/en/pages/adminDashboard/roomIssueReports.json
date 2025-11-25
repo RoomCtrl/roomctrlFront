@@ -1,0 +1,34 @@
+{
+  "title": "Room Issues",
+  "subtitle": "Manage reported room problems",
+  "status": {
+    "closed": "Closed",
+    "new": "New",
+    "inProgress": "In progress"
+  },
+  "priority": {
+    "critical": "Critical",
+    "high": "High",
+    "mid": "Medium",
+    "low": "Low"
+  },
+  "reported": "Reported by: ",
+  "empty": "No issues match the selected filters",
+  "modal": {
+    "title": "Issue details #{issueNumber}",
+    "status": "Status",
+    "priority": "Priority",
+    "baseInfo": "Basic information",
+    "category": "Category",
+    "roomNumber": "Room number",
+    "reportDate": "Report date",
+    "reporter": "Reporter",
+    "issueDescription": "Issue description",
+    "historyOfWork": "Activity history",
+    "serviceNotes": "Service notes",
+    "noNotes": "No notes",
+    "addNote": "Add note",
+    "startRepair": "Start repair",
+    "closeIssue": "Close issue"
+  }
+}
