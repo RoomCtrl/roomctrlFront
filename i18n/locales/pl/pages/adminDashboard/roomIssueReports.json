@@ -13,5 +13,22 @@
     "low": "Niski"
   },
   "reported": "Zgłosił: ",
-  "empty": "Brak zgłoszeń pasujących do wybranych filtrów"
+  "empty": "Brak zgłoszeń pasujących do wybranych filtrów",
+  "modal": {
+    "title": "Szczegóły zgłoszenia #{issueNumber}",
+    "status": "Status",
+    "priority": "Priorytet",
+    "baseInfo": "Informacje podstawowe",
+    "category": "Kategoria",
+    "roomNumber": "Numer sali",
+    "reportDate": "Data zgłoszenia",
+    "reporter": "Zgłaszjący",
+    "issueDescription": "Opis problemu",
+    "historyOfWork": "Historia działań",
+    "serviceNotes": "Notatki serwisowe",
+    "noNotes": "Brak notatek",
+    "addNote": "Dodaj  notatkę",
+    "startRepair": "Rozpocznij naprawę",
+    "closeIssue": "Zamknij zgłoeszenie"
+  }
 }

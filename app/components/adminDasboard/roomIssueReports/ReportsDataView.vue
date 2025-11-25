@@ -1,7 +1,8 @@
 <template>
   <DataView
     :value="filteredIssues"
-    pt:header:class="flex flex-row justify-between"
+    pt:root:class="h-full w-full"
+    pt:header:class="flex flex-col justify-between gap-10"
     pt:emptyMessage:class="flex flex-col justify-center items-center h-[43.5rem]"
     :sortOrder="sortOrder"
     :sortField="sortField"
@@ -10,18 +11,34 @@
     :rows="6"
   >
     <template #header>
-      <ReportDataFilters
-        :issues="issues"
-        class=""
-        @filter-issues="handleFilterIssues"
-      />
-      <Select
-        v-model="sortKey"
-        :options="sortOptions"
-        optionLabel="label"
-        aria-label="Sort by priority"
-        @change="onSortChange($event)"
-      />
+      <div>
+        <h1 class="font-bold text-4xl">
+          {{ $t('pages.adminDashboard.roomIssueReports.title') }}
+        </h1>
+        <h2 class="opacity-60">
+          {{ $t('pages.adminDashboard.roomIssueReports.subtitle') }}
+        </h2>
+      </div>
+      <div class="flex flex-row justify-between">
+        <ReportDataFilters
+          :issues="issues"
+          @filter-issues="handleFilterIssues"
+        />
+        <Select
+          v-model="sortKey"
+          :options="sortOptions"
+          optionLabel="label"
+          aria-label="Sort by priority"
+          @change="onSortChange($event)"
+        >
+          <template #value="slotProps">
+            <i
+              v-if="slotProps.value"
+              :class="slotProps.value.icon"
+            />
+          </template>
+        </Select>
+      </div>
     </template>
     <template #grid="slotProps">
       <div class="grid grid-cols-2 grid-rows-3">
@@ -55,7 +72,7 @@
           <template #content>
             <div class="mb-3">
               <div class="flex items-center gap-2 mb-2">
-                <span class="text-sm font-medium text-gray-400">{{ issue.category }}</span>
+                <span class="text-sm font-medium text-gray-600 dark:text-gray-400">{{ issue.category }}</span>
                 <span :class="['text-sm font-semibold', getPriorityColor(issue.priority)]">
                   • {{ $t('pages.adminDashboard.roomIssueReports.priority.'+ issue.priority) }}
                 </span>
@@ -65,21 +82,21 @@
               </p>
             </div>
             <div class="flex items-center justify-between pt-3 border-t">
-              <div class="text-sm text-gray-400">
+              <div class="text-sm text-gray-600 dark:text-gray-400">
                 {{ $t('pages.adminDashboard.roomIssueReports.reported') }}
-                <span class="font-medium text-white">{{ issue.reporter }}</span>
+                <span class="font-medium text-black dark:text-white">{{ issue.reporter }}</span>
               </div>
               <div class="flex gap-2">
                 <Button
                   v-if="issue.status === 'new'"
-                  label="Rozpocznij"
+                  :label="$t('common.buttons.start')"
                   severity="warn"
                   size="small"
                   @click="updateStatus(issue.id, 'inProgress')"
                 />
                 <Button
                   v-if="issue.status === 'inProgress'"
-                  label="Zamknij"
+                  :label="$t('common.buttons.close')"
                   severity="success"
                   size="small"
                   @click="updateStatus(issue.id, 'closed')"
@@ -124,28 +141,22 @@ const props = defineProps<{
       time: string
       user: string
     }]
-    notes: Array<string>
+    notes: {
+      text: string
+      author: string
+      date: string
+    }[]
   }>
 }>()
 
 const filteredIssues = ref([...props.issues])
-const colorMode = useColorMode()
 const sortKey = ref()
 const sortOrder = ref()
 const sortField = ref()
 const sortOptions = ref([
-  { label: 'Price High to Low', value: '!priority' },
-  { label: 'Price Low to High', value: 'priority' },
+  { label: 'Ważnosc od najwazniejszych', icon: 'pi pi-sort-amount-down', value: '!priority' },
+  { label: 'Waznosc od najmniej waznych', icon: 'pi pi-sort-amount-up', value: 'priority' },
 ])
-
-const isDarkMode = computed({
-  get() {
-    return colorMode.value === 'dark'
-  },
-  set(value) {
-    colorMode.preference = value ? 'dark' : 'light'
-  },
-})
 
 const updateStatus = (id: number, newStatus: string) => {
   const issue = props.issues.find(i => i.id === id)
@@ -169,11 +180,11 @@ const getStatusColor = (status: string) => {
 
 const getPriorityColor = (priority: string) => {
   switch (priority) {
-    case 'critical': return 'text-red-500'
-    case 'high': return 'text-orange-500'
-    case 'mid': return 'text-yellow-500'
-    case 'low': return 'text-green-500'
-    default: return 'text-gray-500'
+    case 'critical': return 'text-red-700 dark:text-red-500'
+    case 'high': return 'text-orange-700 dark:text-orange-500'
+    case 'mid': return 'text-yellow-700 dark:text-yellow-500'
+    case 'low': return 'text-green-700 dark:text-green-500'
+    default: return 'text-gray-600 dark:text-gray-500'
   }
 }
 

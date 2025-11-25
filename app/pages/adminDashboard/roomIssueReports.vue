@@ -1,16 +1,5 @@
 <template>
-  <div class="flex flex-col justify-between gap-2 h-full">
-    <div class="grid grid-cols-3 gap-2">
-      <Panel
-        :header="$t('pages.adminDashboard.roomIssueReports.title')"
-        pt:header:class="font-extrabold text-4xl"
-      >
-        <p class="opacity-60">
-          {{ $t('pages.adminDashboard.roomIssueReports.subtitle') }}
-        </p>
-      </Panel>
-    </div>
-
+  <div class="flex h-full">
     <ReportsDataView :issues="issues" />
   </div>
 </template>

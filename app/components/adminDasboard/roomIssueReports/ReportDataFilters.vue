@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-4">
+  <div class="flex w-full pr-4">
     <div class="flex-1 relative">
       <FloatLabel variant="on">
         <IconField>
@@ -22,6 +22,7 @@
         :options="options"
         optionLabel="label"
         optionValue="value"
+        aria-label="filter by Status"
       />
     </div>
   </div>
@@ -47,7 +48,11 @@ const props = defineProps<{
       time: string
       user: string
     }]
-    notes: Array<string>
+    notes: {
+      text: string
+      author: string
+      date: string
+    }[]
   }>
 }>()
 
@@ -56,11 +61,13 @@ const emit = defineEmits(['FilterIssues'])
 const searchTerm = ref('')
 const filterStatus = ref('all')
 
+const { t } = useI18n()
+
 const options = ref([
-  { label: 'Wszystkie', value: 'all' },
-  { label: 'Nowe', value: 'new' },
-  { label: 'W trakcie', value: 'inProgress' },
-  { label: 'Zamknięte', value: 'closed' },
+  { label: t('common.filters.all'), value: 'all' },
+  { label: t('pages.adminDashboard.roomIssueReports.status.new'), value: 'new' },
+  { label: t('pages.adminDashboard.roomIssueReports.status.inProgress'), value: 'inProgress' },
+  { label: t('pages.adminDashboard.roomIssueReports.status.closed'), value: 'closed' },
 ])
 
 const filteredIssues = computed(() => {

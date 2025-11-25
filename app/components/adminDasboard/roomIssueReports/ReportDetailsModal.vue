@@ -1,6 +1,6 @@
 <template>
   <Button
-    label="Szczegóły"
+    :label="$t('common.buttons.details')"
     severity="info"
     size="small"
     @click="visible = true"
@@ -12,32 +12,35 @@
     aria-label="Details info about report"
   >
     <template #header>
-      <div class="flex justify-between items-start">
-        <div>
-          <h2 class="text-2xl font-bold mb-2">
-            Szczegóły zgłoszenia #{{ selectedIssue.id }}
-          </h2>
-          <p class="text-blue-100">
+      <div class="flex justify-between items-start w-full">
+        <div class="w-full">
+          <div class="flex flex-row justify-between w-full">
+            <h2 class="text-3xl font-bold mb-2">
+              {{ $t('pages.adminDashboard.roomIssueReports.modal.title', { issueNumber: selectedIssue.id }) }}
+            </h2>
+            <div class="grid grid-cols-2 gap-10 pr-10">
+              <div>
+                <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 pb-1">
+                  {{ $t('pages.adminDashboard.roomIssueReports.modal.status') }}
+                </div>
+                <span :class="['inline-block px-2 py-1 rounded-full text-sm font-medium', getStatusColor(selectedIssue.status)]">
+                  {{ $t('pages.adminDashboard.roomIssueReports.status.' + selectedIssue.status) }}
+                </span>
+              </div>
+              <div>
+                <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 pb-1">
+                  {{ $t('pages.adminDashboard.roomIssueReports.modal.priority') }}
+                </div>
+                <span :class="['text-lg font-bold', getPriorityColor(selectedIssue.priority)]">
+                  {{ $t('pages.adminDashboard.roomIssueReports.priority.'+ selectedIssue.priority) }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-blue-800 dark:text-blue-100">
             {{ selectedIssue.room }}
           </p>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="bg-neutral-800 rounded-lg p-4">
-            <div class="text-sm text-gray-400 mb-2">
-              Status
-            </div>
-            <span :class="['inline-block px-4 py-2 rounded-full text-sm font-medium', getStatusColor(selectedIssue.status)]">
-              {{ selectedIssue.status }}
-            </span>
-          </div>
-          <div class="bg-neutral-800 rounded-lg p-4">
-            <div class="text-sm text-gray-400 mb-2">
-              Priorytet
-            </div>
-            <span :class="['text-lg font-bold', getPriorityColor(selectedIssue.priority)]">
-              {{ selectedIssue.priority }}
-            </span>
-          </div>
         </div>
       </div>
     </template>
@@ -47,7 +50,7 @@
       <div class="p-6 space-y-6">
         <div>
           <h3 class="text-lg font-semibold mb-4">
-            Informacje podstawowe
+            {{ $t('pages.adminDashboard.roomIssueReports.modal.baseInfo') }}
           </h3>
           <div
             class="grid grid-cols-2 gap-4"
@@ -56,7 +59,7 @@
               v-for="info in baseReportInfo"
               :key="info.title"
             >
-              <div class="text-sm text-gray-400 mb-1">
+              <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">
                 {{ info.title }}
               </div>
               <div class="text-base font-medium">
@@ -68,9 +71,9 @@
 
         <div class="border-t border-gray-200 pt-6">
           <h3 class="text-lg font-semibold mb-3">
-            Opis problemu
+            {{ $t('pages.adminDashboard.roomIssueReports.modal.issueDescription') }}
           </h3>
-          <div class="bg-gray-500 rounded-lg p-4">
+          <div class="bg-gray-300 dark:bg-gray-500 rounded-lg p-4">
             <p class="leading-relaxed">
               {{ selectedIssue.description }}
             </p>
@@ -79,7 +82,7 @@
 
         <div class="border-t border-gray-200 pt-6">
           <h3 class="text-lg font-semibold mb-4">
-            Historia działań
+            {{ $t('pages.adminDashboard.roomIssueReports.modal.historyOfWork') }}
           </h3>
           <div class="space-y-3">
             <div
@@ -92,7 +95,7 @@
                 <div class="text-sm font-medium">
                   {{ log.action }}
                 </div>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-gray-600 dark:text-gray-400">
                   {{ log.date }} {{ log.time }} - {{ log.user }}
                 </div>
               </div>
@@ -102,7 +105,7 @@
 
         <div class="border-t border-gray-200 pt-6">
           <h3 class="text-lg font-semibold mb-3">
-            Notatki serwisowe
+            {{ $t('pages.adminDashboard.roomIssueReports.modal.serviceNotes') }}
           </h3>
           <div
             v-if="selectedIssue.notes && selectedIssue.notes.length > 0"
@@ -123,46 +126,47 @@
           </div>
           <div
             v-else
-            class="text-gray-400 text-sm italic"
+            class="text-gray-600 dark:text-gray-400 text-sm italic"
           >
-            Brak notatek
+            {{ $t('pages.adminDashboard.roomIssueReports.modal.noNotes') }}
           </div>
         </div>
 
         <div class="border-t border-gray-200 pt-6">
           <h3 class="text-lg font-semibold mb-3">
-            Dodaj notatkę
+            {{ $t('pages.adminDashboard.roomIssueReports.modal.addNote') }}
           </h3>
-          <textarea
+          <Textarea
             v-model="newNote"
             placeholder="Wpisz notatkę dotyczącą tego zgłoszenia..."
             rows="3"
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Add new note"
           />
-          <button
-            class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          <Button
+            class="mt-2"
+            :label="$t('pages.adminDashboard.roomIssueReports.modal.addNote')"
+            size="small"
+            severity="info"
             @click="addNote"
-          >
-            Dodaj notatkę
-          </button>
+          />
         </div>
 
         <div class="border-t border-gray-200 pt-6 flex gap-3">
-          <button
+          <Button
             v-if="selectedIssue.status === 'new'"
-            class="flex-1 bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition-colors font-medium"
-            @click="updateStatusFromModal('W trakcie')"
-          >
-            Rozpocznij naprawę
-          </button>
-          <button
+            class="flex-1 px-6 py-3"
+            :label=" $t('pages.adminDashboard.roomIssueReports.modal.startRepair')"
+            severity="warn"
+            @click="updateStatusFromModal('inProgress')"
+          />
+          <Button
             v-if="selectedIssue.status === 'inProgress'"
-            class="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
-            @click="updateStatusFromModal('Zamknięte')"
-          >
-            Zamknij zgłoszenie
-          </button>
+            class="flex-1 px-6 py-3"
+            :label="$t('pages.adminDashboard.roomIssueReports.modal.closeIssue')"
+            severity="success"
+            @click="updateStatusFromModal('closed')"
+          />
         </div>
       </div>
     </div>
@@ -170,6 +174,8 @@
 </template>
 
 <script setup lang="ts">
+import { Textarea } from 'primevue'
+
 const visible = ref(false)
 
 const props = defineProps<{
@@ -189,27 +195,32 @@ const props = defineProps<{
       time: string
       user: string
     }]
-    notes: Array<string>
+    notes: {
+      text: string
+      author: string
+      date: string
+    }[]
   }
 }>()
 
 const newNote = ref('')
+const { t } = useI18n()
 
 const baseReportInfo = computed(() => [
   {
-    title: 'Kategoria',
+    title: t('pages.adminDashboard.roomIssueReports.modal.category'),
     value: props.selectedIssue.category,
   },
   {
-    title: 'Numer sali',
+    title: t('pages.adminDashboard.roomIssueReports.modal.roomNumber'),
     value: props.selectedIssue.room,
   },
   {
-    title: 'Data zgłoszenia',
+    title: t('pages.adminDashboard.roomIssueReports.modal.reportDate'),
     value: props.selectedIssue.date,
   },
   {
-    title: 'Zgłaszjący',
+    title: t('pages.adminDashboard.roomIssueReports.modal.reporter'),
     value: props.selectedIssue.reporter,
   },
 ])
@@ -248,20 +259,20 @@ const addNote = () => {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'new': return 'bg-blue-100 text-blue-800'
-    case 'inProgress': return 'bg-yellow-100 text-yellow-800'
-    case 'closed': return 'bg-green-100 text-green-800'
-    default: return 'bg-gray-100 text-gray-800'
+    case 'new': return 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100'
+    case 'inProgress': return 'bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-100'
+    case 'closed': return 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100'
+    default: return 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100'
   }
 }
 
 const getPriorityColor = (priority: string) => {
   switch (priority) {
-    case 'critical': return 'text-red-600'
-    case 'high': return 'text-orange-600'
-    case 'mid': return 'text-yellow-600'
-    case 'low': return 'text-green-600'
-    default: return 'text-gray-600'
+    case 'critical': return 'text-red-500'
+    case 'high': return 'text-orange-500'
+    case 'mid': return 'text-yellow-500'
+    case 'low': return 'text-green-500'
+    default: return 'text-gray-500'
   }
 }
 </script>

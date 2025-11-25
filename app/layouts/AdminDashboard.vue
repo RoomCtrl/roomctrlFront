@@ -1,5 +1,5 @@
 <template>
-  <div class="p-content flex h-full overflow-hidden">
+  <div class="p-content flex min-h-screen overflow-hidden">
     <aside>
       <Menu
         :model="items"
@@ -105,7 +105,7 @@
       </Menu>
     </aside>
 
-    <main class="flex-1 overflow-hidden ml-[4.5rem] mr-[0.5rem] my-[0.5rem]">
+    <main class="flex-1 overflow-hidden ml-[4.5rem] mr-[0.5rem] my-[0.5rem] ">
       <slot />
     </main>
   </div>
