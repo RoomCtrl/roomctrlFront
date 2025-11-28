@@ -25,7 +25,6 @@ import LogoCarousel from '~/components/mainPage/VisitView.vue'
 .scroll-wrapper {
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
   scroll-behavior: smooth;
 }
 

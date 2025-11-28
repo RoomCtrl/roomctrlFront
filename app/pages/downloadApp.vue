@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col lg:flex-row justify-around items-center gap-5">
+  <div class="flex flex-col lg:flex-row justify-around items-center w-full gap-5">
     <div class="order-1">
       <DeviceSysCard
         :content="android"

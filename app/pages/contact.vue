@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col 2xl:items-center">
+  <div class="flex flex-col 2xl:items-center w-full">
     <div class="space-y-12">
       <Card pt:root:class="text-center shadow-sm">
         <template #content>
