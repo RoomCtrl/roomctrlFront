@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex flex-col"
+    class="relative flex flex-col min-h-screen"
   >
     <header class="p-header fixed w-full z-20 bg-white shadow-xl">
       <MainHeader
@@ -8,8 +8,10 @@
         @sidebar-state="handleSideBarState"
       />
     </header>
-    <main class="p-content pb-[2rem] lg:pb-[3rem] pt-[7rem] lg:pt-[8rem] min-h-[79vh] justify-center px-[1rem] max-sm:px-[0.5rem] xl:px-[2rem]">
-      <slot class="flex-none" />
+    <main class="p-content pb-[2rem] lg:pb-[3rem] pt-[7rem] lg:pt-[8rem] flex flex-col flex-1 justify-center px-[1rem] max-sm:px-[0.5rem] xl:px-[2rem]">
+      <div class="flex-1 min-h-0 flex">
+        <slot />
+      </div>
     </main>
 
     <footer class="p-footer w-full z-20 pt-[2vh] bg-[#1B2532]">

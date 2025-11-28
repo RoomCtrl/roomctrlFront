@@ -105,8 +105,10 @@
       </Menu>
     </aside>
 
-    <main class="flex-1 overflow-hidden ml-[4.5rem] mr-[0.5rem] my-[0.5rem] ">
-      <slot />
+    <main class="flex-1 overflow-hidden ml-[4.5rem] mr-[0.5rem] my-[0.5rem]">
+      <div class="flex-1 min-h-0 flex h-full">
+        <slot />
+      </div>
     </main>
   </div>
 </template>

@@ -5,7 +5,7 @@
         <NuxtPage />
       </template>
       <template #fallback>
-        <div class="flex items-center justify-center min-h-[60vh]">
+        <div class="flex w-full items-center">
           <ProgressSpinner />
         </div>
       </template>

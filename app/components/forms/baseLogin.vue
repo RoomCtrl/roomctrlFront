@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="submitForm">
     <div class="flex flex-col gap-8 items-center">
-      <h1 class="text-3xl font-bold py-[3vh]">
+      <h1 class="text-3xl font-bold pt-[3vh]">
         {{ $t('forms.titles.loginForm') }}
       </h1>
 
