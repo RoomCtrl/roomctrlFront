@@ -24,7 +24,13 @@
     "phone": "Telefon",
     "message": "Wiadomość",
     "login": "Login",
-    "password": "Hasło"
+    "password": "Hasło",
+    "roomName": "Nazwa sali",
+    "capacity": "Pojemność",
+    "size": "Rozmiar",
+    "location": "Lokalizacja",
+    "description": "Opis",
+    "equpiment": "Wyposażenie"
   },
   "fieldMessages": {
     "error": {

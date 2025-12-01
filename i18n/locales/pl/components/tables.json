@@ -1,18 +1,25 @@
 {
   "titles": {
-    "rentsToConfirm": "Rezerwacje do potwierdzenia"
+    "rentsToConfirm": "Rezerwacje do potwierdzenia",
+    "roomList": "Lista sal"
   },
   "headers": {
     "roomName": "Sala",
+    "capacity": "Pojemność",
+    "size": "Rozmiar",
+    "location": "Lokalizacja",
+    "description": "Opis",
     "booker": "Rezerwujący",
     "day": "Dzień",
     "hour": "Godzina",
     "status": "Status",
     "email": "Email",
-    "phone": "Telefon"
+    "phone": "Telefon",
+    "actions": "Akcje"
   },
   "emptyMessages": {
-    "noRentsToConfirm": "Brak rezerwacji do potwierdzenia"
+    "noRentsToConfirm": "Brak rezerwacji do potwierdzenia",
+    "noRoom": "Nie znaleziono sal"
   },
   "buttonsTooltip": {
     "goToRoom": "Przejdź do sali",

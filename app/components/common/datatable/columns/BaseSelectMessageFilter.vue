@@ -6,7 +6,10 @@
     :showFilterMenu="showFilterMenu"
   >
     <template #body="slotProps">
-      <slot name="body" v-bind="slotProps">
+      <slot
+        name="body"
+        v-bind="slotProps"
+      >
         <Message
           pt:content:style="--p-message-content-padding: 0.25rem "
           pt:text:class="text-center w-full text-md"
@@ -16,7 +19,10 @@
         </Message>
       </slot>
     </template>
-    <template v-if="filter" #filter="{ filterModel, filterCallback }">
+    <template
+      v-if="filter"
+      #filter="{ filterModel, filterCallback }"
+    >
       <Select
         id="rentStatus"
         v-model="filterModel.value"
@@ -47,7 +53,7 @@ withDefaults(
     sortable: false,
     filter: false,
     showFilterMenu: false,
-  }
+  },
 )
 
 const statusColor = computed<Record<'cancelled' | 'ended' | 'planned' | 'toApprove' | 'all', string>>(() => ({
