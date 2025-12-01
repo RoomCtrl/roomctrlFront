@@ -2,9 +2,9 @@
   "filters": {
     "title": "Filtering",
     "fields": {
-      "rentTitle": "Reservation title",
+      "rentTitle": "Reservation Title",
       "rentStatus": "Status",
-      "rentDateRange": "Date range"
+      "rentDateRange": "Date Range"
     },
     "search": "Search",
     "choose": "Choose"
@@ -24,13 +24,19 @@
     "phone": "Phone",
     "message": "Message",
     "login": "Login",
-    "password": "Password"
+    "password": "Password",
+    "roomName": "Room Name",
+    "capacity": "Capacity",
+    "size": "Size",
+    "location": "Location",
+    "description": "Description",
+    "equpiment": "Equipment"
   },
   "fieldMessages": {
     "error": {
       "email": "Enter a valid email address",
-      "required": "The {fieldName} field is required.",
-      "invalidField": "The {fieldName} field is invalid."
+      "required": "The field {fieldName} is required.",
+      "invalidField": "The field {fieldName} is invalid."
     }
   },
   "messages": {

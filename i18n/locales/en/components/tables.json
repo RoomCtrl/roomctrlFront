@@ -1,18 +1,25 @@
 {
   "titles": {
-    "rentsToConfirm": "Reservations to Confirm"
+    "rentsToConfirm": "Reservations to Confirm",
+    "roomList": "Room List"
   },
   "headers": {
     "roomName": "Room",
+    "capacity": "Capacity",
+    "size": "Size",
+    "location": "Location",
+    "description": "Description",
     "booker": "Booker",
     "day": "Day",
     "hour": "Hour",
     "status": "Status",
     "email": "Email",
-    "phone": "Phone"
+    "phone": "Phone",
+    "actions": "Actions"
   },
   "emptyMessages": {
-    "noRentsToConfirm": "No reservations to confirm"
+    "noRentsToConfirm": "No reservations to confirm",
+    "noRoom": "No rooms found"
   },
   "buttonsTooltip": {
     "goToRoom": "Go to room",

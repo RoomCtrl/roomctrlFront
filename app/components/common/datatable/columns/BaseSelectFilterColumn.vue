@@ -6,11 +6,17 @@
     :showFilterMenu="showFilterMenu"
   >
     <template #body="slotProps">
-      <slot name="body" v-bind="slotProps">
+      <slot
+        name="body"
+        v-bind="slotProps"
+      >
         {{ slotProps.data[field] }}
       </slot>
     </template>
-    <template v-if="filter" #filter="{ filterModel, filterCallback }">
+    <template
+      v-if="filter"
+      #filter="{ filterModel, filterCallback }"
+    >
       <MultiSelect
         v-if="multiSelect"
         v-model="filterModel.value"
@@ -22,7 +28,7 @@
         :placeholder="$t('forms.filters.search')"
         @change="filterCallback()"
       />
-      <Select 
+      <Select
         v-else
         v-model="filterModel.value"
         class="w-full"
@@ -53,8 +59,7 @@ withDefaults(
     sortable: false,
     filter: false,
     multiSelect: false,
-    showFilterMenu: false
-  }
+    showFilterMenu: false,
+  },
 )
-
 </script>
