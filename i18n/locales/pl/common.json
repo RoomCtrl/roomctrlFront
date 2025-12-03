@@ -14,7 +14,8 @@
     "delete": "Usuń",
     "close": "Zamknij",
     "start": "Rozpocznij",
-    "details": "Szczegóły"
+    "details": "Szczegóły",
+    "add": "Dodaj"
   },
   "toast": {
     "danger": "Uwaga!",

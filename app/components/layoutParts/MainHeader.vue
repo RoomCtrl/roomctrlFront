@@ -121,6 +121,12 @@ const tabs = computed(() => [
         description: t('layouts.main.pages.reservationHistory.description'),
         auth: isUserLogin.value,
       },
+      {
+        label: t('pages.myCalendar.title'),
+        route: '/reservations/myCalendar',
+        description: t('layouts.main.pages.myCalendar.description'),
+        auth: isUserLogin.value,
+      },
     ],
   },
   {

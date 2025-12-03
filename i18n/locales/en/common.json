@@ -14,7 +14,8 @@
     "delete": "Delete",
     "close": "Close",
     "start": "Start",
-    "details": "Details"
+    "details": "Details",
+    "add": "Add"
   },
   "toast": {
     "danger": "Warning!",
