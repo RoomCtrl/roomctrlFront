@@ -134,3 +134,18 @@ export const dayOfWeekShortNames = [
   'date.dayShortNames.saturday',
   'date.dayShortNames.sunday',
 ]
+
+export const monthNamesShort = [
+  'date.monthShortNames.january',
+  'date.monthShortNames.february',
+  'date.monthShortNames.march',
+  'date.monthShortNames.april',
+  'date.monthShortNames.may',
+  'date.monthShortNames.june',
+  'date.monthShortNames.july',
+  'date.monthShortNames.august',
+  'date.monthShortNames.september',
+  'date.monthShortNames.october',
+  'date.monthShortNames.november',
+  'date.monthShortNames.december',
+]

@@ -28,6 +28,9 @@
     "reservationHistory": {
       "title": "My history",
       "description": "Here is the history of your reservations."
+    },
+    "myCalendar": {
+      "description": "Displays your scheduled appointments in a clear calendar layout."
     }
   },
   "copyright": "2025 RoomCtrl. All rights reserved.",
