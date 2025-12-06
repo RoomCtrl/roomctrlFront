@@ -3,14 +3,17 @@
     :visible="props.open"
     class="min-w-[40rem]"
     modal
-    @update:visible="val => emit('update:open', val)"
+    @update:visible="(val) => emit('update:open', val)"
   >
     <template #header>
       <div class="w-full">
         <div class="flex items-start justify-between">
           <div class="flex-1">
             <div
-              :class="[rentColor(selectedReservation.color), 'w-1 h-16 rounded absolute left-0']"
+              :class="[
+                rentColor(selectedReservation.color),
+                'w-1 h-16 rounded absolute left-0'
+              ]"
             />
             <h3 class="text-xl font-semibold ml-4">
               {{ selectedReservation.title }}
@@ -27,10 +30,18 @@
         <i class="pi pi-clock" />
         <div>
           <div class="text-sm font-medium">
-            {{ formatTime(selectedReservation.date) }} - {{ formatEndTime(selectedReservation.date, selectedReservation.duration) }}
+            {{ formatTime(selectedReservation.date) }} -
+            {{
+              formatEndTime(
+                selectedReservation.date,
+                selectedReservation.duration
+              )
+            }}
           </div>
           <div class="text-sm">
-            Czas trwania: {{ selectedReservation.duration }} min
+            {{ $t('reservations.rentDetails.duration') }}:
+            {{ selectedReservation.duration }}
+            {{ $t('reservations.rentDetails.minutes') }}
           </div>
         </div>
       </div>
@@ -45,7 +56,12 @@
       <div class="flex items-start gap-3">
         <i class="pi pi-users" />
         <div class="text-sm">
-          {{ selectedReservation.attendees }} {{ selectedReservation.attendees === 1 ? 'osoba' : 'osoby' }}
+          {{ selectedReservation.attendees }}
+          {{
+            selectedReservation.attendees === 1
+              ? $t('reservations.rentDetails.person')
+              : $t('reservations.rentDetails.persons')
+          }}
         </div>
       </div>
     </div>
@@ -53,9 +69,13 @@
     <div class="flex justify-end gap-3">
       <Button
         :label="$t('common.buttons.delete')"
+        severity="danger"
+        @click="handleDelete"
       />
       <Button
         :label="$t('common.buttons.edit')"
+        severity="success"
+        @click="handleEdit"
       />
     </div>
   </Dialog>
@@ -65,6 +85,7 @@
 const props = defineProps<{
   open: boolean
   selectedReservation: {
+    id?: number
     title: string
     duration: number
     date: Date
@@ -74,10 +95,13 @@ const props = defineProps<{
   }
 }>()
 
-const emit = defineEmits(['update:open'])
+const emit = defineEmits(['update:open', 'edit', 'delete'])
 
 const formatTime = (date: Date) => {
-  return date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })
+  return date.toLocaleTimeString('pl-PL', {
+    hour: '2-digit',
+    minute: '2-digit'
+  })
 }
 
 const formatDate = (date: Date) => {
@@ -87,7 +111,7 @@ const formatDate = (date: Date) => {
     month: 'long',
     day: 'numeric',
     hour: '2-digit',
-    minute: '2-digit',
+    minute: '2-digit'
   })
 }
 
@@ -102,8 +126,18 @@ const colorMap = {
   yellow: 'bg-yellow-500 dark:bg-yellow-900',
   purple: 'bg-purple-500 dark:bg-purple-900',
   red: 'bg-red-500 dark:bg-red-900',
-  orange: 'bg-orange-500 dark:bg-orange-900',
+  orange: 'bg-orange-500 dark:bg-orange-900'
 }
 
 const rentColor = (color: string) => colorMap[color]
+
+const handleEdit = () => {
+  emit('edit', props.selectedReservation)
+  emit('update:open', false)
+}
+
+const handleDelete = () => {
+  emit('delete', props.selectedReservation.id)
+  emit('update:open', false)
+}
 </script>

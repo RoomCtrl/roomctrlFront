@@ -15,7 +15,8 @@
     "close": "Zamknij",
     "start": "Rozpocznij",
     "details": "Szczegóły",
-    "add": "Dodaj"
+    "add": "Dodaj",
+    "save": "Zapisz"
   },
   "toast": {
     "danger": "Uwaga!",

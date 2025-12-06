@@ -5,13 +5,14 @@ import primevue from './primevue.json'
 import date from './date.json'
 import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails,
   reservationsHistory, users, dashboard, panelSelector, roomIssueReports, notFound, myCalendar } from './pages'
-import { forms, toast, tables } from './components'
+import { forms, toast, tables, reservations } from './components'
 
 export default () => ({
   common,
   forms,
   toast,
   tables,
+  reservations,
   pages: {
     home,
     contact,
