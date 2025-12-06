@@ -1,6 +1,6 @@
 import { useAuth } from '~/composables/useAuth'
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
-import type { IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
+import type { IChangePasswordForm, IUpdateUserProfileForm, IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
 
 export class UserRepository {
   private token: string | null = null
@@ -55,6 +55,28 @@ export class UserRepository {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,
+      },
+    }).then(res => res.json())
+  }
+
+  async updateUserProfile(guid: string, updatedProfile: IUpdateUserProfileForm) {
+    return await fetch(`/api/v1/users/${guid}/profile`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedProfile),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`,
+      },
+    }).then(res => res.json())
+  }
+
+  async changePassword(guid: string, passwordData: IChangePasswordForm) {
+    return await fetch(`/api/v1/users/${guid}/change-password`, {
+      method: 'POST',
+      body: JSON.stringify(passwordData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`,
       },
     }).then(res => res.json())
   }

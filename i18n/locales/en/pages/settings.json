@@ -1,0 +1,42 @@
+{
+  "title": "Settings",
+  "noAccess": "You don't have access to this page. Please log in to continue.",
+  "personalData": {
+    "title": "Personal Data",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "emailNotEditable": "Email address cannot be edited",
+    "phone": "Phone Number"
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "change": "Change Password"
+  },
+  "preferences": {
+    "title": "Preferences",
+    "language": "Interface Language",
+    "darkMode": "Dark Mode",
+    "notifications": "Notifications"
+  },
+  "validation": {
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "invalidEmail": "Please enter a valid email address",
+    "currentPasswordRequired": "Please enter your current password",
+    "newPasswordRequired": "Please enter a new password",
+    "passwordTooShort": "Password must be at least 8 characters long",
+    "passwordMismatch": "Passwords do not match"
+  },
+  "success": {
+    "profileUpdated": "Your profile has been updated successfully",
+    "passwordChanged": "Your password has been changed successfully"
+  },
+  "error": {
+    "profileUpdateFailed": "Failed to update your profile",
+    "passwordChangeFailed": "Failed to change your password"
+  }
+}
