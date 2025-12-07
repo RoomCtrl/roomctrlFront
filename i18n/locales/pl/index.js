@@ -25,6 +25,7 @@ export default {
     panelSelector,
     downloadApp,
     allRooms,
+    rooms: allRooms,
     roomDetails,
     reservationsHistory,
     notFound,

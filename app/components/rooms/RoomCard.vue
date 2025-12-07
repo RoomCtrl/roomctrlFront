@@ -16,7 +16,6 @@
       pt:body:style="--p-card-body-padding: 0.25rem 1.25rem"
       :pt:subtitle:class="['h-full', { 'blur-sm': animationClass === 'show' }]"
       pt:caption:class="flex flex-col h-full"
-      :style="{ borderColor: statusColor }"
     >
       <template #header>
         <div
@@ -34,14 +33,14 @@
               class="text-lg lg:text-xl font-semibold lg:truncate"
               @mouseenter="checkOverflow"
             >
-              {{ room.currentBooking.title }}
+              {{ bookingTimeRange }}
             </h1>
             <h1
               v-else-if="room.currentBooking"
               :class="{ 'blur-sm': animationClass === 'show' }"
               class="text-xl font-semibold truncate"
             >
-              {{ $t('pages.allRooms.statuses.roomTitle.occupied') }}
+              {{ bookingTimeRange || $t('pages.allRooms.statuses.roomTitle.occupied') }}
             </h1>
             <h1
               v-else
@@ -115,11 +114,30 @@ provide('roomStatus', status)
 
 const statusColor = computed(() => {
   const map: Record<string, string> = {
-    avaiable: 'bg-green-600',
+    available: 'bg-green-600',
     occupied: 'bg-red-600',
     closed: 'bg-yellow-600',
   }
   return map[props.room.status] || map.default
+})
+
+const borderClass = computed(() => {
+  const map: Record<string, string> = {
+    available: 'border-green-600',
+    occupied: 'border-red-600',
+    closed: 'border-yellow-600',
+  }
+  return map[props.room.status] || 'border-green-600'
+})
+
+const formatTime = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })
+}
+
+const bookingTimeRange = computed(() => {
+  if (!props.room.currentBooking) return ''
+  return `${formatTime(props.room.currentBooking.startedAt)} - ${formatTime(props.room.currentBooking.endedAt)}`
 })
 
 const playShow = () => {

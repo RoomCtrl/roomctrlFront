@@ -29,5 +29,8 @@
   },
   "filters": {
     "all": "All"
-  }
+  },
+  "reset": "Reset",
+  "apply": "Apply",
+  "persons": "persons"
 }

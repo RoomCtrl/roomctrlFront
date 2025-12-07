@@ -115,7 +115,7 @@
 
 <script setup lang="ts">
 import { FilterMatchMode, FilterService } from '@primevue/core/api'
-import { roomsDetailsData } from '~/assets/data/roomsDetails'
+import { useRoom } from '~/composables/useRoom'
 import BaseTextFilterColumn from '../common/datatable/columns/BaseTextFilterColumn.vue'
 import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectMessageFilter.vue'
 import BaseDateFilterColumn from '../common/datatable/columns/BaseDateFilterColumn.vue'
@@ -131,10 +131,11 @@ const dataTable = ref()
 const { t } = useI18n()
 const { customDateAndTimeFilter, customStatusFilter } = useCustomFilterMatch()
 const localePath = useLocalePath()
+const { rooms } = useRoom()
 
 const filteredRents = computed(() => {
   return (props.reservations || []).map((rent: any) => {
-    const room = roomsDetailsData.find(r => r.roomId === rent.roomId)
+    const room = rooms.value.find(r => r.roomId === rent.roomId)
     return {
       ...rent,
       roomName: room?.roomName ?? 'Brak danych',

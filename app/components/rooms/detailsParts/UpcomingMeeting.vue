@@ -9,7 +9,13 @@
       </h1>
     </template>
     <template #content>
-      <div v-if="todayMeetings?.length > 0">
+      <div v-if="roomStatus === 'maintance'" class="h-full flex flex-col gap-2 justify-center items-center text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 2rem;" />
+        <h1 class="text-xl font-semibold">
+          {{ $t('pages.allRooms.statuses.roomTitle.closed') }}
+        </h1>
+      </div>
+      <div v-else-if="todayMeetings?.length > 0">
         <Timeline
           :value="todayMeetings"
         >
@@ -50,6 +56,8 @@
 <script setup lang="ts">
 import DateTimeDisplay from '~/components/common/DateTimeDisplay.vue'
 
+const roomStatus = inject<ComputedRef<string>>('roomStatus')
+
 const props = defineProps<{
   meetings?: [
     {
@@ -62,6 +70,6 @@ const props = defineProps<{
 }>()
 
 const todayMeetings = computed(() => {
-  return props.meetings?.filter(m => isRangeTimeToday(m.startedAt, m.endedAt))
+  return props.meetings?.filter(m => isRangeTimeToday(new Date(m.startedAt), new Date(m.endedAt)))
 })
 </script>

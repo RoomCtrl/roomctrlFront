@@ -9,6 +9,7 @@
           :started-at="startedAt"
           :ended-at="endedAt"
           :info-type="false"
+          :custom-color="false"
           size="lg"
         />
       </div>
@@ -39,6 +40,10 @@
           icon="pi pi-heart"
           rounded
         />
+        <WeekCalendar
+          :current-booking="currentBooking"
+          :next-bookings="nextBookings"
+        />
       </div>
     </template>
   </Card>
@@ -47,12 +52,16 @@
 <script setup lang="ts">
 import UserRating from '~/components/common/UserRating.vue'
 import RentBadge from '../RentBadge.vue'
+import WeekCalendar from './WeekCalendar.vue'
+import type { IBooking } from '~/interfaces/RoomsIntefaces'
 
 defineProps<{
   roomName: string
   roomDescription: string
   startedAt?: string
   endedAt?: string
+  currentBooking?: IBooking
+  nextBookings?: IBooking[]
 }>()
 
 const { t } = useI18n()

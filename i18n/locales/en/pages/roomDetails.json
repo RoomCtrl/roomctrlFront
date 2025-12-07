@@ -33,7 +33,11 @@
     "participants": "Participants: ",
     "public": "Public",
     "private": "Private",
-    "availableRoom": "Room available for booking"
+    "availableRoom": "Room available for booking",
+    "available": "Available",
+    "occupied": "Occupied",
+    "fullDay": "Room available all day",
+    "bookingDetails": "Booking details"
   },
   "cleaning": {
     "title": "Cleaning",

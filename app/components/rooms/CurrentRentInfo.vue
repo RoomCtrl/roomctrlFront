@@ -5,7 +5,7 @@
   >
     <div class="flex flex-row justify-between px-2 pb-5 text-white max-sm:items-center">
       <h1 class="lg:flex-1 text-lg font-bold">
-        {{ $t('pages.allRooms.room') + roomName }}
+        {{ roomName }}
       </h1>
       <div
         v-if="badgeColor"
@@ -80,12 +80,12 @@ const statusColor = computed(() => {
   const lightMap: Record<string, string> = {
     available: 'bg-green-600',
     occupied: 'bg-red-600',
-    closed: 'bg-yellow-600',
+    maintance: 'bg-yellow-600',
   }
   const darkMap: Record<string, string> = {
     available: 'bg-green-900',
     occupied: 'bg-red-900',
-    closed: 'bg-yellow-900',
+    maintance: 'bg-yellow-900',
   }
   const currentMap = isDarkMode.value ? darkMap : lightMap
   return currentMap[roomStatus!.value] || lightMap.available
