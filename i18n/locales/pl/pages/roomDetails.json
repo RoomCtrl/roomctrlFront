@@ -28,12 +28,16 @@
     "none": "Brak nadchodzących spoktań"
   },
   "weekCalendar": {
-    "title": "Kalendarz bieżącego tygodnia:",
+    "title": "Kalendarz bieżącego tygodnia",
     "meetingTyp": "Typ: {type}",
     "participants": "Uczestnicy: ",
     "public": "Publiczne",
     "private": "Prywatne",
-    "availableRoom": "Sala dostępna do rezerwacji"
+    "availableRoom": "Sala dostępna do rezerwacji",
+    "available": "Dostępne",
+    "occupied": "Zajęte",
+    "fullDay": "Sala dostępna cały dzień",
+    "bookingDetails": "Szczegóły rezerwacji"
   },
   "cleaning": {
     "title": "Sprzątanie",

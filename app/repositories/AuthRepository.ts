@@ -2,14 +2,14 @@ import type { ICredentials, IGetUserProfileResponse, ILoginResponse } from '~/in
 
 export class AuthRepository {
   async login(credentials: ICredentials): Promise<ILoginResponse> {
-    return await $fetch('/api/v1/login_check', {
+    return await $fetch('/api/login_check', {
       method: 'POST',
       body: credentials,
     })
   }
 
   async getUserProfile(token: string): Promise<IGetUserProfileResponse> {
-    return await $fetch('/api/v1/me', {
+    return await $fetch('/api/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -17,7 +17,7 @@ export class AuthRepository {
   }
 
   async refreshToken(token: string): Promise<string> {
-    return await $fetch('/api/v1/token_refresh', {
+    return await $fetch('/api/token_refresh', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

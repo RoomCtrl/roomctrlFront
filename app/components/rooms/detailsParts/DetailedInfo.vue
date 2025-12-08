@@ -54,7 +54,7 @@ const Informations = [
   {
     title: t('common.roomParameters.size'),
     icon: 'pi pi-arrow-up-right-and-arrow-down-left-from-center',
-    value: props.roomParameters.size,
+    value: props.roomParameters.size + ' m²',
   },
   {
     title: t('common.roomParameters.location'),
@@ -64,12 +64,12 @@ const Informations = [
   {
     title: t('pages.roomDetails.detailedInfo.parameters.access'),
     icon: 'pi pi-id-card',
-    value: t('pages.roomDetails.detailedInfo.accessMethod.' + props.roomParameters.access),
+    value: props.roomParameters.access,
   },
   {
     title: t('pages.roomDetails.detailedInfo.parameters.airConditioning'),
     icon: 'pi pi-wrench',
-    value: props.roomParameters.airConditioning,
+    value: `Min: ${props.roomParameters.airConditioning.min}°C, Max: ${props.roomParameters.airConditioning.max}°C`,
   },
   {
     title: t('pages.roomDetails.detailedInfo.parameters.lighting'),

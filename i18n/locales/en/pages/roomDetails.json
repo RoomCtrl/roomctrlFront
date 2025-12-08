@@ -28,12 +28,16 @@
     "none": "No upcoming meetings"
   },
   "weekCalendar": {
-    "title": "Current Week Calendar:",
+    "title": "Current Week Calendar",
     "meetingTyp": "Type: {type}",
     "participants": "Participants: ",
     "public": "Public",
     "private": "Private",
-    "availableRoom": "Room available for booking"
+    "availableRoom": "Room available for booking",
+    "available": "Available",
+    "occupied": "Occupied",
+    "fullDay": "Room available all day",
+    "bookingDetails": "Booking details"
   },
   "cleaning": {
     "title": "Cleaning",

@@ -23,6 +23,7 @@ export default () => ({
     downloadApp,
     panelSelector,
     allRooms,
+    rooms: allRooms,
     roomDetails,
     notFound,
     reservationsHistory,

@@ -20,5 +20,17 @@
   "incoming": {
     "title": "Upcoming",
     "noRent": "No upcoming reservations"
+  },
+  "filters": {
+    "status": "Status",
+    "capacity": "Capacity",
+    "size": "Room size",
+    "roomName": "Room name",
+    "searchPlaceholder": "Search...",
+    "statuses": {
+      "available": "Available",
+      "occupied": "Occupied",
+      "maintenance": "Out of service"
+    }
   }
 }

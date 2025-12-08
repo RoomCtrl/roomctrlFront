@@ -30,7 +30,59 @@
     "size": "Size",
     "location": "Location",
     "description": "Description",
-    "equpiment": "Equipment"
+    "equpiment": "Equipment",
+    "access": "Access",
+    "lighting": "Lighting",
+    "airConditioning": "Air Conditioning (min/max °C)",
+    "equipment": "Equipment",
+    "equipmentName": "Equipment Name",
+    "equipmentCategory": "Category",
+    "equipmentQuantity": "Quantity"
+  },
+  "roomForm": {
+    "buttons": {
+      "addRoom": "Add Room",
+      "create": "Create",
+      "update": "Update",
+      "cancel": "Cancel",
+      "addEquipment": "Add Equipment"
+    },
+    "placeholders": {
+      "roomName": "Conference Room 201",
+      "location": "Floor 2, Wing A",
+      "capacity": "12",
+      "size": "45.5",
+      "access": "Magnetic Card",
+      "description": "Spacious conference room...",
+      "airConditioningMin": "18",
+      "airConditioningMax": "24",
+      "equipmentName": "Equipment Name",
+      "equipmentQuantity": "Quantity"
+    },
+    "lighting": {
+      "natural": "Natural",
+      "artificial": "Artificial",
+      "mixed": "Mixed"
+    },
+    "equipmentCategories": {
+      "video": "Video",
+      "audio": "Audio",
+      "furniture": "Furniture",
+      "accessory": "Accessory",
+      "other": "Other"
+    },
+    "errors": {
+      "roomNameRequired": "Room name is required",
+      "capacityRequired": "Capacity must be greater than 0",
+      "sizeRequired": "Size must be greater than 0",
+      "locationRequired": "Location is required",
+      "accessRequired": "Access is required",
+      "descriptionRequired": "Description is required",
+      "airConditioningMinMax": "Min temperature must be less than max"
+    },
+    "messages": {
+      "noEquipment": "No equipment added"
+    }
   },
   "fieldMessages": {
     "error": {
