@@ -1,12 +1,12 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen bg-surface-0 dark:bg-surface-900 py-12 px-4 lg:px-8 w-full">
     <!-- Header -->
-    <div class="w-full mx-auto mb-16">
+    <div class="mb-16">
       <div class="text-center mb-12">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 animate-fade-in">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-surface-900 dark:text-surface-0 mb-4 animate-fade-in">
           {{ $t('pages.howThisWork.title') }}
         </h1>
-        <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mx-auto animate-fade-in-delay">
+        <p class="text-lg sm:text-xl text-surface-600 dark:text-surface-400 max-w-3xl mx-auto animate-fade-in-delay">
           Poznaj kroki niezbędne do zalogowania się i pełnego korzystania z platformy RoomCtrl
         </p>
       </div>
@@ -19,8 +19,8 @@
           :class="[
             'px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-all duration-300 transform text-sm sm:text-base',
             activeTab === tab.id
-              ? 'bg-blue-600 text-white shadow-lg scale-105'
-              : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:shadow-md',
+              ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg scale-105'
+              : 'bg-surface-50 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 hover:shadow-md',
           ]"
           @click="activeTab = tab.id"
         >
@@ -30,7 +30,7 @@
       </div>
 
       <!-- Content Area -->
-      <div class="relative">
+      <div class="relative w-full">
         <!-- Login Instructions -->
         <div
           v-if="activeTab === 'login'"

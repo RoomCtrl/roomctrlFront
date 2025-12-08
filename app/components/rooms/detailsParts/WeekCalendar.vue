@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Button to open modal -->
     <button
       class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
       @click="isOpen = true"
@@ -9,23 +8,20 @@
       {{ $t('pages.roomDetails.weekCalendar.title') }}
     </button>
 
-    <!-- Calendar Modal -->
     <Dialog
       v-model:visible="isOpen"
       modal
-      maximizable
       :header="$t('pages.roomDetails.weekCalendar.title')"
       :style="{ width: '90vw', maxWidth: '1200px', height: '80vh' }"
       class="calendar-modal"
     >
-      <!-- Week navigation -->
       <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-200 dark:border-gray-600">
         <button
           class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-2"
           @click="previousWeek"
         >
           <i class="pi pi-chevron-left text-xs" />
-          {{ $t('common.previous') || 'Poprzedni' }}
+          {{ $t('common.buttons.previous') || 'Poprzedni' }}
         </button>
 
         <div class="text-center">
@@ -36,7 +32,7 @@
             class="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-1"
             @click="goToCurrentWeek"
           >
-            {{ $t('common.today') || 'Dzisiaj' }}
+            {{ $t('date.today') || 'Dzisiaj' }}
           </button>
         </div>
 
@@ -44,7 +40,7 @@
           class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-2"
           @click="nextWeek"
         >
-          {{ $t('common.next') || 'Następny' }}
+          {{ $t('common.buttons.next') || 'Następny' }}
           <i class="pi pi-chevron-right text-xs" />
         </button>
       </div>
@@ -54,7 +50,6 @@
         style="height: calc(80vh - 140px);"
       >
         <div class="flex min-w-max">
-          <!-- Hours column -->
           <div
             class="w-12 border-r border-gray-200 dark:border-gray-600 sticky left-0 z-10 bg-gray-50 dark:bg-gray-900"
           >
@@ -68,13 +63,11 @@
             </div>
           </div>
 
-          <!-- Days columns -->
           <div
             v-for="(day, dayIdx) in weekDays"
             :key="dayIdx"
             class="flex-1 min-w-32 border-r border-gray-200 dark:border-gray-600 relative"
           >
-            <!-- Day header -->
             <div
               class="h-10 border-b border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center sticky top-0 z-10 bg-gray-50 dark:bg-gray-900"
             >
@@ -93,7 +86,6 @@
               </div>
             </div>
 
-            <!-- Time slots -->
             <div class="relative">
               <div
                 v-for="hour in hours"
@@ -101,7 +93,6 @@
                 class="h-10 border-b border-gray-200 dark:border-gray-600"
               />
 
-              <!-- Bookings for this day -->
               <div
                 v-for="res in getReservationsForDay(day)"
                 :key="res.id"
@@ -130,7 +121,6 @@
       </div>
     </Dialog>
 
-    <!-- Booking details dialog -->
     <Dialog
       v-model:visible="showBookingDetails"
       modal
@@ -356,8 +346,26 @@ const getWeekRange = (): string => {
 
   if (!firstDay || !lastDay) return ''
 
+  const monthNamesKeys = [
+    'date.monthNames.january',
+    'date.monthNames.february',
+    'date.monthNames.march',
+    'date.monthNames.april',
+    'date.monthNames.may',
+    'date.monthNames.june',
+    'date.monthNames.july',
+    'date.monthNames.august',
+    'date.monthNames.september',
+    'date.monthNames.october',
+    'date.monthNames.november',
+    'date.monthNames.december',
+  ]
+
   const formatDate = (date: Date): string => {
-    return date.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })
+    const day = date.getDate()
+    const month = t(monthNamesKeys[date.getMonth()])
+    const year = date.getFullYear()
+    return `${day} ${month} ${year}`
   }
 
   return `${formatDate(firstDay)} - ${formatDate(lastDay)}`

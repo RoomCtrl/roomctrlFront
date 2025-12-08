@@ -26,6 +26,11 @@
     "capacity": "Capacity",
     "size": "Room size",
     "roomName": "Room name",
-    "searchPlaceholder": "Search..."
+    "searchPlaceholder": "Search...",
+    "statuses": {
+      "available": "Available",
+      "occupied": "Occupied",
+      "maintenance": "Out of service"
+    }
   }
 }

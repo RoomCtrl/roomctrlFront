@@ -11,7 +11,7 @@
     />
     <div
       v-if="showFilters"
-      class="absolute top-24 left-4 z-50 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 w-80"
+      class="fixed top-24 right-4 z-[9999] bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 mt-10 w-80"
     >
       <div class="flex flex-col gap-4">
         <!-- Status Filter -->
@@ -138,15 +138,15 @@ const searchName = ref('')
 const statuses = computed(() => [
   {
     code: 'available',
-    name: t('pages.rooms.statuses.available') || 'Available',
+    name: t('pages.allRooms.filters.statuses.available') || 'Available',
   },
   {
     code: 'occupied',
-    name: t('pages.rooms.statuses.occupied') || 'Occupied',
+    name: t('pages.allRooms.filters.statuses.occupied') || 'Occupied',
   },
   {
     code: 'maintenance',
-    name: t('pages.rooms.statuses.maintenance') || 'Maintenance',
+    name: t('pages.allRooms.filters.statuses.maintenance') || 'Maintenance',
   },
 ])
 

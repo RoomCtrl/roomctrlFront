@@ -30,7 +30,59 @@
     "size": "Rozmiar",
     "location": "Lokalizacja",
     "description": "Opis",
-    "equpiment": "Wyposażenie"
+    "equpiment": "Wyposażenie",
+    "access": "Dostęp",
+    "lighting": "Oświetlenie",
+    "airConditioning": "Klimatyzacja (min/max °C)",
+    "equipment": "Wyposażenie",
+    "equipmentName": "Nazwa wyposażenia",
+    "equipmentCategory": "Kategoria",
+    "equipmentQuantity": "Ilość"
+  },
+  "roomForm": {
+    "buttons": {
+      "addRoom": "Dodaj salę",
+      "create": "Utwórz",
+      "update": "Aktualizuj",
+      "cancel": "Anuluj",
+      "addEquipment": "Dodaj wyposażenie"
+    },
+    "placeholders": {
+      "roomName": "Sala Konferencyjna 201",
+      "location": "Piętro 2, Skrzydło A",
+      "capacity": "12",
+      "size": "45.5",
+      "access": "Karta magnetyczna",
+      "description": "Przestronna sala konferencyjna...",
+      "airConditioningMin": "18",
+      "airConditioningMax": "24",
+      "equipmentName": "Nazwa wyposażenia",
+      "equipmentQuantity": "Ilość"
+    },
+    "lighting": {
+      "natural": "Naturalne",
+      "artificial": "Sztuczne",
+      "mixed": "Mieszane"
+    },
+    "equipmentCategories": {
+      "video": "Video",
+      "audio": "Audio",
+      "furniture": "Meble",
+      "accessory": "Akcesoria",
+      "other": "Inne"
+    },
+    "errors": {
+      "roomNameRequired": "Nazwa sali jest wymagana",
+      "capacityRequired": "Pojemność musi być większa niż 0",
+      "sizeRequired": "Rozmiar musi być większy niż 0",
+      "locationRequired": "Lokalizacja jest wymagana",
+      "accessRequired": "Dostęp jest wymagany",
+      "descriptionRequired": "Opis jest wymagany",
+      "airConditioningMinMax": "Temperatura min musi być mniejsza niż max"
+    },
+    "messages": {
+      "noEquipment": "Nie dodano wyposażenia"
+    }
   },
   "fieldMessages": {
     "error": {

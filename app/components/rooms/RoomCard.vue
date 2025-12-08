@@ -22,7 +22,7 @@
           class="flex flex-row justify-between items-center gap-2 w-full"
         >
           <div
-            v-if="room.status !== 'closed'"
+            v-if="room.status !== 'occupied'"
             class="w-[90%]"
           >
             <h1
@@ -33,14 +33,14 @@
               class="text-lg lg:text-xl font-semibold lg:truncate"
               @mouseenter="checkOverflow"
             >
-              {{ bookingTimeRange }}
+              {{ room.currentBooking.title }}
             </h1>
             <h1
               v-else-if="room.currentBooking"
               :class="{ 'blur-sm': animationClass === 'show' }"
               class="text-xl font-semibold truncate"
             >
-              {{ bookingTimeRange || $t('pages.allRooms.statuses.roomTitle.occupied') }}
+              {{ $t('pages.allRooms.statuses.roomTitle.occupied') }}
             </h1>
             <h1
               v-else
@@ -51,7 +51,7 @@
           </div>
           <div v-else />
           <div
-            v-if="status != 'closed'"
+            v-if="status != 'occupied'"
             class="hidden lg:block flex"
           >
             <i
@@ -66,14 +66,14 @@
 
       <template #subtitle>
         <IncomingRent
-          v-if="room.status !== 'closed' && firstNextBooking"
+          v-if="room.status !== 'occupied' && firstNextBooking"
           :title="firstNextBooking.title"
           :started-at="firstNextBooking.startedAt"
           :ended-at="firstNextBooking.endedAt"
           :is-private="firstNextBooking.isPrivate"
         />
         <IncomingRent
-          v-else-if="room.status !== 'closed'"
+          v-else-if="room.status !== 'occupied'"
           :title="noRentIncomingTitle"
         />
         <div
@@ -111,24 +111,6 @@ const firstNextBooking = computed(() => {
 })
 const status = computed(() => props.room.status)
 provide('roomStatus', status)
-
-const statusColor = computed(() => {
-  const map: Record<string, string> = {
-    available: 'bg-green-600',
-    occupied: 'bg-red-600',
-    closed: 'bg-yellow-600',
-  }
-  return map[props.room.status] || map.default
-})
-
-const borderClass = computed(() => {
-  const map: Record<string, string> = {
-    available: 'border-green-600',
-    occupied: 'border-red-600',
-    closed: 'border-yellow-600',
-  }
-  return map[props.room.status] || 'border-green-600'
-})
 
 const formatTime = (dateString: string) => {
   const date = new Date(dateString)

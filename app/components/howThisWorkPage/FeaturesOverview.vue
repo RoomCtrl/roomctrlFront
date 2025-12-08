@@ -8,15 +8,7 @@
         :style="{ '--delay': `${index * 80}ms` }"
         class="group cursor-pointer animate-feature-in"
       >
-        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 h-full hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-slate-700 overflow-hidden relative">
-          <!-- Background Glow -->
-          <div
-            :class="[
-              'absolute -top-12 -right-12 w-24 h-24 rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300',
-              feature.color,
-            ]"
-          />
-
+        <div class="bg-surface-0 dark:bg-surface-800 rounded-xl shadow-lg p-8 h-full hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-surface-200 dark:border-surface-700 relative">
           <!-- Icon -->
           <div class="relative mb-4">
             <div
@@ -30,12 +22,12 @@
           </div>
 
           <!-- Title -->
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+          <h3 class="text-xl font-bold text-surface-900 dark:text-surface-0 mb-2">
             {{ feature.title }}
           </h3>
 
           <!-- Description -->
-          <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4">
+          <p class="text-surface-600 dark:text-surface-400 text-sm leading-relaxed mb-4">
             {{ feature.description }}
           </p>
 
@@ -44,7 +36,7 @@
             <li
               v-for="(highlight, i) in feature.highlights"
               :key="i"
-              class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-400"
+              class="flex items-center gap-2 text-sm text-surface-700 dark:text-surface-400"
             >
               <span
                 class="inline-block w-1.5 h-1.5 rounded-full"
@@ -58,8 +50,8 @@
     </div>
 
     <!-- Workflow Diagram -->
-    <div class="mt-16 p-8 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800">
-      <h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-12">
+    <div class="mt-16 p-8 bg-surface-100 dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700">
+      <h2 class="text-2xl font-bold text-center text-surface-900 dark:text-surface-0 mb-12">
         Przepływ użytkownika w aplikacji
       </h2>
 
@@ -71,14 +63,14 @@
           class="relative"
         >
           <!-- Step Box -->
-          <div class="bg-white dark:bg-slate-800 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow duration-300 border border-indigo-200 dark:border-indigo-700">
+          <div class="bg-surface-0 dark:bg-surface-900 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow duration-300 border border-surface-200 dark:border-surface-700">
             <div class="text-3xl mb-3">
               {{ step.icon }}
             </div>
-            <p class="font-semibold text-gray-900 dark:text-white text-sm">
+            <p class="font-semibold text-surface-900 dark:text-surface-0 text-sm">
               {{ step.label }}
             </p>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            <p class="text-xs text-surface-600 dark:text-surface-400 mt-2">
               {{ step.description }}
             </p>
           </div>
@@ -88,7 +80,7 @@
             v-if="index < workflow.length - 1"
             class="hidden md:flex absolute top-1/2 -right-6 transform -translate-y-1/2 z-10"
           >
-            <i class="pi pi-arrow-right text-2xl text-indigo-500" />
+            <i class="pi pi-arrow-right text-2xl text-primary-500" />
           </div>
         </div>
       </div>
@@ -97,8 +89,8 @@
     <!-- Benefits Section -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
       <!-- Left Side -->
-      <div class="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-8 border border-blue-200 dark:border-blue-700">
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+      <div class="bg-surface-100 dark:bg-surface-800 rounded-xl p-8 border border-surface-200 dark:border-surface-700">
+        <h3 class="text-2xl font-bold text-surface-900 dark:text-surface-0 mb-6 flex items-center gap-3">
           <i class="pi pi-star-fill text-yellow-500 text-3xl" />
           Główne zalety
         </h3>
@@ -109,14 +101,14 @@
             :key="index"
             class="flex gap-4 group"
           >
-            <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center flex-shrink-0 font-bold group-hover:scale-110 transition-transform duration-300">
+            <div class="w-10 h-10 rounded-full bg-primary-500 text-white flex items-center justify-center flex-shrink-0 font-bold group-hover:scale-110 transition-transform duration-300">
               {{ index + 1 }}
             </div>
             <div>
-              <p class="font-semibold text-gray-900 dark:text-white">
+              <p class="font-semibold text-surface-900 dark:text-surface-0">
                 {{ benefit.title }}
               </p>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p class="text-sm text-surface-600 dark:text-surface-400 mt-1">
                 {{ benefit.description }}
               </p>
             </div>
@@ -125,9 +117,9 @@
       </div>
 
       <!-- Right Side - Statistics -->
-      <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-8 border border-purple-200 dark:border-purple-700">
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-          <i class="pi pi-chart-bar text-blue-500 text-3xl" />
+      <div class="bg-surface-100 dark:bg-surface-800 rounded-xl p-8 border border-surface-200 dark:border-surface-700">
+        <h3 class="text-2xl font-bold text-surface-900 dark:text-surface-0 mb-6 flex items-center gap-3">
+          <i class="pi pi-chart-bar text-primary-500 text-3xl" />
           Liczby na koniec
         </h3>
 
@@ -138,16 +130,16 @@
             class="group"
           >
             <div class="flex items-end justify-between mb-2">
-              <p class="font-semibold text-gray-900 dark:text-white">
+              <p class="font-semibold text-surface-900 dark:text-surface-0">
                 {{ stat.label }}
               </p>
-              <p class="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text">
+              <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">
                 {{ stat.value }}
               </p>
             </div>
-            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+            <div class="w-full bg-surface-300 dark:bg-surface-700 rounded-full h-2 overflow-hidden">
               <div
-                class="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-700"
+                class="h-full bg-primary-500 transition-all duration-700"
                 :style="{ width: stat.percentage + '%' }"
               />
             </div>
@@ -157,23 +149,23 @@
     </div>
 
     <!-- Call to Action -->
-    <div class="text-center mt-12 p-6 sm:p-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl text-white w-full">
+    <div class="text-center mt-12 p-6 sm:p-8 bg-primary-600 dark:bg-primary-700 rounded-xl text-white w-full">
       <h2 class="text-2xl sm:text-3xl font-bold mb-4">
         Gotów do rozpoczęcia?
       </h2>
-      <p class="text-base sm:text-lg mb-6 text-blue-100">
+      <p class="text-base sm:text-lg mb-6 text-primary-100 dark:text-primary-200">
         Załóż konto i zarezerwuj swoją pierwszą salę już dzisiaj!
       </p>
       <div class="flex justify-center gap-3 sm:gap-4 flex-wrap">
         <NuxtLink
           to="/pl/login"
-          class="px-6 sm:px-8 py-2 sm:py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 text-sm sm:text-base"
+          class="px-6 sm:px-8 py-2 sm:py-3 bg-surface-0 text-primary-600 dark:text-primary-700 rounded-lg font-semibold hover:bg-surface-100 dark:hover:bg-surface-200 transition-colors duration-300 text-sm sm:text-base"
         >
           Zaloguj się
         </NuxtLink>
         <NuxtLink
           to="/register"
-          class="px-6 sm:px-8 py-2 sm:py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 border border-white/30 text-sm sm:text-base"
+          class="px-6 sm:px-8 py-2 sm:py-3 bg-primary-500 dark:bg-primary-800 text-white rounded-lg font-semibold hover:bg-primary-700 dark:hover:bg-primary-900 transition-colors duration-300 border border-white/30 text-sm sm:text-base"
         >
           Zarejestruj się
         </NuxtLink>

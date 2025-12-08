@@ -28,7 +28,7 @@
     "none": "Brak nadchodzących spoktań"
   },
   "weekCalendar": {
-    "title": "Kalendarz bieżącego tygodnia:",
+    "title": "Kalendarz bieżącego tygodnia",
     "meetingTyp": "Typ: {type}",
     "participants": "Uczestnicy: ",
     "public": "Publiczne",

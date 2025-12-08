@@ -15,7 +15,9 @@
     "close": "Close",
     "start": "Start",
     "details": "Details",
-    "add": "Add"
+    "add": "Add",
+    "next": "Next",
+    "previous": "Previous"
   },
   "toast": {
     "danger": "Warning!",

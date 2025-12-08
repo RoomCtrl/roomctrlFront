@@ -25,7 +25,9 @@
           </h1>
           <Button
             icon="pi pi-plus"
-            label="Dodaj salę"
+            severity="success"
+            variant="outlined"
+            :label="$t('forms.roomForm.buttons.addRoom')"
             @click="openAddModal"
           />
         </div>
@@ -151,7 +153,6 @@ const filters = ref({
   description: { value: null, matchMode: FilterMatchMode.CONTAINS },
 })
 
-// Modal state
 const showModal = ref(false)
 const formLoading = ref(false)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -177,7 +178,6 @@ const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateReques
   formLoading.value = true
   try {
     if (isEditMode.value && selectedRoom.value && 'roomId' in selectedRoom.value) {
-      // Update existing room
       await updateRoom(selectedRoom.value.roomId as string, formData as IRoomUpdateRequest)
       toast.add({
         severity: 'success',
@@ -187,16 +187,12 @@ const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateReques
       })
     }
     else {
-      // Create new room with organizationId
-      console.log('User data:', user.value)
       const organizationId = (user.value as unknown as Record<string, unknown>)?.organizationId as string | undefined
-      console.log('organizationId:', organizationId)
 
       const createData: IRoomCreateRequest = {
         ...formData as IRoomCreateRequest,
         organizationId,
       }
-      console.log('Creating room with data:', createData)
       await createRoom(createData)
       toast.add({
         severity: 'success',

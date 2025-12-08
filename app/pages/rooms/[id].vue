@@ -1,12 +1,11 @@
 <template>
-  <div class="flex">
+  <div class="flex w-full">
     <div
       v-if="roomDetails"
       class="grid max-sm:flex max-sm:flex-col grid-cols-1 lg:grid-cols-6 gap-2 mx-1 lg:mx-5 w-full auto-rows-min"
     >
-      <!-- Row 1: General Info (wide) + Current Meeting -->
       <GeneralInfo
-        class="lg:col-span-4 row-start-1"
+        class="lg:col-span-5 row-start-1"
         :room-name="roomDetails.roomName"
         :room-description="roomDetails.description"
         :started-at="roomDetails.currentBooking?.startedAt"
@@ -17,13 +16,13 @@
 
       <CurrentMeeting
         v-if="roomDetails && status !== 'maintance'"
-        class="lg:col-span-2 row-start-1"
+        class="lg:col-span-1 row-start-1"
         :current-booking="roomDetails.currentBooking as any"
       />
 
       <Card
         v-else
-        class="lg:col-span-2 row-start-1"
+        class="lg:col-span-1 row-start-1"
         pt:root:class="border-l-4 border-yellow-600 overflow-hidden"
         pt:body:class="flex justify-center items-center bg-yellow-200/80 text-yellow-900 w-full h-full"
         pt:content:class="text-lg font-extrabold"
@@ -41,7 +40,6 @@
         </template>
       </Card>
 
-      <!-- Row 2: Detailed Info + Equipment + Upcoming Meetings (2 rows) -->
       <DetailedInfo
         class="lg:col-span-2 lg:col-start-1 row-start-2"
         :room-parameters="roomDetails as any"
@@ -57,7 +55,6 @@
         :meetings="roomDetails?.nextBookings as any"
       />
 
-      <!-- Row 3: Combined Card (Cleaning + Maintenance + Contact) -->
       <div class="lg:col-span-4 lg:col-start-1 row-start-3 grid grid-cols-3 gap-2">
         <InfoCard
           :header="$t('pages.roomDetails.cleaning.title')"
@@ -153,11 +150,9 @@ const route = useRoute()
 const { room: roomDetails, fetchRoom } = useRoom()
 
 const status = computed(() => {
-  // If room has current booking, show as occupied
   if (roomDetails.value?.currentBooking) {
     return 'occupied'
   }
-  // If room status from API is occupied, treat it as maintance
   if (roomDetails.value?.status === 'occupied') {
     return 'maintance'
   }
@@ -165,7 +160,6 @@ const status = computed(() => {
 })
 provide('roomStatus', status)
 
-// Redirect if room is in maintenance mode (occupied without booking)
 watch(status, (newStatus) => {
   if (newStatus === 'maintance') {
     navigateTo('/rooms')

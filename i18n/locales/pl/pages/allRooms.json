@@ -26,6 +26,11 @@
     "capacity": "Pojemność",
     "size": "Rozmiar sali",
     "roomName": "Nazwa sali",
-    "searchPlaceholder": "Szukaj..."
+    "searchPlaceholder": "Szukaj...",
+    "statuses": {
+      "available": "Dostępna",
+      "occupied": "Zajęta",
+      "maintenance": "Nieczynna"
+    }
   }
 }

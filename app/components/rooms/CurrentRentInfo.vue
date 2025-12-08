@@ -40,7 +40,7 @@
     >
       <div class="flex flex-row items-center gap-2 lg:m-auto text-sm">
         <i class="pi pi-arrow-up-right-and-arrow-down-left-from-center" />
-        <p>{{ $t('pages.allRooms.size') + size }}<sup>2</sup></p>
+        <p>{{ $t('pages.allRooms.size') + size + ' m' }}<sup>2</sup></p>
       </div>
       <div class="flex flex-row items-center gap-2 lg:m-auto text-sm">
         <i class="pi pi-users" />
@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import RentBadge from './RentBadge.vue'
 
-defineProps<{
+const props = defineProps<{
   roomName: string
   capacity: number
   size?: string
@@ -69,6 +69,7 @@ defineProps<{
   }
   animate: string
 }>()
+const currentBooking = computed(() => props.currentBooking)
 const colorMode = useColorMode()
 const isReady = ref(false)
 const roomStatus = inject<ComputedRef<string>>('roomStatus')
@@ -77,41 +78,37 @@ const isDarkMode = computed(() => {
   return colorMode.value === 'dark' || colorMode.preference === 'dark'
 })
 const statusColor = computed(() => {
-  const lightMap: Record<string, string> = {
-    available: 'bg-green-600',
-    occupied: 'bg-red-600',
-    maintance: 'bg-yellow-600',
+  if (roomStatus!.value === 'maintenance' || roomStatus!.value === 'occupied') {
+    return isDarkMode.value ? 'bg-yellow-900' : 'bg-yellow-600'
   }
-  const darkMap: Record<string, string> = {
-    available: 'bg-green-900',
-    occupied: 'bg-red-900',
-    maintance: 'bg-yellow-900',
+  const hasBooking = !!currentBooking.value
+  if (isDarkMode.value) {
+    return hasBooking ? 'bg-red-900' : 'bg-green-900'
   }
-  const currentMap = isDarkMode.value ? darkMap : lightMap
-  return currentMap[roomStatus!.value] || lightMap.available
+  return hasBooking ? 'bg-red-600' : 'bg-green-600'
 })
 
 const statusBadgeColor = computed(() => {
-  const lightMap: Record<string, string> = {
-    available: '--p-message-info-background: var(--p-green-800); --p-message-info-border-color: var(--p-green-800); --p-message-info-color: var(--p-green-200)',
-    occupied: '--p-message-info-background: var(--p-red-800); --p-message-info-border-color: var(--p-red-800); --p-message-info-color: var(--p-red-200)',
-    closed: '--p-message-info-background: var(--p-yellow-800); --p-message-info-border-color: var(--p-yellow-800); --p-message-info-color: var(--p-yellow-200)',
+  if (roomStatus!.value === 'maintenance' || roomStatus!.value === 'occupied') {
+    return isDarkMode.value
+      ? '--p-message-info-background: var(--p-yellow-950); --p-message-info-border-color: var(--p-yellow-950); --p-message-info-color: var(--p-yellow-400)'
+      : '--p-message-info-background: var(--p-yellow-800); --p-message-info-border-color: var(--p-yellow-800); --p-message-info-color: var(--p-yellow-200)'
   }
-  const darkMap: Record<string, string> = {
-    available: '--p-message-info-background: var(--p-green-950); --p-message-info-border-color: var(--p-green-950); --p-message-info-color: var(--p-green-400)',
-    occupied: '--p-message-info-background: var(--p-red-950); --p-message-info-border-color: var(--p-red-950); --p-message-info-color: var(--p-red-400)',
-    closed: '--p-message-info-background: var(--p-yellow-950); --p-message-info-border-color: var(--p-yellow-950); --p-message-info-color: var(--p-yellow-400)',
+  const hasBooking = !!currentBooking.value
+  if (isDarkMode.value) {
+    return hasBooking
+      ? '--p-message-info-background: var(--p-red-950); --p-message-info-border-color: var(--p-red-950); --p-message-info-color: var(--p-red-400)'
+      : '--p-message-info-background: var(--p-green-950); --p-message-info-border-color: var(--p-green-950); --p-message-info-color: var(--p-green-400)'
   }
-  const currentMap = isDarkMode.value ? darkMap : lightMap
-  return currentMap[roomStatus!.value] || lightMap.available
+  return hasBooking
+    ? '--p-message-info-background: var(--p-red-800); --p-message-info-border-color: var(--p-red-800); --p-message-info-color: var(--p-red-200)'
+    : '--p-message-info-background: var(--p-green-800); --p-message-info-border-color: var(--p-green-800); --p-message-info-color: var(--p-green-200)'
 })
 const badgeColor = computed(() => {
-  const map: Record<string, string> = {
-    available: 'success',
-    occupied: 'error',
-    closed: 'warn',
+  if (roomStatus!.value === 'maintenance' || roomStatus!.value === 'occupied') {
+    return 'warn'
   }
-  return map[roomStatus!.value]
+  return currentBooking.value ? 'error' : 'success'
 })
 onMounted(() => {
   isReady.value = true

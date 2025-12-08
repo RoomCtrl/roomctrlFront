@@ -28,7 +28,7 @@
     "none": "No upcoming meetings"
   },
   "weekCalendar": {
-    "title": "Current Week Calendar:",
+    "title": "Current Week Calendar",
     "meetingTyp": "Type: {type}",
     "participants": "Participants: ",
     "public": "Public",

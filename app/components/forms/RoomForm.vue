@@ -6,7 +6,7 @@
     <div class="col-span-2">
       <label
         for="roomName"
-        class="block text-sm font-medium mb-2"
+        class="inputLabel"
       >
         {{ $t('tables.headers.roomName') }}
       </label>
@@ -17,7 +17,7 @@
           type="text"
           class="w-full"
           :class="{ 'p-invalid': errors.roomName }"
-          placeholder="Sala Konferencyjna 201"
+          :placeholder="$t('forms.roomForm.placeholders.roomName')"
         />
       </div>
       <small
@@ -31,7 +31,7 @@
     <div class="col-span-2">
       <label
         for="location"
-        class="block text-sm font-medium mb-2"
+        class="inputLabel"
       >
         {{ $t('tables.headers.location') }}
       </label>
@@ -42,7 +42,7 @@
           type="text"
           class="w-full"
           :class="{ 'p-invalid': errors.location }"
-          placeholder="Piętro 2, Skrzydło A"
+          :placeholder="$t('forms.roomForm.placeholders.location')"
         />
       </div>
       <small
@@ -56,7 +56,7 @@
     <div class="col-span-1">
       <label
         for="capacity"
-        class="block text-sm font-medium mb-2"
+        class="inputLabel"
       >
         {{ $t('tables.headers.capacity') }}
       </label>
@@ -67,7 +67,7 @@
           class="w-full"
           fluid
           :class="{ 'p-invalid': errors.capacity }"
-          placeholder="12"
+          :placeholder="$t('forms.roomForm.placeholders.capacity')"
         />
       </div>
       <small
@@ -81,7 +81,7 @@
     <div>
       <label
         for="size"
-        class="block text-sm font-medium mb-2"
+        class="inputLabel"
       >
         {{ $t('tables.headers.size') }} (m²)
       </label>
@@ -91,7 +91,7 @@
           v-model="formData.size"
           class="w-full"
           :class="{ 'p-invalid': errors.size }"
-          placeholder="45.5"
+          :placeholder="$t('forms.roomForm.placeholders.size')"
           fluid
           :min-fraction-digits="1"
           :max-fraction-digits="2"
@@ -108,9 +108,9 @@
     <div>
       <label
         for="access"
-        class="block text-sm font-medium mb-2"
+        class="inputLabel"
       >
-        Dostęp
+        {{ $t('forms.fields.access') }}
       </label>
       <div class="w-full">
         <InputText
@@ -119,7 +119,7 @@
           type="text"
           class="w-full"
           :class="{ 'p-invalid': errors.access }"
-          placeholder="Karta magnetyczna"
+          :placeholder="$t('forms.roomForm.placeholders.access')"
         />
       </div>
       <small
@@ -130,10 +130,36 @@
       </small>
     </div>
 
+    <div>
+      <label
+        for="lighting"
+        class="inputLabel"
+      >
+        {{ $t('forms.fields.lighting') }}
+      </label>
+      <div class="w-full">
+        <Select
+          id="lighting"
+          v-model="formData.lighting"
+          :options="lightingOptions"
+          option-label="label"
+          option-value="value"
+          class="w-full"
+          :class="{ 'p-invalid': errors.lighting }"
+        />
+      </div>
+      <small
+        v-if="errors.lighting"
+        class="text-red-500 block mt-1"
+      >
+        {{ errors.lighting }}
+      </small>
+    </div>
+
     <div class="col-span-2">
       <label
         for="description"
-        class="block text-sm font-medium mb-2"
+        class="inputLabel"
       >
         {{ $t('tables.headers.description') }}
       </label>
@@ -143,7 +169,7 @@
           v-model="formData.description"
           class="w-full"
           :class="{ 'p-invalid': errors.description }"
-          placeholder="Przestronna sala konferencyjna..."
+          :placeholder="$t('forms.roomForm.placeholders.description')"
           rows="3"
         />
       </div>
@@ -155,76 +181,48 @@
       </small>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label
-          for="lighting"
-          class="block text-sm font-medium mb-2"
-        >
-          Oświetlenie
-        </label>
+    <div>
+      <label class="inputLabel">
+        {{ $t('forms.fields.airConditioning') }}
+      </label>
+      <div class="flex gap-2">
         <div class="w-full">
-          <Select
-            id="lighting"
-            v-model="formData.lighting"
-            :options="lightingOptions"
-            option-label="label"
-            option-value="value"
+          <InputNumber
+            v-model="formData.airConditioning.min"
             class="w-full"
-            :class="{ 'p-invalid': errors.lighting }"
+            :class="{ 'p-invalid': errors.airConditioningMin }"
+            :placeholder="$t('forms.roomForm.placeholders.airConditioningMin')"
+            fluid
           />
         </div>
-        <small
-          v-if="errors.lighting"
-          class="text-red-500 block mt-1"
-        >
-          {{ errors.lighting }}
-        </small>
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-2">
-          Klimatyzacja (min/max °C)
-        </label>
-        <div class="flex gap-2">
-          <div class="w-full">
-            <InputNumber
-              v-model="formData.airConditioning.min"
-              class="w-full"
-              :class="{ 'p-invalid': errors.airConditioningMin }"
-              placeholder="18"
-              fluid
-            />
-          </div>
-          <div class="w-full">
-            <InputNumber
-              v-model="formData.airConditioning.max"
-              class="w-full"
-              :class="{ 'p-invalid': errors.airConditioningMax }"
-              placeholder="24"
-              fluid
-            />
-          </div>
+        <div class="w-full">
+          <InputNumber
+            v-model="formData.airConditioning.max"
+            class="w-full"
+            :class="{ 'p-invalid': errors.airConditioningMax }"
+            :placeholder="$t('forms.roomForm.placeholders.airConditioningMax')"
+            fluid
+          />
         </div>
-        <small
-          v-if="errors.airConditioningMin"
-          class="text-red-500 block mt-1"
-        >
-          {{ errors.airConditioningMin }}
-        </small>
-        <small
-          v-if="errors.airConditioningMax"
-          class="text-red-500 block mt-1"
-        >
-          {{ errors.airConditioningMax }}
-        </small>
       </div>
+      <small
+        v-if="errors.airConditioningMin"
+        class="text-red-500 block mt-1"
+      >
+        {{ errors.airConditioningMin }}
+      </small>
+      <small
+        v-if="errors.airConditioningMax"
+        class="text-red-500 block mt-1"
+      >
+        {{ errors.airConditioningMax }}
+      </small>
     </div>
 
     <div class="col-span-full">
-      <div class="flex items-center justify-between mb-3">
-        <label class="block text-sm font-medium">
-          Wyposażenie
+      <div class="flex items-center gap-2 mb-3">
+        <label class="block text-base">
+          {{ $t('forms.fields.equipment') }}
         </label>
         <Button
           type="button"
@@ -242,7 +240,7 @@
         <div
           v-for="(item, index) in formData.equipment"
           :key="index"
-          class="flex gap-2 items-start border rounded p-2"
+          class="flex gap-2 items-start border border-gray-600 bg-gray-700 rounded p-2"
         >
           <div class="flex-1 space-y-2">
             <div class="w-full">
@@ -250,7 +248,7 @@
                 v-model="item.name"
                 type="text"
                 class="w-full text-sm"
-                placeholder="Nazwa wyposażenia"
+                :placeholder="$t('forms.roomForm.placeholders.equipmentName')"
               />
             </div>
             <div class="flex gap-2">
@@ -268,7 +266,7 @@
                   v-model="item.quantity"
                   class="w-full text-sm"
                   :min="1"
-                  placeholder="Ilość"
+                  :placeholder="$t('forms.roomForm.placeholders.equipmentQuantity')"
                 />
               </div>
             </div>
@@ -288,19 +286,19 @@
         v-else
         class="text-gray-500"
       >
-        Nie dodano wyposażenia
+        {{ $t('forms.roomForm.messages.noEquipment') }}
       </small>
     </div>
 
     <div class="col-span-full flex justify-end gap-3 pt-4">
       <Button
         type="submit"
-        :label="isEditMode ? 'Aktualizuj' : 'Utwórz'"
+        :label="isEditMode ? $t('forms.roomForm.buttons.update') : $t('forms.roomForm.buttons.create')"
         :loading="loading"
       />
       <Button
         type="button"
-        label="Anuluj"
+        :label="$t('forms.roomForm.buttons.cancel')"
         severity="secondary"
         @click="$emit('cancel')"
       />
@@ -356,19 +354,21 @@ const formData = reactive<RoomFormData>({
 
 const errors = reactive<FormErrors>({})
 
-const lightingOptions = [
-  { label: 'Naturalne', value: 'natural' },
-  { label: 'Sztuczne', value: 'artificial' },
-  { label: 'Mieszane', value: 'mixed' },
-]
+const { t } = useI18n()
 
-const equipmentCategories = [
-  { label: 'Video', value: 'video' },
-  { label: 'Audio', value: 'audio' },
-  { label: 'Meble', value: 'furniture' },
-  { label: 'Akcesoria', value: 'accessory' },
-  { label: 'Inne', value: 'other' },
-]
+const lightingOptions = computed(() => [
+  { label: t('forms.roomForm.lighting.natural'), value: 'natural' },
+  { label: t('forms.roomForm.lighting.artificial'), value: 'artificial' },
+  { label: t('forms.roomForm.lighting.mixed'), value: 'mixed' },
+])
+
+const equipmentCategories = computed(() => [
+  { label: t('forms.roomForm.equipmentCategories.video'), value: 'video' },
+  { label: t('forms.roomForm.equipmentCategories.audio'), value: 'audio' },
+  { label: t('forms.roomForm.equipmentCategories.furniture'), value: 'furniture' },
+  { label: t('forms.roomForm.equipmentCategories.accessory'), value: 'accessory' },
+  { label: t('forms.roomForm.equipmentCategories.other'), value: 'other' },
+])
 
 const initializeForm = () => {
   if (props.room) {
@@ -414,25 +414,25 @@ const validateForm = (): boolean => {
   clearErrors()
 
   if (!formData.roomName.trim()) {
-    errors.roomName = 'Nazwa sali jest wymagana'
+    errors.roomName = t('forms.roomForm.errors.roomNameRequired')
   }
   if (!formData.capacity || formData.capacity < 1) {
-    errors.capacity = 'Pojemność musi być większa niż 0'
+    errors.capacity = t('forms.roomForm.errors.capacityRequired')
   }
   if (!formData.size || formData.size < 1) {
-    errors.size = 'Rozmiar musi być większy niż 0'
+    errors.size = t('forms.roomForm.errors.sizeRequired')
   }
   if (!formData.location.trim()) {
-    errors.location = 'Lokalizacja jest wymagana'
+    errors.location = t('forms.roomForm.errors.locationRequired')
   }
   if (!formData.access.trim()) {
-    errors.access = 'Dostęp jest wymagany'
+    errors.access = t('forms.roomForm.errors.accessRequired')
   }
   if (!formData.description.trim()) {
-    errors.description = 'Opis jest wymagany'
+    errors.description = t('forms.roomForm.errors.descriptionRequired')
   }
   if (formData.airConditioning && formData.airConditioning.min && formData.airConditioning.max && formData.airConditioning.min >= formData.airConditioning.max) {
-    errors.airConditioningMin = 'Temperatura min musi być mniejsza niż max'
+    errors.airConditioningMin = t('forms.roomForm.errors.airConditioningMinMax')
   }
 
   const hasErrors = Object.values(errors).some(error => error !== undefined)
@@ -482,3 +482,9 @@ onMounted(() => {
   initializeForm()
 })
 </script>
+
+<style scoped>
+.inputLabel {
+  @apply block text-base font-medium mb-2;
+}
+</style>

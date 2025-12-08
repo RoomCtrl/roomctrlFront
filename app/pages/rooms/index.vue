@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col xl:flex-col">
-    <div class="flex flex-row items-center justify-between gap-4 mb-4">
+  <div class="flex flex-col xl:flex-col w-full">
+    <div class="relative flex flex-row items-center justify-center gap-4 mb-4 w-full">
       <Paginator
         v-if="paginatorPosition"
         class="flex self-center"
@@ -12,6 +12,7 @@
         @update:rows="handelUpdateRows"
       />
       <RoomsFilter
+        class="flex self-end absolute right-0"
         :rooms="allRooms"
         @filter="onFilterChange"
       />
@@ -61,7 +62,18 @@ const filteredRooms = computed(() => {
 
     // Filter by status
     if (filters.value.status) {
-      matches = matches && room.status === filters.value.status
+      if (filters.value.status === 'available') {
+        // Dostępna = nie ma currentBooking i status === 'available'
+        matches = matches && !room.currentBooking && room.status === 'available'
+      }
+      else if (filters.value.status === 'occupied') {
+        // Zajęta = ma currentBooking
+        matches = matches && !!room.currentBooking
+      }
+      else if (filters.value.status === 'maintenance') {
+        // Nieczynna = status === 'occupied' lub 'maintenance'
+        matches = matches && (room.status === 'occupied' || room.status === 'maintenance')
+      }
     }
 
     // Filter by minimum capacity
