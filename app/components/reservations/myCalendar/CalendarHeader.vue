@@ -34,6 +34,7 @@
         severity="success"
         :label="$t('common.buttons.add')"
         icon="pi pi-plus"
+        @click="emit('addBooking')"
       />
     </div>
   </div>
@@ -45,7 +46,7 @@ const props = defineProps<{
   weekDays: Array<Date>
 }>()
 
-const emit = defineEmits(['updateDate'])
+const emit = defineEmits(['updateDate', 'addBooking'])
 const { t } = useI18n()
 
 const weekRange = computed(() => {

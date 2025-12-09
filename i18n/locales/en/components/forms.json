@@ -84,6 +84,25 @@
       "noEquipment": "No equipment added"
     }
   },
+  "booking": {
+    "title": "Booking Title",
+    "titlePlaceholder": "Enter booking title",
+    "room": "Room",
+    "selectRoom": "Select room",
+    "startDate": "Start Date",
+    "startDatePlaceholder": "Select start date",
+    "endDate": "End Date",
+    "endDatePlaceholder": "Select end date",
+    "participants": "Number of Participants",
+    "participantsPlaceholder": "Enter number of participants",
+    "addParticipants": "Add Participants",
+    "selectParticipants": "Select participants",
+    "participantsHint": "Select users who will participate in the booking",
+    "isPrivate": "Private Booking",
+    "editTitle": "Edit Booking",
+    "cancelTitle": "Cancel Booking",
+    "cancelConfirmation": "Are you sure you want to cancel this booking?"
+  },
   "fieldMessages": {
     "error": {
       "email": "Enter a valid email address",

@@ -36,6 +36,7 @@
         <div class="flex gap-2">
           <Button
             :label="t('pages.roomDetails.buttons.rentNow')"
+            @click="emit('showBookingForm')"
           />
           <Button
             icon="pi pi-heart"
@@ -64,6 +65,10 @@ defineProps<{
   endedAt?: string
   currentBooking?: IBooking
   nextBookings?: IBooking[]
+}>()
+
+const emit = defineEmits<{
+  showBookingForm: []
 }>()
 
 const { t } = useI18n()

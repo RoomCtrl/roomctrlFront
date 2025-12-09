@@ -84,6 +84,25 @@
       "noEquipment": "Nie dodano wyposażenia"
     }
   },
+  "booking": {
+    "title": "Tytuł rezerwacji",
+    "titlePlaceholder": "Wprowadź tytuł rezerwacji",
+    "room": "Sala",
+    "selectRoom": "Wybierz salę",
+    "startDate": "Data rozpoczęcia",
+    "startDatePlaceholder": "Wybierz datę rozpoczęcia",
+    "endDate": "Data zakończenia",
+    "endDatePlaceholder": "Wybierz datę zakończenia",
+    "participants": "Liczba uczestników",
+    "participantsPlaceholder": "Wprowadź liczbę uczestników",
+    "addParticipants": "Dodaj uczestników",
+    "selectParticipants": "Wybierz uczestników",
+    "participantsHint": "Wybierz użytkowników, którzy będą uczestniczyć w rezerwacji",
+    "isPrivate": "Rezerwacja prywatna",
+    "editTitle": "Edytuj rezerwację",
+    "cancelTitle": "Anuluj rezerwację",
+    "cancelConfirmation": "Czy na pewno chcesz anulować tę rezerwację?"
+  },
   "fieldMessages": {
     "error": {
       "email": "Wpisz poprawny adres e-mail",

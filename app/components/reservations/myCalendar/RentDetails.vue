@@ -52,19 +52,27 @@
 
     <div class="flex justify-end gap-3">
       <Button
-        :label="$t('common.buttons.delete')"
+        label="Anuluj rezerwację"
+        severity="danger"
+        :loading="deleteLoading"
+        @click="handleDelete"
       />
       <Button
         :label="$t('common.buttons.edit')"
+        @click="handleEdit"
       />
     </div>
   </Dialog>
 </template>
 
 <script setup lang="ts">
+import { useBooking } from '~/composables/useBooking'
+import { ref } from 'vue'
+
 const props = defineProps<{
   open: boolean
   selectedReservation: {
+    id: string
     title: string
     duration: number
     date: Date
@@ -74,7 +82,10 @@ const props = defineProps<{
   }
 }>()
 
-const emit = defineEmits(['update:open'])
+const emit = defineEmits(['update:open', 'edit', 'deleted'])
+
+const { cancelBooking } = useBooking()
+const deleteLoading = ref(false)
 
 const formatTime = (date: Date) => {
   return date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })
@@ -106,4 +117,25 @@ const colorMap = {
 }
 
 const rentColor = (color: string) => colorMap[color]
+
+const handleDelete = async () => {
+  if (!confirm('Czy na pewno chcesz anulować tę rezerwację?')) {
+    return
+  }
+  
+  deleteLoading.value = true
+  try {
+    await cancelBooking(props.selectedReservation.id)
+    emit('update:open', false)
+    emit('deleted')
+  } catch (err) {
+    console.error('Error cancelling booking:', err)
+  } finally {
+    deleteLoading.value = false
+  }
+}
+
+const handleEdit = () => {
+  emit('edit', props.selectedReservation)
+}
 </script>

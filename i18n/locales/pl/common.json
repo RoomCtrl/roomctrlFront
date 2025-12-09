@@ -17,7 +17,10 @@
     "details": "Szczegóły",
     "add": "Dodaj",
     "next": "Następny",
-    "previous": "Poprzedni"
+    "previous": "Poprzedni",
+    "save": "Zapisz",
+    "yes": "Tak",
+    "no": "Nie"
   },
   "toast": {
     "danger": "Uwaga!",
