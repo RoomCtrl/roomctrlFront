@@ -11,7 +11,7 @@ export class UserRepository {
   }
 
   async getUsers(withDetails: boolean): Promise<IUserResponse[]> {
-    return await fetch(`/api/v1/users?withDetails=${withDetails}`, {
+    return await fetch(`/api/users?withDetails=${withDetails}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -20,7 +20,7 @@ export class UserRepository {
   }
 
   async addUser(newUser: IUserAddResponse) {
-    return await fetch('/api/v1/users', {
+    return await fetch('/api/users', {
       method: 'POST',
       body: JSON.stringify(newUser),
       headers: {
@@ -31,7 +31,7 @@ export class UserRepository {
   }
 
   async getUser(guid: string, withDetails: boolean): Promise<IUserResponse> {
-    return await fetch(`/api/v1/users/${guid}?withDetails=${withDetails}`, {
+    return await fetch(`/api/users/${guid}?withDetails=${withDetails}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -40,7 +40,7 @@ export class UserRepository {
   }
 
   async updateUser(guid: string, updatedUser: IAddUserForm) {
-    return await fetch(`/api/v1/users/${guid}`, {
+    return await fetch(`/api/users/${guid}`, {
       method: 'PUT',
       body: JSON.stringify(updatedUser),
       headers: {
@@ -51,7 +51,7 @@ export class UserRepository {
   }
 
   async deletelUser(guid: string) {
-    return await fetch(`/api/v1/users/${guid}`, {
+    return await fetch(`/api/users/${guid}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,

@@ -4,14 +4,95 @@
       <CalendarHeader
         :current-date="currentDate"
         :weekDays="weekDays"
+        :view-mode="viewMode"
         @update-date="handleWeekUpdate"
+        @change-view="handleViewChange"
+        @add-booking="handleShowBookingForm()"
       />
     </template>
 
     <template #content>
       <div class="flex-1 overflow-auto">
-        <div class="flex min-w-max">
-          <div class="w-16 border-r border-gray-200 dark:border-gray-600 sticky left-0 z-10">
+        <div
+          v-if="viewMode === 'day'"
+          class="w-full"
+        >
+          <div class="flex min-w-max h-full">
+            <div
+              class="w-16 border-r border-gray-200 dark:border-gray-600 sticky left-0 z-10"
+            >
+              <div class="h-12 border-b border-gray-200 dark:border-gray-600" />
+              <div
+                v-for="hour in hours"
+                :key="hour"
+                class="flex items-center justify-end h-12 border-b border-gray-200 dark:border-gray-600 text-sm pr-2 pt-1"
+              >
+                {{ String(hour).padStart(2, '0') }}:00
+              </div>
+            </div>
+
+            <div class="flex-1 relative">
+              <div
+                class="sticky top-0 h-12 border-b border-gray-200 dark:border-gray-600 flex items-center justify-center font-semibold text-lg z-10 bg-white dark:bg-gray-900"
+              >
+                <div class="text-center">
+                  <div class="text-xs text-gray-600 dark:text-gray-400">
+                    {{ getDayName(currentDate) }}
+                  </div>
+                  <div
+                    :class="[
+                      'text-xl',
+                      isToday(currentDate) ? 'text-blue-600 font-bold' : '',
+                    ]"
+                  >
+                    {{ currentDate.getDate() }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="relative">
+                <div
+                  v-for="hour in hours"
+                  :key="hour"
+                  class="h-12 border-b border-gray-200 dark:border-gray-600"
+                />
+
+                <div class="absolute top-0 left-0 right-0 bottom-0">
+                  <div
+                    v-for="res in getReservationsForDay(currentDate)"
+                    :key="res.id"
+                    :class="[
+                      rentColor(res.color),
+                      'absolute left-0 right-0 mx-2 rounded p-2 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
+                    ]"
+                    :style="getReservationStyle(res)"
+                    @click="openModal(res)"
+                    @keydown.enter="openModal(res)"
+                  >
+                    <div class="font-medium text-sm">
+                      {{ res.title }}
+                    </div>
+                    <div class="text-xs opacity-90">
+                      {{ formatTime(res.date) }} ({{ res.duration }} min)
+                    </div>
+                    <div class="pt-1">
+                      <i class="pi pi-map-marker" />
+                      {{ res.location }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-else-if="viewMode === 'week'"
+          class="flex min-w-max"
+        >
+          <div
+            class="w-16 border-r border-gray-200 dark:border-gray-600 sticky left-0 z-10"
+          >
             <div class="h-12 border-b border-gray-200 dark:border-gray-600" />
             <div
               v-for="hour in hours"
@@ -26,11 +107,23 @@
             :key="dayIdx"
             class="flex-1 min-w-32 border-r border-gray-200 dark:border-gray-600 relative"
           >
-            <div :class="['h-12 border-b border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center sticky top-0  z-10', { '': isToday(day) }]">
+            <div
+              :class="[
+                'h-12 border-b border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center sticky top-0 z-10',
+                { '': isToday(day) },
+              ]"
+            >
               <div class="text-xs">
                 {{ getDayName(day) }}
               </div>
-              <div :class="['text-xl', isToday(day) ? 'bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center' : '']">
+              <div
+                :class="[
+                  'text-xl',
+                  isToday(day)
+                    ? 'bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center'
+                    : '',
+                ]"
+              >
                 {{ day.getDate() }}
               </div>
             </div>
@@ -45,7 +138,10 @@
               <div
                 v-for="res in getReservationsForDay(day)"
                 :key="res.id"
-                :class="[rentColor(res.color), 'absolute left-0 right-0 mx-1 rounded p-1 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden']"
+                :class="[
+                  rentColor(res.color),
+                  'absolute left-0 right-0 mx-1 rounded p-1 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
+                ]"
                 :style="getReservationStyle(res)"
                 @click="openModal(res)"
                 @keydown.enter="openModal(res)"
@@ -64,37 +160,125 @@
             </div>
           </div>
         </div>
+
+        <div
+          v-else
+          class="grid grid-cols-7"
+        >
+          <div
+            v-for="(dayName, idx) in monthDayNames"
+            :key="idx"
+            class="border-b border-r border-gray-200 dark:border-gray-600 p-2 text-center font-semibold text-sm"
+          >
+            {{ dayName }}
+          </div>
+
+          <div
+            v-for="(day, idx) in monthDays"
+            :key="idx"
+            :class="[
+              'border-b border-r border-gray-200 dark:border-gray-600 min-h-24 p-2 relative',
+              !isSameMonth(day) ? 'bg-gray-50 dark:bg-gray-800 opacity-50' : '',
+              isToday(day) ? 'bg-blue-50 dark:bg-blue-900/20' : '',
+            ]"
+          >
+            <div
+              :class="[
+                'text-sm font-medium',
+                isToday(day)
+                  ? 'bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center'
+                  : '',
+              ]"
+            >
+              {{ day.getDate() }}
+            </div>
+
+            <div class="mt-1 space-y-1">
+              <div
+                v-for="res in getReservationsForDay(day)"
+                :key="res.id"
+                :class="[
+                  rentColor(res.color),
+                  'text-white text-xs rounded px-1 py-0.5 cursor-pointer hover:opacity-90 transition-opacity truncate',
+                ]"
+                @click="openModal(res)"
+                @keydown.enter="openModal(res)"
+              >
+                <span class="font-medium">{{ formatTime(res.date) }}</span>
+                {{ res.title }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <RentDetails
         v-if="selectedReservation"
         v-model:open="visible"
         :selected-reservation="selectedReservation"
+        @edit="handleEdit"
+        @deleted="handleDeleted"
+      />
+
+      <BookingForm
+        :visible="showBookingForm"
+        :room-id="selectedRoomId"
+        :booking-id="editingBookingId"
+        @success="handleBookingSuccess"
+        @cancel="showBookingForm = false"
+        @close="showBookingForm = false"
       />
     </template>
   </Card>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import CalendarHeader from '~/components/reservations/myCalendar/CalendarHeader.vue'
 import RentDetails from '~/components/reservations/myCalendar/RentDetails.vue'
+import BookingForm from '~/components/rooms/BookingForm.vue'
+import { useBooking } from '~/composables/useBooking'
+import { useAuth } from '~/composables/useAuth'
+import { dayOfWeekFullNames } from '~/utils/dateHelpers'
 
 const currentDate = ref(new Date())
 const selectedReservation = ref(null)
 const visible = ref(false)
+const showEditForm = ref(false)
+const editingReservation = ref(null)
+const viewMode = ref('week') // 'day', 'week' lub 'month'
+const showBookingForm = ref(false)
+const selectedRoomId = ref('')
+const editingBookingId = ref('')
+const editedReservation = ref(null)
 const { t } = useI18n()
+const { bookings, fetchUserBookings } = useBooking()
+const { user } = useAuth()
 
-const reservations = ref([
-  { id: 1, title: 'Kolacja w Restauracji Italiano', date: new Date(2025, 11, 5, 19, 0), duration: 120, location: 'ul. Paderewskiego 12', attendees: 4, color: 'blue' },
-  { id: 2, title: 'Spotkanie biznesowe', date: new Date(2025, 11, 2, 14, 0), duration: 90, location: 'Hotel Sheraton', attendees: 6, color: 'green' },
-  { id: 3, title: 'Lunch z klientem', date: new Date(2025, 11, 3, 12, 30), duration: 90, location: 'Stary Rynek 44', attendees: 2, color: 'yellow' },
-  { id: 4, title: 'Prezentacja produktu', date: new Date(2025, 11, 4, 10, 0), duration: 60, location: 'Biuro główne', attendees: 8, color: 'purple' },
-  { id: 5, title: 'Spotkanie zespołu', date: new Date(2025, 11, 4, 15, 30), duration: 60, location: 'Sala konferencyjna A', attendees: 5, color: 'red' },
-  { id: 6, title: 'Warsztat design thinking', date: new Date(2025, 11, 6, 9, 0), duration: 180, location: 'Malta Office Park', attendees: 12, color: 'blue' },
-  { id: 7, title: 'Konsultacja prawna', date: new Date(2025, 11, 6, 14, 0), duration: 60, location: 'Online - Zoom', attendees: 3, color: 'green' },
-  { id: 8, title: 'Kolacja biznesowa', date: new Date(2025, 11, 7, 18, 30), duration: 150, location: 'Restauracja Porto', attendees: 4, color: 'red' },
-])
+// Map bookings from API to calendar format
+const reservations = computed(() => {
+  return bookings.value.map((booking, index) => {
+    const startDate = new Date(booking.startedAt)
+    const endDate = new Date(booking.endedAt)
+    const duration = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60)) // duration in minutes
+
+    const colors = ['blue', 'green', 'yellow', 'purple', 'red', 'orange']
+    const color = colors[index % colors.length]
+
+    return {
+      id: booking.id,
+      title: booking.title,
+      date: startDate,
+      duration: duration,
+      location: booking.room.location,
+      attendees: booking.participantsCount,
+      color: color,
+      isPrivate: booking.isPrivate,
+      status: booking.status,
+      roomName: booking.room.roomName,
+    }
+  })
+})
 
 const hours = Array.from({ length: 24 }, (_, i) => i)
 
@@ -113,11 +297,49 @@ const weekDays = computed(() => {
   return days
 })
 
+const monthDays = computed(() => {
+  const date = new Date(currentDate.value)
+  const year = date.getFullYear()
+  const month = date.getMonth()
+
+  const firstDay = new Date(year, month, 1)
+
+  const firstDayOfWeek = firstDay.getDay()
+  const startDate = new Date(firstDay)
+  startDate.setDate(
+    startDate.getDate() - (firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1),
+  )
+
+  const days = []
+  const totalDays = 42 // 6 tygodni
+
+  for (let i = 0; i < totalDays; i++) {
+    const day = new Date(startDate)
+    day.setDate(startDate.getDate() + i)
+    days.push(day)
+  }
+
+  return days
+})
+
+const monthDayNames = computed(() => {
+  return [
+    t('date.dayShortNames.monday'),
+    t('date.dayShortNames.tuesday'),
+    t('date.dayShortNames.wednesday'),
+    t('date.dayShortNames.thursday'),
+    t('date.dayShortNames.friday'),
+    t('date.dayShortNames.saturday'),
+    t('date.dayShortNames.sunday'),
+  ]
+})
+
 const getReservationsForDay = (day) => {
-  return reservations.value.filter(res =>
-    res.date.getFullYear() === day.getFullYear()
-    && res.date.getMonth() === day.getMonth()
-    && res.date.getDate() === day.getDate(),
+  return reservations.value.filter(
+    res =>
+      res.date.getFullYear() === day.getFullYear()
+      && res.date.getMonth() === day.getMonth()
+      && res.date.getDate() === day.getDate(),
   )
 }
 
@@ -145,7 +367,10 @@ const colorMap = {
 const rentColor = color => colorMap[color]
 
 const formatTime = (date) => {
-  return date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })
+  return date.toLocaleTimeString('pl-PL', {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
 }
 
 const getDayName = (day) => {
@@ -159,9 +384,15 @@ const getDayName = (day) => {
 
 const isToday = (day) => {
   const today = new Date()
-  return day.getDate() === today.getDate()
+  return (
+    day.getDate() === today.getDate()
     && day.getMonth() === today.getMonth()
     && day.getFullYear() === today.getFullYear()
+  )
+}
+
+const isSameMonth = (day) => {
+  return day.getMonth() === currentDate.value.getMonth()
 }
 
 const openModal = (reservation) => {
@@ -172,4 +403,65 @@ const openModal = (reservation) => {
 const handleWeekUpdate = (value) => {
   currentDate.value = value
 }
+
+const handleViewChange = (newView) => {
+  viewMode.value = newView
+}
+
+const handleBookingSuccess = async () => {
+  showBookingForm.value = false
+
+  const editedId = editingBookingId.value
+
+  // Refresh bookings for current user
+  if (user.value?.id) {
+    await fetchUserBookings(user.value.id, 'active')
+  }
+
+  // If we were editing, reopen the details modal with updated data
+  if (editedReservation.value && editedId) {
+    setTimeout(() => {
+      // Find the updated reservation from the refreshed list
+      const updatedReservation = reservations.value.find(r => r.id === editedId)
+      if (updatedReservation) {
+        selectedReservation.value = updatedReservation
+        visible.value = true
+      }
+      editedReservation.value = null
+      editingBookingId.value = ''
+    }, 300)
+  }
+}
+
+const handleShowBookingForm = (roomId = '') => {
+  selectedRoomId.value = roomId
+  editingBookingId.value = ''
+  editedReservation.value = null
+  showBookingForm.value = true
+}
+
+const handleEdit = (reservation) => {
+  visible.value = false
+  editedReservation.value = reservation
+  editingBookingId.value = reservation.id
+  selectedRoomId.value = ''
+  showBookingForm.value = true
+}
+
+const handleDeleted = () => {
+  // Refresh bookings after deletion
+  if (user.value?.id) {
+    fetchUserBookings(user.value.id, 'active')
+  }
+}
+
+// Expose function to parent components
+defineExpose({ handleShowBookingForm })
+
+onMounted(() => {
+  // Fetch active bookings for the logged-in user
+  if (user.value?.id) {
+    fetchUserBookings(user.value.id, 'active')
+  }
+})
 </script>

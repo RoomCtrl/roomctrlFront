@@ -25,7 +25,7 @@
             style="font-size: 1.1rem;"
           />
           <h2 class="font-semibold">
-            {{ formatTimeRange(currentBooking.startedAt, currentBooking.endedAt) }}
+            {{ formatTimeRange(new Date(currentBooking.startedAt), new Date(currentBooking.endedAt)) }}
           </h2>
         </div>
         <div class="flex flex-row gap-2 items-center">
@@ -61,6 +61,8 @@
 </template>
 
 <script setup lang="ts">
+import { formatTimeRange } from '~/utils/dateHelpers'
+
 const props = defineProps<{
   currentBooking?: {
     title: string

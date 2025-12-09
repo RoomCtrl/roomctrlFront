@@ -22,12 +22,14 @@
       />
       <Dialog
         v-model:visible="visible"
+        :header="`Rezerwacje - ${date ? new Date(date).toLocaleDateString('pl-PL', { day: '2-digit', month: 'long', year: 'numeric' }) : ''}`"
         modal
         @hide="date = null"
       >
         <IncomingRentsTable
           :rows="9"
-          header="Najblizsze rezerwacje"
+          :to-approve="false"
+          :bookings="selectedDayBookings"
         />
       </Dialog>
     </template>
@@ -36,7 +38,28 @@
 
 <script setup lang="ts">
 import IncomingRentsTable from './IncomingRentsTable.vue'
+import { computed, ref } from 'vue'
+
+const props = defineProps<{
+  bookings?: any[]
+}>()
 
 const date = ref()
 const visible = ref(false)
+
+// Filter bookings for the selected date
+const selectedDayBookings = computed(() => {
+  if (!date.value || !props.bookings) {
+    return []
+  }
+
+  const selectedDate = new Date(date.value)
+  selectedDate.setHours(0, 0, 0, 0)
+
+  return props.bookings.filter((booking) => {
+    const bookingDate = new Date(booking.startedAt)
+    bookingDate.setHours(0, 0, 0, 0)
+    return bookingDate.getTime() === selectedDate.getTime()
+  })
+})
 </script>

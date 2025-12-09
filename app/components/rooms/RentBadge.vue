@@ -1,9 +1,10 @@
 <template>
   <Message
     v-if="customColor"
-    :pt:root:style="color"
-
-    pt:content:style="--p-message-content-padding: 0.25rem 0.5rem "
+    :pt="{
+      root: { style: color },
+      content: { style: '--p-message-content-padding: 0.25rem 0.5rem ' },
+    }"
   >
     <div
       v-if="startedAt && endedAt"
@@ -82,7 +83,7 @@ const badgeColor = computed(() => {
 })
 
 const statusText = computed(() => {
-  if (roomStatus?.value === 'closed') return t('pages.allRooms.statuses.tags.closed')
+  if (roomStatus?.value === 'occupied') return t('pages.allRooms.statuses.tags.closed')
   return t('pages.allRooms.statuses.tags.available')
 })
 const fontSize = computed(() => {

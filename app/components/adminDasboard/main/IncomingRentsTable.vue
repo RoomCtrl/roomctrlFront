@@ -4,7 +4,10 @@
     pt:body:class="h-full justify-between"
   >
     <template #title>
-      <div class="flex flex-row justify-between pt-2 px-2">
+      <div
+        v-if="header"
+        class="flex flex-row justify-between pt-2 px-2"
+      >
         <div />
         <h1 class="font-bold text-3xl ">
           {{ header }}
@@ -26,12 +29,19 @@
             style: '--p-datatable-paginator-bottom-border-width: 0; --p-paginator-border-radius: 0px',
           },
           tableContainer: { class: 'flex flex-col justify-end' },
+          emptyMessageCell: { class: 'text-center' },
+          emptyMessage: { class: 'flex items-center justify-center h-full' },
         }"
         :value="tableData"
         paginator
         size="small"
         :rows="rows"
       >
+        <template #empty>
+          <div class="text-xl text-gray-500 py-16">
+            {{ $t('tables.emptyMessages.noBookings') }}
+          </div>
+        </template>
         <Column
           field="room"
           :header="$t('pages.adminDashboard.dashboard.tables.headers.room')"
@@ -71,86 +81,33 @@
 <script setup lang="ts">
 const props = defineProps<{
   rows: number
-  header: string
+  header?: string
   toApprove: boolean
+  bookings?: any[]
 }>()
-const reservations = ref([
-  {
-    hour: '08:00',
-    date: '2025-10-16',
-    room: 'Room 101',
-    bookedBy: 'Alice Johnson',
-    status: 'planned',
-  },
-  {
-    hour: '09:30',
-    date: '2025-10-16',
-    room: 'Room 102',
-    bookedBy: 'Michael Brown',
-    status: 'toApprove',
-  },
-  {
-    hour: '10:00',
-    date: '2025-10-16',
-    room: 'Room 103',
-    bookedBy: 'Sophie Lee',
-    status: 'cancelled',
-  },
-  {
-    hour: '11:15',
-    date: '2025-10-16',
-    room: 'Room 104',
-    bookedBy: 'David Smith',
-    status: 'planned',
-  },
-  {
-    hour: '12:00',
-    date: '2025-10-16',
-    room: 'Room 105',
-    bookedBy: 'Emma Wilson',
-    status: 'planned',
-  },
-  {
-    hour: '13:30',
-    date: '2025-10-16',
-    room: 'Room 201',
-    bookedBy: 'Olivia Harris',
-    status: 'toApprove',
-  },
-  {
-    hour: '14:45',
-    date: '2025-10-16',
-    room: 'Room 202',
-    bookedBy: 'Liam Walker',
-    status: 'planned',
-  },
-  {
-    hour: '15:00',
-    date: '2025-10-16',
-    room: 'Room 203',
-    bookedBy: 'Noah Davis',
-    status: 'cancelled',
-  },
-  {
-    hour: '16:15',
-    date: '2025-10-16',
-    room: 'Room 204',
-    bookedBy: 'Charlotte Miller',
-    status: 'planned',
-  },
-  {
-    hour: '17:30',
-    date: '2025-10-16',
-    room: 'Room 205',
-    bookedBy: 'James Anderson',
-    status: 'toApprove',
-  },
-])
-const toApproveReservations = reservations.value.filter(r => r.status === 'toApprove')
+const reservations = computed(() => {
+  if (!props.bookings || props.bookings.length === 0) {
+    return []
+  }
+  return props.bookings.map((booking) => {
+    const startDate = new Date(booking.startedAt)
+    return {
+      hour: startDate.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' }),
+      date: startDate.toLocaleDateString('pl-PL'),
+      room: booking.room?.roomName || 'N/A',
+      bookedBy: `${booking.user?.firstName || ''} ${booking.user?.lastName || ''}`.trim() || booking.user?.username || 'N/A',
+      status: booking.status === 'active' ? 'planned' : booking.status,
+    }
+  })
+})
+
+const toApproveReservations = computed(() =>
+  reservations.value.filter(r => r.status === 'toApprove'),
+)
 
 const tableData = computed(() => {
   if (props.toApprove) {
-    return toApproveReservations
+    return toApproveReservations.value
   }
   else {
     return reservations.value

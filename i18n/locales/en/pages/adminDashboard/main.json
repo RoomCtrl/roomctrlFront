@@ -3,7 +3,7 @@
     "title": "Booking Calendar"
   },
   "chart": {
-    "title": "Room Occupancy",
+    "title": "Booking Statuses",
     "buttons": {
       "today": "Today",
       "thisWeek": "Last 7 days",

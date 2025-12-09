@@ -4,9 +4,9 @@ import common from './common.json'
 import services from './services.json'
 import primevue from './primevue.json'
 import date from './date.json'
-import { forms, toast, tables } from './components/index.ts'
+import { forms, toast, tables, reservations } from './components/index.ts'
 import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails,
-  reservationsHistory, users, dashboard, panelSelector, roomIssueReports, notFound, myCalendar } from './pages'
+  reservationsHistory, users, dashboard, panelSelector, roomIssueReports, notFound, myCalendar, statistics } from './pages'
 
 export default {
   common,
@@ -14,6 +14,7 @@ export default {
   services,
   toast,
   tables,
+  reservations,
   pages: {
     home,
     contact,
@@ -25,6 +26,7 @@ export default {
     panelSelector,
     downloadApp,
     allRooms,
+    rooms: allRooms,
     roomDetails,
     reservationsHistory,
     notFound,
@@ -33,6 +35,7 @@ export default {
       users,
       dashboard,
       roomIssueReports,
+      statistics,
     },
   },
   primevue,
