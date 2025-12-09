@@ -12,6 +12,7 @@
         :ended-at="roomDetails.currentBooking?.endedAt"
         :current-booking="roomDetails?.currentBooking"
         :next-bookings="roomDetails?.nextBookings"
+        @show-booking-form="showBookingForm = true"
       />
 
       <CurrentMeeting
@@ -130,6 +131,15 @@
         </InfoCard>
       </div>
     </div>
+
+    <BookingForm
+      :visible="showBookingForm"
+      :room-id="roomDetails.roomId"
+      :capacity="roomDetails.capacity"
+      @success="handleBookingSuccess"
+      @cancel="showBookingForm = false"
+      @close="showBookingForm = false"
+    />
   </div>
 </template>
 
@@ -140,6 +150,7 @@ import EqupimentInfo from '~/components/rooms/detailsParts/EqupimentInfo.vue'
 import GeneralInfo from '~/components/rooms/detailsParts/GeneralInfo.vue'
 import InfoCard from '~/components/rooms/detailsParts/InfoCard.vue'
 import UpcomingMeeting from '~/components/rooms/detailsParts/UpcomingMeeting.vue'
+import BookingForm from '~/components/rooms/BookingForm.vue'
 import { useRoom } from '~/composables/useRoom'
 
 definePageMeta({
@@ -148,6 +159,8 @@ definePageMeta({
 
 const route = useRoute()
 const { room: roomDetails, fetchRoom } = useRoom()
+
+const showBookingForm = ref(false)
 
 const status = computed(() => {
   if (roomDetails.value?.currentBooking) {
@@ -165,6 +178,13 @@ watch(status, (newStatus) => {
     navigateTo('/rooms')
   }
 })
+
+const handleBookingSuccess = () => {
+  showBookingForm.value = false
+  // Refresh room details to get updated bookings
+  const roomId = String(route.params.id)
+  fetchRoom(roomId, true)
+}
 
 onMounted(() => {
   const roomId = String(route.params.id)

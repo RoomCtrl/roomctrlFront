@@ -53,5 +53,29 @@
     "phone": "Tel: +48 123 456 789",
     "insidePhone": "Extension tel: 2247",
     "email": "Email: "
+  },
+  "bookingForm": {
+    "title": "Booking Form",
+    "editTitle": "Edit Booking",
+    "meetingTitle": "Meeting Title",
+    "meetingTitlePlaceholder": "Enter meeting title",
+    "room": "Room",
+    "roomPlaceholder": "Select a room",
+    "startDate": "Start Date",
+    "startDatePlaceholder": "Select start date and time",
+    "endDate": "End Date",
+    "endDatePlaceholder": "Select end date and time",
+    "participantsCount": "Number of Participants",
+    "participantsCountPlaceholder": "Enter number of participants",
+    "isPrivate": "Private Meeting",
+    "cancel": "Cancel",
+    "submit": "Book",
+    "errors": {
+      "titleRequired": "Meeting title is required",
+      "roomRequired": "Room selection is required",
+      "startDateRequired": "Start date is required",
+      "endDateRequired": "End date is required",
+      "endDateBeforeStart": "End date must be after start date"
+    }
   }
 }

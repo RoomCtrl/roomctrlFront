@@ -17,7 +17,10 @@
     "details": "Details",
     "add": "Add",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No"
   },
   "toast": {
     "danger": "Warning!",
