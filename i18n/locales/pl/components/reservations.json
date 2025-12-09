@@ -1,0 +1,21 @@
+{
+  "rentDetails": {
+    "duration": "Czas trwania",
+    "minutes": "min",
+    "person": "osoba",
+    "persons": "osoby",
+    "startTime": "Godzina rozpoczęcia",
+    "endTime": "Godzina zakończenia",
+    "location": "Lokalizacja",
+    "attendees": "Uczestnicy"
+  },
+  "form": {
+    "title": "Tytuł",
+    "date": "Data",
+    "time": "Czas",
+    "duration": "Czas trwania",
+    "attendees": "Liczba uczestników",
+    "location": "Lokalizacja",
+    "color": "Kolor"
+  }
+}

@@ -1,6 +1,10 @@
 {
   "today": "Dzisiaj",
   "tomorrow": "Jutro",
+  "day": "Dzień",
+  "week": "Tydzień",
+  "month": "Miesiąc",
+  "view": "Widok",
   "dayNames": {
     "monday": "Poniedziałek",
     "tuesday": "Wtorek",
