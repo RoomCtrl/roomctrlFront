@@ -3,12 +3,13 @@
     <template #title>
       <div class="flex flex-row gap-2 justify-between">
         <h1 class="text-2xl 2xl:text-3xl font-semibold">
-          {{ $t('pages.allRooms.room') + roomName }}
+          {{ roomName }}
         </h1>
         <RentBadge
           :started-at="startedAt"
           :ended-at="endedAt"
           :info-type="false"
+          :custom-color="false"
           size="lg"
         />
       </div>
@@ -31,13 +32,20 @@
         :max="max"
         :rate-value="value"
       />
-      <div class="flex flex-wrap max-lg:justify-around gap-2">
-        <Button
-          :label="t('pages.roomDetails.buttons.rentNow')"
-        />
-        <Button
-          icon="pi pi-heart"
-          rounded
+      <div class="flex justify-between max-lg:justify-around gap-2">
+        <div class="flex gap-2">
+          <Button
+            :label="t('pages.roomDetails.buttons.rentNow')"
+            @click="emit('showBookingForm')"
+          />
+          <Button
+            icon="pi pi-heart"
+            rounded
+          />
+        </div>
+        <WeekCalendar
+          :current-booking="currentBooking"
+          :next-bookings="nextBookings"
         />
       </div>
     </template>
@@ -47,12 +55,20 @@
 <script setup lang="ts">
 import UserRating from '~/components/common/UserRating.vue'
 import RentBadge from '../RentBadge.vue'
+import WeekCalendar from './WeekCalendar.vue'
+import type { IBooking } from '~/interfaces/RoomsIntefaces'
 
 defineProps<{
   roomName: string
   roomDescription: string
   startedAt?: string
   endedAt?: string
+  currentBooking?: IBooking
+  nextBookings?: IBooking[]
+}>()
+
+const emit = defineEmits<{
+  showBookingForm: []
 }>()
 
 const { t } = useI18n()

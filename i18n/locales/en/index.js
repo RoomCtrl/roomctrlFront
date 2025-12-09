@@ -4,7 +4,7 @@ import common from './common.json'
 import primevue from './primevue.json'
 import date from './date.json'
 import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails,
-  reservationsHistory, users, dashboard, panelSelector, roomIssueReports, notFound, myCalendar } from './pages'
+  reservationsHistory, users, dashboard, panelSelector, roomIssueReports, notFound, myCalendar, statistics } from './pages'
 import { forms, toast, tables, reservations } from './components'
 
 export default () => ({
@@ -24,6 +24,7 @@ export default () => ({
     downloadApp,
     panelSelector,
     allRooms,
+    rooms: allRooms,
     roomDetails,
     notFound,
     reservationsHistory,
@@ -32,6 +33,7 @@ export default () => ({
       users,
       dashboard,
       roomIssueReports,
+      statistics,
     },
   },
   primevue,

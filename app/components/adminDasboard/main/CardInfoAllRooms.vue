@@ -56,7 +56,13 @@ const props = defineProps<{
   statusType: string
 }>()
 
-const valueProcentOfKnob = ((props.numOfRooms / props.maxRooms) * 100)
+const valueProcentOfKnob = computed(() => {
+  if (!props.maxRooms || props.maxRooms === 0) {
+    return 0
+  }
+  return Math.round((props.numOfRooms / props.maxRooms) * 100)
+})
+
 const colorMode = useColorMode()
 
 const isDarkMode = computed({

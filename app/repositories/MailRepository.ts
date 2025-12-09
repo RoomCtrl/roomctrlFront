@@ -2,7 +2,7 @@ import type { IContactMailData, IContactMailResponse } from '~/app/interfaces/Re
 
 export class MailRepository {
   async contactMail(contactData: IContactMailData): Promise<IContactMailResponse> {
-    return await $fetch('/api/v1/contact_mail', {
+    return await $fetch('/api/contact_mail', {
       method: 'POST',
       body: contactData,
     })

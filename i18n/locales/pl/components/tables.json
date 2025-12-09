@@ -19,7 +19,8 @@
   },
   "emptyMessages": {
     "noRentsToConfirm": "Brak rezerwacji do potwierdzenia",
-    "noRoom": "Nie znaleziono sal"
+    "noRoom": "Nie znaleziono sal",
+    "noBookings": "Brak rezerwacji"
   },
   "buttonsTooltip": {
     "goToRoom": "Przejdź do sali",

@@ -16,7 +16,12 @@
     "start": "Start",
     "details": "Details",
     "add": "Add",
-    "save": "Save"
+    "save": "Save",
+    "next": "Next",
+    "previous": "Previous",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No"
   },
   "toast": {
     "danger": "Warning!",
@@ -30,5 +35,8 @@
   },
   "filters": {
     "all": "All"
-  }
+  },
+  "reset": "Reset",
+  "apply": "Apply",
+  "persons": "persons"
 }

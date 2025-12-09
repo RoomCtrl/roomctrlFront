@@ -3,7 +3,7 @@
     "title": "Kalendarz rezerwacji"
   },
   "chart": {
-    "title": "Obłożenie sal",
+    "title": "Statusy rezerwacji",
     "buttons": {
       "today": "Dzisiaj",
       "thisWeek": "Ostatnie 7 dni",

@@ -28,12 +28,16 @@
     "none": "Brak nadchodzących spoktań"
   },
   "weekCalendar": {
-    "title": "Kalendarz bieżącego tygodnia:",
+    "title": "Kalendarz bieżącego tygodnia",
     "meetingTyp": "Typ: {type}",
     "participants": "Uczestnicy: ",
     "public": "Publiczne",
     "private": "Prywatne",
-    "availableRoom": "Sala dostępna do rezerwacji"
+    "availableRoom": "Sala dostępna do rezerwacji",
+    "available": "Dostępne",
+    "occupied": "Zajęte",
+    "fullDay": "Sala dostępna cały dzień",
+    "bookingDetails": "Szczegóły rezerwacji"
   },
   "cleaning": {
     "title": "Sprzątanie",
@@ -49,5 +53,29 @@
     "phone": "Tel: ",
     "insidePhone": "Wewnętrzny tel: ",
     "email": "Email: "
+  },
+  "bookingForm": {
+    "title": "Formularz rezerwacji",
+    "editTitle": "Edycja rezerwacji",
+    "meetingTitle": "Tytuł spotkania",
+    "meetingTitlePlaceholder": "Wprowadź tytuł spotkania",
+    "room": "Sala",
+    "roomPlaceholder": "Wybierz salę",
+    "startDate": "Data rozpoczęcia",
+    "startDatePlaceholder": "Wybierz datę i godzinę rozpoczęcia",
+    "endDate": "Data zakończenia",
+    "endDatePlaceholder": "Wybierz datę i godzinę zakończenia",
+    "participantsCount": "Liczba uczestników",
+    "participantsCountPlaceholder": "Wprowadź liczbę uczestników",
+    "isPrivate": "Spotkanie prywatne",
+    "cancel": "Anuluj",
+    "submit": "Zarezerwuj",
+    "errors": {
+      "titleRequired": "Tytuł spotkania jest wymagany",
+      "roomRequired": "Wybór sali jest wymagany",
+      "startDateRequired": "Data rozpoczęcia jest wymagana",
+      "endDateRequired": "Data zakończenia jest wymagana",
+      "endDateBeforeStart": "Data zakończenia musi być późniejsza niż data rozpoczęcia"
+    }
   }
 }

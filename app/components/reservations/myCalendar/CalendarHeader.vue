@@ -113,7 +113,7 @@ const props = defineProps<{
   viewMode?: 'day' | 'week' | 'month'
 }>()
 
-const emit = defineEmits(['updateDate', 'toggle-view', 'change-view'])
+const emit = defineEmits(['updateDate'])
 const { t } = useI18n()
 
 const formattedDate = computed(() => {

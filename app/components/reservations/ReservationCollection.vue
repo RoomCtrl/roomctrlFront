@@ -81,6 +81,7 @@
         <div class="flex justify-center gap-4">
           <Button
             v-tooltip.left="{ value: $t('pages.reservationsHistory.comeToRoom') }"
+            pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
             icon="pi pi-sign-out"
             as="a"
             :href="localePath(`/rooms/` + data.roomId)"
@@ -91,15 +92,19 @@
           <Button
             v-show="!completed"
             v-tooltip.left="{ value: $t('common.buttons.edit') }"
+            pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
             icon="pi pi-pencil"
             severity="success"
             variant="outlined"
+            @click="openEditModal(data)"
           />
           <Button
             v-show="!completed"
             v-tooltip.left="{ value: $t('common.buttons.cancel') }"
+            pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
             icon="pi pi-times"
             variant="outlined"
+            @click="openCancelModal(data)"
           />
         </div>
       </template>
@@ -111,15 +116,61 @@
       </h1>
     </template>
   </DataTable>
+
+  <!-- Modal edycji rezerwacji -->
+  <Dialog
+    v-model:visible="editModalVisible"
+    modal
+    :header="$t('forms.booking.editTitle')"
+    :style="{ width: '50rem' }"
+    :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+  >
+    <BookingEditForm
+      v-if="selectedBooking"
+      :booking-id="selectedBooking.id"
+      @success="handleBookingSuccess"
+      @cancel="editModalVisible = false"
+    />
+  </Dialog>
+
+  <!-- Modal anulowania rezerwacji -->
+  <Dialog
+    v-model:visible="cancelModalVisible"
+    modal
+    :header="$t('forms.booking.cancelTitle')"
+    :style="{ width: '30vw' }"
+    :breakpoints="{ '960px': '50vw', '640px': '90vw' }"
+  >
+    <p class="mb-4">
+      {{ $t('forms.booking.cancelConfirmation') }}
+    </p>
+    <div class="flex justify-end gap-2">
+      <Button
+        :label="$t('common.buttons.no')"
+        severity="secondary"
+        variant="outlined"
+        @click="cancelModalVisible = false"
+      />
+      <Button
+        :label="$t('common.buttons.yes')"
+        severity="danger"
+        :loading="cancelLoading"
+        @click="handleCancelBooking"
+      />
+    </div>
+  </Dialog>
 </template>
 
 <script setup lang="ts">
 import { FilterMatchMode, FilterService } from '@primevue/core/api'
-import { roomsDetailsData } from '~/assets/data/roomsDetails'
+import { useRoom } from '~/composables/useRoom'
+import { useBooking } from '~/composables/useBooking'
+import type { IBookingUpdateRequest } from '~/interfaces/BookingsInterfaces'
 import BaseTextFilterColumn from '../common/datatable/columns/BaseTextFilterColumn.vue'
 import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectMessageFilter.vue'
 import BaseDateFilterColumn from '../common/datatable/columns/BaseDateFilterColumn.vue'
 import BaseSelectFilterColumn from '../common/datatable/columns/BaseSelectFilterColumn.vue'
+import BookingEditForm from '../forms/BookingEditForm.vue'
 
 const props = defineProps<{
   title?: string
@@ -127,17 +178,59 @@ const props = defineProps<{
   reservations: any[]
 }>()
 
+const emit = defineEmits<{
+  refresh: []
+}>()
+
 const dataTable = ref()
 const { t } = useI18n()
 const { customDateAndTimeFilter, customStatusFilter } = useCustomFilterMatch()
 const localePath = useLocalePath()
+const { rooms } = useRoom()
+const { cancelBooking } = useBooking()
+
+const editModalVisible = ref(false)
+const cancelModalVisible = ref(false)
+const selectedBooking = ref<any>(null)
+const cancelLoading = ref(false)
+
+const openEditModal = (booking: any) => {
+  selectedBooking.value = booking
+  editModalVisible.value = true
+}
+
+const openCancelModal = (booking: any) => {
+  selectedBooking.value = booking
+  cancelModalVisible.value = true
+}
+
+const handleBookingSuccess = () => {
+  editModalVisible.value = false
+  emit('refresh')
+}
+
+const handleCancelBooking = async () => {
+  if (!selectedBooking.value?.id) return
+
+  cancelLoading.value = true
+  try {
+    await cancelBooking(selectedBooking.value.id)
+    cancelModalVisible.value = false
+    emit('refresh')
+  }
+  catch (error) {
+    console.error('Błąd podczas anulowania rezerwacji:', error)
+  }
+  finally {
+    cancelLoading.value = false
+  }
+}
 
 const filteredRents = computed(() => {
   return (props.reservations || []).map((rent: any) => {
-    const room = roomsDetailsData.find(r => r.roomId === rent.roomId)
     return {
       ...rent,
-      roomName: room?.roomName ?? 'Brak danych',
+      roomName: rent.room?.roomName || rent.roomName || 'Brak danych',
     }
   })
 })

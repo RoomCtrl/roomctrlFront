@@ -25,6 +25,7 @@
           :completed="tab.completed"
           :title="tab.title"
           :reservations="tab.content"
+          @refresh="refreshBookings"
         />
       </TabPanel>
     </TabPanels>
@@ -32,27 +33,78 @@
 </template>
 
 <script setup lang="ts">
-import { reservationsData } from '~/assets/data/reservationsData'
 import ReservationCollection from '~/components/reservations/ReservationCollection.vue'
+import { useBooking } from '~/composables/useBooking'
+import { useAuth } from '~/composables/useAuth'
 
 const { t } = useI18n()
-const reservations = reservationsData
+const { bookings, fetchUserBookings } = useBooking()
+const { user } = useAuth()
 
-const currentReservations = reservations.filter(c => !isEarlierThanNow(c.startedAt))
-const pastReservations = reservations.filter(c => isEarlierThanNow(c.startedAt))
+const mapBookingToReservation = (booking: any) => {
+  let status = 'planned'
+  if (booking.status === 'completed') {
+    status = 'ended'
+  }
+  else if (booking.status === 'cancelled') {
+    status = 'cancelled'
+  }
+  else if (booking.status === 'active') {
+    const now = new Date()
+    const endDate = new Date(booking.endedAt)
+    status = endDate < now ? 'ended' : 'planned'
+  }
 
-const tabs = ref([
+  return {
+    id: booking.id,
+    title: booking.title,
+    startedAt: new Date(booking.startedAt),
+    endedAt: new Date(booking.endedAt),
+    status,
+    roomId: booking.room?.id,
+    room: booking.room,
+    participants: booking.participantsCount || 0,
+    reservationsType: booking.isPrivate ? 'private' : 'public',
+  }
+}
+
+const currentReservations = computed(() =>
+  bookings.value
+    .map(mapBookingToReservation)
+    .filter(c => !isEarlierThanNow(c.endedAt) && c.status !== 'ended' && c.status !== 'cancelled'),
+)
+
+const pastReservations = computed(() =>
+  bookings.value
+    .map(mapBookingToReservation)
+    .filter(c => isEarlierThanNow(c.endedAt) || c.status === 'ended' || c.status === 'cancelled'),
+)
+
+const tabs = computed(() => [
   {
     title: t('pages.reservationsHistory.incomingRent'),
-    content: currentReservations,
+    content: currentReservations.value,
     value: '0',
     completed: false,
   },
   {
     title: t('pages.reservationsHistory.completedRent'),
-    content: pastReservations,
+    content: pastReservations.value,
     value: '1',
     completed: true,
   },
 ])
+
+// Pobierz rezerwacje użytkownika
+onMounted(async () => {
+  if (user.value?.id) {
+    await fetchUserBookings(user.value.id)
+  }
+})
+
+const refreshBookings = async () => {
+  if (user.value?.id) {
+    await fetchUserBookings(user.value.id)
+  }
+}
 </script>

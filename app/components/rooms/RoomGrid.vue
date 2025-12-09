@@ -10,7 +10,7 @@
         class=" w-full"
       >
         <NuxtLink
-          v-if="room.status != 'closed'"
+          v-if="room.status != 'occupied'"
           :to="'rooms/' + room.roomId"
         >
           <RoomCard :room="room" />

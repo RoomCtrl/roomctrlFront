@@ -6,7 +6,7 @@
         :weekDays="weekDays"
         :view-mode="viewMode"
         @update-date="handleWeekUpdate"
-        @change-view="changeView"
+        @add-booking="handleShowBookingForm()"
       />
     </template>
 
@@ -204,25 +204,29 @@
         v-if="selectedReservation"
         v-model:open="visible"
         :selected-reservation="selectedReservation"
-        @edit="handleEditReservation"
-        @delete="handleDeleteReservation"
+        @edit="handleEdit"
+        @deleted="handleDeleted"
       />
 
-      <EditReservationForm
-        v-model:open="showEditForm"
-        :reservation="editingReservation"
-        @save="handleSaveReservation"
+      <BookingForm
+        :visible="showBookingForm"
+        :room-id="selectedRoomId"
+        :booking-id="editingBookingId"
+        @success="handleBookingSuccess"
+        @cancel="showBookingForm = false"
+        @close="showBookingForm = false"
       />
     </template>
   </Card>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import CalendarHeader from '~/components/reservations/myCalendar/CalendarHeader.vue'
 import RentDetails from '~/components/reservations/myCalendar/RentDetails.vue'
-import EditReservationForm from '~/components/reservations/myCalendar/EditReservationForm.vue'
-import { dayOfWeekFullNames } from '~/utils/dateHelpers'
+import BookingForm from '~/components/rooms/BookingForm.vue'
+import { useBooking } from '~/composables/useBooking'
+import { useAuth } from '~/composables/useAuth'
 
 const currentDate = ref(new Date())
 const selectedReservation = ref(null)
@@ -230,82 +234,38 @@ const visible = ref(false)
 const showEditForm = ref(false)
 const editingReservation = ref(null)
 const viewMode = ref('week') // 'day', 'week' lub 'month'
+const showBookingForm = ref(false)
+const selectedRoomId = ref('')
+const editingBookingId = ref('')
+const editedReservation = ref(null)
 const { t } = useI18n()
+const { bookings, fetchUserBookings } = useBooking()
+const { user } = useAuth()
 
-const reservations = ref([
-  {
-    id: 1,
-    title: 'Kolacja w Restauracji Italiano',
-    date: new Date(2025, 11, 5, 19, 0),
-    duration: 120,
-    location: 'ul. Paderewskiego 12',
-    attendees: 4,
-    color: 'blue'
-  },
-  {
-    id: 2,
-    title: 'Spotkanie biznesowe',
-    date: new Date(2025, 11, 2, 14, 0),
-    duration: 90,
-    location: 'Hotel Sheraton',
-    attendees: 6,
-    color: 'green'
-  },
-  {
-    id: 3,
-    title: 'Lunch z klientem',
-    date: new Date(2025, 11, 3, 12, 30),
-    duration: 90,
-    location: 'Stary Rynek 44',
-    attendees: 2,
-    color: 'yellow'
-  },
-  {
-    id: 4,
-    title: 'Prezentacja produktu',
-    date: new Date(2025, 11, 4, 10, 0),
-    duration: 60,
-    location: 'Biuro główne',
-    attendees: 8,
-    color: 'purple'
-  },
-  {
-    id: 5,
-    title: 'Spotkanie zespołu',
-    date: new Date(2025, 11, 4, 15, 30),
-    duration: 60,
-    location: 'Sala konferencyjna A',
-    attendees: 5,
-    color: 'red'
-  },
-  {
-    id: 6,
-    title: 'Warsztat design thinking',
-    date: new Date(2025, 11, 6, 9, 0),
-    duration: 180,
-    location: 'Malta Office Park',
-    attendees: 12,
-    color: 'blue'
-  },
-  {
-    id: 7,
-    title: 'Konsultacja prawna',
-    date: new Date(2025, 11, 6, 14, 0),
-    duration: 60,
-    location: 'Online - Zoom',
-    attendees: 3,
-    color: 'green'
-  },
-  {
-    id: 8,
-    title: 'Kolacja biznesowa',
-    date: new Date(2025, 11, 7, 18, 30),
-    duration: 150,
-    location: 'Restauracja Porto',
-    attendees: 4,
-    color: 'red'
-  }
-])
+// Map bookings from API to calendar format
+const reservations = computed(() => {
+  return bookings.value.map((booking, index) => {
+    const startDate = new Date(booking.startedAt)
+    const endDate = new Date(booking.endedAt)
+    const duration = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60)) // duration in minutes
+
+    const colors = ['blue', 'green', 'yellow', 'purple', 'red', 'orange']
+    const color = colors[index % colors.length]
+
+    return {
+      id: booking.id,
+      title: booking.title,
+      date: startDate,
+      duration: duration,
+      location: booking.room.location,
+      attendees: booking.participantsCount,
+      color: color,
+      isPrivate: booking.isPrivate,
+      status: booking.status,
+      roomName: booking.room.roomName,
+    }
+  })
+})
 
 const hours = Array.from({ length: 24 }, (_, i) => i)
 
@@ -424,30 +384,60 @@ const handleWeekUpdate = (value) => {
   currentDate.value = value
 }
 
-const changeView = (newMode) => {
-  viewMode.value = newMode
-}
+const handleBookingSuccess = async () => {
+  showBookingForm.value = false
 
-const handleEditReservation = (reservation) => {
-  editingReservation.value = reservation
-  showEditForm.value = true
-}
+  const editedId = editingBookingId.value
 
-const handleSaveReservation = (updatedReservation) => {
-  const index = reservations.value.findIndex(
-    (res) => res.id === updatedReservation.id
-  )
-  if (index !== -1) {
-    reservations.value[index] = updatedReservation
+  // Refresh bookings for current user
+  if (user.value?.id) {
+    await fetchUserBookings(user.value.id, 'active')
   }
-  editingReservation.value = null
-  showEditForm.value = false
+
+  // If we were editing, reopen the details modal with updated data
+  if (editedReservation.value && editedId) {
+    setTimeout(() => {
+      // Find the updated reservation from the refreshed list
+      const updatedReservation = reservations.value.find(r => r.id === editedId)
+      if (updatedReservation) {
+        selectedReservation.value = updatedReservation
+        visible.value = true
+      }
+      editedReservation.value = null
+      editingBookingId.value = ''
+    }, 300)
+  }
 }
 
-const handleDeleteReservation = (reservationId) => {
-  // Usuń rezerwację z listy
-  reservations.value = reservations.value.filter(
-    (res) => res.id !== reservationId
-  )
+const handleShowBookingForm = (roomId = '') => {
+  selectedRoomId.value = roomId
+  editingBookingId.value = ''
+  editedReservation.value = null
+  showBookingForm.value = true
 }
+
+const handleEdit = (reservation) => {
+  visible.value = false
+  editedReservation.value = reservation
+  editingBookingId.value = reservation.id
+  selectedRoomId.value = ''
+  showBookingForm.value = true
+}
+
+const handleDeleted = () => {
+  // Refresh bookings after deletion
+  if (user.value?.id) {
+    fetchUserBookings(user.value.id, 'active')
+  }
+}
+
+// Expose function to parent components
+defineExpose({ handleShowBookingForm })
+
+onMounted(() => {
+  // Fetch active bookings for the logged-in user
+  if (user.value?.id) {
+    fetchUserBookings(user.value.id, 'active')
+  }
+})
 </script>

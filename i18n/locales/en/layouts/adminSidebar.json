@@ -1,6 +1,7 @@
 {
   "items": {
     "dashboard": "Dashboard",
+    "roomList": "Room List",
     "users": "Users",
     "rentsToConfirm": "Bookings to Confirm",
     "reportsOfRooms": "Room Reports",

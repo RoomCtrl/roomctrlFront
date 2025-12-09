@@ -20,5 +20,17 @@
   "incoming": {
     "title": "Nadchodzące",
     "noRent": "Brak nadchodzących rezerwacji"
+  },
+  "filters": {
+    "status": "Status",
+    "capacity": "Pojemność",
+    "size": "Rozmiar sali",
+    "roomName": "Nazwa sali",
+    "searchPlaceholder": "Szukaj...",
+    "statuses": {
+      "available": "Dostępna",
+      "occupied": "Zajęta",
+      "maintenance": "Nieczynna"
+    }
   }
 }

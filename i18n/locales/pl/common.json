@@ -16,7 +16,12 @@
     "start": "Rozpocznij",
     "details": "Szczegóły",
     "add": "Dodaj",
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "next": "Następny",
+    "previous": "Poprzedni",
+    "save": "Zapisz",
+    "yes": "Tak",
+    "no": "Nie"
   },
   "toast": {
     "danger": "Uwaga!",
@@ -30,5 +35,8 @@
   },
   "filters": {
     "all": "Wszystkie"
-  }
+  },
+  "reset": "Resetuj",
+  "apply": "Zastosuj",
+  "persons": "osób"
 }
