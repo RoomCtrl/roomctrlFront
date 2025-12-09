@@ -12,7 +12,7 @@
             <div
               :class="[
                 rentColor(selectedReservation.color),
-                'w-1 h-16 rounded absolute left-0'
+                'w-1 h-16 rounded absolute left-0',
               ]"
             />
             <h3 class="text-xl font-semibold ml-4">
@@ -34,7 +34,7 @@
             {{
               formatEndTime(
                 selectedReservation.date,
-                selectedReservation.duration
+                selectedReservation.duration,
               )
             }}
           </div>
@@ -77,7 +77,6 @@
         :label="$t('common.buttons.edit')"
         severity="success"
         @click="handleEdit"
-        @click="handleEdit"
       />
     </div>
   </Dialog>
@@ -108,7 +107,7 @@ const deleteLoading = ref(false)
 const formatTime = (date: Date) => {
   return date.toLocaleTimeString('pl-PL', {
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
@@ -119,7 +118,7 @@ const formatDate = (date: Date) => {
     month: 'long',
     day: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
@@ -134,7 +133,7 @@ const colorMap = {
   yellow: 'bg-yellow-500 dark:bg-yellow-900',
   purple: 'bg-purple-500 dark:bg-purple-900',
   red: 'bg-red-500 dark:bg-red-900',
-  orange: 'bg-orange-500 dark:bg-orange-900'
+  orange: 'bg-orange-500 dark:bg-orange-900',
 }
 
 const rentColor = (color: string) => colorMap[color]
@@ -143,15 +142,17 @@ const handleDelete = async () => {
   if (!confirm('Czy na pewno chcesz anulować tę rezerwację?')) {
     return
   }
-  
+
   deleteLoading.value = true
   try {
     await cancelBooking(props.selectedReservation.id)
     emit('update:open', false)
     emit('deleted')
-  } catch (err) {
+  }
+  catch (err) {
     console.error('Error cancelling booking:', err)
-  } finally {
+  }
+  finally {
     deleteLoading.value = false
   }
 }

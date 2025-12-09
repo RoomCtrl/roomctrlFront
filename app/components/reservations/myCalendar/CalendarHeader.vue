@@ -97,6 +97,7 @@
           severity="success"
           :label="$t('common.buttons.add')"
           icon="pi pi-plus"
+          @click="$emit('addBooking')"
         />
       </div>
     </div>
@@ -113,7 +114,7 @@ const props = defineProps<{
   viewMode?: 'day' | 'week' | 'month'
 }>()
 
-const emit = defineEmits(['updateDate'])
+const emit = defineEmits(['updateDate', 'toggle-view', 'change-view', 'addBooking'])
 const { t } = useI18n()
 
 const formattedDate = computed(() => {
