@@ -12,6 +12,8 @@
         :ended-at="roomDetails.currentBooking?.endedAt"
         :current-booking="roomDetails?.currentBooking"
         :next-bookings="roomDetails?.nextBookings"
+        :room-id="roomDetails?.roomId || ''"
+        :is-favorite="roomDetails?.isFavorite || false"
         @show-booking-form="showBookingForm = true"
       />
 
@@ -133,6 +135,7 @@
     </div>
 
     <BookingForm
+      v-if="roomDetails"
       :visible="showBookingForm"
       :room-id="roomDetails.roomId"
       :capacity="roomDetails.capacity"
@@ -158,7 +161,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const { room: roomDetails, fetchRoom } = useRoom()
+const { room: roomDetails, fetchRoom, loadFavoriteIds } = useRoom()
 
 const showBookingForm = ref(false)
 
@@ -186,9 +189,10 @@ const handleBookingSuccess = () => {
   fetchRoom(roomId, true)
 }
 
-onMounted(() => {
+onMounted(async () => {
   const roomId = String(route.params.id)
-  fetchRoom(roomId, true)
+  await loadFavoriteIds() // Load favorite IDs first
+  await fetchRoom(roomId, true)
 })
 </script>
 

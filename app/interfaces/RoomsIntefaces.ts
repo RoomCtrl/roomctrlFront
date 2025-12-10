@@ -26,6 +26,7 @@ export interface IRoomCard {
   size: number
   currentBooking?: IBooking
   nextBookings?: IBooking[]
+  isFavorite?: boolean
 }
 
 export interface IRoomDetails {
@@ -42,6 +43,7 @@ export interface IRoomDetails {
   description: string
   lighting: string
   airConditioning: IAirConditioning
+  isFavorite?: boolean
 }
 
 export interface IRoomCreateRequest {

@@ -39,8 +39,10 @@
             @click="emit('showBookingForm')"
           />
           <Button
-            icon="pi pi-heart"
+            :icon="isFavoriteLocal ? 'pi pi-heart-fill' : 'pi pi-heart'"
+            :severity="isFavoriteLocal ? 'danger' : 'secondary'"
             rounded
+            @click="handleToggleFavorite"
           />
         </div>
         <WeekCalendar
@@ -57,14 +59,17 @@ import UserRating from '~/components/common/UserRating.vue'
 import RentBadge from '../RentBadge.vue'
 import WeekCalendar from './WeekCalendar.vue'
 import type { IBooking } from '~/interfaces/RoomsIntefaces'
+import { useRoom } from '~/composables/useRoom'
 
-defineProps<{
+const props = defineProps<{
   roomName: string
   roomDescription: string
   startedAt?: string
   endedAt?: string
   currentBooking?: IBooking
   nextBookings?: IBooking[]
+  roomId: string
+  isFavorite?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -72,8 +77,31 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const { toggleFavorite } = useRoom()
 const max = 5
 const value = 4
+
+const isFavoriteLocal = ref(props.isFavorite || false)
+
+// Watch for prop changes
+watch(() => props.isFavorite, (newValue) => {
+  isFavoriteLocal.value = newValue || false
+}, { immediate: true })
+
+const handleToggleFavorite = async () => {
+  // Optimistically update UI immediately
+  const previousState = isFavoriteLocal.value
+  isFavoriteLocal.value = !isFavoriteLocal.value
+
+  try {
+    await toggleFavorite(props.roomId)
+  }
+  catch (err) {
+    // Revert on error
+    isFavoriteLocal.value = previousState
+    console.error('Error toggling favorite:', err)
+  }
+}
 
 const buttons = [
   t('pages.roomDetails.buttons.rentNow'),
