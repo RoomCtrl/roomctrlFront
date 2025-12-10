@@ -44,8 +44,7 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const route = useRoute()
-const { rooms: allRooms, fetchRooms, loadFavoriteIds } = useRoom()
+const { rooms: allRooms, fetchFavoriteRooms } = useRoom()
 
 const first = ref(0)
 const rows = ref(12)
@@ -118,8 +117,7 @@ const onFilterChange = (newFilters: { status: string | null, minCapacity: number
   first.value = 0 // Reset to first page when filters change
 }
 
-onMounted(async () => {
-  await loadFavoriteIds() // Load favorite IDs first
-  await fetchRooms(true) // true to fetch with bookings
+onMounted(() => {
+  fetchFavoriteRooms(true) // true to fetch with bookings
 })
 </script>

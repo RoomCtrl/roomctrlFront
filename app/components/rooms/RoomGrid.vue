@@ -11,7 +11,7 @@
       >
         <NuxtLink
           v-if="room.status != 'occupied'"
-          :to="'rooms/' + room.roomId"
+          :to="'/rooms/' + room.roomId"
         >
           <RoomCard :room="room" />
         </NuxtLink>

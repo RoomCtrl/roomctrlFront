@@ -104,4 +104,35 @@ export class RoomRepository {
       throw new Error(`API Error: ${response.status} ${response.statusText}`)
     }
   }
+
+  async getFavoriteRooms(withBookings: boolean = false): Promise<IRoomCard[]> {
+    const params = new URLSearchParams()
+    params.append('withBookings', String(withBookings))
+
+    const response = await fetch(`/api/rooms/favorites?${params.toString()}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+
+    return await response.json()
+  }
+
+  async toggleFavorite(roomId: string): Promise<void> {
+    const response = await fetch(`/api/rooms/${roomId}/favorite`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+  }
 }

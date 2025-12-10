@@ -116,6 +116,12 @@ const tabs = computed(() => [
         auth: isUserLogin.value,
       },
       {
+        label: t('layouts.main.pages.favoriteRooms.title'),
+        route: '/rooms/favorites',
+        description: t('layouts.main.pages.favoriteRooms.description'),
+        auth: isUserLogin.value,
+      },
+      {
         label: t('layouts.main.pages.reservationHistory.title'),
         route: '/reservations/history',
         description: t('layouts.main.pages.reservationHistory.description'),
