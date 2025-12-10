@@ -51,3 +51,16 @@ export interface IContactMailResponse {
   code: number
   message: string
 }
+
+export interface IPasswordResetRequest {
+  email: string
+}
+
+export interface IPasswordResetConfirm {
+  token: string
+  newPassword: string
+}
+
+export interface IPasswordResetResponse {
+  message: string
+}
