@@ -11,7 +11,9 @@
   },
   "titles": {
     "contactForm": "Contact Form",
-    "loginForm": "Login"
+    "loginForm": "Login",
+    "passwordResetRequest": "Password Reset",
+    "passwordResetConfirm": "Set New Password"
   },
   "fields": {
     "name": "Full Name",
@@ -25,6 +27,10 @@
     "message": "Message",
     "login": "Login",
     "password": "Password",
+    "resetCode": "Reset Code",
+    "resetToken": "Reset Token",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
     "roomName": "Room Name",
     "capacity": "Capacity",
     "size": "Size",

@@ -21,7 +21,12 @@
     "previous": "Poprzedni",
     "save": "Zapisz",
     "yes": "Tak",
-    "no": "Nie"
+    "no": "Nie",
+    "forgotPassword": "Zapomniałeś hasła?",
+    "sendCode": "Wyślij token",
+    "resetPassword": "Resetuj hasło",
+    "backToLogin": "Powrót do logowania",
+    "backToEmailStep": "Powrót do wprowadzania emaila"
   },
   "toast": {
     "danger": "Uwaga!",

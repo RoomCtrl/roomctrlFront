@@ -21,7 +21,12 @@
     "previous": "Previous",
     "save": "Save",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "forgotPassword": "Forgot password?",
+    "sendCode": "Send token",
+    "resetPassword": "Reset password",
+    "backToLogin": "Back to login",
+    "backToEmailStep": "Back to email step"
   },
   "toast": {
     "danger": "Warning!",

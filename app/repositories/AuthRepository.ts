@@ -1,4 +1,4 @@
-import type { ICredentials, IGetUserProfileResponse, ILoginResponse } from '~/interfaces/RepositoriesInterface'
+import type { ICredentials, IGetUserProfileResponse, ILoginResponse, IPasswordResetRequest, IPasswordResetConfirm, IPasswordResetResponse } from '~/interfaces/RepositoriesInterface'
 
 export class AuthRepository {
   async login(credentials: ICredentials): Promise<ILoginResponse> {
@@ -22,6 +22,20 @@ export class AuthRepository {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    })
+  }
+
+  async passwordResetRequest(data: IPasswordResetRequest): Promise<IPasswordResetResponse> {
+    return await $fetch('/api/users/password_reset/request', {
+      method: 'POST',
+      body: data,
+    })
+  }
+
+  async passwordResetConfirm(data: IPasswordResetConfirm): Promise<IPasswordResetResponse> {
+    return await $fetch('/api/users/password_reset/confirm', {
+      method: 'POST',
+      body: data,
     })
   }
 }

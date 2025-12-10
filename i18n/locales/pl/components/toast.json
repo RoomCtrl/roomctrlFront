@@ -1,6 +1,11 @@
 {
   "success": "Suckes",
   "messages": {
-    "copied": "Skopiowano!"
+    "copied": "Skopiowano!",
+    "passwordResetCodeSent": "Token resetujący został wysłany na podany adres email",
+    "passwordResetSuccess": "Hasło zostało pomyślnie zresetowane",
+    "passwordResetRequestFailed": "Nie udało się wysłać tokenu resetującego",
+    "passwordResetFailed": "Nie udało się zresetować hasła",
+    "passwordsDoNotMatch": "Hasła nie są identyczne"
   }
 }

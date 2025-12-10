@@ -63,12 +63,20 @@
         </div>
       </div>
 
-      <Button
-        type="submit"
-        :label="$t('common.buttons.logIn')"
-        :loading="loading"
-        class="w-[65vw] md:w-[15rem]"
-      />
+      <div class="flex flex-col gap-3 text-center">
+        <Button
+          type="submit"
+          :label="$t('common.buttons.logIn')"
+          :loading="loading"
+          class="w-[65vw] md:w-[15rem]"
+        />
+        <NuxtLink
+          to="/passwordReset"
+          class="hover:underline"
+        >
+          {{ $t('common.buttons.forgotPassword') }}
+        </NuxtLink>
+      </div>
     </div>
   </form>
 </template>
