@@ -45,13 +45,14 @@
         >{{ errors.roomId }}</small>
       </div>
 
-      <div class="flex flex-col md:flex-row gap-4">
+      <div class="flex flex-col md:flex-row gap-4 col-span-2">
         <div class="flex flex-col gap-2 flex-1">
           <label for="startedAt">{{ $t('pages.roomDetails.bookingForm.startDate') }}</label>
           <DatePicker
             id="startedAt"
             v-model="formData.startedAt"
             show-time
+            fluid
             hour-format="24"
             date-format="dd/mm/yy"
             :placeholder="$t('pages.roomDetails.bookingForm.startDatePlaceholder')"
@@ -92,7 +93,7 @@
         />
       </div>
 
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 col-span-full">
         <label for="participantIds">{{ $t('forms.booking.addParticipants') }}</label>
         <MultiSelect
           id="participantIds"
@@ -104,12 +105,12 @@
           :filter="true"
           :loading="usersLoading"
           display="chip"
-          class="w-full"
+          fluid
         />
         <small class="text-gray-500">{{ $t('forms.booking.participantsHint') }}</small>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 col-span-full">
         <Checkbox
           id="isPrivate"
           v-model="formData.isPrivate"
@@ -118,21 +119,25 @@
         <label for="isPrivate">{{ $t('pages.roomDetails.bookingForm.isPrivate') }}</label>
       </div>
 
-      <div class="flex gap-2 justify-end">
+      <div class="flex gap-2 justify-end col-span-full">
         <Button
           type="button"
           :label="$t('pages.roomDetails.bookingForm.cancel')"
-          severity="secondary"
+          severity="error"
+          variant="outlined"
           @click="handleCancel"
         />
         <Button
           type="submit"
           :label="bookingId ? $t('common.buttons.save') : $t('pages.roomDetails.bookingForm.submit')"
           :loading="loading"
+          severity="success"
+          variant="outlined"
         />
       </div>
     </form>
   </Dialog>
+  <Toast />
 </template>
 
 <script setup lang="ts">
@@ -141,6 +146,7 @@ import { useRoom } from '~/composables/useRoom'
 import { useUser } from '~/composables/useUser'
 import { useAuth } from '~/composables/useAuth'
 import type { IBookingCreateRequest } from '~/interfaces/BookingsInterfaces'
+import { useToast } from 'primevue/usetoast'
 
 const props = defineProps<{
   visible: boolean
@@ -156,12 +162,12 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const toast = useToast()
 const { createBooking, updateBooking, fetchBooking, booking, loading } = useBooking()
 const { rooms, fetchRooms } = useRoom()
 const { users, fetchUsers, loading: usersLoading } = useUser()
 const { user, isAdmin } = useAuth()
 
-// Filtruj użytkowników - admin widzi wszystkich, zwykły użytkownik tylko siebie
 const availableUsers = computed(() => {
   return users.value
     .filter((u) => {
@@ -176,7 +182,6 @@ const availableUsers = computed(() => {
     }))
 })
 
-// Watch for bookingId changes to load booking data
 watch(() => props.bookingId, async (newBookingId) => {
   if (newBookingId && props.visible) {
     await fetchBooking(newBookingId)
@@ -260,7 +265,6 @@ const handleSubmit = async () => {
   }
 
   try {
-    // Format dates to ISO 8601 without timezone (YYYY-MM-DDTHH:mm:ss)
     const formatDate = (date: Date): string => {
       const year = date.getFullYear()
       const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -282,15 +286,24 @@ const handleSubmit = async () => {
     }
 
     if (props.bookingId) {
-      // Update existing booking
       await updateBooking(props.bookingId, bookingData)
+      toast.add({
+        severity: 'success',
+        summary: t('common.toast.success'),
+        detail: t('common.toast.bookingUpdated'),
+        life: 3000,
+      })
     }
     else {
-      // Create new booking
       await createBooking(bookingData)
+      toast.add({
+        severity: 'success',
+        summary: t('common.toast.success'),
+        detail: t('common.toast.bookingCreated'),
+        life: 3000,
+      })
     }
 
-    // Reset form
     formData.value = {
       title: '',
       roomId: props.roomId || '',
@@ -302,9 +315,33 @@ const handleSubmit = async () => {
     }
 
     emit('success')
+    emit('close')
   }
-  catch (err) {
+  catch (err: any) {
     console.error('Error creating booking:', err)
+
+    if (err?.status === 409 || err?.response?.status === 409) {
+      const errorMessage = err?.data?.message || err?.response?.data?.message || ''
+
+      if (errorMessage.toLowerCase().includes('time slot already booked')
+        || errorMessage.toLowerCase().includes('already booked')) {
+        toast.add({
+          severity: 'warn',
+          summary: t('common.warning'),
+          detail: 'W tym czasie jest już zarezerwowana inna rezerwacja. Wybierz inny termin.',
+          life: 5000,
+        })
+        return
+      }
+    }
+
+    // Domyślna obsługa błędów
+    toast.add({
+      severity: 'error',
+      summary: t('common.error'),
+      detail: t('common.toast.bookingError'),
+      life: 3000,
+    })
   }
 }
 
@@ -317,7 +354,6 @@ const handleClose = () => {
   emit('close')
 }
 
-// Fetch rooms and users when component is mounted
 onMounted(async () => {
   if (!props.roomId) {
     fetchRooms(false, 'available')

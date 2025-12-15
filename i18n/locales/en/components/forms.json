@@ -88,6 +88,9 @@
     },
     "messages": {
       "noEquipment": "No equipment added"
+    },
+    "removeEquipment": {
+      "title": "Are you sure you want to remove this equipment?"
     }
   },
   "booking": {

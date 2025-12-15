@@ -177,6 +177,22 @@ export const useRoom = () => {
     }
   }
 
+  const uploadImage = async (roomId: string, image: File) => {
+    loading.value = true
+    error.value = null
+    try {
+      const result = await getRoomService().uploadImage(roomId, image)
+      return result
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy uploadu zdjęcia'
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
   return {
     // State
     rooms,
@@ -194,5 +210,6 @@ export const useRoom = () => {
     deleteRoom,
     clearError,
     loadFavoriteIds,
+    uploadImage,
   }
 }

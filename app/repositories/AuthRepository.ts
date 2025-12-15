@@ -8,8 +8,13 @@ export class AuthRepository {
     })
   }
 
-  async getUserProfile(token: string): Promise<IGetUserProfileResponse> {
-    return await $fetch('/api/me', {
+  async getUserProfile(token: string, withOrganization: boolean = true): Promise<IGetUserProfileResponse> {
+    const params = new URLSearchParams()
+    if (withOrganization) {
+      params.append('withOrganization', 'true')
+    }
+
+    return await $fetch(`/api/me?${params.toString()}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

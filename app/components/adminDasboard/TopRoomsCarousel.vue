@@ -1,13 +1,12 @@
 <template>
-  <div class="flex flex-col justify-between ">
-    <h3 class="text-center self-center text-2xl font-bold w-[50%]">
+  <div class="flex flex-col gap-4">
+    <h3 class="text-center self-center text-2xl font-bold w-full">
       {{ title }}
     </h3>
     <Carousel
       :value="rooms"
       :numVisible="1"
       :numScroll="1"
-      po
       circular
     >
       <template #item="slotProps">

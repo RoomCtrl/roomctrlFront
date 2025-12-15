@@ -51,5 +51,10 @@
       "details": "Szczegóły"
     },
     "tooltip": "Przejdź do pełnej tabeli"
+  },
+  "roomList": {
+    "deleteRoom": {
+      "title": "Czy na pewno chcesz usunąć tę salę?"
+    }
   }
 }

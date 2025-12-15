@@ -11,26 +11,28 @@
       >
         <div class="relative">
           <!-- Number Badge -->
-          <div class="absolute -left-4 -top-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <div class="absolute -left-4 -top-4 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform duration-300 z-10">
             {{ index + 1 }}
           </div>
 
           <!-- Card -->
-          <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 h-full hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2 border border-gray-100 dark:border-slate-700">
-            <!-- Icon -->
-            <div class="mb-4">
-              <i :class="[step.icon, 'text-4xl text-blue-600']" />
+          <div class="bg-blue-50 dark:bg-blue-950/20 rounded-xl shadow-lg p-6 h-full hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2 border-2 border-blue-300 dark:border-blue-700">
+            <!-- Icon, Title and Description -->
+            <div class="flex gap-4 mb-4">
+              <div class="flex-shrink-0">
+                <div class="w-16 h-16 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110">
+                  <i :class="step.icon" />
+                </div>
+              </div>
+              <div class="flex flex-col justify-center">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                  {{ step.title }}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+                  {{ step.description }}
+                </p>
+              </div>
             </div>
-
-            <!-- Title -->
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
-              {{ step.title }}
-            </h3>
-
-            <!-- Description -->
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-              {{ step.description }}
-            </p>
 
             <!-- Details List -->
             <ul
@@ -47,46 +49,39 @@
               </li>
             </ul>
           </div>
-
-          <!-- Connector Line -->
-          <div
-            v-if="index < steps.length - 1"
-            class="hidden md:block absolute top-full left-6 w-1 h-12 bg-gradient-to-b from-blue-400 to-transparent"
-          />
         </div>
       </div>
     </div>
 
-    <!-- Screenshot -->
-    <div class="mt-12">
-      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-slate-700">
-        <div class="aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center group hover:scale-105 transition-transform duration-300">
-          <div class="text-center">
-            <i class="pi pi-image text-6xl text-gray-400 mb-4 block" />
-            <p class="text-gray-500 dark:text-gray-400 font-semibold">
-              Placeholder: Zrzut ekranu ekranu logowania
-            </p>
-            <p class="text-sm text-gray-400 dark:text-gray-500">
-              Obraz będzie tutaj
-            </p>
+    <div class="absolute flex right-0">
+      <div class="bg-blue-50 dark:bg-blue-900 border-l-4 border-blue-500 rounded-r-lg p-6">
+        <div class="flex gap-4">
+          <i class="pi pi-info-circle text-blue-600 text-2xl mt-1" />
+          <div>
+            <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">
+              Wskazówka bezpieczeństwa
+            </h4>
+            <ul class="space-y-2 text-sm text-blue-800 dark:text-blue-300">
+              <li>✓ Zawsze używaj bezpiecznego hasła (min. 8 znaków)</li>
+              <li>✓ Nigdy nie udostępniaj swojego loginu innym osobom</li>
+              <li>✓ Jeśli zapomnisz hasła, skontaktuj się z administratorem</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Tips -->
-    <div class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 rounded-r-lg p-6">
-      <div class="flex gap-4">
-        <i class="pi pi-info-circle text-blue-600 text-2xl flex-shrink-0 mt-1" />
-        <div>
-          <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">
-            Wskazówka bezpieczeństwa
-          </h4>
-          <ul class="space-y-2 text-sm text-blue-800 dark:text-blue-300">
-            <li>✓ Zawsze używaj bezpiecznego hasła (min. 8 znaków)</li>
-            <li>✓ Nigdy nie udostępniaj swojego loginu innym osobom</li>
-            <li>✓ Jeśli zapomnisz hasła, skontaktuj się z administratorem</li>
-          </ul>
+    <!-- Screenshot -->
+    <div class="flex justify-center pt-20">
+      <div class="h-[40rem] aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center group hover:scale-105 transition-transform duration-300">
+        <div class="text-center">
+          <i class="pi pi-image text-6xl text-gray-400 mb-4 block" />
+          <p class="text-gray-500 dark:text-gray-400 font-semibold">
+            Placeholder: Zrzut ekranu ekranu logowania
+          </p>
+          <p class="text-sm text-gray-400 dark:text-gray-500">
+            Obraz będzie tutaj
+          </p>
         </div>
       </div>
     </div>

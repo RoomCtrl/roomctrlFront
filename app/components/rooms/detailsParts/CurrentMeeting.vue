@@ -5,24 +5,24 @@
     pt:body:class="bg-amber-200/80 text-amber-900 justify-center w-full h-full"
   >
     <template #title>
-      <h2 class="lg:text-xl font-extrabold">
+      <h2 class="text-base sm:text-lg lg:text-xl font-extrabold">
         {{ $t('pages.roomDetails.currentMeet.title') }}
       </h2>
       <h1
         v-if="currentBooking"
         v-tooltip.bottom="tooltipConfig"
-        class="max-xl:text-base text-lg font-bold truncate"
+        class="text-sm sm:text-base lg:text-lg font-bold truncate"
         @mouseenter="checkOverflow"
       >
         {{ meetTitle }}
       </h1>
     </template>
     <template #content>
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-1 text-sm sm:text-base">
         <div class="flex flex-row gap-1 items-center">
           <i
             class="pi pi-clock"
-            style="font-size: 1.1rem;"
+            style="font-size: 1rem;"
           />
           <h2 class="font-semibold">
             {{ formatTimeRange(new Date(currentBooking.startedAt), new Date(currentBooking.endedAt)) }}
@@ -47,12 +47,12 @@
     pt:content:class="text-lg font-extrabold"
   >
     <template #content>
-      <div class="flex flex-row gap-2 items-center">
+      <div class="flex flex-row gap-2 items-center justify-center">
         <i
           class="pi pi-book"
-          style="font-size: 1.8rem;"
+          style="font-size: 1.5rem;"
         />
-        <h1 class="text-2xl">
+        <h1 class="text-lg sm:text-xl lg:text-2xl">
           {{ $t('pages.allRooms.statuses.roomTitle.available') }}
         </h1>
       </div>

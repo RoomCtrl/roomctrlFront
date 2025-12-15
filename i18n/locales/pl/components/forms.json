@@ -88,6 +88,9 @@
     },
     "messages": {
       "noEquipment": "Nie dodano wyposażenia"
+    },
+    "removeEquipment": {
+      "title": "Czy na pewno chcesz usunąć to wyposażenie?"
     }
   },
   "booking": {

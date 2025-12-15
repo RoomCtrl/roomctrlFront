@@ -158,6 +158,7 @@ import { useUser } from '~/composables/useUser'
 import { useRoom } from '~/composables/useRoom'
 import { useAuth } from '~/composables/useAuth'
 import { useBooking } from '~/composables/useBooking'
+import { useToast } from 'primevue/usetoast'
 
 const props = defineProps<{
   bookingId: string
@@ -168,6 +169,8 @@ const emit = defineEmits<{
   cancel: []
 }>()
 
+const { t } = useI18n()
+const toast = useToast()
 const { users, fetchUsers, loading: usersLoading } = useUser()
 const { rooms, fetchRooms, loading: roomsLoading } = useRoom()
 const { user, isAdmin } = useAuth()
@@ -291,10 +294,40 @@ const handleSubmit = async () => {
     }
 
     await updateBooking(props.bookingId, updateData)
+    toast.add({
+      severity: 'success',
+      summary: t('common.toast.success'),
+      detail: t('common.toast.bookingUpdated'),
+      life: 3000,
+    })
     emit('success')
   }
-  catch (error) {
+  catch (error: any) {
     console.error('Błąd podczas aktualizacji rezerwacji:', error)
+
+    // Sprawdź czy to błąd 409 (konflikt - zajęty slot czasowy)
+    if (error?.status === 409 || error?.response?.status === 409) {
+      const errorMessage = error?.data?.message || error?.response?.data?.message || ''
+
+      if (errorMessage.toLowerCase().includes('time slot already booked')
+        || errorMessage.toLowerCase().includes('already booked')) {
+        toast.add({
+          severity: 'warn',
+          summary: t('common.warning'),
+          detail: 'W tym czasie jest już zarezerwowana inna rezerwacja. Wybierz inny termin.',
+          life: 5000,
+        })
+        return
+      }
+    }
+
+    // Domyślna obsługa błędów
+    toast.add({
+      severity: 'error',
+      summary: t('common.error'),
+      detail: t('common.toast.bookingError'),
+      life: 3000,
+    })
   }
 }
 

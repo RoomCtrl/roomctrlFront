@@ -52,7 +52,7 @@
           <template #body>
             <div>
               <Button
-                pt:root:style="--p-button-padding-y: 0.2rem; --p-button-padding-x: 0.2rem"
+                pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 1px"
                 :label="$t('pages.adminDashboard.dashboard.tables.buttons.details')"
                 severity="info"
                 variant="outlined"

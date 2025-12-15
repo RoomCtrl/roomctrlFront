@@ -86,7 +86,7 @@ export class BookingRepository {
 
   async updateBooking(bookingId: string, updatedBooking: IBookingUpdateRequest): Promise<IBooking> {
     const response = await fetch(`${this.baseURL}/${bookingId}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify(updatedBooking),
       headers: {
         'Content-Type': 'application/json',

@@ -1,8 +1,8 @@
 <template>
   <Card pt:capation:class="m-0">
     <template #title>
-      <div class="flex flex-row gap-2 justify-between">
-        <h1 class="text-2xl 2xl:text-3xl font-semibold">
+      <div class="flex flex-col sm:flex-row gap-2 sm:justify-between sm:items-start">
+        <h1 class="text-xl sm:text-2xl 2xl:text-3xl font-semibold">
           {{ roomName }}
         </h1>
         <RentBadge
@@ -15,12 +15,12 @@
       </div>
     </template>
     <template #subtitle>
-      <div class="flex flex-row justify-between">
-        <h2 class="lg:truncate lg:w-[70%]">
+      <div class="flex flex-col sm:flex-row justify-between gap-2">
+        <h2 class="text-sm sm:text-base lg:truncate lg:w-[70%]">
           {{ roomDescription }}
         </h2>
         <UserRating
-          class="hidden lg:block"
+          class="hidden sm:block"
           :max="max"
           :rate-value="value"
         />
@@ -28,14 +28,15 @@
     </template>
     <template #footer>
       <UserRating
-        class="block lg:hidden flex justify-center mb-3"
+        class="block sm:hidden flex justify-center mb-3"
         :max="max"
         :rate-value="value"
       />
-      <div class="flex justify-between max-lg:justify-around gap-2">
-        <div class="flex gap-2">
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+        <div class="flex gap-2 justify-center sm:justify-start">
           <Button
             :label="t('pages.roomDetails.buttons.rentNow')"
+            class="flex-1 sm:flex-none"
             @click="emit('showBookingForm')"
           />
           <Button
@@ -46,6 +47,7 @@
           />
         </div>
         <WeekCalendar
+          class="flex justify-center"
           :current-booking="currentBooking"
           :next-bookings="nextBookings"
         />
@@ -60,6 +62,7 @@ import RentBadge from '../RentBadge.vue'
 import WeekCalendar from './WeekCalendar.vue'
 import type { IBooking } from '~/interfaces/RoomsIntefaces'
 import { useRoom } from '~/composables/useRoom'
+import { useToast } from 'primevue/usetoast'
 
 const props = defineProps<{
   roomName: string
@@ -77,29 +80,45 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const toast = useToast()
 const { toggleFavorite } = useRoom()
 const max = 5
 const value = 4
 
 const isFavoriteLocal = ref(props.isFavorite || false)
 
-// Watch for prop changes
-watch(() => props.isFavorite, (newValue) => {
-  isFavoriteLocal.value = newValue || false
-}, { immediate: true })
-
 const handleToggleFavorite = async () => {
-  // Optimistically update UI immediately
   const previousState = isFavoriteLocal.value
   isFavoriteLocal.value = !isFavoriteLocal.value
 
   try {
     await toggleFavorite(props.roomId)
+    if (isFavoriteLocal.value) {
+      toast.add({
+        severity: 'success',
+        summary: t('common.toast.success'),
+        detail: t('common.toast.favoriteAdded'),
+        life: 3000,
+      })
+    }
+    else {
+      toast.add({
+        severity: 'success',
+        summary: t('common.toast.success'),
+        detail: t('common.toast.favoriteRemoved'),
+        life: 3000,
+      })
+    }
   }
   catch (err) {
-    // Revert on error
     isFavoriteLocal.value = previousState
     console.error('Error toggling favorite:', err)
+    toast.add({
+      severity: 'error',
+      summary: t('common.error'),
+      detail: t('common.toast.favoriteError'),
+      life: 3000,
+    })
   }
 }
 
@@ -107,4 +126,8 @@ const buttons = [
   t('pages.roomDetails.buttons.rentNow'),
   t('pages.roomDetails.buttons.addFavorite'),
 ]
+
+watch(() => props.isFavorite, (newValue) => {
+  isFavoriteLocal.value = newValue || false
+}, { immediate: true })
 </script>

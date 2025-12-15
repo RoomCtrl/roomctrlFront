@@ -4,13 +4,19 @@
     pt:content:class="h-full"
   >
     <template #title>
-      <h1 class="text-2xl font-semibold pb-4">
+      <h1 class="text-lg sm:text-xl lg:text-2xl font-semibold pb-2 sm:pb-4">
         {{ $t('pages.roomDetails.upcomingMeetings.title') }}
       </h1>
     </template>
     <template #content>
-      <div v-if="roomStatus === 'maintance'" class="h-full flex flex-col gap-2 justify-center items-center text-center">
-        <i class="pi pi-exclamation-triangle" style="font-size: 3rem;" />
+      <div
+        v-if="roomStatus === 'maintance'"
+        class="h-full flex flex-col gap-2 justify-center items-center text-center"
+      >
+        <i
+          class="pi pi-exclamation-triangle"
+          style="font-size: 3rem;"
+        />
         <h1 class="text-2xl font-semibold">
           {{ $t('pages.allRooms.statuses.roomTitle.closed') }}
         </h1>
@@ -20,10 +26,7 @@
           :value="todayMeetings"
         >
           <template #opposite="slotProps">
-            <div class="flex lg:max-2xl:flex-col gap-1 justify-end">
-              <h2 class="hidden lg:max-2xl:block text-lg">
-                {{ slotProps.item.title }}
-              </h2>
+            <div class="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-1 justify-end">
               <DateTimeDisplay
                 layout="vertical"
                 :current="false"
@@ -34,7 +37,7 @@
             </div>
           </template>
           <template #content="slotProps">
-            <h2 class="block lg:max-2xl:hidden text-lg">
+            <h2 class="lg:block text-sm sm:text-base lg:text-lg">
               {{ slotProps.item.title }}
             </h2>
           </template>
@@ -44,8 +47,8 @@
         v-else
         class="h-full flex flex-row gap-2 justify-center items-center"
       >
-        <i class="pi pi-stopwatch text-2xl" />
-        <h1 class="text-xl">
+        <i class="pi pi-stopwatch text-lg sm:text-xl lg:text-2xl" />
+        <h1 class="text-base sm:text-lg lg:text-xl">
           {{ $t('pages.roomDetails.upcomingMeetings.none') }}
         </h1>
       </div>

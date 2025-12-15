@@ -21,5 +21,10 @@
     "private": "Private"
   },
   "noRent": "No reservations",
-  "comeToRoom": "Go to room"
+  "comeToRoom": "Go to room",
+  "collection": {
+    "cancelReservation": {
+      "title": "Are you sure you want to cancel this reservation?"
+    }
+  }
 }

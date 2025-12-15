@@ -1,30 +1,18 @@
 <template>
-  <div class="flex flex-col gap-10 h-full justify-center">
-    <div class="flex justify-center">
-      <Card
-        pt:body:class="flex flex-col justify-between"
-        pt:title:class="text-2xl sm:text-3xl font-bold text-center"
-        pt:content:class="flex items-center h-[85%]"
-      >
-        <template #title>
-          {{ $t('pages.home.infoSection.title') }}
-        </template>
-      </Card>
-    </div>
-    <div class="grid grid-col-1 sm:grid-cols-3 grid-rows-2 gap-4">
-      <div
-        v-for="info in informations"
-        :key="info.title"
-        class="p-sub-card border border-gray-300 rounded-lg shadow-sm p-4 text-xs sm:text-sm lg:text-base bg-white transform transition duration-300 hover:scale-[1.03] hover:shadow-lg cursor-default"
-      >
-        <div class="font-bold text-xl flex items-center gap-2 mb-2">
-          <i
-            :class="info.icon"
-            style="font-size: 1.3rem;"
-          />
+  <div class="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      v-for="info in informations"
+      :key="info.title"
+      class="info-card"
+    >
+      <div class="info-icon-wrapper">
+        <i :class="info.icon" />
+      </div>
+      <div>
+        <h3 class="info-title">
           {{ info.title }}
-        </div>
-        <p>
+        </h3>
+        <p class="info-text">
           {{ info.content }}
         </p>
       </div>
@@ -56,11 +44,68 @@ const informations = [
     icon: 'pi pi-briefcase',
     content: t('pages.home.infoSection.business.content'),
   },
+  {
+    title: 'Notyfikacje w czasie rzeczywistym',
+    icon: 'pi pi-bell',
+    content: 'Otrzymuj powiadomienia o zbliżających się rezerwacjach i ważnych zmianach w czasie rzeczywistym',
+  },
+  {
+    title: 'Raporty i Statystyki',
+    icon: 'pi pi-chart-line',
+    content: 'Analizuj wykorzystanie sal dzięki szczegółowym raportom i wizualizacjom danych',
+  },
 ]
 </script>
 
 <style scoped>
-.dark .p-sub-card {
-  background-color: #404040;
+.info-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+.dark .info-card {
+  background: var(--p-gray-800);
+  box-shadow: 0 4px 16px rgba(161, 158, 158, 0.06);
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.info-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background: #eff6ff;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: #6366f1;
+  flex-shrink: 0;
+}
+
+.dark .info-icon-wrapper {
+  background: var(--p-gray-700);
+  color: white;
+}
+.info-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.info-text {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.dark .info-text {
+  color: #d1d5db;
 }
 </style>

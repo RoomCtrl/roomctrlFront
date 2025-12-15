@@ -1,7 +1,31 @@
 <template>
+  <Toast />
   <form @submit.prevent="submitForm">
     <div class="flex flex-col gap-8 items-center">
-      <h1 class="text-3xl font-bold pt-[3vh]">
+      <div
+        class="self-start"
+      >
+        <NuxtLink
+          v-if="currentStep === 'email'"
+          to="/login"
+        >
+          <Button
+            type="button"
+            :label="$t('common.buttons.backToLogin')"
+            icon="pi pi-arrow-circle-left"
+            text
+          />
+        </NuxtLink>
+        <Button
+          v-else
+          type="button"
+          :label="$t('common.buttons.backToEmailStep')"
+          icon="pi pi-arrow-circle-left"
+          text
+          @click="goBackToEmail"
+        />
+      </div>
+      <h1 class="text-3xl font-bold">
         {{ currentStep === 'email' ? $t('forms.titles.passwordResetRequest') : $t('forms.titles.passwordResetConfirm') }}
       </h1>
 
@@ -43,19 +67,6 @@
             :loading="loading"
             class="w-[65vw] md:w-[15rem]"
           />
-        </div>
-
-        <div class="text-center">
-          <NuxtLink
-            to="/login"
-          >
-            <Button
-              type="button"
-              :label="$t('common.buttons.backToEmailStep')"
-              icon="pi pi-arrow-circle-left"
-              text
-            />
-          </NuxtLink>
         </div>
       </div>
 
@@ -153,13 +164,6 @@
             :loading="loading"
             class="w-[65vw] md:w-[15rem]"
           />
-          <Button
-            type="button"
-            :label="$t('common.buttons.backToEmailStep')"
-            icon="pi pi-arrow-circle-left"
-            text
-            @click="goBackToEmail"
-          />
         </div>
       </div>
     </div>
@@ -224,8 +228,8 @@ const submitForm = async () => {
 
         toast.add({
           severity: 'success',
-          summary: t('messages.success'),
-          detail: t('messages.passwordResetCodeSent'),
+          summary: t('toast.success'),
+          detail: t('toast.messages.passwordResetCodeSent'),
           life: 5000,
         })
 
@@ -235,8 +239,8 @@ const submitForm = async () => {
         const errorResponse = error as ErrorResponse
         toast.add({
           severity: 'error',
-          summary: t('messages.error'),
-          detail: errorResponse?.data?.message || t('messages.passwordResetRequestFailed'),
+          summary: t('common.error'),
+          detail: errorResponse?.data?.message || t('toast.messages.passwordResetRequestFailed'),
           life: 5000,
         })
       }
@@ -250,8 +254,8 @@ const submitForm = async () => {
       if (formValues.newPassword !== formValues.confirmPassword) {
         toast.add({
           severity: 'error',
-          summary: t('messages.error'),
-          detail: t('messages.passwordsDoNotMatch'),
+          summary: t('common.error'),
+          detail: t('toast.messages.passwordsDoNotMatch'),
           life: 5000,
         })
         return
@@ -267,22 +271,25 @@ const submitForm = async () => {
 
         toast.add({
           severity: 'success',
-          summary: t('messages.success'),
-          detail: t('messages.passwordResetSuccess'),
+          summary: t('toast.success'),
+          detail: t('toast.messages.passwordResetSuccess'),
           life: 5000,
         })
 
         resetEmailForm()
         resetConfirmForm()
 
-        await navigateTo('/login')
+        // Opóźnienie przed przekierowaniem, aby użytkownik zobaczył toast
+        setTimeout(async () => {
+          await navigateTo('/login')
+        }, 2000)
       }
       catch (error) {
         const errorResponse = error as ErrorResponse
         toast.add({
           severity: 'error',
-          summary: t('messages.error'),
-          detail: errorResponse?.data?.message || t('messages.passwordResetFailed'),
+          summary: t('common.error'),
+          detail: errorResponse?.data?.message || t('toast.messages.passwordResetFailed'),
           life: 5000,
         })
       }

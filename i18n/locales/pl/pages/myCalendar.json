@@ -1,4 +1,7 @@
 {
   "title": "Mój kalendarz rezerwacji",
-  "editReservation": "Edycja rezerwacji"
+  "editReservation": "Edycja rezerwacji",
+  "cancelReservation": {
+    "title": "Czy na pewno chcesz anulować tę rezerwację?"
+  }
 }

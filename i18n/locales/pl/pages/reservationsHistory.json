@@ -21,5 +21,10 @@
     "private": "Prywatna"
   },
   "noRent": "Brak rezerwacji",
-  "comeToRoom": "Przejdź do sali"
+  "comeToRoom": "Przejdź do sali",
+  "collection": {
+    "cancelReservation": {
+      "title": "Czy na pewno chcesz anulować tę rezerwację?"
+    }
+  }
 }

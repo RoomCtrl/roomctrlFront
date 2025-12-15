@@ -1,8 +1,8 @@
 <template>
   <Panel
     :header="t('pages.roomDetails.detailedInfo.title')"
-    pt:content:class="grid grid-cols-2 max-sm:grid-cols-1 lg:max-2xl:grid-cols-3 max-sm:grid-rows-6 lg:max-xl:grid-rows-2 grid-rows-3 gap-2  self-center"
-    pt:header:class="text-2xl 2xl:text-3xl font-semibold mb-3"
+    pt:content:class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-2 gap-2 self-center"
+    pt:header:class="text-xl sm:text-2xl 2xl:text-3xl font-semibold mb-3"
     :toggleable="isMobile"
   >
     <Card
@@ -17,15 +17,15 @@
         <div class="flex flex-row gap-2 items-center">
           <i
             :class="info.icon"
-            style="font-size: 1.2rem"
+            class="text-base sm:text-lg"
           />
-          <h1>
+          <h1 class="text-sm sm:text-base">
             {{ info.title }}
           </h1>
         </div>
       </template>
       <template #subtitle>
-        {{ info.value }}
+        <span class="text-xs sm:text-sm">{{ info.value }}</span>
       </template>
     </Card>
   </Panel>

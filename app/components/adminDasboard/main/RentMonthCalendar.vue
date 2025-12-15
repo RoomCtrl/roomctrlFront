@@ -22,6 +22,7 @@
       />
       <Dialog
         v-model:visible="visible"
+        class="w-[70vw]"
         :header="`Rezerwacje - ${date ? new Date(date).toLocaleDateString('pl-PL', { day: '2-digit', month: 'long', year: 'numeric' }) : ''}`"
         modal
         @hide="date = null"

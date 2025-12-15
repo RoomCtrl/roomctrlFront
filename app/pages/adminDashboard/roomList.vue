@@ -1,10 +1,34 @@
 <template>
-  <div class="w-full">
+  <div class="w-full flex flex-col">
+    <div class="flex flex-row justify-between gap-4">
+      <Card>
+        <template #content>
+          <h1 class="font-bold text-4xl">
+            {{ $t('tables.titles.roomList') }}
+          </h1>
+        </template>
+      </Card>
+
+      <Card
+        pt:body:class="h-full"
+        pt:content:class="w-full h-full items-center flex"
+      >
+        <template #content>
+          <Button
+            icon="pi pi-plus"
+            variant="outlined"
+            raised
+            severity="success"
+            :label="$t('forms.roomForm.buttons.addRoom')"
+            @click="openAddModal"
+          />
+        </template>
+      </Card>
+    </div>
     <DataTable
       v-model:filters="filters"
       :pt="{
-        root: { class: 'flex flex-col h-full' },
-        tableContainer: { class: 'h-full' },
+        root: { class: 'flex flex-col' },
         table: { class: tableDisplay },
       }"
       :value="rooms"
@@ -18,20 +42,6 @@
       @update:rows="handleUpdateRows"
       @filter="onFilter"
     >
-      <template #header>
-        <div class="flex flex-row justify-between">
-          <h1 class="font-extrabold text-4xl">
-            {{ $t('tables.titles.roomList') }}
-          </h1>
-          <Button
-            icon="pi pi-plus"
-            severity="success"
-            variant="outlined"
-            :label="$t('forms.roomForm.buttons.addRoom')"
-            @click="openAddModal"
-          />
-        </div>
-      </template>
       <BaseTextFilterColumn
         key="roomName"
         field="roomName"
@@ -75,22 +85,28 @@
         <template #body="slotProps">
           <div class="flex flex-row gap-2">
             <ActionButton
-              icon="pi pi-box"
+              v-tooltip.left="{ value: $t('pages.reservationsHistory.comeToRoom') }"
+              icon="pi pi-sign-out"
               mode="goRoom"
+              raised
               inTable
               :room-id="slotProps.data.roomId"
             />
             <Button
+              v-tooltip.left="{ value: $t('common.buttons.edit') }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-pencil"
               severity="info"
+              raised
               variant="outlined"
               @click="openEditModal(slotProps.data)"
             />
             <Button
+              v-tooltip.left="{ value: $t('common.buttons.delete') }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-trash"
               severity="danger"
+              raised
               variant="outlined"
               @click="deleteRoom(slotProps.data.roomId)"
             />
@@ -120,6 +136,7 @@
       />
     </Dialog>
 
+    <ConfirmDialog />
     <Toast />
   </div>
 </template>
@@ -138,10 +155,12 @@ definePageMeta({
   layout: 'admin-dashboard',
 })
 
-const { rooms, loading, fetchRooms, createRoom, updateRoom, deleteRoom: deleteRoomAPI } = useRoom()
+const { rooms, loading, fetchRooms, createRoom, updateRoom, deleteRoom: deleteRoomAPI, uploadImage } = useRoom()
 const { user } = useAuth()
 const { rows, paginatorPosition, tableDisplay, onFilter, handleUpdateRows } = useDataTable(rooms, 17)
 const toast = useToast()
+const confirm = useConfirm()
+const { t } = useI18n()
 
 const rowsPerPage = [17, 34, 51]
 
@@ -174,11 +193,19 @@ const resetModal = () => {
   showModal.value = false
 }
 
-const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateRequest) => {
+const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateRequest, image?: File) => {
   formLoading.value = true
   try {
+    let roomId: string
+
     if (isEditMode.value && selectedRoom.value && 'roomId' in selectedRoom.value) {
-      await updateRoom(selectedRoom.value.roomId as string, formData as IRoomUpdateRequest)
+      roomId = selectedRoom.value.roomId as string
+      await updateRoom(roomId, formData as IRoomUpdateRequest)
+
+      if (image) {
+        await uploadImage(roomId, image)
+      }
+
       toast.add({
         severity: 'success',
         summary: 'Sukces',
@@ -187,13 +214,19 @@ const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateReques
       })
     }
     else {
-      const organizationId = (user.value as unknown as Record<string, unknown>)?.organizationId as string | undefined
+      const organizationId = user.value?.organization.id
 
       const createData: IRoomCreateRequest = {
         ...formData as IRoomCreateRequest,
         organizationId,
       }
-      await createRoom(createData)
+      const createdRoom = await createRoom(createData)
+      roomId = createdRoom.roomId
+
+      if (image) {
+        await uploadImage(roomId, image)
+      }
+
       toast.add({
         severity: 'success',
         summary: 'Sukces',
@@ -220,28 +253,49 @@ const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateReques
 }
 
 const deleteRoom = async (roomId: string) => {
-  if (confirm('Czy na pewno chcesz usunąć tę salę?')) {
-    try {
-      await deleteRoomAPI(roomId)
-      toast.add({
-        severity: 'success',
-        summary: 'Sukces',
-        detail: 'Sala została usunięta',
-        life: 3000,
-      })
-    }
-    catch (error) {
-      toast.add({
-        severity: 'error',
-        summary: 'Błąd',
-        detail: error instanceof Error ? error.message : 'Operacja nie powiodła się',
-        life: 3000,
-      })
-    }
-  }
+  confirm.require({
+    message: t('pages.adminDashboard.main.roomList.deleteRoom.title'),
+    header: t('common.toast.danger'),
+    icon: 'pi pi-info-circle',
+    rejectLabel: t('common.buttons.cancel'),
+    rejectProps: {
+      label: t('common.buttons.cancel'),
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: t('common.buttons.delete'),
+      severity: 'danger',
+    },
+    accept: async () => {
+      try {
+        await deleteRoomAPI(roomId)
+        toast.add({
+          severity: 'success',
+          summary: 'Sukces',
+          detail: 'Sala została usunięta',
+          life: 3000,
+        })
+      }
+      catch (error) {
+        toast.add({
+          severity: 'error',
+          summary: 'Błąd',
+          detail: error instanceof Error ? error.message : 'Operacja nie powiodła się',
+          life: 3000,
+        })
+      }
+    },
+  })
 }
 
 onMounted(() => {
   fetchRooms(false)
 })
 </script>
+
+<style scoped>
+.p-datatable {
+  @apply min-h-[85vh] h-auto
+}
+</style>

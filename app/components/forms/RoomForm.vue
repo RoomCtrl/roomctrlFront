@@ -181,6 +181,34 @@
       </small>
     </div>
 
+    <div class="col-span-2">
+      <label
+        for="image"
+        class="inputLabel"
+      >
+        {{ $t('forms.fields.image') }}
+      </label>
+      <div class="w-full">
+        <FileUpload
+          id="image"
+          mode="basic"
+          accept="image/jpeg,image/png,application/pdf"
+          :max-file-size="5000000"
+          :choose-label="selectedImage ? selectedImage.name : $t('forms.roomForm.placeholders.chooseImage')"
+          @select="onImageSelect"
+        />
+      </div>
+      <small class="text-gray-400 block mt-1">
+        Image file (JPG, PNG) or PDF document
+      </small>
+      <small
+        v-if="selectedImage"
+        class="text-gray-400 block mt-1"
+      >
+        {{ $t('forms.roomForm.messages.selectedImage') }}: {{ selectedImage.name }}
+      </small>
+    </div>
+
     <div>
       <label class="inputLabel">
         {{ $t('forms.fields.airConditioning') }}
@@ -331,11 +359,12 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  submit: [data: IRoomCreateRequest | IRoomUpdateRequest]
+  submit: [data: IRoomCreateRequest | IRoomUpdateRequest, image?: File]
   cancel: []
 }>()
 
 const isEditMode = computed(() => !!props.room)
+const selectedImage = ref<File | null>(null)
 
 const formData = reactive<RoomFormData>({
   roomName: '',
@@ -355,6 +384,7 @@ const formData = reactive<RoomFormData>({
 const errors = reactive<FormErrors>({})
 
 const { t } = useI18n()
+const confirm = useConfirm()
 
 const lightingOptions = computed(() => [
   { label: t('forms.roomForm.lighting.natural'), value: 'natural' },
@@ -393,6 +423,7 @@ const initializeForm = () => {
     formData.airConditioning = { min: 18, max: 24 }
     formData.equipment = []
   }
+  selectedImage.value = null
   clearErrors()
 }
 
@@ -456,7 +487,14 @@ const submitForm = () => {
     equipment: formData.equipment,
   }
 
-  emit('submit', submitData)
+  emit('submit', submitData, selectedImage.value || undefined)
+}
+
+const onImageSelect = (event: any) => {
+  const file = event.files?.[0]
+  if (file) {
+    selectedImage.value = file
+  }
 }
 
 const addEquipment = () => {
@@ -468,7 +506,24 @@ const addEquipment = () => {
 }
 
 const removeEquipment = (index: number) => {
-  formData.equipment.splice(index, 1)
+  confirm.require({
+    message: t('components.forms.roomForm.removeEquipment.title'),
+    header: t('common.toast.danger'),
+    icon: 'pi pi-info-circle',
+    rejectLabel: t('common.buttons.cancel'),
+    rejectProps: {
+      label: t('common.buttons.cancel'),
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: t('common.buttons.delete'),
+      severity: 'danger',
+    },
+    accept: () => {
+      formData.equipment.splice(index, 1)
+    },
+  })
 }
 
 watch(

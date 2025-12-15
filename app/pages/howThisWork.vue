@@ -19,7 +19,7 @@
           :class="[
             'px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-all duration-300 transform text-sm sm:text-base',
             activeTab === tab.id
-              ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg scale-105'
+              ? tab.activeColor
               : 'bg-surface-50 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 hover:shadow-md',
           ]"
           @click="activeTab = tab.id"
@@ -29,9 +29,7 @@
         </button>
       </div>
 
-      <!-- Content Area -->
       <div class="relative w-full">
-        <!-- Login Instructions -->
         <div
           v-if="activeTab === 'login'"
           class="animate-fade-in w-full"
@@ -39,7 +37,6 @@
           <LoginInstructions />
         </div>
 
-        <!-- Register Instructions -->
         <div
           v-if="activeTab === 'register'"
           class="animate-fade-in w-full"
@@ -47,7 +44,6 @@
           <RegisterInstructions />
         </div>
 
-        <!-- Features -->
         <div
           v-if="activeTab === 'features'"
           class="animate-fade-in w-full"
@@ -71,16 +67,19 @@ const tabs = [
     id: 'login',
     label: 'Logowanie',
     icon: 'pi pi-sign-in',
+    activeColor: 'bg-blue-600 dark:bg-blue-500 text-white shadow-lg scale-105',
   },
   {
     id: 'register',
     label: 'Rejestracja',
     icon: 'pi pi-user-plus',
+    activeColor: 'bg-purple-600 dark:bg-purple-500 text-white shadow-lg scale-105',
   },
   {
     id: 'features',
     label: 'Funkcje',
     icon: 'pi pi-star',
+    activeColor: 'bg-green-600 dark:bg-green-500 text-white shadow-lg scale-105',
   },
 ]
 </script>

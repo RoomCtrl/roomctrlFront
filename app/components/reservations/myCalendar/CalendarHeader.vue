@@ -40,53 +40,49 @@
             {
               label: $t('date.week'),
               icon: 'pi pi-list',
-              command: () => $emit('change-view', 'week')
+              command: () => $emit('change-view', 'week'),
             },
             {
               label: $t('date.month'),
               icon: 'pi pi-calendar',
-              command: () => $emit('change-view', 'month')
-            }
+              command: () => $emit('change-view', 'month'),
+            },
           ]"
           icon="pi pi-arrow-right-arrow-left"
           :label="$t('date.day')"
           severity="info"
-          variant="outlined"
         />
-        <!-- Rozwijana lista dla widoku tygodniowego -->
         <SplitButton
           v-else-if="viewMode === 'week'"
           :model="[
             {
               label: $t('date.day'),
               icon: 'pi pi-calendar-times',
-              command: () => $emit('change-view', 'day')
+              command: () => $emit('change-view', 'day'),
             },
             {
               label: $t('date.month'),
               icon: 'pi pi-calendar',
-              command: () => $emit('change-view', 'month')
-            }
+              command: () => $emit('change-view', 'month'),
+            },
           ]"
           icon="pi pi-arrow-right-arrow-left"
           :label="$t('date.week')"
           severity="info"
-          variant="outlined"
         />
-        <!-- Rozwijana lista dla widoku miesięcznego -->
         <SplitButton
           v-else
           :model="[
             {
               label: $t('date.day'),
               icon: 'pi pi-calendar-times',
-              command: () => $emit('change-view', 'day')
+              command: () => $emit('change-view', 'day'),
             },
             {
               label: $t('date.week'),
               icon: 'pi pi-list',
-              command: () => $emit('change-view', 'week')
-            }
+              command: () => $emit('change-view', 'week'),
+            },
           ]"
           icon="pi pi-arrow-right-arrow-left"
           :label="$t('date.month')"
@@ -122,17 +118,17 @@ const formattedDate = computed(() => {
     const dayString = t(
       dayOfWeekFullNames[
         props.currentDate.getDay() === 0 ? 6 : props.currentDate.getDay() - 1
-      ]
+      ],
     )
     const monthString = t(
-      monthNamesShort[props.currentDate.getMonth()] as string
+      monthNamesShort[props.currentDate.getMonth()] as string,
     )
     return `${dayString}, ${props.currentDate.getDate()} ${monthString} ${props.currentDate.getFullYear()}`
   }
 
   if (props.viewMode === 'month') {
     const monthString = t(
-      monthNamesShort[props.currentDate.getMonth()] as string
+      monthNamesShort[props.currentDate.getMonth()] as string,
     )
     return `${monthString} ${props.currentDate.getFullYear()}`
   }
@@ -150,9 +146,9 @@ const formattedDate = computed(() => {
 
 const activeButton = computed(() => {
   const today = new Date()
-  return props.currentDate.getDate() === today.getDate() &&
-    props.currentDate.getMonth() === today.getMonth() &&
-    props.currentDate.getFullYear() === today.getFullYear()
+  return props.currentDate.getDate() === today.getDate()
+    && props.currentDate.getMonth() === today.getMonth()
+    && props.currentDate.getFullYear() === today.getFullYear()
     ? 'outlined'
     : ''
 })
@@ -161,9 +157,11 @@ const previousPeriod = () => {
   const newDate = new Date(props.currentDate)
   if (props.viewMode === 'day') {
     newDate.setDate(props.currentDate.getDate() - 1)
-  } else if (props.viewMode === 'month') {
+  }
+  else if (props.viewMode === 'month') {
     newDate.setMonth(props.currentDate.getMonth() - 1)
-  } else {
+  }
+  else {
     newDate.setDate(props.currentDate.getDate() - 7)
   }
   emit('updateDate', newDate)
@@ -173,9 +171,11 @@ const nextPeriod = () => {
   const newDate = new Date(props.currentDate)
   if (props.viewMode === 'day') {
     newDate.setDate(props.currentDate.getDate() + 1)
-  } else if (props.viewMode === 'month') {
+  }
+  else if (props.viewMode === 'month') {
     newDate.setMonth(props.currentDate.getMonth() + 1)
-  } else {
+  }
+  else {
     newDate.setDate(props.currentDate.getDate() + 7)
   }
   emit('updateDate', newDate)

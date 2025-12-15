@@ -65,11 +65,10 @@ const getBookingsByDateRange = (days: number | null) => {
 
   const now = new Date()
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  
+
   let filteredBookings = props.bookings
 
   if (days === 0) {
-    // Dzisiaj - rezerwacje które zaczynają się dzisiaj lub są aktywne dzisiaj
     filteredBookings = props.bookings.filter((booking) => {
       const bookingStart = new Date(booking.startedAt)
       const bookingEnd = new Date(booking.endedAt)
@@ -77,13 +76,12 @@ const getBookingsByDateRange = (days: number | null) => {
       const endOfBookingDay = new Date(bookingEnd.getFullYear(), bookingEnd.getMonth(), bookingEnd.getDate())
       return startOfBookingDay <= startOfToday && endOfBookingDay >= startOfToday
     })
-  } else if (days !== null) {
-    // Ostatnie X dni
+  }
+  else if (days !== null) {
     const dateLimit = new Date(now.getTime() - days * 24 * 60 * 60 * 1000)
     filteredBookings = props.bookings.filter((booking) => {
       const bookingStart = new Date(booking.startedAt)
       const bookingEnd = new Date(booking.endedAt)
-      // Uwzględnij rezerwacje, które zaczynają się w tym okresie LUB kończą się w tym okresie
       return bookingStart >= dateLimit || bookingEnd >= dateLimit
     })
   }

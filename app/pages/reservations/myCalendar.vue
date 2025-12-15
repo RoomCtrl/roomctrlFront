@@ -69,7 +69,7 @@
                     @click="openModal(res)"
                     @keydown.enter="openModal(res)"
                   >
-                    <div class="font-medium text-sm">
+                    <div class="font-medium text-sm flex items-center gap-2">
                       {{ res.title }}
                     </div>
                     <div class="text-xs opacity-90">
@@ -146,7 +146,7 @@
                 @click="openModal(res)"
                 @keydown.enter="openModal(res)"
               >
-                <div class="font-medium">
+                <div class="font-medium flex items-center gap-1">
                   {{ res.title }}
                 </div>
                 <div class="text-xs opacity-90">
@@ -230,6 +230,8 @@
       />
     </template>
   </Card>
+  <ConfirmDialog />
+  <Toast />
 </template>
 
 <script setup>
@@ -274,7 +276,6 @@ const reservations = computed(() => {
       attendees: booking.participantsCount,
       color: color,
       isPrivate: booking.isPrivate,
-      status: booking.status,
       roomName: booking.room.roomName,
     }
   })

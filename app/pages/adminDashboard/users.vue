@@ -1,12 +1,26 @@
 <template>
-  <div class="flex flex-col h-full w-full">
+  <div class="flex flex-col w-full">
     <Toast />
     <ConfirmDialog />
+    <div class="flex flex-row justify-between gap-4">
+      <Card>
+        <template #content>
+          <h1 class="font-extrabold text-4xl">
+            {{ $t('pages.adminDashboard.users.title') }}
+          </h1>
+        </template>
+      </Card>
+
+      <Card>
+        <template #content>
+          <AddUserButton />
+        </template>
+      </Card>
+    </div>
     <DataTable
       v-model:filters="filters"
       :pt="{
         root: { class: 'flex flex-col h-full' },
-        tableContainer: { class: 'h-full' },
         table: { class: tableDisplay },
       }"
       :value="users"
@@ -20,14 +34,6 @@
       @update:rows="handleUpdateRows"
       @filter="onFilter"
     >
-      <template #header>
-        <div class="flex flex-row justify-between">
-          <h1 class="font-extrabold text-4xl">
-            {{ $t('pages.adminDashboard.users.title') }}
-          </h1>
-          <AddUserButton />
-        </div>
-      </template>
       <BaseTextFilterColumn
         :key="'username'"
         field="username"

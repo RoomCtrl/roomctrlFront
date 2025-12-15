@@ -1,4 +1,23 @@
 {
+  "hero": {
+    "title": "Twoje Sale",
+    "titleAccent": "pod Pe\u0142n\u0105 Kontrol\u0105",
+    "description": "Platforma do zarz\u0105dzania rezerwacjami przestrzeni akademickich. Proste, szybkie i efektywne rozwi\u0105zanie dla Twojej uczelni.",
+    "bookRoom": "Zarezerwuj Sal\u0119",
+    "downloadApp": "Pobierz Aplikacj\u0119",
+    "users": "U\u017cytkownik\u00f3w",
+    "satisfaction": "Zadowolenia",
+    "availability": "Dost\u0119pno\u015b\u0107"
+  },
+  "howThisWork": {
+    "title": "Jak dzia\u0142a RoomCtrl?",
+    "subtitle": "Zapoznaj si\u0119 z prostym procesem rezerwacji sal i odkryj wszystkie funkcje naszej platformy.",
+    "seeHowItWorks": "Zobacz jak to dzia\u0142a"
+  },
+  "forOrganizations": {
+    "title": "Uczelnie i Firmy",
+    "description": "Rozwi\u0105zanie stworzone z my\u015bl\u0105 o uczelniach, korporacjach i ka\u017cdej organizacji potrzebuj\u0105cej efektywnego systemu zarz\u0105dzania przestrzeni\u0105. RoomCtrl dostosowuje si\u0119 do Twoich potrzeb."
+  },
   "carousel": {
     "subTitle": "Nowy standard organizacji przestrzeni pracy"
   },
@@ -41,5 +60,14 @@
       "title": "Biznes",
       "content": "Wydajna organizacja przestrzeni biurowej – system ułatwia zarządzanie salkami konferencyjnymi, hot-deskingiem, a także zapewnia raportowanie wykorzystania przestrzeni i wsparcie dla pracy hybrydowej."
     }
+  },
+  "benefits": {
+    "title": "Dlaczego warto wybrać RoomCtrl"
+  },
+  "cta": {
+    "title": "Zacznij używać RoomCtrl już dziś",
+    "description": "Dołącz do tysięcy użytkowników, którzy usprawniają zarządzanie rezerwacjami sal dzięki naszej platformie.",
+    "startNow": "Rozpocznij teraz",
+    "contact": "Skontaktuj się"
   }
 }
