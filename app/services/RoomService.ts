@@ -27,4 +27,16 @@ export class RoomService {
   async deleteRoom(roomId: string): Promise<void> {
     return await this.repository.deleteRoom(roomId)
   }
+
+  async getFavoriteRooms(withBookings: boolean = false): Promise<IRoomCard[]> {
+    return await this.repository.getFavoriteRooms(withBookings)
+  }
+
+  async toggleFavorite(roomId: string): Promise<void> {
+    return await this.repository.toggleFavorite(roomId)
+  }
+
+  async uploadImage(roomId: string, image: File): Promise<{ message: string, imagePath: string }> {
+    return await this.repository.uploadImage(roomId, image)
+  }
 }

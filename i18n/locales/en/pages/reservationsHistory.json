@@ -11,15 +11,19 @@
   "details": "Details",
   "statuses": {
     "all": "All",
-    "planned": "Planned",
+    "active": "Active",
     "cancelled": "Cancelled",
-    "ended": "Ended",
-    "toApprove": "Pending approval"
+    "completed": "Completed"
   },
   "reservationTypes": {
     "public": "Public",
     "private": "Private"
   },
   "noRent": "No reservations",
-  "comeToRoom": "Go to room"
+  "comeToRoom": "Go to room",
+  "collection": {
+    "cancelReservation": {
+      "title": "Are you sure you want to cancel this reservation?"
+    }
+  }
 }

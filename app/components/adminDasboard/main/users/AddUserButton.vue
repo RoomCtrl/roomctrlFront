@@ -1,5 +1,7 @@
 <template>
   <Button
+    severity="success"
+    variant="outlined"
     icon="pi pi-user-plus"
     :label="$t('pages.adminDashboard.users.buttons.add')"
     @click="visible = true"

@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
+    {{ user }}
     <div class="grid grid-cols-3 grid-rows-4 gap-2 py-[0.4rem]">
       <div class="w-[70vw] md:w-[23rem]">
         <InputGroup>
@@ -258,11 +259,13 @@ const { value: password, errorMessage: passwordError, handleBlur: passwordBlur }
 
 const loading = ref<boolean>(false)
 
+const { user } = useAuth()
+
 const submitForm = handleSubmit(async (formValues: IUserAddResponse) => {
   loading.value = true
 
   try {
-    formValues.organizationId = '0199f775-e375-7018-abeb-b535b507472d'
+    formValues.organizationId = user.value?.organization.id
     formValues.firstLoginStatus = true
     addUser(formValues)
     resetForm()

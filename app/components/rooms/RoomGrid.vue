@@ -11,7 +11,7 @@
       >
         <NuxtLink
           v-if="room.status != 'occupied'"
-          :to="'rooms/' + room.roomId"
+          :to="localePath(`/rooms/${room.roomId}`)"
         >
           <RoomCard :room="room" />
         </NuxtLink>
@@ -36,4 +36,6 @@ import RoomCard from './RoomCard.vue'
 defineProps({
   rooms: Object,
 })
+
+const localePath = useLocalePath()
 </script>

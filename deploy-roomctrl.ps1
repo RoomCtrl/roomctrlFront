@@ -1,5 +1,3 @@
-# PowerShell deployment script for Windows
-
 $REMOTE = "roomctrl_admin@185.25.151.154"
 $REMOTE_PATH = "roomctrlFront"
 

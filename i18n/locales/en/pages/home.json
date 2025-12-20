@@ -1,4 +1,23 @@
 {
+  "hero": {
+    "title": "Your Rooms",
+    "titleAccent": "under Full Control",
+    "description": "Platform for managing academic space reservations. Simple, fast and efficient solution for your institution.",
+    "bookRoom": "Book a Room",
+    "downloadApp": "Download App",
+    "users": "Users",
+    "satisfaction": "Satisfaction",
+    "availability": "Availability"
+  },
+  "howThisWork": {
+    "title": "How does RoomCtrl work?",
+    "subtitle": "Discover the simple room booking process and explore all the features of our platform.",
+    "seeHowItWorks": "See how it works"
+  },
+  "forOrganizations": {
+    "title": "Universities and Companies",
+    "description": "Solution designed for universities, corporations and any organization needing an efficient space management system. RoomCtrl adapts to your needs."
+  },
   "carousel": {
     "subTitle": "A new standard in workspace organization"
   },
@@ -41,5 +60,14 @@
       "title": "Business",
       "content": "Efficient office space organization – the system simplifies the management of meeting rooms and hot-desking, while also providing space usage reporting and support for hybrid work."
     }
+  },
+  "benefits": {
+    "title": "Why choose RoomCtrl"
+  },
+  "cta": {
+    "title": "Start using RoomCtrl today",
+    "description": "Join thousands of users who streamline room booking management with our platform.",
+    "startNow": "Get started",
+    "contact": "Contact us"
   }
 }

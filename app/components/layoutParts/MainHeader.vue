@@ -30,23 +30,28 @@
       </ClientOnly>
     </div>
 
-    <div class="hidden xl:flex flex-row w-[40rem] justify-center">
-      <div
-        v-for="(tab, index) in tabs"
-        :key="index"
-        class="flex-none"
-      >
-        <TheDropMenu :tab="tab" />
+    <ClientOnly>
+      <div class="hidden xl:flex flex-row w-[40rem] justify-center">
+        <div
+          v-for="(tab, index) in tabs"
+          :key="index"
+          class="flex-none"
+        >
+          <TheDropMenu :tab="tab" />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
+    
     <UserHeaderOptions
       :dark-mode="darkMode"
     />
-    <div
-      class="block xl:hidden"
-    >
-      <MobileHeader :tabs="tabs" />
-    </div>
+    <ClientOnly>
+      <div
+        class="block xl:hidden"
+      >
+        <MobileHeader :tabs="tabs" />
+      </div>
+    </ClientOnly>
   </div>
 </template>
 
@@ -113,6 +118,12 @@ const tabs = computed(() => [
         label: t('layouts.main.pages.roomsList.title'),
         route: '/rooms',
         description: t('layouts.main.pages.roomsList.description'),
+        auth: isUserLogin.value,
+      },
+      {
+        label: t('layouts.main.pages.favoriteRooms.title'),
+        route: '/rooms/favorites',
+        description: t('layouts.main.pages.favoriteRooms.description'),
         auth: isUserLogin.value,
       },
       {

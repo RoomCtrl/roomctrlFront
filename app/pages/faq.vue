@@ -1,5 +1,5 @@
 <template>
-  <Card class="flex flex-col gap-4">
+  <Card class="flex flex-col gap-4 w-full">
     <template #content>
       <div
         v-for="(faq, index) in faqData"

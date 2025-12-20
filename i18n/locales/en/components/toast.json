@@ -1,6 +1,11 @@
 {
   "success": "Success",
   "messages": {
-    "copied": "Copied !"
+    "copied": "Copied !",
+    "passwordResetCodeSent": "Reset token has been sent to your email",
+    "passwordResetSuccess": "Password has been successfully reset",
+    "passwordResetRequestFailed": "Failed to send reset token",
+    "passwordResetFailed": "Failed to reset password",
+    "passwordsDoNotMatch": "Passwords do not match"
   }
 }

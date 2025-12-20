@@ -77,8 +77,17 @@ export class BookingRepository {
     })
 
     if (!response.ok) {
-      const errorText = await response.text()
-      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+      let errorData
+      try {
+        errorData = await response.json()
+      }
+      catch {
+        errorData = { code: response.status, message: response.statusText }
+      }
+      const error: any = new Error(errorData.message || `API Error: ${response.status}`)
+      error.code = errorData.code || response.status
+      error.data = errorData
+      throw error
     }
 
     return await response.json()
@@ -86,7 +95,7 @@ export class BookingRepository {
 
   async updateBooking(bookingId: string, updatedBooking: IBookingUpdateRequest): Promise<IBooking> {
     const response = await fetch(`${this.baseURL}/${bookingId}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify(updatedBooking),
       headers: {
         'Content-Type': 'application/json',
@@ -95,8 +104,17 @@ export class BookingRepository {
     })
 
     if (!response.ok) {
-      const errorText = await response.text()
-      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+      let errorData
+      try {
+        errorData = await response.json()
+      }
+      catch {
+        errorData = { code: response.status, message: response.statusText }
+      }
+      const error: any = new Error(errorData.message || `API Error: ${response.status}`)
+      error.code = errorData.code || response.status
+      error.data = errorData
+      throw error
     }
 
     return await response.json()

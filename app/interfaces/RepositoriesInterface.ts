@@ -32,6 +32,7 @@ export interface IGetUserProfileResponse {
   firstName: string
   lastName: string
   firstLogonStatus: boolean
+  organizationId?: string
 }
 
 export interface IUserLoginResponse {
@@ -49,5 +50,18 @@ export interface IContactMailData {
 
 export interface IContactMailResponse {
   code: number
+  message: string
+}
+
+export interface IPasswordResetRequest {
+  email: string
+}
+
+export interface IPasswordResetConfirm {
+  token: string
+  newPassword: string
+}
+
+export interface IPasswordResetResponse {
   message: string
 }

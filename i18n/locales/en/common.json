@@ -19,14 +19,28 @@
     "save": "Save",
     "next": "Next",
     "previous": "Previous",
-    "save": "Save",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "forgotPassword": "Forgot password?",
+    "sendCode": "Send token",
+    "resetPassword": "Reset password",
+    "backToLogin": "Back to login",
+    "backToEmailStep": "Back to email step"
   },
   "toast": {
     "danger": "Warning!",
     "success": "Success",
-    "update": "Updated"
+    "update": "Updated",
+    "bookingCreated": "Booking has been created",
+    "bookingUpdated": "Booking has been updated",
+    "bookingCancelled": "Booking has been cancelled",
+    "bookingError": "Error during booking operation",
+    "bookingCancelError": "Error cancelling booking",
+    "favoriteAdded": "Room added to favorites",
+    "favoriteRemoved": "Room removed from favorites",
+    "favoriteError": "Error changing favorites",
+    "userDeleted": "User has been deleted",
+    "userDeleteError": "Error deleting user"
   },
   "roomParameters": {
     "capacity": "Capacity: ",

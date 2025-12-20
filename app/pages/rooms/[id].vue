@@ -2,28 +2,30 @@
   <div class="flex w-full">
     <div
       v-if="roomDetails"
-      class="grid max-sm:flex max-sm:flex-col grid-cols-1 lg:grid-cols-6 gap-2 mx-1 lg:mx-5 w-full auto-rows-min"
+      class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-2 mx-2 sm:mx-3 md:mx-4 lg:mx-5 w-full auto-rows-min"
     >
       <GeneralInfo
-        class="lg:col-span-5 row-start-1"
+        class="col-span-1 md:col-span-3 lg:col-span-5 md:row-start-1"
         :room-name="roomDetails.roomName"
         :room-description="roomDetails.description"
         :started-at="roomDetails.currentBooking?.startedAt"
         :ended-at="roomDetails.currentBooking?.endedAt"
         :current-booking="roomDetails?.currentBooking"
         :next-bookings="roomDetails?.nextBookings"
+        :room-id="roomDetails?.roomId || ''"
+        :is-favorite="roomDetails?.isFavorite || false"
         @show-booking-form="showBookingForm = true"
       />
 
       <CurrentMeeting
         v-if="roomDetails && status !== 'maintance'"
-        class="lg:col-span-1 row-start-1"
+        class="col-span-1 md:row-start-1"
         :current-booking="roomDetails.currentBooking as any"
       />
 
       <Card
         v-else
-        class="lg:col-span-1 row-start-1"
+        class="col-span-1 md:row-start-1"
         pt:root:class="border-l-4 border-yellow-600 overflow-hidden"
         pt:body:class="flex justify-center items-center bg-yellow-200/80 text-yellow-900 w-full h-full"
         pt:content:class="text-lg font-extrabold"
@@ -42,21 +44,21 @@
       </Card>
 
       <DetailedInfo
-        class="lg:col-span-2 lg:col-start-1 row-start-2"
+        class="col-span-1 md:col-span-2 lg:col-span-2 md:col-start-1 md:row-start-2"
         :room-parameters="roomDetails as any"
       />
 
       <EqupimentInfo
-        class="lg:col-span-2 lg:col-start-3 row-start-2"
+        class="col-span-1 md:col-span-2 lg:col-span-2 md:col-start-3 md:row-start-2"
         :equpiments="roomDetails?.equipment as any"
       />
 
       <UpcomingMeeting
-        class="lg:col-span-2 lg:col-start-5 row-start-2 row-span-2"
+        class="col-span-1 md:col-span-4 lg:col-span-2 md:row-start-3 lg:col-start-5 lg:row-start-2 lg:row-span-2"
         :meetings="roomDetails?.nextBookings as any"
       />
 
-      <div class="lg:col-span-4 lg:col-start-1 row-start-3 grid grid-cols-3 gap-2">
+      <div class="col-span-1 md:col-span-4 lg:col-span-4 md:col-start-1 md:row-start-4 lg:row-start-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         <InfoCard
           :header="$t('pages.roomDetails.cleaning.title')"
         >
@@ -133,6 +135,7 @@
     </div>
 
     <BookingForm
+      v-if="roomDetails"
       :visible="showBookingForm"
       :room-id="roomDetails.roomId"
       :capacity="roomDetails.capacity"
@@ -140,6 +143,7 @@
       @cancel="showBookingForm = false"
       @close="showBookingForm = false"
     />
+    <Toast />
   </div>
 </template>
 
@@ -158,7 +162,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const { room: roomDetails, fetchRoom } = useRoom()
+const { room: roomDetails, fetchRoom, loadFavoriteIds } = useRoom()
 
 const showBookingForm = ref(false)
 
@@ -186,9 +190,10 @@ const handleBookingSuccess = () => {
   fetchRoom(roomId, true)
 }
 
-onMounted(() => {
+onMounted(async () => {
   const roomId = String(route.params.id)
-  fetchRoom(roomId, true)
+  await loadFavoriteIds() // Load favorite IDs first
+  await fetchRoom(roomId, true)
 })
 </script>
 

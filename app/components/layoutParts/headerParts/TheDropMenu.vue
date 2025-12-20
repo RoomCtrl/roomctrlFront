@@ -1,48 +1,49 @@
 <template>
-  <NuxtLink
-    v-if="!tab.items"
-    :to="localePath(tab.route)"
-    class="relative px-4 py-3 font-semibold transition-all duration-200 hover:text-[#D74141] group inline-flex items-center"
-    exact-active-class="text-[#D74141] font-semibold"
-  >
-    {{ tab.label }}
-    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D74141] transition-all duration-200 group-hover:w-full" />
-    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#D74141] scale-x-0 transition-transform duration-200 group-[.router-link-exact-active]:scale-x-100" />
-  </NuxtLink>
-
-  <div
-    v-else
-    class="relative cursor-pointer px-4 py-3 font-semibold transition-all duration-200 hover:text-[#D74141] group inline-flex items-center"
-    :class="{ 'text-[#D74141]': arrowPosition }"
-    @mouseenter="showDropdown"
-    @mouseleave="scheduleHide"
-  >
-    <div class="flex items-center gap-2">
+  <ClientOnly>
+    <NuxtLink
+      v-if="!tab.items"
+      :to="localePath(tab.route)"
+      class="relative px-4 py-3 font-semibold transition-all duration-200 hover:text-[#D74141] group inline-flex items-center"
+      exact-active-class="text-[#D74141] font-semibold"
+    >
       {{ tab.label }}
-      <i
-        class="transition-transform duration-200"
-        style="font-size:0.875rem ;"
-        :class="{
-          'pi pi-angle-up': arrowPosition,
-          'pi pi-angle-down': !arrowPosition,
-        }"
+      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D74141] transition-all duration-200 group-hover:w-full" />
+      <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#D74141] scale-x-0 transition-transform duration-200 group-[.router-link-exact-active]:scale-x-100" />
+    </NuxtLink>
+
+    <div
+      v-else
+      class="relative cursor-pointer px-4 py-3 font-semibold transition-all duration-200 hover:text-[#D74141] group inline-flex items-center"
+      :class="{ 'text-[#D74141]': arrowPosition }"
+      @mouseenter="showDropdown"
+      @mouseleave="scheduleHide"
+    >
+      <div class="flex items-center gap-2">
+        {{ tab.label }}
+        <i
+          class="transition-transform duration-200"
+          style="font-size:0.875rem ;"
+          :class="{
+            'pi pi-angle-up': arrowPosition,
+            'pi pi-angle-down': !arrowPosition,
+          }"
+        />
+      </div>
+
+      <span
+        class="absolute bottom-0 left-0 h-0.5 bg-[#D74141] transition-all duration-200"
+        :class="arrowPosition ? 'w-full' : 'w-0 group-hover:w-full'"
       />
     </div>
 
-    <span
-      class="absolute bottom-0 left-0 h-0.5 bg-[#D74141] transition-all duration-200"
-      :class="arrowPosition ? 'w-full' : 'w-0 group-hover:w-full'"
-    />
-  </div>
-
-  <Popover
-    v-if="tab.items"
-    ref="op"
-    pt:content:class=".p-card-link rounded-lg shadow-xl p-6 min-w-[500px]"
-    :dismissable="false"
-    @mouseenter="cancelHide"
-    @mouseleave="scheduleHide"
-  >
+    <Popover
+      v-if="tab.items"
+      ref="op"
+      pt:content:class=".p-card-link rounded-lg shadow-xl p-6 min-w-[500px]"
+      :dismissable="false"
+      @mouseenter="cancelHide"
+      @mouseleave="scheduleHide"
+    >
     <div class="mb-6 pb-3 border-b border-gray-200">
       <h2 class="text-2xl font-bold">
         {{ tab.label }}
@@ -78,6 +79,7 @@
       </div>
     </div>
   </Popover>
+  </ClientOnly>
 </template>
 
 <script setup>

@@ -6,7 +6,8 @@ export class RoomRepository {
   constructor(token?: string | null) {
     if (token) {
       this.token = token
-    } else if (typeof window !== 'undefined') {
+    }
+    else if (typeof window !== 'undefined') {
       // Get token from localStorage on client side
       this.token = localStorage.getItem('auth.token') || null
     }
@@ -103,5 +104,56 @@ export class RoomRepository {
     if (!response.ok) {
       throw new Error(`API Error: ${response.status} ${response.statusText}`)
     }
+  }
+
+  async getFavoriteRooms(withBookings: boolean = false): Promise<IRoomCard[]> {
+    const params = new URLSearchParams()
+    params.append('withBookings', String(withBookings))
+
+    const response = await fetch(`/api/rooms/favorites?${params.toString()}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+
+    return await response.json()
+  }
+
+  async toggleFavorite(roomId: string): Promise<void> {
+    const response = await fetch(`/api/rooms/${roomId}/favorite`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+  }
+
+  async uploadImage(roomId: string, image: File): Promise<{ message: string, imagePath: string }> {
+    const formData = new FormData()
+    formData.append('image', image)
+
+    const response = await fetch(`/api/rooms/${roomId}/upload`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+
+    return await response.json()
   }
 }

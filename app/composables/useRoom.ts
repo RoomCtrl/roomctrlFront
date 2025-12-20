@@ -9,6 +9,7 @@ export const useRoom = () => {
   const room = useState<IRoomDetails | null>('room', () => null)
   const loading = useState<boolean>('rooms-loading', () => false)
   const error = useState<string | null>('rooms-error', () => null)
+  const favoriteRoomIds = useState<Set<string>>('favorite-room-ids', () => new Set())
 
   // Create a getter function to ensure we always have the latest token
   const getRoomService = () => new RoomService(token.value)
@@ -17,7 +18,12 @@ export const useRoom = () => {
     loading.value = true
     error.value = null
     try {
-      rooms.value = await getRoomService().getRooms(withBookings, status)
+      const fetchedRooms = await getRoomService().getRooms(withBookings, status)
+      // Mark rooms as favorite if they're in favoriteRoomIds
+      rooms.value = fetchedRooms.map(r => ({
+        ...r,
+        isFavorite: favoriteRoomIds.value.has(r.roomId)
+      }))
     }
     catch (err) {
       error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu sal'
@@ -31,7 +37,11 @@ export const useRoom = () => {
     loading.value = true
     error.value = null
     try {
-      room.value = await getRoomService().getRoom(roomId, withBookings)
+      const fetchedRoom = await getRoomService().getRoom(roomId, withBookings)
+      room.value = {
+        ...fetchedRoom,
+        isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId)
+      }
     }
     catch (err) {
       error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu szczegółów sali'
@@ -100,8 +110,87 @@ export const useRoom = () => {
     }
   }
 
+  const fetchFavoriteRooms = async (withBookings: boolean = false) => {
+    loading.value = true
+    error.value = null
+    try {
+      const favoriteRooms = await getRoomService().getFavoriteRooms(withBookings)
+      // Update favoriteRoomIds set
+      favoriteRoomIds.value = new Set(favoriteRooms.map(r => r.roomId))
+      // Mark all as favorite
+      rooms.value = favoriteRooms.map(r => ({ ...r, isFavorite: true }))
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu ulubionych sal'
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
+  const toggleFavorite = async (roomId: string) => {
+    loading.value = true
+    error.value = null
+    try {
+      await getRoomService().toggleFavorite(roomId)
+      
+      // Update favoriteRoomIds set
+      const newFavoriteIds = new Set(favoriteRoomIds.value)
+      if (newFavoriteIds.has(roomId)) {
+        newFavoriteIds.delete(roomId)
+      } else {
+        newFavoriteIds.add(roomId)
+      }
+      favoriteRoomIds.value = newFavoriteIds
+      
+      // Update room details if viewing this room
+      if (room.value && room.value.roomId === roomId) {
+        room.value.isFavorite = !room.value.isFavorite
+      }
+      
+      // Update in rooms list if present
+      const roomIndex = rooms.value.findIndex(r => r.roomId === roomId)
+      if (roomIndex !== -1) {
+        rooms.value[roomIndex].isFavorite = !rooms.value[roomIndex].isFavorite
+      }
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy zmianie statusu ulubionej'
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
   const clearError = () => {
     error.value = null
+  }
+
+  const loadFavoriteIds = async () => {
+    try {
+      const favoriteRooms = await getRoomService().getFavoriteRooms(false)
+      favoriteRoomIds.value = new Set(favoriteRooms.map(r => r.roomId))
+    }
+    catch (err) {
+      console.error('Error loading favorite room IDs:', err)
+    }
+  }
+
+  const uploadImage = async (roomId: string, image: File) => {
+    loading.value = true
+    error.value = null
+    try {
+      const result = await getRoomService().uploadImage(roomId, image)
+      return result
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy uploadu zdjęcia'
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
   }
 
   return {
@@ -114,9 +203,13 @@ export const useRoom = () => {
     // Methods
     fetchRooms,
     fetchRoom,
+    fetchFavoriteRooms,
+    toggleFavorite,
     createRoom,
     updateRoom,
     deleteRoom,
     clearError,
+    loadFavoriteIds,
+    uploadImage,
   }
 }

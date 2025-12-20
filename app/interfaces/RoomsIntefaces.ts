@@ -24,8 +24,13 @@ export interface IRoomCard {
   status: 'available' | 'occupied' | 'maintenance'
   capacity: number
   size: number
+  location?: string
+  equipment?: IEquipment[]
+  access?: string
+  lighting?: string
   currentBooking?: IBooking
   nextBookings?: IBooking[]
+  isFavorite?: boolean
 }
 
 export interface IRoomDetails {
@@ -42,6 +47,7 @@ export interface IRoomDetails {
   description: string
   lighting: string
   airConditioning: IAirConditioning
+  isFavorite?: boolean
 }
 
 export interface IRoomCreateRequest {

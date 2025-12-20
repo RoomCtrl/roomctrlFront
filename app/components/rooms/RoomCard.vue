@@ -32,6 +32,7 @@
               :class="{ 'blur-sm': animationClass === 'show' }"
               class="text-lg lg:text-xl font-semibold lg:truncate"
               @mouseenter="checkOverflow"
+              @focusin="checkOverflow"
             >
               {{ room.currentBooking.title }}
             </h1>
@@ -59,6 +60,8 @@
               style="font-size: 1.25rem;"
               @mouseenter="playShow"
               @mouseleave="playHide"
+              @focusin="playShow"
+              @focusout="playHide"
             />
           </div>
         </div>
