@@ -3,8 +3,7 @@
     ref="dataTable"
     v-model:filters="filters"
     :pt="{
-      root: { class: 'min-h-[60vh]' },
-      tableContainer: { class: 'justify-between h-full' },
+      root: { class: 'flex flex-col h-full' },
       table: { class: tableDisplay },
     }"
     :value="filteredRents"
@@ -94,7 +93,7 @@
             class="flex-none"
           />
           <Button
-            v-show="!completed"
+            v-show="data.status === 'active'"
             v-tooltip.left="{ value: $t('common.buttons.edit') }"
             pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
             icon="pi pi-pencil"
@@ -103,7 +102,7 @@
             @click="openEditModal(data)"
           />
           <Button
-            v-show="!completed"
+            v-show="data.status === 'active'"
             v-tooltip.left="{ value: $t('common.buttons.cancel') }"
             pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
             icon="pi pi-times"
@@ -142,7 +141,6 @@
 import { FilterMatchMode, FilterService } from '@primevue/core/api'
 import { useRoom } from '~/composables/useRoom'
 import { useBooking } from '~/composables/useBooking'
-import type { IBookingUpdateRequest } from '~/interfaces/BookingsInterfaces'
 import BaseTextFilterColumn from '../common/datatable/columns/BaseTextFilterColumn.vue'
 import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectMessageFilter.vue'
 import BaseDateFilterColumn from '../common/datatable/columns/BaseDateFilterColumn.vue'
@@ -151,7 +149,6 @@ import BookingEditForm from '../forms/BookingEditForm.vue'
 
 const props = defineProps<{
   title?: string
-  completed?: boolean
   reservations: any[]
 }>()
 
@@ -164,7 +161,6 @@ const { t } = useI18n()
 const toast = useToast()
 const { customDateAndTimeFilter, customStatusFilter } = useCustomFilterMatch()
 const localePath = useLocalePath()
-const { rooms } = useRoom()
 const { cancelBooking } = useBooking()
 const confirm = useConfirm()
 
@@ -254,10 +250,9 @@ const filters = ref({
 
 const statuses = ref([
   { name: t('pages.reservationsHistory.statuses.all'), code: 'all' },
-  { name: t('pages.reservationsHistory.statuses.planned'), code: 'planned' },
+  { name: t('pages.reservationsHistory.statuses.active'), code: 'active' },
   { name: t('pages.reservationsHistory.statuses.cancelled'), code: 'cancelled' },
-  { name: t('pages.reservationsHistory.statuses.ended'), code: 'ended' },
-  { name: t('pages.reservationsHistory.statuses.toApprove'), code: 'toApprove' },
+  { name: t('pages.reservationsHistory.statuses.completed'), code: 'completed' },
 ])
 
 const typesOfReservation = ref([

@@ -4,7 +4,7 @@
       :pt="{
         root: { class: 'items-center text-center p-4 w-full' },
         caption: { class: 'items-center' },
-        title: { class: 'text-5xl font-extrabold' },
+        title: { class: '[--p-card-title-font-size:3rem] [--p-card-title-font-weight:800]' },
         subtitle: { class: 'text-lg mb-8 w-[70%]' },
       }"
     >
@@ -16,7 +16,7 @@
       </template>
       <template #content>
         <NuxtLink
-          to="/howThisWork"
+          :to="localePath('/howThisWork')"
           class="btn btn-dark btn-large"
         >
           {{ $t('pages.home.howThisWork.seeHowItWorks') }}
@@ -26,6 +26,10 @@
     </Card>
   </section>
 </template>
+
+<script setup lang="ts">
+const localePath = useLocalePath()
+</script>
 
 <style scoped>
 .btn-large {

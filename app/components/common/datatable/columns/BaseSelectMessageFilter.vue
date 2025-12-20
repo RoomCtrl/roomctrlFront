@@ -56,11 +56,9 @@ withDefaults(
   },
 )
 
-const statusColor = computed<Record<'cancelled' | 'ended' | 'planned' | 'toApprove' | 'all', string>>(() => ({
+const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string>>(() => ({
   cancelled: 'error',
-  ended: 'success',
-  planned: 'info',
-  toApprove: 'warn',
-  all: 'primary',
+  completed: 'success',
+  active: 'info',
 }))
 </script>

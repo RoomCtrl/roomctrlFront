@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full flex flex-col">
-    <div class="flex flex-row justify-between gap-4">
+  <div class="w-full flex flex-col gap-4">
+    <div class="flex flex-row justify-between">
       <Card>
         <template #content>
           <h1 class="font-bold text-4xl">

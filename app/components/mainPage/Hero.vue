@@ -1,13 +1,8 @@
 <template>
-  <section class="pr-[2rem] w-full">
-    <div class="grid grid-cols-2 gap-24 items-center">
+  <section class="w-full">
+    <div class="flex flex-col xl:grid xl:grid-cols-2 xl:gap-24 gap-6 items-center">
       <div class="hero-left ">
-        <Card
-          :pt="{
-            root: { class: '',
-            },
-          }"
-        >
+        <Card>
           <template #title>
             <h1 class="main-heading">
               {{ $t('pages.home.hero.title') }}
@@ -22,14 +17,14 @@
           <template #content>
             <div class="flex flex-wrap gap-4 mb-2">
               <NuxtLink
-                to="/rooms"
+                :to="localePath('/rooms')"
                 class="btn btn-dark"
               >
                 {{ $t('pages.home.hero.bookRoom') }}
                 <i class="pi pi-arrow-right" />
               </NuxtLink>
               <NuxtLink
-                to="/downloadApp"
+                :to="localePath('/downloadApp')"
                 class="btn btn-outline"
               >
                 <i class="pi pi-download" />
@@ -70,6 +65,7 @@
 <script setup lang="ts">
 import CalendarModel from './CalendarModel.vue'
 
+const localePath = useLocalePath()
 const days = ref(28)
 
 function randomRentNumber(min: number, max: number): number {
@@ -111,7 +107,7 @@ onMounted(() => {
     animatedUsers.value = value >= 1000 ? `${(value / 1000).toFixed(1)}K` : value
   })
 
-  animateValue(0, 98, 2000, (value) => {
+  animateValue(0, 98, 4000, (value) => {
     animatedSatisfaction.value = value
   })
 })
@@ -257,92 +253,6 @@ onMounted(() => {
   to {
     opacity: 1;
     transform: translateX(0);
-  }
-}
-@media (max-width: 1200px) {
-  .hero-grid,
-  .split-content {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-  }
-
-  .hero-right {
-    order: -1;
-  }
-
-  .hero-visual {
-    height: 450px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: 5rem 1.5rem 4rem;
-  }
-
-  .main-heading {
-    font-size: 3rem;
-  }
-
-  .section-heading {
-    font-size: 2rem;
-  }
-
-  .cta-heading {
-    font-size: 2.25rem;
-  }
-
-  .steps-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .benefits-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .hero-visual {
-    height: 400px;
-  }
-
-  .floating-card {
-    padding: 0.75rem 1rem;
-  }
-
-  .card-1,
-  .card-2,
-  .card-3 {
-    position: static;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-heading {
-    font-size: 2.25rem;
-  }
-
-  .section-heading {
-    font-size: 1.75rem;
-  }
-
-  .cta-heading {
-    font-size: 1.875rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .trust-indicators {
-    flex-direction: column;
-    gap: 1rem;
   }
 }
 </style>

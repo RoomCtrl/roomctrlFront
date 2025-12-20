@@ -1,6 +1,6 @@
 <template>
-  <div class="hero-visual hero-right">
-    <div class="floating-card card-1">
+  <div class="hero-visual hero-right max-xl:w-[85vw]">
+    <div class="floating-card card-1 left-[-5%] xl:left:-10%;">
       <i
         class="pi pi-calendar-plus"
         style="color: var(--p-green-500)"
@@ -61,7 +61,7 @@
                 :key="j"
                 :class="[
                   { 'bg-blue-400 dark:bg-blue-800': i < 13, 'bg-green-500 dark:bg-green-800': i >= 13, 'bg-red-500 dark:bg-red-800': j % 3 === 0 && i <13 },
-                  'h-2 w-[80%] h-1 rounded-full',
+                  'h-1 2xl:h-2 w-[80%] rounded-full',
                 ]"
               />
             </div>
@@ -108,7 +108,7 @@ const animateValue = (start: number, end: number, duration: number, callback: (v
 onMounted(() => {
   rentsPerDay.value = Array.from(
     { length: days.value },
-    () => randomRentNumber(0, 4),
+    () => randomRentNumber(0, 3),
   )
 
   animateValue(0, 2000, 2000, (value) => {
@@ -180,14 +180,13 @@ onMounted(() => {
 
 .card-1 {
   top: 20%;
-  left: -10%;
   animation: float 3s ease-in-out infinite;
 }
 
 .card-2 {
   top: 40%;
-  right: -5%;
   animation: float 3s ease-in-out infinite 0.5s;
+  @apply right-[-3%];
 }
 
 .card-3 {
@@ -197,11 +196,11 @@ onMounted(() => {
 }
 
 .main-visual-card {
-  background: white;
   border-radius: 24px;
   padding: 2rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
   border: 1px solid #f3f4f6;
+  @apply flex flex-col items-center bg-white;
 }
 
 .dark .main-visual-card {
@@ -211,7 +210,7 @@ onMounted(() => {
 }
 
 .calendar-preview {
-  width: 100%;
+  @apply flex flex-col justify-center w-[80%] xl:w-full;
 }
 
 .calendar-header {
@@ -247,7 +246,8 @@ onMounted(() => {
 }
 
 .calendar-day:hover {
-  background: #f3f4f6;
+  background: var(--p-gray-200);
+  box-shadow: 2px 4px var(--p-gray-300);
 }
 
 .dark .calendar-day:hover {
@@ -358,94 +358,6 @@ onMounted(() => {
   }
   50% {
     transform: translateY(-15px);
-  }
-}
-
-/* Responsive */
-@media (max-width: 1200px) {
-  .hero-grid,
-  .split-content {
-    grid-template-columns: 1fr;
-    gap: 4rem;
-  }
-
-  .hero-right {
-    order: -1;
-  }
-
-  .hero-visual {
-    height: 450px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: 5rem 1.5rem 4rem;
-  }
-
-  .main-heading {
-    font-size: 3rem;
-  }
-
-  .section-heading {
-    font-size: 2rem;
-  }
-
-  .cta-heading {
-    font-size: 2.25rem;
-  }
-
-  .steps-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .benefits-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .hero-visual {
-    height: 400px;
-  }
-
-  .floating-card {
-    padding: 0.75rem 1rem;
-  }
-
-  .card-1,
-  .card-2,
-  .card-3 {
-    position: static;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-heading {
-    font-size: 2.25rem;
-  }
-
-  .section-heading {
-    font-size: 1.75rem;
-  }
-
-  .cta-heading {
-    font-size: 1.875rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .trust-indicators {
-    flex-direction: column;
-    gap: 1rem;
   }
 }
 </style>

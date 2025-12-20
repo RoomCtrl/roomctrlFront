@@ -61,7 +61,7 @@ const props = defineProps<{
   color?: string
   endedAt?: string
   current?: boolean
-  customColor: boolean
+  customColor?: boolean
   infoType?: boolean
   size: string
 }>()

@@ -143,8 +143,8 @@
       @cancel="showBookingForm = false"
       @close="showBookingForm = false"
     />
+    <Toast />
   </div>
-  <Toast />
 </template>
 
 <script setup lang="ts">

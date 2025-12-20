@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div class="flex flex-col w-full gap-4">
     <Toast />
     <ConfirmDialog />
     <div class="flex flex-row justify-between gap-4">

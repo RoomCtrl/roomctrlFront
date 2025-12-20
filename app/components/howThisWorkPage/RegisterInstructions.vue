@@ -29,7 +29,6 @@
               </div>
             </div>
 
-            <!-- Details List -->
             <ul
               v-if="step.details"
               class="mt-4 space-y-2"
@@ -137,7 +136,6 @@ const steps = [
       'Minimum 8 znaków',
       'Co najmniej jedna wielka litera',
       'Przynajmniej jedna cyfra',
-      'Nie może zawierać Twojego adresu email',
     ],
   },
   {

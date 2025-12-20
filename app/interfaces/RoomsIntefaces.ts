@@ -24,6 +24,10 @@ export interface IRoomCard {
   status: 'available' | 'occupied' | 'maintenance'
   capacity: number
   size: number
+  location?: string
+  equipment?: IEquipment[]
+  access?: string
+  lighting?: string
   currentBooking?: IBooking
   nextBookings?: IBooking[]
   isFavorite?: boolean

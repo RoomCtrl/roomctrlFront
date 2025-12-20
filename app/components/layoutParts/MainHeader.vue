@@ -30,23 +30,28 @@
       </ClientOnly>
     </div>
 
-    <div class="hidden xl:flex flex-row w-[40rem] justify-center">
-      <div
-        v-for="(tab, index) in tabs"
-        :key="index"
-        class="flex-none"
-      >
-        <TheDropMenu :tab="tab" />
+    <ClientOnly>
+      <div class="hidden xl:flex flex-row w-[40rem] justify-center">
+        <div
+          v-for="(tab, index) in tabs"
+          :key="index"
+          class="flex-none"
+        >
+          <TheDropMenu :tab="tab" />
+        </div>
       </div>
-    </div>
+    </ClientOnly>
+    
     <UserHeaderOptions
       :dark-mode="darkMode"
     />
-    <div
-      class="block xl:hidden"
-    >
-      <MobileHeader :tabs="tabs" />
-    </div>
+    <ClientOnly>
+      <div
+        class="block xl:hidden"
+      >
+        <MobileHeader :tabs="tabs" />
+      </div>
+    </ClientOnly>
   </div>
 </template>
 

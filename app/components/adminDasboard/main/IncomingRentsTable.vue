@@ -25,12 +25,8 @@
     <template #content>
       <DataTable
         :pt="{
-          root: {
-            class: 'h-full flex flex-row',
-            style: '--p-datatable-paginator-bottom-border-width: 0; --p-paginator-border-radius: 0px',
-          },
-          tableContainer: { class: 'justify-between h-full' },
-          table: { class: [tableDisplay, 'justify-between'] },
+          root: { class: 'flex flex-col h-full' },
+          table: { class: tableDisplay },
         }"
         :value="tableData"
         paginator
@@ -38,7 +34,7 @@
         :rows="rows"
       >
         <template #empty>
-          <div class="flex items-center text-xl font-semibold">
+          <div class="flex justify-center items-center text-xl font-semibold min-h-[10rem]">
             {{ $t('tables.emptyMessages.noBookings') }}
           </div>
         </template>

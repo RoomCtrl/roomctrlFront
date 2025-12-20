@@ -40,8 +40,10 @@
             @click="emit('showBookingForm')"
           />
           <Button
+            v-tooltip="isFavoriteLocal ? t('pages.roomDetails.buttons.removeFavorite') : t('pages.roomDetails.buttons.addFavorite')"
             :icon="isFavoriteLocal ? 'pi pi-heart-fill' : 'pi pi-heart'"
             :severity="isFavoriteLocal ? 'danger' : 'secondary'"
+            variant="outlined"
             rounded
             @click="handleToggleFavorite"
           />

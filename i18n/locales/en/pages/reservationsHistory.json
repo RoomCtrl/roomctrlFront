@@ -11,10 +11,9 @@
   "details": "Details",
   "statuses": {
     "all": "All",
-    "planned": "Planned",
+    "active": "Active",
     "cancelled": "Cancelled",
-    "ended": "Ended",
-    "toApprove": "Pending approval"
+    "completed": "Completed"
   },
   "reservationTypes": {
     "public": "Public",

@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="grid grid-col-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
     <div
       v-for="info in informations"
       :key="info.title"
@@ -86,7 +86,7 @@ const informations = [
   align-items: center;
   justify-content: center;
   font-size: 1.75rem;
-  color: #6366f1;
+  color: var(--p-red-800);
   flex-shrink: 0;
 }
 

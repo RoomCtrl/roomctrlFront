@@ -57,7 +57,11 @@
             date-format="dd/mm/yy"
             :placeholder="$t('pages.roomDetails.bookingForm.startDatePlaceholder')"
             :invalid="!!errors.startedAt"
-          />
+          >
+            <template #>
+              some
+            </template>
+          </DatePicker>
           <small
             v-if="errors.startedAt"
             class="text-red-500"
@@ -88,9 +92,13 @@
           id="participantsCount"
           v-model="formData.participantsCount"
           :min="1"
-          :max="capacity"
           :placeholder="$t('pages.roomDetails.bookingForm.participantsCountPlaceholder')"
+          :invalid="!!errors.participantsCount"
         />
+        <small
+          v-if="errors.participantsCount"
+          class="text-red-500"
+        >{{ errors.participantsCount }}</small>
       </div>
 
       <div class="flex flex-col gap-2 col-span-full">
@@ -164,11 +172,14 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const toast = useToast()
 const { createBooking, updateBooking, fetchBooking, booking, loading } = useBooking()
-const { rooms, fetchRooms } = useRoom()
+const { rooms, fetchRooms, fetchRoom, room } = useRoom()
 const { users, fetchUsers, loading: usersLoading } = useUser()
 const { user, isAdmin } = useAuth()
 
 const availableUsers = computed(() => {
+  if (!users.value || !Array.isArray(users.value)) {
+    return []
+  }
   return users.value
     .filter((u) => {
       if (isAdmin.value) {
@@ -181,24 +192,6 @@ const availableUsers = computed(() => {
       displayName: `${u.firstName} ${u.lastName} (${u.username})`,
     }))
 })
-
-watch(() => props.bookingId, async (newBookingId) => {
-  if (newBookingId && props.visible) {
-    await fetchBooking(newBookingId)
-    if (booking.value) {
-      const participantIds = booking.value.participants?.map(p => p.id) || []
-      formData.value = {
-        title: booking.value.title,
-        roomId: booking.value.room.id,
-        startedAt: new Date(booking.value.startedAt),
-        endedAt: new Date(booking.value.endedAt),
-        participantsCount: booking.value.participantsCount,
-        isPrivate: booking.value.isPrivate,
-        participantIds,
-      }
-    }
-  }
-}, { immediate: true })
 
 const formData = ref<{
   title: string
@@ -223,7 +216,47 @@ const errors = ref<{
   roomId?: string
   startedAt?: string
   endedAt?: string
+  participantsCount?: string
 }>({})
+
+watch(() => props.bookingId, async (newBookingId) => {
+  if (newBookingId && props.visible) {
+    await fetchBooking(newBookingId)
+    if (booking.value) {
+      const participantIds = booking.value.participants?.map(p => p.id) || []
+      formData.value = {
+        title: booking.value.title,
+        roomId: booking.value.room.id,
+        startedAt: new Date(booking.value.startedAt),
+        endedAt: new Date(booking.value.endedAt),
+        participantsCount: booking.value.participantsCount,
+        isPrivate: booking.value.isPrivate,
+        participantIds,
+      }
+    }
+  }
+}, { immediate: true })
+
+watch(() => formData.value.roomId, async (newRoomId) => {
+  if (newRoomId && !props.capacity && !props.roomId) {
+    await fetchRoom(newRoomId, false)
+  }
+})
+
+watch([() => formData.value.participantIds, () => formData.value.participantsCount, () => room.value?.capacity], () => {
+  const roomCapacity = props.capacity || room.value?.capacity
+  if (roomCapacity && formData.value.participantsCount > roomCapacity) {
+    errors.value.participantsCount = `Liczba uczestników nie może przekroczyć pojemności sali (${roomCapacity})`
+    return
+  }
+
+  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
+    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
+  }
+  else if (errors.value.participantsCount && (errors.value.participantsCount.includes('liczba wybranych osób') || errors.value.participantsCount.includes('pojemności sali'))) {
+    delete errors.value.participantsCount
+  }
+})
 
 const validateForm = (): boolean => {
   errors.value = {}
@@ -254,6 +287,18 @@ const validateForm = (): boolean => {
       errors.value.endedAt = t('pages.roomDetails.bookingForm.errors.endDateBeforeStart')
       isValid = false
     }
+  }
+
+  // Sprawdź pojemność - użyj capacity z props lub z pobranej sali
+  const roomCapacity = props.capacity || room.value?.capacity
+  if (roomCapacity && formData.value.participantsCount > roomCapacity) {
+    errors.value.participantsCount = `Liczba uczestników nie może przekroczyć pojemności sali (${roomCapacity})`
+    isValid = false
+  }
+
+  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
+    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
+    isValid = false
   }
 
   return isValid
@@ -295,7 +340,8 @@ const handleSubmit = async () => {
       })
     }
     else {
-      await createBooking(bookingData)
+      const result = await createBooking(bookingData)
+      console.log('Booking created:', result)
       toast.add({
         severity: 'success',
         summary: t('common.toast.success'),
@@ -318,28 +364,20 @@ const handleSubmit = async () => {
     emit('close')
   }
   catch (err: any) {
-    console.error('Error creating booking:', err)
-
-    if (err?.status === 409 || err?.response?.status === 409) {
-      const errorMessage = err?.data?.message || err?.response?.data?.message || ''
-
-      if (errorMessage.toLowerCase().includes('time slot already booked')
-        || errorMessage.toLowerCase().includes('already booked')) {
-        toast.add({
-          severity: 'warn',
-          summary: t('common.warning'),
-          detail: 'W tym czasie jest już zarezerwowana inna rezerwacja. Wybierz inny termin.',
-          life: 5000,
-        })
-        return
-      }
+    if (err?.code === 409) {
+      toast.add({
+        severity: 'warn',
+        summary: t('common.warning'),
+        detail: err?.message || 'W tym czasie jest już zarezerwowana inna rezerwacja. Wybierz inny termin.',
+        life: 5000,
+      })
+      return
     }
 
-    // Domyślna obsługa błędów
     toast.add({
       severity: 'error',
       summary: t('common.error'),
-      detail: t('common.toast.bookingError'),
+      detail: err?.message || t('common.toast.bookingError'),
       life: 3000,
     })
   }

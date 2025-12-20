@@ -205,12 +205,29 @@ watch(() => props.bookingId, async (newBookingId) => {
   }
 }, { immediate: true })
 
+// Reaktywna walidacja liczby uczestników
+watch([() => formData.value.participantIds, () => formData.value.participantsCount], () => {
+  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
+    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
+  }
+  else if (errors.value.participantsCount && errors.value.participantsCount.includes('liczba wybranych osób')) {
+    // Usuń błąd tylko jeśli był związany z liczbą wybranych osób
+    delete errors.value.participantsCount
+  }
+})
+
 // Lista dostępnych sal
 const availableRooms = computed(() => {
+  if (!rooms.value || !Array.isArray(rooms.value)) {
+    return []
+  }
   return rooms.value.filter(r => r.status === 'available')
 })
 
 const availableUsers = computed(() => {
+  if (!users.value || !Array.isArray(users.value)) {
+    return []
+  }
   return users.value
     .filter((u) => {
       if (isAdmin.value) {
@@ -253,6 +270,10 @@ const validate = () => {
 
   if (!formData.value.participantsCount || formData.value.participantsCount < 1) {
     errors.value.participantsCount = 'Liczba uczestników musi być większa niż 0'
+  }
+
+  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
+    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
   }
 
   return Object.keys(errors.value).length === 0

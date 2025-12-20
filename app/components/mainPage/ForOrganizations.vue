@@ -31,8 +31,10 @@
 
 <script setup lang="ts">
 const images = ref([
-  '/images/mainPage/meeting.jpg',
-  '/images/mainPage/school.jpg',
+  '/images/mainPage/room.jpg',
+  '/images/mainPage/office.jpg',
+  '/images/mainPage/office-building.jpg',
+  '/images/mainPage/classroom.jpg',
 ])
 </script>
 
@@ -53,8 +55,8 @@ const images = ref([
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6rem;
   align-items: center;
+  @apply xl:gap-[6rem]
 }
 
 .split-text .section-heading {
@@ -63,9 +65,9 @@ const images = ref([
 
 .split-description {
   font-size: 1.125rem;
-  color: #6b7280;
+  color: var(--p-gray-400);
   line-height: 1.7;
-  margin-bottom: 3rem;
+  @apply text-gray-600 dark:text-gray-400
 }
 
 .split-image {
