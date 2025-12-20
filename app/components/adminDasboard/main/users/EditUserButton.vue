@@ -2,6 +2,9 @@
   <div>
     <Button
       v-tooltip.left="{ value: $t('pages.adminDashboard.users.buttons.tooltip.edit') }"
+      pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+      severity="info"
+      variant="outlined"
       icon="pi pi-user-edit"
       @click="visible = true"
     />

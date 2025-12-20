@@ -2,7 +2,6 @@
   <DataView
     :value="filteredIssues"
     pt:root:class="h-full w-full"
-    pt:header:class="flex flex-col justify-between gap-10"
     pt:emptyMessage:class="flex flex-col justify-center items-center h-[43.5rem]"
     :sortOrder="sortOrder"
     :sortField="sortField"
@@ -11,14 +10,6 @@
     :rows="6"
   >
     <template #header>
-      <div>
-        <h1 class="font-bold text-4xl">
-          {{ $t('pages.adminDashboard.roomIssueReports.title') }}
-        </h1>
-        <h2 class="opacity-60">
-          {{ $t('pages.adminDashboard.roomIssueReports.subtitle') }}
-        </h2>
-      </div>
       <div class="flex flex-row justify-between">
         <ReportDataFilters
           :issues="issues"

@@ -8,28 +8,32 @@
         :style="{ '--delay': `${index * 80}ms` }"
         class="group cursor-pointer animate-feature-in"
       >
-        <div class="bg-surface-0 dark:bg-surface-800 rounded-xl shadow-lg p-8 h-full hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-surface-200 dark:border-surface-700 relative">
-          <!-- Icon -->
-          <div class="relative mb-4">
+        <div
+          :class="[
+            'rounded-xl shadow-lg p-8 h-full hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 relative',
+            feature.cardBgColor,
+            feature.borderColor,
+          ]"
+        >
+          <!-- Icon and Title -->
+          <div class="flex gap-4 mb-4">
             <div
               :class="[
-                'w-16 h-16 rounded-lg flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110',
+                'w-16 h-16 rounded-lg flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110 flex-shrink-0',
                 feature.bgColor,
               ]"
             >
               <i :class="feature.icon" />
             </div>
+            <div class="flex flex-col justify-center">
+              <h3 class="text-xl font-bold text-surface-900 dark:text-surface-0 mb-1">
+                {{ feature.title }}
+              </h3>
+              <p class="text-surface-600 dark:text-surface-400 text-sm leading-relaxed">
+                {{ feature.description }}
+              </p>
+            </div>
           </div>
-
-          <!-- Title -->
-          <h3 class="text-xl font-bold text-surface-900 dark:text-surface-0 mb-2">
-            {{ feature.title }}
-          </h3>
-
-          <!-- Description -->
-          <p class="text-surface-600 dark:text-surface-400 text-sm leading-relaxed mb-4">
-            {{ feature.description }}
-          </p>
 
           <!-- Highlights -->
           <ul class="space-y-2">
@@ -56,16 +60,16 @@
       </h2>
 
       <!-- Workflow Steps -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
         <div
           v-for="(step, index) in workflow"
           :key="index"
           class="relative"
         >
           <!-- Step Box -->
-          <div class="bg-surface-0 dark:bg-surface-900 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow duration-300 border border-surface-200 dark:border-surface-700">
-            <div class="text-3xl mb-3">
-              {{ step.icon }}
+          <div class="bg-blue-50 dark:bg-blue-950/20 border-blue-300 dark:border-blue-700 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow duration-300 border">
+            <div class="font-bold text-3xl mb-3">
+              {{ index + 1 }}
             </div>
             <p class="font-semibold text-surface-900 dark:text-surface-0 text-sm">
               {{ step.label }}
@@ -89,7 +93,7 @@
     <!-- Benefits Section -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
       <!-- Left Side -->
-      <div class="bg-surface-100 dark:bg-surface-800 rounded-xl p-8 border border-surface-200 dark:border-surface-700">
+      <div class="bg-white dark:bg-neutral-800 rounded-xl p-8 border border-gray-200 dark:border-neutral-700">
         <h3 class="text-2xl font-bold text-surface-900 dark:text-surface-0 mb-6 flex items-center gap-3">
           <i class="pi pi-star-fill text-yellow-500 text-3xl" />
           Główne zalety
@@ -101,7 +105,7 @@
             :key="index"
             class="flex gap-4 group"
           >
-            <div class="w-10 h-10 rounded-full bg-primary-500 text-white flex items-center justify-center flex-shrink-0 font-bold group-hover:scale-110 transition-transform duration-300">
+            <div class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center flex-shrink-0 font-bold group-hover:scale-110 transition-transform duration-300">
               {{ index + 1 }}
             </div>
             <div>
@@ -117,7 +121,7 @@
       </div>
 
       <!-- Right Side - Statistics -->
-      <div class="bg-surface-100 dark:bg-surface-800 rounded-xl p-8 border border-surface-200 dark:border-surface-700">
+      <div class="bg-white dark:bg-neutral-800 rounded-xl p-8 border border-gray-200 dark:border-neutral-700">
         <h3 class="text-2xl font-bold text-surface-900 dark:text-surface-0 mb-6 flex items-center gap-3">
           <i class="pi pi-chart-bar text-primary-500 text-3xl" />
           Liczby na koniec
@@ -149,39 +153,41 @@
     </div>
 
     <!-- Call to Action -->
-    <div class="text-center mt-12 p-6 sm:p-8 bg-primary-600 dark:bg-primary-700 rounded-xl text-white w-full">
+    <div class="text-center mt-12 p-6 sm:p-8 bg-white dark:bg-neutral-800 rounded-xl w-full">
       <h2 class="text-2xl sm:text-3xl font-bold mb-4">
         Gotów do rozpoczęcia?
       </h2>
-      <p class="text-base sm:text-lg mb-6 text-primary-100 dark:text-primary-200">
+      <p class="text-base sm:text-lg mb-6">
         Załóż konto i zarezerwuj swoją pierwszą salę już dzisiaj!
       </p>
       <div class="flex justify-center gap-3 sm:gap-4 flex-wrap">
-        <NuxtLink
-          to="/pl/login"
-          class="px-6 sm:px-8 py-2 sm:py-3 bg-surface-0 text-primary-600 dark:text-primary-700 rounded-lg font-semibold hover:bg-surface-100 dark:hover:bg-surface-200 transition-colors duration-300 text-sm sm:text-base"
-        >
-          Zaloguj się
-        </NuxtLink>
-        <NuxtLink
-          to="/register"
-          class="px-6 sm:px-8 py-2 sm:py-3 bg-primary-500 dark:bg-primary-800 text-white rounded-lg font-semibold hover:bg-primary-700 dark:hover:bg-primary-900 transition-colors duration-300 border border-white/30 text-sm sm:text-base"
-        >
-          Zarejestruj się
-        </NuxtLink>
+        <Button
+          as="a"
+          :href="localePath('login')"
+          label="Zaloguj się"
+          severity="error"
+        />
+        <Button
+          as="a"
+          href="/register"
+          label="Zarejestruj się"
+          severity="success"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath()
 const features = [
   {
-    icon: 'pi pi-calendar-check',
+    icon: 'pi pi-calendar-plus',
     title: 'Rezerwacja sal',
     description: 'Łatwa rezerwacja dostępnych sal konferencyjnych',
-    color: 'bg-blue-500',
     bgColor: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600',
+    cardBgColor: 'bg-blue-50 dark:bg-blue-950/20',
+    borderColor: 'border-blue-300 dark:border-blue-700',
     dotColor: 'bg-blue-500',
     highlights: [
       'Widok kalendarza w czasie rzeczywistym',
@@ -193,8 +199,9 @@ const features = [
     icon: 'pi pi-search',
     title: 'Wyszukiwanie zaawansowane',
     description: 'Znajdź idealną salę wg Twoich kryteriów',
-    color: 'bg-green-500',
     bgColor: 'bg-green-100 dark:bg-green-900/30 text-green-600',
+    cardBgColor: 'bg-green-50 dark:bg-green-950/20',
+    borderColor: 'border-green-300 dark:border-green-700',
     dotColor: 'bg-green-500',
     highlights: [
       'Filtr po pojemności',
@@ -206,8 +213,9 @@ const features = [
     icon: 'pi pi-users',
     title: 'Zarządzanie zespołem',
     description: 'Współpraca z innymi członkami zespołu',
-    color: 'bg-purple-500',
     bgColor: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600',
+    cardBgColor: 'bg-purple-50 dark:bg-purple-950/20',
+    borderColor: 'border-purple-300 dark:border-purple-700',
     dotColor: 'bg-purple-500',
     highlights: [
       'Zapraszanie uczestników',
@@ -219,8 +227,9 @@ const features = [
     icon: 'pi pi-bell',
     title: 'Powiadomienia',
     description: 'Będź informowany o ważnych wydarzeniach',
-    color: 'bg-orange-500',
     bgColor: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600',
+    cardBgColor: 'bg-orange-50 dark:bg-orange-950/20',
+    borderColor: 'border-orange-300 dark:border-orange-700',
     dotColor: 'bg-orange-500',
     highlights: [
       'Przypomnienia przed spotkaniem',
@@ -232,8 +241,9 @@ const features = [
     icon: 'pi pi-lock',
     title: 'Bezpieczeństwo',
     description: 'Ochrona Twoich danych i prywatności',
-    color: 'bg-red-500',
     bgColor: 'bg-red-100 dark:bg-red-900/30 text-red-600',
+    cardBgColor: 'bg-red-50 dark:bg-red-950/20',
+    borderColor: 'border-red-300 dark:border-red-700',
     dotColor: 'bg-red-500',
     highlights: [
       'Szyfrowanie danych',
@@ -245,8 +255,9 @@ const features = [
     icon: 'pi pi-mobile',
     title: 'Aplikacja mobilna',
     description: 'Dostęp do aplikacji na dowolnym urządzeniu',
-    color: 'bg-cyan-500',
     bgColor: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600',
+    cardBgColor: 'bg-cyan-50 dark:bg-cyan-950/20',
+    borderColor: 'border-cyan-300 dark:border-cyan-700',
     dotColor: 'bg-cyan-500',
     highlights: [
       'iOS i Android',

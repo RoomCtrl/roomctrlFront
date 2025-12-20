@@ -16,14 +16,17 @@
       <ClientOnly>
         <ColorModeSwitch />
       </ClientOnly>
-      <Button
-        v-if="!user"
-        class="w-[8rem]"
-        as="a"
-        :label="$t('common.buttons.logIn')"
-        :href="localePath('login')"
-      />
-      <UserAvatar v-else />
+      
+      <ClientOnly>
+        <Button
+          v-if="!user"
+          class="w-[8rem]"
+          as="a"
+          :label="$t('common.buttons.logIn')"
+          :href="localePath('login')"
+        />
+        <UserAvatar v-else />
+      </ClientOnly>
     </div>
   </div>
 </template>

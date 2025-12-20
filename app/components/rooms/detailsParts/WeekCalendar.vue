@@ -12,7 +12,7 @@
       v-model:visible="isOpen"
       modal
       :header="$t('pages.roomDetails.weekCalendar.title')"
-      :style="{ width: '90vw', maxWidth: '1200px', height: '80vh' }"
+      :style="{ width: '90vw', maxWidth: '1200px', height: '85vh' }"
       class="calendar-modal"
     >
       <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-200 dark:border-gray-600">

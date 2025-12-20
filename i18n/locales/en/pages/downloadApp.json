@@ -1,10 +1,50 @@
 {
-  "androidIos": "Android / iOS",
-  "title": "Download the App",
-  "usersRate": "User rating: ",
-  "minVersion": "Minimum version: ",
-  "size": "Size: ",
+  "badge": "Download Now",
+  "title": "Download RoomCtrl App on Your Device",
+  "description": "Manage your reservations anytime, anywhere. Our mobile app offers full functionality in an elegant, intuitive interface.",
+  "downloads": "Downloads",
+  "rating": "Rating",
+  "users": "Users",
+  "androidIos": "Compare Android and iOS",
+  "compareText": "See how the app looks on different platforms",
+  "chooseYourPlatform": "Choose Your Platform",
+  "availableOn": "Available on iOS and Android",
+  "usersRate": "User Rating",
+  "minVersion": "Minimum Version",
+  "size": "Size",
+  "lastUpdate": "Last Update",
+  "recentlyUpdated": "Recently Updated",
   "copy": "Copy",
+  "scanQr": "Scan QR code to download the app",
+  "or": "OR",
+  "featuresTitle": "Everything You Need in One App",
+  "featuresSubtitle": "Discover features that make reservation management simpler",
+  "features": {
+    "booking": {
+      "title": "Easy Booking",
+      "description": "Book rooms in seconds with an intuitive interface"
+    },
+    "notifications": {
+      "title": "Push Notifications",
+      "description": "Get real-time updates about your reservations"
+    },
+    "qrcode": {
+      "title": "QR Codes",
+      "description": "Quick access to rooms using unique QR codes"
+    },
+    "security": {
+      "title": "Security",
+      "description": "Your data is protected by the latest security standards"
+    },
+    "responsive": {
+      "title": "Responsive Design",
+      "description": "The app adapts to any screen size"
+    },
+    "sync": {
+      "title": "Synchronization",
+      "description": "Data synced across all your devices"
+    }
+  },
   "android": {
     "title": "Android"
   },

@@ -1,23 +1,97 @@
 <template>
-  <Card class="w-full flex flex-col">
-    <template #header>
-      <CalendarHeader
-        :current-date="currentDate"
-        :weekDays="weekDays"
-        :view-mode="viewMode"
-        @update-date="handleWeekUpdate"
-        @change-view="handleViewChange"
-        @add-booking="handleShowBookingForm()"
-      />
-    </template>
+  <div class="w-full">
+    <Card class="w-full flex flex-col">
+      <template #header>
+        <CalendarHeader
+          :current-date="currentDate"
+          :weekDays="weekDays"
+          :view-mode="viewMode"
+          @update-date="handleWeekUpdate"
+          @change-view="handleViewChange"
+          @add-booking="handleShowBookingForm()"
+        />
+      </template>
 
-    <template #content>
-      <div class="flex-1 overflow-auto">
-        <div
-          v-if="viewMode === 'day'"
-          class="w-full"
-        >
-          <div class="flex min-w-max h-full">
+      <template #content>
+        <div class="flex-1 overflow-auto">
+          <div
+            v-if="viewMode === 'day'"
+            class="w-full"
+          >
+            <div class="flex min-w-max h-full">
+              <div
+                class="w-16 border-r border-gray-200 dark:border-gray-600 sticky left-0 z-10"
+              >
+                <div class="h-12 border-b border-gray-200 dark:border-gray-600" />
+                <div
+                  v-for="hour in hours"
+                  :key="hour"
+                  class="flex items-center justify-end h-12 border-b border-gray-200 dark:border-gray-600 text-sm pr-2 pt-1"
+                >
+                  {{ String(hour).padStart(2, '0') }}:00
+                </div>
+              </div>
+
+              <div class="flex-1 relative">
+                <div
+                  class="sticky top-0 h-12 border-b border-gray-200 dark:border-gray-600 flex items-center justify-center font-semibold text-lg z-10 bg-white dark:bg-gray-900"
+                >
+                  <div class="text-center">
+                    <div class="text-xs text-gray-600 dark:text-gray-400">
+                      {{ getDayName(currentDate) }}
+                    </div>
+                    <div
+                      :class="[
+                        'text-xl',
+                        isToday(currentDate) ? 'text-blue-600 font-bold' : '',
+                      ]"
+                    >
+                      {{ currentDate.getDate() }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="relative">
+                  <div
+                    v-for="hour in hours"
+                    :key="hour"
+                    class="h-12 border-b border-gray-200 dark:border-gray-600"
+                  />
+
+                  <div class="absolute top-0 left-0 right-0 bottom-0">
+                    <div
+                      v-for="res in getReservationsForDay(currentDate)"
+                      :key="res.id"
+                      v-tooltip.top="res.duration < 120 ? `${res.title}\n${formatTime(res.date)} - ${formatTime(res.endDate)} (${res.duration} min)\n${res.location}` : null"
+                      :class="[
+                        rentColor(res.color),
+                        'absolute left-0 right-0 mx-2 rounded p-2 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
+                      ]"
+                      :style="getReservationStyle(res)"
+                      @click="openModal(res)"
+                      @keydown.enter="openModal(res)"
+                    >
+                      <div class="font-medium text-sm flex items-center gap-2">
+                        {{ res.title }}
+                      </div>
+                      <div class="text-xs opacity-90">
+                        {{ formatTime(res.date) }} - {{ formatTime(res.endDate) }} ({{ res.duration }} min)
+                      </div>
+                      <div class="pt-1">
+                        <i class="pi pi-map-marker" />
+                        {{ res.location }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            v-else-if="viewMode === 'week'"
+            class="flex min-w-max"
+          >
             <div
               class="w-16 border-r border-gray-200 dark:border-gray-600 sticky left-0 z-10"
             >
@@ -30,23 +104,29 @@
                 {{ String(hour).padStart(2, '0') }}:00
               </div>
             </div>
-
-            <div class="flex-1 relative">
+            <div
+              v-for="(day, dayIdx) in weekDays"
+              :key="dayIdx"
+              class="flex-1 min-w-32 border-r border-gray-200 dark:border-gray-600 relative"
+            >
               <div
-                class="sticky top-0 h-12 border-b border-gray-200 dark:border-gray-600 flex items-center justify-center font-semibold text-lg z-10 bg-white dark:bg-gray-900"
+                :class="[
+                  'h-12 border-b border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center sticky top-0 z-10',
+                  { '': isToday(day) },
+                ]"
               >
-                <div class="text-center">
-                  <div class="text-xs text-gray-600 dark:text-gray-400">
-                    {{ getDayName(currentDate) }}
-                  </div>
-                  <div
-                    :class="[
-                      'text-xl',
-                      isToday(currentDate) ? 'text-blue-600 font-bold' : '',
-                    ]"
-                  >
-                    {{ currentDate.getDate() }}
-                  </div>
+                <div class="text-xs">
+                  {{ getDayName(day) }}
+                </div>
+                <div
+                  :class="[
+                    'text-xl',
+                    isToday(day)
+                      ? 'bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center'
+                      : '',
+                  ]"
+                >
+                  {{ day.getDate() }}
                 </div>
               </div>
 
@@ -57,179 +137,106 @@
                   class="h-12 border-b border-gray-200 dark:border-gray-600"
                 />
 
-                <div class="absolute top-0 left-0 right-0 bottom-0">
-                  <div
-                    v-for="res in getReservationsForDay(currentDate)"
-                    :key="res.id"
-                    :class="[
-                      rentColor(res.color),
-                      'absolute left-0 right-0 mx-2 rounded p-2 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
-                    ]"
-                    :style="getReservationStyle(res)"
-                    @click="openModal(res)"
-                    @keydown.enter="openModal(res)"
-                  >
-                    <div class="font-medium text-sm">
-                      {{ res.title }}
-                    </div>
-                    <div class="text-xs opacity-90">
-                      {{ formatTime(res.date) }} ({{ res.duration }} min)
-                    </div>
-                    <div class="pt-1">
-                      <i class="pi pi-map-marker" />
-                      {{ res.location }}
-                    </div>
+                <div
+                  v-for="res in getReservationsForDay(day)"
+                  :key="res.id"
+                  v-tooltip.top="res.duration < 120 ? `${res.title}\n${formatTime(res.date)} - ${formatTime(res.endDate)} (${res.duration} min)\n${res.location}` : null"
+                  :class="[
+                    rentColor(res.color),
+                    'absolute left-0 right-0 mx-1 rounded p-1 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
+                  ]"
+                  :style="getReservationStyle(res)"
+                  @click="openModal(res)"
+                  @keydown.enter="openModal(res)"
+                >
+                  <div class="font-medium flex items-center gap-1">
+                    {{ res.title }}
+                  </div>
+                  <div class="text-xs opacity-90">
+                    {{ formatTime(res.date) }} - {{ formatTime(res.endDate) }}
+                  </div>
+                  <div class="pt-1">
+                    <i class="pi pi-map-marker" />
+                    {{ res.location }}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div
-          v-else-if="viewMode === 'week'"
-          class="flex min-w-max"
-        >
           <div
-            class="w-16 border-r border-gray-200 dark:border-gray-600 sticky left-0 z-10"
+            v-else
+            class="grid grid-cols-7"
           >
-            <div class="h-12 border-b border-gray-200 dark:border-gray-600" />
             <div
-              v-for="hour in hours"
-              :key="hour"
-              class="flex items-center justify-end h-12 border-b border-gray-200 dark:border-gray-600 text-sm pr-2 pt-1"
+              v-for="(dayName, idx) in monthDayNames"
+              :key="idx"
+              class="border-b border-r border-gray-200 dark:border-gray-600 p-2 text-center font-semibold text-sm"
             >
-              {{ String(hour).padStart(2, '0') }}:00
+              {{ dayName }}
             </div>
-          </div>
-          <div
-            v-for="(day, dayIdx) in weekDays"
-            :key="dayIdx"
-            class="flex-1 min-w-32 border-r border-gray-200 dark:border-gray-600 relative"
-          >
+
             <div
+              v-for="(day, idx) in monthDays"
+              :key="idx"
               :class="[
-                'h-12 border-b border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center sticky top-0 z-10',
-                { '': isToday(day) },
+                'border-b border-r border-gray-200 dark:border-gray-600 min-h-24 p-2 relative',
+                !isSameMonth(day) ? 'bg-gray-50 dark:bg-gray-800 opacity-50' : '',
+                isToday(day) ? 'bg-blue-50 dark:bg-blue-900/20' : '',
               ]"
             >
-              <div class="text-xs">
-                {{ getDayName(day) }}
-              </div>
               <div
                 :class="[
-                  'text-xl',
+                  'text-sm font-medium',
                   isToday(day)
-                    ? 'bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center'
+                    ? 'bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center'
                     : '',
                 ]"
               >
                 {{ day.getDate() }}
               </div>
-            </div>
 
-            <div class="relative">
-              <div
-                v-for="hour in hours"
-                :key="hour"
-                class="h-12 border-b border-gray-200 dark:border-gray-600"
-              />
-
-              <div
-                v-for="res in getReservationsForDay(day)"
-                :key="res.id"
-                :class="[
-                  rentColor(res.color),
-                  'absolute left-0 right-0 mx-1 rounded p-1 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
-                ]"
-                :style="getReservationStyle(res)"
-                @click="openModal(res)"
-                @keydown.enter="openModal(res)"
-              >
-                <div class="font-medium">
+              <div class="mt-1 space-y-1">
+                <div
+                  v-for="res in getReservationsForDay(day)"
+                  :key="res.id"
+                  v-tooltip.top="res.duration < 120 ? `${res.title}\n${formatTime(res.date)} - ${formatTime(res.endDate)} (${res.duration} min)\n${res.location}` : null"
+                  :class="[
+                    rentColor(res.color),
+                    'text-white text-xs rounded px-1 py-0.5 cursor-pointer hover:opacity-90 transition-opacity truncate',
+                  ]"
+                  @click="openModal(res)"
+                  @keydown.enter="openModal(res)"
+                >
+                  <span class="font-medium">{{ formatTime(res.date) }} - {{ formatTime(res.endDate) }}</span>
                   {{ res.title }}
                 </div>
-                <div class="text-xs opacity-90">
-                  {{ formatTime(res.date) }}
-                </div>
-                <div class="pt-1">
-                  <i class="pi pi-map-marker" />
-                  {{ res.location }}
-                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div
-          v-else
-          class="grid grid-cols-7"
-        >
-          <div
-            v-for="(dayName, idx) in monthDayNames"
-            :key="idx"
-            class="border-b border-r border-gray-200 dark:border-gray-600 p-2 text-center font-semibold text-sm"
-          >
-            {{ dayName }}
-          </div>
+        <RentDetails
+          v-if="selectedReservation"
+          v-model:open="visible"
+          :selected-reservation="selectedReservation"
+          @edit="handleEdit"
+          @deleted="handleDeleted"
+        />
 
-          <div
-            v-for="(day, idx) in monthDays"
-            :key="idx"
-            :class="[
-              'border-b border-r border-gray-200 dark:border-gray-600 min-h-24 p-2 relative',
-              !isSameMonth(day) ? 'bg-gray-50 dark:bg-gray-800 opacity-50' : '',
-              isToday(day) ? 'bg-blue-50 dark:bg-blue-900/20' : '',
-            ]"
-          >
-            <div
-              :class="[
-                'text-sm font-medium',
-                isToday(day)
-                  ? 'bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center'
-                  : '',
-              ]"
-            >
-              {{ day.getDate() }}
-            </div>
-
-            <div class="mt-1 space-y-1">
-              <div
-                v-for="res in getReservationsForDay(day)"
-                :key="res.id"
-                :class="[
-                  rentColor(res.color),
-                  'text-white text-xs rounded px-1 py-0.5 cursor-pointer hover:opacity-90 transition-opacity truncate',
-                ]"
-                @click="openModal(res)"
-                @keydown.enter="openModal(res)"
-              >
-                <span class="font-medium">{{ formatTime(res.date) }}</span>
-                {{ res.title }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <RentDetails
-        v-if="selectedReservation"
-        v-model:open="visible"
-        :selected-reservation="selectedReservation"
-        @edit="handleEdit"
-        @deleted="handleDeleted"
-      />
-
-      <BookingForm
-        :visible="showBookingForm"
-        :room-id="selectedRoomId"
-        :booking-id="editingBookingId"
-        @success="handleBookingSuccess"
-        @cancel="showBookingForm = false"
-        @close="showBookingForm = false"
-      />
-    </template>
-  </Card>
+        <BookingForm
+          :visible="showBookingForm"
+          :room-id="selectedRoomId"
+          :booking-id="editingBookingId"
+          @success="handleBookingSuccess"
+          @cancel="showBookingForm = false"
+          @close="showBookingForm = false"
+        />
+      </template>
+    </Card>
+    <ConfirmDialog />
+    <Toast />
+  </div>
 </template>
 
 <script setup>
@@ -244,8 +251,6 @@ import { dayOfWeekFullNames } from '~/utils/dateHelpers'
 const currentDate = ref(new Date())
 const selectedReservation = ref(null)
 const visible = ref(false)
-const showEditForm = ref(false)
-const editingReservation = ref(null)
 const viewMode = ref('week') // 'day', 'week' lub 'month'
 const showBookingForm = ref(false)
 const selectedRoomId = ref('')
@@ -257,27 +262,81 @@ const { user } = useAuth()
 
 // Map bookings from API to calendar format
 const reservations = computed(() => {
-  return bookings.value.map((booking, index) => {
+  const result = []
+  const colors = ['blue', 'green', 'yellow', 'purple', 'red', 'orange']
+
+  bookings.value.forEach((booking, index) => {
     const startDate = new Date(booking.startedAt)
     const endDate = new Date(booking.endedAt)
-    const duration = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60)) // duration in minutes
-
-    const colors = ['blue', 'green', 'yellow', 'purple', 'red', 'orange']
     const color = colors[index % colors.length]
 
-    return {
-      id: booking.id,
-      title: booking.title,
-      date: startDate,
-      duration: duration,
-      location: booking.room.location,
-      attendees: booking.participantsCount,
-      color: color,
-      isPrivate: booking.isPrivate,
-      status: booking.status,
-      roomName: booking.room.roomName,
+    // Check if reservation spans multiple days
+    const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+    const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
+
+    if (startDay.getTime() === endDay.getTime()) {
+      // Single day reservation
+      const duration = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60))
+      result.push({
+        id: booking.id,
+        title: booking.title,
+        date: startDate,
+        endDate: endDate,
+        duration: duration,
+        location: booking.room.location,
+        attendees: booking.participantsCount,
+        color: color,
+        isPrivate: booking.isPrivate,
+        roomName: booking.room.roomName,
+      })
+    }
+    else {
+      // Multi-day reservation - split into separate entries
+      const currentDay = new Date(startDay)
+
+      while (currentDay <= endDay) {
+        let segmentStart, segmentEnd
+
+        if (currentDay.getTime() === startDay.getTime()) {
+          // First day - start at actual start time, end at 23:59:59
+          segmentStart = new Date(startDate)
+          segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
+        }
+        else if (currentDay.getTime() === endDay.getTime()) {
+          // Last day - start at 00:00, end at actual end time
+          segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
+          segmentEnd = new Date(endDate)
+        }
+        else {
+          // Middle day - full day (00:00 to 23:59:59)
+          segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
+          segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
+        }
+
+        const duration = Math.round((segmentEnd.getTime() - segmentStart.getTime()) / (1000 * 60))
+
+        result.push({
+          id: `${booking.id}-${currentDay.getTime()}`,
+          originalId: booking.id,
+          title: booking.title,
+          date: segmentStart,
+          endDate: segmentEnd,
+          duration: duration,
+          location: booking.room.location,
+          attendees: booking.participantsCount,
+          color: color,
+          isPrivate: booking.isPrivate,
+          roomName: booking.room.roomName,
+          isMultiDay: true,
+        })
+
+        // Move to next day
+        currentDay.setDate(currentDay.getDate() + 1)
+      }
     }
   })
+
+  return result
 })
 
 const hours = Array.from({ length: 24 }, (_, i) => i)
@@ -397,7 +456,12 @@ const isSameMonth = (day) => {
 
 const openModal = (reservation) => {
   visible.value = true
-  selectedReservation.value = reservation
+  // Use originalId if it's a multi-day segment, otherwise use regular id
+  const displayReservation = {
+    ...reservation,
+    id: reservation.originalId || reservation.id,
+  }
+  selectedReservation.value = displayReservation
 }
 
 const handleWeekUpdate = (value) => {

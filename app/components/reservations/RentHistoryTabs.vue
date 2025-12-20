@@ -42,18 +42,10 @@ const { bookings, fetchUserBookings } = useBooking()
 const { user } = useAuth()
 
 const mapBookingToReservation = (booking: any) => {
-  let status = 'planned'
-  if (booking.status === 'completed') {
-    status = 'ended'
-  }
-  else if (booking.status === 'cancelled') {
-    status = 'cancelled'
-  }
-  else if (booking.status === 'active') {
-    const now = new Date()
-    const endDate = new Date(booking.endedAt)
-    status = endDate < now ? 'ended' : 'planned'
-  }
+  // Określ status na podstawie dat
+  const now = new Date()
+  const endDate = new Date(booking.endedAt)
+  const status = endDate < now ? 'ended' : 'planned'
 
   return {
     id: booking.id,

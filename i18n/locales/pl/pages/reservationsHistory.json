@@ -11,15 +11,19 @@
   "details": "Szczegóły",
   "statuses": {
     "all": "Wszystkie",
-    "planned": "Planowana",
+    "active": "Aktywna",
     "cancelled": "Anulowana",
-    "ended": "Zakończona",
-    "toApprove": "Do akceptacji"
+    "completed": "Zakończona"
   },
   "reservationTypes": {
     "public": "Publiczna",
     "private": "Prywatna"
   },
   "noRent": "Brak rezerwacji",
-  "comeToRoom": "Przejdź do sali"
+  "comeToRoom": "Przejdź do sali",
+  "collection": {
+    "cancelReservation": {
+      "title": "Czy na pewno chcesz anulować tę rezerwację?"
+    }
+  }
 }

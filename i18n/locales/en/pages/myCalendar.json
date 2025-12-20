@@ -1,4 +1,7 @@
 {
   "title": "My booking calendar",
-  "editReservation": "Edit Reservation"
+  "editReservation": "Edit Reservation",
+  "cancelReservation": {
+    "title": "Are you sure you want to cancel this reservation?"
+  }
 }

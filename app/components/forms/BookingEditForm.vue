@@ -158,6 +158,7 @@ import { useUser } from '~/composables/useUser'
 import { useRoom } from '~/composables/useRoom'
 import { useAuth } from '~/composables/useAuth'
 import { useBooking } from '~/composables/useBooking'
+import { useToast } from 'primevue/usetoast'
 
 const props = defineProps<{
   bookingId: string
@@ -168,6 +169,8 @@ const emit = defineEmits<{
   cancel: []
 }>()
 
+const { t } = useI18n()
+const toast = useToast()
 const { users, fetchUsers, loading: usersLoading } = useUser()
 const { rooms, fetchRooms, loading: roomsLoading } = useRoom()
 const { user, isAdmin } = useAuth()
@@ -202,12 +205,29 @@ watch(() => props.bookingId, async (newBookingId) => {
   }
 }, { immediate: true })
 
+// Reaktywna walidacja liczby uczestników
+watch([() => formData.value.participantIds, () => formData.value.participantsCount], () => {
+  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
+    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
+  }
+  else if (errors.value.participantsCount && errors.value.participantsCount.includes('liczba wybranych osób')) {
+    // Usuń błąd tylko jeśli był związany z liczbą wybranych osób
+    delete errors.value.participantsCount
+  }
+})
+
 // Lista dostępnych sal
 const availableRooms = computed(() => {
+  if (!rooms.value || !Array.isArray(rooms.value)) {
+    return []
+  }
   return rooms.value.filter(r => r.status === 'available')
 })
 
 const availableUsers = computed(() => {
+  if (!users.value || !Array.isArray(users.value)) {
+    return []
+  }
   return users.value
     .filter((u) => {
       if (isAdmin.value) {
@@ -252,6 +272,10 @@ const validate = () => {
     errors.value.participantsCount = 'Liczba uczestników musi być większa niż 0'
   }
 
+  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
+    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
+  }
+
   return Object.keys(errors.value).length === 0
 }
 
@@ -291,10 +315,40 @@ const handleSubmit = async () => {
     }
 
     await updateBooking(props.bookingId, updateData)
+    toast.add({
+      severity: 'success',
+      summary: t('common.toast.success'),
+      detail: t('common.toast.bookingUpdated'),
+      life: 3000,
+    })
     emit('success')
   }
-  catch (error) {
+  catch (error: any) {
     console.error('Błąd podczas aktualizacji rezerwacji:', error)
+
+    // Sprawdź czy to błąd 409 (konflikt - zajęty slot czasowy)
+    if (error?.status === 409 || error?.response?.status === 409) {
+      const errorMessage = error?.data?.message || error?.response?.data?.message || ''
+
+      if (errorMessage.toLowerCase().includes('time slot already booked')
+        || errorMessage.toLowerCase().includes('already booked')) {
+        toast.add({
+          severity: 'warn',
+          summary: t('common.warning'),
+          detail: 'W tym czasie jest już zarezerwowana inna rezerwacja. Wybierz inny termin.',
+          life: 5000,
+        })
+        return
+      }
+    }
+
+    // Domyślna obsługa błędów
+    toast.add({
+      severity: 'error',
+      summary: t('common.error'),
+      detail: t('common.toast.bookingError'),
+      life: 3000,
+    })
   }
 }
 

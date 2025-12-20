@@ -1,6 +1,9 @@
 <template>
   <Button
     v-tooltip.left="{ value: $t('pages.adminDashboard.users.buttons.tooltip.delete') }"
+    pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+    severity="error"
+    variant="outlined"
     icon="pi pi-user-minus"
     @click="handleDeleteUser()"
   />
@@ -13,6 +16,7 @@ const props = defineProps<{
 
 const confirm = useConfirm()
 const { t } = useI18n()
+const toast = useToast()
 const { deleteUser } = useUser()
 
 const handleDeleteUser = () => {
@@ -31,7 +35,23 @@ const handleDeleteUser = () => {
       severity: 'danger',
     },
     accept: async () => {
-      await deleteUser(props.userId)
+      try {
+        await deleteUser(props.userId)
+        toast.add({
+          severity: 'success',
+          summary: t('common.toast.success'),
+          detail: t('common.toast.userDeleted'),
+          life: 3000,
+        })
+      }
+      catch (error) {
+        toast.add({
+          severity: 'error',
+          summary: t('common.error'),
+          detail: t('common.toast.userDeleteError'),
+          life: 3000,
+        })
+      }
     },
   })
 }

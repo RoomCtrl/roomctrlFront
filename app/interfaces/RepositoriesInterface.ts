@@ -32,6 +32,7 @@ export interface IGetUserProfileResponse {
   firstName: string
   lastName: string
   firstLogonStatus: boolean
+  organizationId?: string
 }
 
 export interface IUserLoginResponse {

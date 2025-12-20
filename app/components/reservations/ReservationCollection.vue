@@ -3,8 +3,7 @@
     ref="dataTable"
     v-model:filters="filters"
     :pt="{
-      root: { class: 'min-h-[60vh]' },
-      tableContainer: { class: 'justify-between h-full' },
+      root: { class: 'flex flex-col h-full' },
       table: { class: tableDisplay },
     }"
     :value="filteredRents"
@@ -72,13 +71,17 @@
       sortable
       :options="typesOfReservation"
       filter
-    />
-    <Column
-      :key="'actions'"
-      class="w-[10%]"
     >
       <template #body="{ data }">
-        <div class="flex justify-center gap-4">
+        <span>{{ $t(`pages.reservationsHistory.reservationTypes.${data.reservationsType}`) }}</span>
+      </template>
+    </BaseSelectFilterColumn>
+    <Column
+      :key="'actions'"
+      class="w-[10%] "
+    >
+      <template #body="{ data }">
+        <div class="flex justify-center gap-2">
           <Button
             v-tooltip.left="{ value: $t('pages.reservationsHistory.comeToRoom') }"
             pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
@@ -90,7 +93,7 @@
             class="flex-none"
           />
           <Button
-            v-show="!completed"
+            v-show="data.status === 'active'"
             v-tooltip.left="{ value: $t('common.buttons.edit') }"
             pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
             icon="pi pi-pencil"
@@ -99,7 +102,7 @@
             @click="openEditModal(data)"
           />
           <Button
-            v-show="!completed"
+            v-show="data.status === 'active'"
             v-tooltip.left="{ value: $t('common.buttons.cancel') }"
             pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
             icon="pi pi-times"
@@ -132,40 +135,12 @@
       @cancel="editModalVisible = false"
     />
   </Dialog>
-
-  <!-- Modal anulowania rezerwacji -->
-  <Dialog
-    v-model:visible="cancelModalVisible"
-    modal
-    :header="$t('forms.booking.cancelTitle')"
-    :style="{ width: '30vw' }"
-    :breakpoints="{ '960px': '50vw', '640px': '90vw' }"
-  >
-    <p class="mb-4">
-      {{ $t('forms.booking.cancelConfirmation') }}
-    </p>
-    <div class="flex justify-end gap-2">
-      <Button
-        :label="$t('common.buttons.no')"
-        severity="secondary"
-        variant="outlined"
-        @click="cancelModalVisible = false"
-      />
-      <Button
-        :label="$t('common.buttons.yes')"
-        severity="danger"
-        :loading="cancelLoading"
-        @click="handleCancelBooking"
-      />
-    </div>
-  </Dialog>
 </template>
 
 <script setup lang="ts">
 import { FilterMatchMode, FilterService } from '@primevue/core/api'
 import { useRoom } from '~/composables/useRoom'
 import { useBooking } from '~/composables/useBooking'
-import type { IBookingUpdateRequest } from '~/interfaces/BookingsInterfaces'
 import BaseTextFilterColumn from '../common/datatable/columns/BaseTextFilterColumn.vue'
 import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectMessageFilter.vue'
 import BaseDateFilterColumn from '../common/datatable/columns/BaseDateFilterColumn.vue'
@@ -174,7 +149,6 @@ import BookingEditForm from '../forms/BookingEditForm.vue'
 
 const props = defineProps<{
   title?: string
-  completed?: boolean
   reservations: any[]
 }>()
 
@@ -184,13 +158,13 @@ const emit = defineEmits<{
 
 const dataTable = ref()
 const { t } = useI18n()
+const toast = useToast()
 const { customDateAndTimeFilter, customStatusFilter } = useCustomFilterMatch()
 const localePath = useLocalePath()
-const { rooms } = useRoom()
 const { cancelBooking } = useBooking()
+const confirm = useConfirm()
 
 const editModalVisible = ref(false)
-const cancelModalVisible = ref(false)
 const selectedBooking = ref<any>(null)
 const cancelLoading = ref(false)
 
@@ -201,7 +175,7 @@ const openEditModal = (booking: any) => {
 
 const openCancelModal = (booking: any) => {
   selectedBooking.value = booking
-  cancelModalVisible.value = true
+  handleCancelBooking()
 }
 
 const handleBookingSuccess = () => {
@@ -212,18 +186,46 @@ const handleBookingSuccess = () => {
 const handleCancelBooking = async () => {
   if (!selectedBooking.value?.id) return
 
-  cancelLoading.value = true
-  try {
-    await cancelBooking(selectedBooking.value.id)
-    cancelModalVisible.value = false
-    emit('refresh')
-  }
-  catch (error) {
-    console.error('Błąd podczas anulowania rezerwacji:', error)
-  }
-  finally {
-    cancelLoading.value = false
-  }
+  confirm.require({
+    message: t('pages.reservationsHistory.collection.cancelReservation.title'),
+    header: t('common.toast.danger'),
+    icon: 'pi pi-info-circle',
+    rejectLabel: t('common.buttons.cancel'),
+    rejectProps: {
+      label: t('common.buttons.cancel'),
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: t('common.buttons.delete'),
+      severity: 'danger',
+    },
+    accept: async () => {
+      cancelLoading.value = true
+      try {
+        await cancelBooking(selectedBooking.value.id)
+        toast.add({
+          severity: 'success',
+          summary: t('common.toast.success'),
+          detail: t('common.toast.bookingCancelled'),
+          life: 3000,
+        })
+        emit('refresh')
+      }
+      catch (error) {
+        console.error('Błąd podczas anulowania rezerwacji:', error)
+        toast.add({
+          severity: 'error',
+          summary: t('common.error'),
+          detail: t('common.toast.bookingCancelError'),
+          life: 3000,
+        })
+      }
+      finally {
+        cancelLoading.value = false
+      }
+    },
+  })
 }
 
 const filteredRents = computed(() => {
@@ -248,10 +250,9 @@ const filters = ref({
 
 const statuses = ref([
   { name: t('pages.reservationsHistory.statuses.all'), code: 'all' },
-  { name: t('pages.reservationsHistory.statuses.planned'), code: 'planned' },
+  { name: t('pages.reservationsHistory.statuses.active'), code: 'active' },
   { name: t('pages.reservationsHistory.statuses.cancelled'), code: 'cancelled' },
-  { name: t('pages.reservationsHistory.statuses.ended'), code: 'ended' },
-  { name: t('pages.reservationsHistory.statuses.toApprove'), code: 'toApprove' },
+  { name: t('pages.reservationsHistory.statuses.completed'), code: 'completed' },
 ])
 
 const typesOfReservation = ref([

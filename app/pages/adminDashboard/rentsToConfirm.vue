@@ -1,10 +1,26 @@
 <template>
-  <div :class="[{ 'h-[95vh]': isTableEmpty }, 'flex flex-col']">
+  <div :class="[{ 'h-[95vh]': isTableEmpty }, 'flex flex-col w-full gap-4']">
     <Toast />
     <ConfirmDialog />
+    <div class="flex justify-between w-full">
+      <Card>
+        <template #content>
+          <h1 class="font-extrabold text-4xl">
+            {{ $t('tables.titles.rentsToConfirm') }}
+          </h1>
+        </template>
+      </Card>
+      <Card>
+        <template #content>
+          <QuickDateFilters @selected-button="handleSelected" />
+        </template>
+      </Card>
+    </div>
+
     <DataTable
       v-model:filters="filters"
       :pt="{
+        root: { class: 'flex flex-col h-full' },
         table: { class: tableDisplay },
       }"
       filterDisplay="row"
@@ -17,14 +33,6 @@
       @update:rows="handleUpdateRows"
       @filter="onFilter"
     >
-      <template #header>
-        <div class="flex flex-col gap-6">
-          <h1 class="font-extrabold text-4xl">
-            {{ $t('tables.titles.rentsToConfirm') }}
-          </h1>
-          <QuickDateFilters @selected-button="handleSelected" />
-        </div>
-      </template>
       <BaseTextFilterColumn
         :key="'room'"
         field="room"
@@ -87,6 +95,8 @@
           <div class="flex flex-row gap-2">
             <Button
               v-tooltip.left="{ value: $t('tables.buttonsTooltip.goToRoom') }"
+
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-box"
               variant="outlined"
               severity="info"
@@ -94,12 +104,16 @@
             />
             <Button
               v-tooltip.left="{ value: $t('tables.buttonsTooltip.approveRent') }"
+
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-calendar-plus"
               variant="outlined"
               severity="success"
             />
             <Button
               v-tooltip.left="{ value: $t('tables.buttonsTooltip.deniedRent') }"
+
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-calendar-minus"
               variant="outlined"
               severity="error"

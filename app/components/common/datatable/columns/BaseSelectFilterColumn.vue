@@ -6,12 +6,14 @@
     :showFilterMenu="showFilterMenu"
   >
     <template #body="slotProps">
-      <slot
-        name="body"
-        v-bind="slotProps"
-      >
-        {{ slotProps.data[field] }}
-      </slot>
+      <div class="text-center">
+        <slot
+          name="body"
+          v-bind="slotProps"
+        >
+          {{ slotProps.data[field] }}
+        </slot>
+      </div>
     </template>
     <template
       v-if="filter"

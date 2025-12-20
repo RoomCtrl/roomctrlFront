@@ -26,7 +26,6 @@ export interface IBooking {
   participantsCount: number
   participants: IBookingParticipant[]
   isPrivate: boolean
-  status: 'active' | 'cancelled' | 'completed'
   room: IBookingRoom
   user: IBookingUser
   createdAt: string

@@ -45,18 +45,23 @@
         >{{ errors.roomId }}</small>
       </div>
 
-      <div class="flex flex-col md:flex-row gap-4">
+      <div class="flex flex-col md:flex-row gap-4 col-span-2">
         <div class="flex flex-col gap-2 flex-1">
           <label for="startedAt">{{ $t('pages.roomDetails.bookingForm.startDate') }}</label>
           <DatePicker
             id="startedAt"
             v-model="formData.startedAt"
             show-time
+            fluid
             hour-format="24"
             date-format="dd/mm/yy"
             :placeholder="$t('pages.roomDetails.bookingForm.startDatePlaceholder')"
             :invalid="!!errors.startedAt"
-          />
+          >
+            <template #>
+              some
+            </template>
+          </DatePicker>
           <small
             v-if="errors.startedAt"
             class="text-red-500"
@@ -87,12 +92,16 @@
           id="participantsCount"
           v-model="formData.participantsCount"
           :min="1"
-          :max="capacity"
           :placeholder="$t('pages.roomDetails.bookingForm.participantsCountPlaceholder')"
+          :invalid="!!errors.participantsCount"
         />
+        <small
+          v-if="errors.participantsCount"
+          class="text-red-500"
+        >{{ errors.participantsCount }}</small>
       </div>
 
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 col-span-full">
         <label for="participantIds">{{ $t('forms.booking.addParticipants') }}</label>
         <MultiSelect
           id="participantIds"
@@ -104,12 +113,12 @@
           :filter="true"
           :loading="usersLoading"
           display="chip"
-          class="w-full"
+          fluid
         />
         <small class="text-gray-500">{{ $t('forms.booking.participantsHint') }}</small>
       </div>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 col-span-full">
         <Checkbox
           id="isPrivate"
           v-model="formData.isPrivate"
@@ -118,21 +127,25 @@
         <label for="isPrivate">{{ $t('pages.roomDetails.bookingForm.isPrivate') }}</label>
       </div>
 
-      <div class="flex gap-2 justify-end">
+      <div class="flex gap-2 justify-end col-span-full">
         <Button
           type="button"
           :label="$t('pages.roomDetails.bookingForm.cancel')"
-          severity="secondary"
+          severity="error"
+          variant="outlined"
           @click="handleCancel"
         />
         <Button
           type="submit"
           :label="bookingId ? $t('common.buttons.save') : $t('pages.roomDetails.bookingForm.submit')"
           :loading="loading"
+          severity="success"
+          variant="outlined"
         />
       </div>
     </form>
   </Dialog>
+  <Toast />
 </template>
 
 <script setup lang="ts">
@@ -141,6 +154,7 @@ import { useRoom } from '~/composables/useRoom'
 import { useUser } from '~/composables/useUser'
 import { useAuth } from '~/composables/useAuth'
 import type { IBookingCreateRequest } from '~/interfaces/BookingsInterfaces'
+import { useToast } from 'primevue/usetoast'
 
 const props = defineProps<{
   visible: boolean
@@ -156,13 +170,16 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
+const toast = useToast()
 const { createBooking, updateBooking, fetchBooking, booking, loading } = useBooking()
-const { rooms, fetchRooms } = useRoom()
+const { rooms, fetchRooms, fetchRoom, room } = useRoom()
 const { users, fetchUsers, loading: usersLoading } = useUser()
 const { user, isAdmin } = useAuth()
 
-// Filtruj użytkowników - admin widzi wszystkich, zwykły użytkownik tylko siebie
 const availableUsers = computed(() => {
+  if (!users.value || !Array.isArray(users.value)) {
+    return []
+  }
   return users.value
     .filter((u) => {
       if (isAdmin.value) {
@@ -175,25 +192,6 @@ const availableUsers = computed(() => {
       displayName: `${u.firstName} ${u.lastName} (${u.username})`,
     }))
 })
-
-// Watch for bookingId changes to load booking data
-watch(() => props.bookingId, async (newBookingId) => {
-  if (newBookingId && props.visible) {
-    await fetchBooking(newBookingId)
-    if (booking.value) {
-      const participantIds = booking.value.participants?.map(p => p.id) || []
-      formData.value = {
-        title: booking.value.title,
-        roomId: booking.value.room.id,
-        startedAt: new Date(booking.value.startedAt),
-        endedAt: new Date(booking.value.endedAt),
-        participantsCount: booking.value.participantsCount,
-        isPrivate: booking.value.isPrivate,
-        participantIds,
-      }
-    }
-  }
-}, { immediate: true })
 
 const formData = ref<{
   title: string
@@ -218,7 +216,47 @@ const errors = ref<{
   roomId?: string
   startedAt?: string
   endedAt?: string
+  participantsCount?: string
 }>({})
+
+watch(() => props.bookingId, async (newBookingId) => {
+  if (newBookingId && props.visible) {
+    await fetchBooking(newBookingId)
+    if (booking.value) {
+      const participantIds = booking.value.participants?.map(p => p.id) || []
+      formData.value = {
+        title: booking.value.title,
+        roomId: booking.value.room.id,
+        startedAt: new Date(booking.value.startedAt),
+        endedAt: new Date(booking.value.endedAt),
+        participantsCount: booking.value.participantsCount,
+        isPrivate: booking.value.isPrivate,
+        participantIds,
+      }
+    }
+  }
+}, { immediate: true })
+
+watch(() => formData.value.roomId, async (newRoomId) => {
+  if (newRoomId && !props.capacity && !props.roomId) {
+    await fetchRoom(newRoomId, false)
+  }
+})
+
+watch([() => formData.value.participantIds, () => formData.value.participantsCount, () => room.value?.capacity], () => {
+  const roomCapacity = props.capacity || room.value?.capacity
+  if (roomCapacity && formData.value.participantsCount > roomCapacity) {
+    errors.value.participantsCount = `Liczba uczestników nie może przekroczyć pojemności sali (${roomCapacity})`
+    return
+  }
+
+  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
+    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
+  }
+  else if (errors.value.participantsCount && (errors.value.participantsCount.includes('liczba wybranych osób') || errors.value.participantsCount.includes('pojemności sali'))) {
+    delete errors.value.participantsCount
+  }
+})
 
 const validateForm = (): boolean => {
   errors.value = {}
@@ -251,6 +289,18 @@ const validateForm = (): boolean => {
     }
   }
 
+  // Sprawdź pojemność - użyj capacity z props lub z pobranej sali
+  const roomCapacity = props.capacity || room.value?.capacity
+  if (roomCapacity && formData.value.participantsCount > roomCapacity) {
+    errors.value.participantsCount = `Liczba uczestników nie może przekroczyć pojemności sali (${roomCapacity})`
+    isValid = false
+  }
+
+  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
+    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
+    isValid = false
+  }
+
   return isValid
 }
 
@@ -260,7 +310,6 @@ const handleSubmit = async () => {
   }
 
   try {
-    // Format dates to ISO 8601 without timezone (YYYY-MM-DDTHH:mm:ss)
     const formatDate = (date: Date): string => {
       const year = date.getFullYear()
       const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -282,15 +331,25 @@ const handleSubmit = async () => {
     }
 
     if (props.bookingId) {
-      // Update existing booking
       await updateBooking(props.bookingId, bookingData)
+      toast.add({
+        severity: 'success',
+        summary: t('common.toast.success'),
+        detail: t('common.toast.bookingUpdated'),
+        life: 3000,
+      })
     }
     else {
-      // Create new booking
-      await createBooking(bookingData)
+      const result = await createBooking(bookingData)
+      console.log('Booking created:', result)
+      toast.add({
+        severity: 'success',
+        summary: t('common.toast.success'),
+        detail: t('common.toast.bookingCreated'),
+        life: 3000,
+      })
     }
 
-    // Reset form
     formData.value = {
       title: '',
       roomId: props.roomId || '',
@@ -302,9 +361,25 @@ const handleSubmit = async () => {
     }
 
     emit('success')
+    emit('close')
   }
-  catch (err) {
-    console.error('Error creating booking:', err)
+  catch (err: any) {
+    if (err?.code === 409) {
+      toast.add({
+        severity: 'warn',
+        summary: t('common.warning'),
+        detail: err?.message || 'W tym czasie jest już zarezerwowana inna rezerwacja. Wybierz inny termin.',
+        life: 5000,
+      })
+      return
+    }
+
+    toast.add({
+      severity: 'error',
+      summary: t('common.error'),
+      detail: err?.message || t('common.toast.bookingError'),
+      life: 3000,
+    })
   }
 }
 
@@ -317,7 +392,6 @@ const handleClose = () => {
   emit('close')
 }
 
-// Fetch rooms and users when component is mounted
 onMounted(async () => {
   if (!props.roomId) {
     fetchRooms(false, 'available')

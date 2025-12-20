@@ -1,6 +1,11 @@
 <template>
   <div class="flex flex-col xl:flex-col w-full">
-    <div class="relative flex flex-row items-center justify-center gap-4 mb-4 w-full">
+    <div class="relative flex flex-row items-center justify-center gap-4 mb-14 w-full">
+      <div class="absolute left-0 shadow-md p-4 rounded-lg bg-white">
+        <h1 class="font-bold text-4xl">
+          Lista sal
+        </h1>
+      </div>
       <Paginator
         v-if="paginatorPosition"
         class="flex self-center"
@@ -36,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+import { filter } from '@primeuix/themes/aura/datatable'
 import RoomGrid from '~/components/rooms/RoomGrid.vue'
 import RoomsFilter from '~/components/rooms/RoomsFilter.vue'
 import { useRoom } from '~/composables/useRoom'
@@ -44,7 +50,6 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const route = useRoute()
 const { rooms: allRooms, fetchRooms, loadFavoriteIds } = useRoom()
 
 const first = ref(0)
@@ -55,41 +60,54 @@ const filters = ref({
   minCapacity: null as number | null,
   minSize: null as number | null,
   searchName: '' as string,
+  equipment: [] as string[],
+  location: null as string | null,
+  lighting: null as string | null,
+  access: null as string | null,
 })
 
 const filteredRooms = computed(() => {
   return allRooms.value.filter((room) => {
     let matches = true
 
-    // Filter by status
     if (filters.value.status) {
       if (filters.value.status === 'available') {
-        // Dostępna = nie ma currentBooking i status === 'available'
         matches = matches && !room.currentBooking && room.status === 'available'
       }
       else if (filters.value.status === 'occupied') {
-        // Zajęta = ma currentBooking
         matches = matches && !!room.currentBooking
       }
       else if (filters.value.status === 'maintenance') {
-        // Nieczynna = status === 'occupied' lub 'maintenance'
         matches = matches && (room.status === 'occupied' || room.status === 'maintenance')
       }
     }
 
-    // Filter by minimum capacity
     if (filters.value.minCapacity) {
       matches = matches && room.capacity >= filters.value.minCapacity
     }
 
-    // Filter by minimum size
     if (filters.value.minSize) {
       matches = matches && room.size >= filters.value.minSize
     }
 
-    // Filter by room name
     if (filters.value.searchName) {
       matches = matches && room.roomName.toLowerCase().includes(filters.value.searchName.toLowerCase())
+    }
+
+    if (filters.value.equipment.length > 0) {
+      const roomEquipmentNames = room.equipment?.map(eq => eq.name) || []
+      matches = matches && filters.value.equipment.every(eqName => roomEquipmentNames.includes(eqName))
+    }
+
+    if (filters.value.location && filters.value.location?.length > 0 && room.location) {
+      matches = matches && room.location.includes(filters.value.location)
+    }
+
+    if (filters.value.lighting && filters.value.lighting?.length > 0 && room.lighting) {
+      matches = matches && room.lighting.includes(filters.value.lighting)
+    }
+    if (filters.value.access && room.access) {
+      matches = matches && room.access === filters.value.access
     }
 
     return matches
@@ -113,13 +131,13 @@ const handelUpdateRows = (value: number) => {
   rows.value = value
 }
 
-const onFilterChange = (newFilters: { status: string | null, minCapacity: number | null, minSize: number | null, searchName: string }) => {
+const onFilterChange = (newFilters: { status: string | null, minCapacity: number | null, minSize: number | null, searchName: string, equipment: string[], location: string | null, lighting: string | null, access: string | null }) => {
   filters.value = newFilters
-  first.value = 0 // Reset to first page when filters change
+  first.value = 0
 }
 
 onMounted(async () => {
-  await loadFavoriteIds() // Load favorite IDs first
-  await fetchRooms(true) // true to fetch with bookings
+  await loadFavoriteIds()
+  await fetchRooms(true)
 })
 </script>

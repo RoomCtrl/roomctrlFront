@@ -60,7 +60,7 @@ import RentBadge from './RentBadge.vue'
 const props = defineProps<{
   roomName: string
   capacity: number
-  size?: string
+  size: number
   showMoreInfo: boolean
   currentBooking?: {
     title: string

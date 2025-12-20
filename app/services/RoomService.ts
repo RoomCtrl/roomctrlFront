@@ -35,4 +35,8 @@ export class RoomService {
   async toggleFavorite(roomId: string): Promise<void> {
     return await this.repository.toggleFavorite(roomId)
   }
+
+  async uploadImage(roomId: string, image: File): Promise<{ message: string, imagePath: string }> {
+    return await this.repository.uploadImage(roomId, image)
+  }
 }

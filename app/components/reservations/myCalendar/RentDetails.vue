@@ -15,7 +15,11 @@
                 'w-1 h-16 rounded absolute left-0',
               ]"
             />
-            <h3 class="text-xl font-semibold ml-4">
+            <h3 class="text-xl font-semibold ml-4 flex items-center gap-2">
+              <i
+                v-if="selectedReservation.status === 'cancelled'"
+                class="pi pi-times-circle text-red-500"
+              />
               {{ selectedReservation.title }}
             </h3>
             <p class="text-sm ml-4 mt-1">
@@ -66,7 +70,10 @@
       </div>
     </div>
 
-    <div class="flex justify-end gap-3">
+    <div
+      v-if="selectedReservation.status !== 'cancelled'"
+      class="flex justify-end gap-3"
+    >
       <Button
         label="Anuluj rezerwację"
         severity="danger"
@@ -78,6 +85,14 @@
         severity="success"
         @click="handleEdit"
       />
+    </div>
+    <div
+      v-else
+      class="flex justify-center"
+    >
+      <p class="text-red-500 font-semibold">
+        Ta rezerwacja została anulowana
+      </p>
     </div>
   </Dialog>
 </template>
@@ -96,6 +111,7 @@ const props = defineProps<{
     location: string
     attendees: number
     color: string
+    status?: 'active' | 'cancelled' | 'completed'
   }
 }>()
 
@@ -103,6 +119,9 @@ const emit = defineEmits(['update:open', 'edit', 'deleted'])
 
 const { cancelBooking } = useBooking()
 const deleteLoading = ref(false)
+const confirm = useConfirm()
+const { t } = useI18n()
+const toast = useToast()
 
 const formatTime = (date: Date) => {
   return date.toLocaleTimeString('pl-PL', {
@@ -139,22 +158,47 @@ const colorMap = {
 const rentColor = (color: string) => colorMap[color]
 
 const handleDelete = async () => {
-  if (!confirm('Czy na pewno chcesz anulować tę rezerwację?')) {
-    return
-  }
-
-  deleteLoading.value = true
-  try {
-    await cancelBooking(props.selectedReservation.id)
-    emit('update:open', false)
-    emit('deleted')
-  }
-  catch (err) {
-    console.error('Error cancelling booking:', err)
-  }
-  finally {
-    deleteLoading.value = false
-  }
+  confirm.require({
+    message: t('pages.myCalendar.cancelReservation.title'),
+    header: t('common.toast.danger'),
+    icon: 'pi pi-info-circle',
+    rejectLabel: t('common.buttons.cancel'),
+    rejectProps: {
+      label: t('common.buttons.cancel'),
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: t('common.buttons.delete'),
+      severity: 'danger',
+    },
+    accept: async () => {
+      deleteLoading.value = true
+      try {
+        await cancelBooking(props.selectedReservation.id)
+        toast.add({
+          severity: 'success',
+          summary: t('common.toast.success'),
+          detail: t('common.toast.bookingCancelled'),
+          life: 3000,
+        })
+        emit('update:open', false)
+        emit('deleted')
+      }
+      catch (err) {
+        console.error('Error cancelling booking:', err)
+        toast.add({
+          severity: 'error',
+          summary: t('common.error'),
+          detail: t('common.toast.bookingCancelError'),
+          life: 3000,
+        })
+      }
+      finally {
+        deleteLoading.value = false
+      }
+    },
+  })
 }
 
 const handleEdit = () => {

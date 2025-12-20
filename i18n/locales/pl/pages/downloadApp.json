@@ -1,10 +1,50 @@
 {
-  "androidIos": "Android / iOS ",
-  "title": "Pobierz aplikacje",
-  "usersRate": "Ocena użytkowników: ",
-  "minVersion": "Minimalna wersja: ",
-  "copy": "Skopiuj",
+  "badge": "Pobierz teraz",
+  "title": "Pobierz aplikację RoomCtrl na swoje urządzenie",
+  "description": "Zarządzaj swoimi rezerwacjami w każdym miejscu i czasie. Nasza aplikacja mobilna oferuje pełną funkcjonalność w eleganckim, intuicyjnym interfejsie.",
+  "downloads": "Pobrań",
+  "rating": "Ocena",
+  "users": "Użytkowników",
+  "androidIos": "Porównaj Android i iOS",
+  "compareText": "Sprawdź jak wygląda aplikacja na różnych platformach",
+  "chooseYourPlatform": "Wybierz swoją platformę",
+  "availableOn": "Dostępna na iOS i Android",
+  "usersRate": "Ocena użytkowników",
+  "minVersion": "Minimalna wersja",
   "size": "Rozmiar",
+  "lastUpdate": "Ostatnia aktualizacja",
+  "recentlyUpdated": "Niedawno zaktualizowano",
+  "copy": "Skopiuj",
+  "scanQr": "Zeskanuj kod QR, aby pobrać aplikację",
+  "or": "LUB",
+  "featuresTitle": "Wszystko czego potrzebujesz w jednej aplikacji",
+  "featuresSubtitle": "Odkryj funkcje, które uczynią zarządzanie rezerwacjami prostszym",
+  "features": {
+    "booking": {
+      "title": "Łatwa rezerwacja",
+      "description": "Rezerwuj sale w kilka sekund z intuicyjnym interfejsem"
+    },
+    "notifications": {
+      "title": "Powiadomienia push",
+      "description": "Otrzymuj aktualizacje o swoich rezerwacjach w czasie rzeczywistym"
+    },
+    "qrcode": {
+      "title": "Kody QR",
+      "description": "Szybki dostęp do sal za pomocą unikalnych kodów QR"
+    },
+    "security": {
+      "title": "Bezpieczeństwo",
+      "description": "Twoje dane są chronione najnowszymi standardami bezpieczeństwa"
+    },
+    "responsive": {
+      "title": "Responsywny design",
+      "description": "Aplikacja dostosowuje się do każdego rozmiaru ekranu"
+    },
+    "sync": {
+      "title": "Synchronizacja",
+      "description": "Dane synchronizowane na wszystkich Twoich urządzeniach"
+    }
+  },
   "android": {
     "title": "Android"
   },
