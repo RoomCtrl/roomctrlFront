@@ -93,6 +93,15 @@
               :room-id="slotProps.data.roomId"
             />
             <Button
+              v-tooltip.left="{ value: 'Dodaj zdjęcie' }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+              icon="pi pi-image"
+              severity="secondary"
+              raised
+              variant="outlined"
+              @click="openUploadModal(slotProps.data)"
+            />
+            <Button
               v-tooltip.left="{ value: $t('common.buttons.edit') }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-pencil"
@@ -134,6 +143,49 @@
         @submit="handleFormSubmit"
         @cancel="showModal = false"
       />
+    </Dialog>
+
+    <Dialog
+      v-model:visible="showUploadModal"
+      header="Dodaj zdjęcie do sali"
+      :modal="true"
+      :closable="true"
+      class="w-[40vw]"
+      @hide="resetUploadModal"
+    >
+      <div class="flex flex-col gap-4">
+        <p class="text-gray-300">
+          Dozwolone formaty: JPG, PNG, PDF
+        </p>
+        <FileUpload
+          ref="fileUploadRef"
+          mode="basic"
+          accept="image/jpeg,image/png,application/pdf"
+          :max-file-size="5000000"
+          :choose-label="uploadedFile ? uploadedFile.name : 'Wybierz plik'"
+          :auto="false"
+          @select="onFileSelect"
+        />
+        <div
+          v-if="uploadedFile"
+          class="text-sm text-gray-400"
+        >
+          Wybrany plik: {{ uploadedFile.name }}
+        </div>
+        <div class="flex justify-end gap-3">
+          <Button
+            label="Prześlij"
+            :loading="uploadLoading"
+            :disabled="!uploadedFile"
+            @click="handleUpload"
+          />
+          <Button
+            label="Anuluj"
+            severity="secondary"
+            @click="showUploadModal = false"
+          />
+        </div>
+      </div>
     </Dialog>
 
     <ConfirmDialog />
@@ -178,6 +230,12 @@ const formLoading = ref(false)
 const selectedRoom = ref<any>(null)
 const isEditMode = computed(() => !!selectedRoom.value)
 
+const showUploadModal = ref(false)
+const uploadLoading = ref(false)
+const uploadedFile = ref<File | null>(null)
+const uploadRoomId = ref<string | null>(null)
+const fileUploadRef = ref<any>(null)
+
 const openAddModal = () => {
   selectedRoom.value = null
   showModal.value = true
@@ -188,9 +246,87 @@ const openEditModal = (room: IRoomCard) => {
   showModal.value = true
 }
 
+const openUploadModal = (room: IRoomCard) => {
+  uploadRoomId.value = room.roomId
+  uploadedFile.value = null
+  showUploadModal.value = true
+}
+
 const resetModal = () => {
   selectedRoom.value = null
   showModal.value = false
+}
+
+const resetUploadModal = () => {
+  uploadedFile.value = null
+  uploadRoomId.value = null
+  showUploadModal.value = false
+  if (fileUploadRef.value) {
+    fileUploadRef.value.clear()
+  }
+}
+
+const onFileSelect = (event: any) => {
+  console.log('onFileSelect event:', event)
+  const file = event.files?.[0]
+  console.log('Selected file:', file)
+  if (file) {
+    uploadedFile.value = file
+  }
+}
+
+const handleUpload = async () => {
+  // Get file from FileUpload component directly
+  let fileToUpload = uploadedFile.value
+
+  // If not in uploadedFile ref, try to get it from the FileUpload component
+  if (!fileToUpload && fileUploadRef.value) {
+    const files = fileUploadRef.value.files
+    console.log('Files from ref:', files)
+    if (files && files.length > 0) {
+      fileToUpload = files[0]
+    }
+  }
+
+  console.log('handleUpload called', {
+    fileToUpload,
+    uploadRoomId: uploadRoomId.value,
+  })
+
+  if (!fileToUpload || !uploadRoomId.value) {
+    toast.add({
+      severity: 'error',
+      summary: 'Błąd',
+      detail: 'Nie wybrano pliku',
+      life: 3000,
+    })
+    return
+  }
+
+  uploadLoading.value = true
+  try {
+    console.log('Uploading file:', fileToUpload.name, 'to room:', uploadRoomId.value)
+    await uploadImage(uploadRoomId.value, fileToUpload)
+    toast.add({
+      severity: 'success',
+      summary: 'Sukces',
+      detail: 'Zdjęcie zostało przesłane',
+      life: 3000,
+    })
+    showUploadModal.value = false
+    resetUploadModal()
+  }
+  catch (error) {
+    toast.add({
+      severity: 'error',
+      summary: 'Błąd',
+      detail: error instanceof Error ? error.message : 'Przesyłanie nie powiodło się',
+      life: 3000,
+    })
+  }
+  finally {
+    uploadLoading.value = false
+  }
 }
 
 const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateRequest, image?: File) => {

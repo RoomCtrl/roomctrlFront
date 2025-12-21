@@ -22,7 +22,7 @@ export const useRoom = () => {
       // Mark rooms as favorite if they're in favoriteRoomIds
       rooms.value = fetchedRooms.map(r => ({
         ...r,
-        isFavorite: favoriteRoomIds.value.has(r.roomId)
+        isFavorite: favoriteRoomIds.value.has(r.roomId),
       }))
     }
     catch (err) {
@@ -40,7 +40,7 @@ export const useRoom = () => {
       const fetchedRoom = await getRoomService().getRoom(roomId, withBookings)
       room.value = {
         ...fetchedRoom,
-        isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId)
+        isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId),
       }
     }
     catch (err) {
@@ -133,21 +133,22 @@ export const useRoom = () => {
     error.value = null
     try {
       await getRoomService().toggleFavorite(roomId)
-      
+
       // Update favoriteRoomIds set
       const newFavoriteIds = new Set(favoriteRoomIds.value)
       if (newFavoriteIds.has(roomId)) {
         newFavoriteIds.delete(roomId)
-      } else {
+      }
+      else {
         newFavoriteIds.add(roomId)
       }
       favoriteRoomIds.value = newFavoriteIds
-      
+
       // Update room details if viewing this room
       if (room.value && room.value.roomId === roomId) {
         room.value.isFavorite = !room.value.isFavorite
       }
-      
+
       // Update in rooms list if present
       const roomIndex = rooms.value.findIndex(r => r.roomId === roomId)
       if (roomIndex !== -1) {
@@ -193,14 +194,16 @@ export const useRoom = () => {
     }
   }
 
+  const getRoomImages = (roomId: string) => {
+    return getRoomService().getRoomImages(roomId)
+  }
+
   return {
-    // State
     rooms,
     room,
     loading,
     error,
 
-    // Methods
     fetchRooms,
     fetchRoom,
     fetchFavoriteRooms,
@@ -211,5 +214,6 @@ export const useRoom = () => {
     clearError,
     loadFavoriteIds,
     uploadImage,
+    getRoomImages,
   }
 }

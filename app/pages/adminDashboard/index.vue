@@ -125,7 +125,6 @@ const upcomingBookings = computed(() => {
 })
 
 onMounted(async () => {
-  // Pobierz wszystkie rezerwacje bez filtrowania po statusie
   bookings.value = await new BookingService(useAuth().token.value).getBookings()
 
   fetchRooms(true)

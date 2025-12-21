@@ -1,0 +1,45 @@
+.p-button{
+  color: white;
+}
+
+/*Outlined buttons styles */
+.dark .p-button-outlined.p-button-primary {
+  background-color: color-mix(in srgb, var(--p-button-primary-background) 70%, transparent 0%);
+}
+
+.dark .p-button-outlined.p-button-secondary {
+  background-color: color-mix(in srgb, var(--p-button-secondary-background) 30%, transparent 0%);
+}
+
+.dark .p-button-outlined.p-button-success {
+  background-color: color-mix(in srgb, var(--p-green-900) 70%, transparent);
+  border: 1px solid var(--p-green-700);  
+}
+
+.dark .p-button-outlined.p-button-info {
+  background-color: color-mix(in srgb, var(--p-sky-900) 70%, transparent);
+  border: 1px solid var(--p-sky-700);  
+}
+
+.dark .p-button-outlined.p-button-warn {
+  background-color: color-mix(in srgb, var(--p-orange-900) 70%, transparent 0%);
+  border: 1px solid var(--p-orange-700);  
+}
+
+.dark .p-button-outlined.p-button-help {
+  background-color: color-mix(in srgb, var(--p-violet-900) 70%, transparent 0%);
+  border: 1px solid var(--p-violet-700);  
+}
+
+.dark .p-button-outlined.p-button-danger {
+  background-color: color-mix(in srgb, var(--p-red-900) 70%, transparent 0%);
+  border: 1px solid var(--p-red-700);  
+}
+
+.dark .p-button-outlined.p-button-contrast {
+  background-color: color-mix(in srgb, var(--p-button-contrast-background) 30%, transparent 0%);
+}
+
+.dark .p-button-outlined.p-button-raised {
+  border: 0;  
+}

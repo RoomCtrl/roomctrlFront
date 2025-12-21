@@ -248,10 +248,14 @@ import { useBooking } from '~/composables/useBooking'
 import { useAuth } from '~/composables/useAuth'
 import { dayOfWeekFullNames } from '~/utils/dateHelpers'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const currentDate = ref(new Date())
 const selectedReservation = ref(null)
 const visible = ref(false)
-const viewMode = ref('week') // 'day', 'week' lub 'month'
+const viewMode = ref('week')
 const showBookingForm = ref(false)
 const selectedRoomId = ref('')
 const editingBookingId = ref('')
@@ -260,7 +264,6 @@ const { t } = useI18n()
 const { bookings, fetchUserBookings } = useBooking()
 const { user } = useAuth()
 
-// Map bookings from API to calendar format
 const reservations = computed(() => {
   const result = []
   const colors = ['blue', 'green', 'yellow', 'purple', 'red', 'orange']
@@ -270,12 +273,10 @@ const reservations = computed(() => {
     const endDate = new Date(booking.endedAt)
     const color = colors[index % colors.length]
 
-    // Check if reservation spans multiple days
     const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
     const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
 
     if (startDay.getTime() === endDay.getTime()) {
-      // Single day reservation
       const duration = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60))
       result.push({
         id: booking.id,
@@ -291,24 +292,20 @@ const reservations = computed(() => {
       })
     }
     else {
-      // Multi-day reservation - split into separate entries
       const currentDay = new Date(startDay)
 
       while (currentDay <= endDay) {
         let segmentStart, segmentEnd
 
         if (currentDay.getTime() === startDay.getTime()) {
-          // First day - start at actual start time, end at 23:59:59
           segmentStart = new Date(startDate)
           segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
         }
         else if (currentDay.getTime() === endDay.getTime()) {
-          // Last day - start at 00:00, end at actual end time
           segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
           segmentEnd = new Date(endDate)
         }
         else {
-          // Middle day - full day (00:00 to 23:59:59)
           segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
           segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
         }
@@ -330,7 +327,6 @@ const reservations = computed(() => {
           isMultiDay: true,
         })
 
-        // Move to next day
         currentDay.setDate(currentDay.getDate() + 1)
       }
     }
@@ -370,7 +366,7 @@ const monthDays = computed(() => {
   )
 
   const days = []
-  const totalDays = 42 // 6 tygodni
+  const totalDays = 42
 
   for (let i = 0; i < totalDays; i++) {
     const day = new Date(startDate)
@@ -456,7 +452,6 @@ const isSameMonth = (day) => {
 
 const openModal = (reservation) => {
   visible.value = true
-  // Use originalId if it's a multi-day segment, otherwise use regular id
   const displayReservation = {
     ...reservation,
     id: reservation.originalId || reservation.id,
@@ -477,15 +472,12 @@ const handleBookingSuccess = async () => {
 
   const editedId = editingBookingId.value
 
-  // Refresh bookings for current user
   if (user.value?.id) {
     await fetchUserBookings(user.value.id, 'active')
   }
 
-  // If we were editing, reopen the details modal with updated data
   if (editedReservation.value && editedId) {
     setTimeout(() => {
-      // Find the updated reservation from the refreshed list
       const updatedReservation = reservations.value.find(r => r.id === editedId)
       if (updatedReservation) {
         selectedReservation.value = updatedReservation
@@ -513,17 +505,14 @@ const handleEdit = (reservation) => {
 }
 
 const handleDeleted = () => {
-  // Refresh bookings after deletion
   if (user.value?.id) {
     fetchUserBookings(user.value.id, 'active')
   }
 }
 
-// Expose function to parent components
 defineExpose({ handleShowBookingForm })
 
 onMounted(() => {
-  // Fetch active bookings for the logged-in user
   if (user.value?.id) {
     fetchUserBookings(user.value.id, 'active')
   }

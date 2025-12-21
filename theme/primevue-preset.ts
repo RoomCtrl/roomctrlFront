@@ -106,7 +106,43 @@ const MyCustomPreset = definePreset(Aura, {
     button: {
       colorScheme: {
         dark: {
-          text: {
+          root: {
+            success: {
+              background: 'var(--p-green-700)',
+              borderColor: 'var(--p-green-600)',
+              color: '{text.color}',
+              hoverBackground: 'var(--p-green-600)',
+              hoverBorderColor: 'var(--p-green-500)',
+            },
+            info: {
+              background: 'var(--p-sky-700)',
+              borderColor: 'var(--p-sky-600)',
+              color: '{text.color}',
+              hoverBackground: 'var(--p-sky-600)',
+              hoverBorderColor: 'var(--p-sky-500)',
+            },
+            warn: {
+              background: 'var(--p-amber-700)',
+              borderColor: 'var(--p-amber-600)',
+              color: '{text.color}',
+              hoverBackground: 'var(--p-amber-600)',
+              hoverBorderColor: 'var(--p-amber-500)',
+            },
+            help: {
+              background: 'var(--p-violet-700)',
+              borderColor: 'var(--p-violet-600)',
+              color: '{text.color}',
+              hoverBackground: 'var(--p-violet-600)',
+              hoverBorderColor: 'var(--p-violet-500)',
+            },
+            danger: {
+              background: 'var(--p-red-700)',
+              borderColor: 'var(--p-red-600)',
+              color: '{text.color}',
+              hoverBackground: 'var(--p-red-600)',
+              hoverBorderColor: 'var(--p-red-500)',
+            },
+            raisedShadow: '0 3px 1px -2px rgba(250, 250, 250, 0.2), 0 2px 2px 0 rgba(250, 250, 250, 0.14), 0 1px 5px 0 rgba(250, 250, 250, 0.12)',
           },
         },
       },

@@ -25,6 +25,7 @@ export default defineNuxtConfig({
   css: [
     'primeicons/primeicons.css',
     '~/assets/css/main.css',
+    '~/assets/css/buttons.css',
   ],
   colorMode: {
     preference: 'system',

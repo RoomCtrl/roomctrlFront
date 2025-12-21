@@ -41,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-import { filter } from '@primeuix/themes/aura/datatable'
 import RoomGrid from '~/components/rooms/RoomGrid.vue'
 import RoomsFilter from '~/components/rooms/RoomsFilter.vue'
 import { useRoom } from '~/composables/useRoom'

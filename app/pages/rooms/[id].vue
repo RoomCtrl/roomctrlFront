@@ -132,6 +132,12 @@
           </div>
         </InfoCard>
       </div>
+
+      <RoomImages
+        v-if="roomDetails"
+        :room-id="roomDetails.roomId"
+        class="col-span-1 md:col-span-4 lg:col-span-4 md:row-start-5 lg:row-start-4"
+      />
     </div>
 
     <BookingForm
@@ -154,6 +160,7 @@ import EqupimentInfo from '~/components/rooms/detailsParts/EqupimentInfo.vue'
 import GeneralInfo from '~/components/rooms/detailsParts/GeneralInfo.vue'
 import InfoCard from '~/components/rooms/detailsParts/InfoCard.vue'
 import UpcomingMeeting from '~/components/rooms/detailsParts/UpcomingMeeting.vue'
+import RoomImages from '~/components/rooms/detailsParts/RoomImages.vue'
 import BookingForm from '~/components/rooms/BookingForm.vue'
 import { useRoom } from '~/composables/useRoom'
 
@@ -185,7 +192,6 @@ watch(status, (newStatus) => {
 
 const handleBookingSuccess = () => {
   showBookingForm.value = false
-  // Refresh room details to get updated bookings
   const roomId = String(route.params.id)
   fetchRoom(roomId, true)
 }

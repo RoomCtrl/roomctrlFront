@@ -139,7 +139,14 @@ export class RoomRepository {
 
   async uploadImage(roomId: string, image: File): Promise<{ message: string, imagePath: string }> {
     const formData = new FormData()
-    formData.append('image', image)
+    formData.append('file', image)
+
+    console.log('FormData before send:', {
+      roomId,
+      fileName: image.name,
+      fileSize: image.size,
+      fileType: image.type,
+    })
 
     const response = await fetch(`/api/rooms/${roomId}/upload`, {
       method: 'POST',
@@ -151,9 +158,14 @@ export class RoomRepository {
 
     if (!response.ok) {
       const errorText = await response.text()
+      console.error('Upload error:', errorText)
       throw new Error(`API Error: ${response.status} ${response.statusText}`)
     }
 
     return await response.json()
+  }
+
+  getRoomImages(roomId: string): string {
+    return `/api/rooms/${roomId}/image`
   }
 }

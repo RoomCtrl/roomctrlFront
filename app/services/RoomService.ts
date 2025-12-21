@@ -39,4 +39,8 @@ export class RoomService {
   async uploadImage(roomId: string, image: File): Promise<{ message: string, imagePath: string }> {
     return await this.repository.uploadImage(roomId, image)
   }
+
+  getRoomImages(roomId: string): string {
+    return this.repository.getRoomImages(roomId)
+  }
 }
