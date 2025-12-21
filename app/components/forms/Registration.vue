@@ -1,251 +1,253 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="flex flex-col gap-8 items-center">
-      <h1 class="text-3xl font-bold pt-[3vh]">
+    <div class="flex flex-col items-center">
+      <h1 class="text-start w-full text-3xl font-bold pt-[3vh] pl-20">
         Rejestracja
       </h1>
 
       <div class="flex flex-col gap-4">
-        <!-- Sekcja Organizacja -->
         <div class="section-title">
           <i class="pi pi-building" />
           <h2>Dane organizacji</h2>
         </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-hashtag" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="regon"
-                v-model="regon"
-                :class="{ 'p-invalid': regonError }"
-                @blur="regonBlur"
-              />
-              <label for="regon">REGON</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="regonError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ regonError }}
-          </Message>
+        <div class="flex flex-wrap gap-4">
+          <div class="w-[70vw] md:w-[23rem]">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-hashtag" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <InputText
+                  id="regon"
+                  v-model="regon"
+                  :class="{ 'p-invalid': regonError }"
+                  @blur="regonBlur"
+                />
+                <label for="regon">REGON</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="regonError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ regonError }}
+            </Message>
+          </div>
+
+          <div class="w-[70vw] md:w-[23rem]">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-building" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <InputText
+                  id="organizationName"
+                  v-model="organizationName"
+                  :class="{ 'p-invalid': organizationNameError }"
+                  @blur="organizationNameBlur"
+                />
+                <label for="organizationName">Nazwa organizacji</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="organizationNameError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ organizationNameError }}
+            </Message>
+          </div>
+
+          <div class="w-[70vw] md:w-[23rem]">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-envelope" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <InputText
+                  id="organizationEmail"
+                  v-model="organizationEmail"
+                  type="email"
+                  :class="{ 'p-invalid': organizationEmailError }"
+                  @blur="organizationEmailBlur"
+                />
+                <label for="organizationEmail">Email organizacji</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="organizationEmailError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ organizationEmailError }}
+            </Message>
+          </div>
         </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-building" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="organizationName"
-                v-model="organizationName"
-                :class="{ 'p-invalid': organizationNameError }"
-                @blur="organizationNameBlur"
-              />
-              <label for="organizationName">Nazwa organizacji</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="organizationNameError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ organizationNameError }}
-          </Message>
-        </div>
-
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-envelope" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="organizationEmail"
-                v-model="organizationEmail"
-                type="email"
-                :class="{ 'p-invalid': organizationEmailError }"
-                @blur="organizationEmailBlur"
-              />
-              <label for="organizationEmail">Email organizacji</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="organizationEmailError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ organizationEmailError }}
-          </Message>
-        </div>
-
-        <!-- Sekcja Użytkownik -->
         <div class="section-title">
           <i class="pi pi-user" />
           <h2>Dane użytkownika</h2>
         </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-user" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="username"
-                v-model="username"
-                :class="{ 'p-invalid': usernameError }"
-                @blur="usernameBlur"
-              />
-              <label for="username">Nazwa użytkownika</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="usernameError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ usernameError }}
-          </Message>
-        </div>
+        <div class="grid grid-cols-3 grid-rows-3 gap-y-4">
+          <div class="w-[70vw] md:w-[23rem]">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-user" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <InputText
+                  id="username"
+                  v-model="username"
+                  :class="{ 'p-invalid': usernameError }"
+                  @blur="usernameBlur"
+                />
+                <label for="username">Nazwa użytkownika</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="usernameError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ usernameError }}
+            </Message>
+          </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-id-card" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="firstName"
-                v-model="firstName"
-                :class="{ 'p-invalid': firstNameError }"
-                @blur="firstNameBlur"
-              />
-              <label for="firstName">Imię</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="firstNameError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ firstNameError }}
-          </Message>
-        </div>
+          <div class="w-[70vw] md:w-[23rem]">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-id-card" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <InputText
+                  id="firstName"
+                  v-model="firstName"
+                  :class="{ 'p-invalid': firstNameError }"
+                  @blur="firstNameBlur"
+                />
+                <label for="firstName">Imię</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="firstNameError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ firstNameError }}
+            </Message>
+          </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-id-card" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="lastName"
-                v-model="lastName"
-                :class="{ 'p-invalid': lastNameError }"
-                @blur="lastNameBlur"
-              />
-              <label for="lastName">Nazwisko</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="lastNameError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ lastNameError }}
-          </Message>
-        </div>
+          <div class="w-[70vw] md:w-[23rem]">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-id-card" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <InputText
+                  id="lastName"
+                  v-model="lastName"
+                  :class="{ 'p-invalid': lastNameError }"
+                  @blur="lastNameBlur"
+                />
+                <label for="lastName">Nazwisko</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="lastNameError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ lastNameError }}
+            </Message>
+          </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-at" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="email"
-                v-model="email"
-                type="email"
-                :class="{ 'p-invalid': emailError }"
-                @blur="emailBlur"
-              />
-              <label for="email">Email</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="emailError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ emailError }}
-          </Message>
-        </div>
+          <div class="w-[70vw] md:w-[23rem]">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-at" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <InputText
+                  id="email"
+                  v-model="email"
+                  type="email"
+                  :class="{ 'p-invalid': emailError }"
+                  @blur="emailBlur"
+                />
+                <label for="email">Email</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="emailError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ emailError }}
+            </Message>
+          </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-phone" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="phone"
-                v-model="phone"
-                :class="{ 'p-invalid': phoneError }"
-                @blur="phoneBlur"
-              />
-              <label for="phone">Telefon</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="phoneError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ phoneError }}
-          </Message>
-        </div>
+          <div class="w-[70vw] md:w-[23rem]">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-phone" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <InputText
+                  id="phone"
+                  v-model="phone"
+                  :class="{ 'p-invalid': phoneError }"
+                  @blur="phoneBlur"
+                />
+                <label for="phone">Telefon</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="phoneError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ phoneError }}
+            </Message>
+          </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-key" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <Password
-                id="password"
-                v-model="password"
-                :class="{ 'p-invalid': passwordError }"
-                toggleMask
-                fluid
-                :feedback="true"
-                @blur="passwordBlur"
-              />
-              <label for="password">Hasło</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="passwordError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ passwordError }}
-          </Message>
+          <div class="w-[70vw] md:w-[23rem] row-start-3">
+            <InputGroup>
+              <InputGroupAddon>
+                <i class="pi pi-key" />
+              </InputGroupAddon>
+              <FloatLabel variant="on">
+                <Password
+                  id="password"
+                  v-model="password"
+                  :class="{ 'p-invalid': passwordError }"
+                  toggleMask
+                  fluid
+                  :feedback="true"
+                  @blur="passwordBlur"
+                />
+                <label for="password">Hasło</label>
+              </FloatLabel>
+            </InputGroup>
+            <Message
+              v-if="passwordError"
+              severity="error"
+              size="small"
+              variant="simple"
+            >
+              {{ passwordError }}
+            </Message>
+          </div>
         </div>
       </div>
 
@@ -278,7 +280,7 @@ const { handleSubmit, resetForm } = useForm<IRegisterRequest>({
     firstName: 'required|min:2',
     lastName: 'required|min:2',
     email: 'required|email',
-    phone: 'required|regex:/^\\+?[0-9]{9,15}$/',
+    phone: 'required',
     password: 'required|min:8',
   },
 })
@@ -331,7 +333,7 @@ const submitForm = handleSubmit(async (formValues) => {
 
 <style scoped>
 .section-title {
-  @apply flex items-center gap-2 mt-4 mb-2;
+  @apply flex justify-center items-center gap-2 mt-4 mb-2;
 }
 
 .section-title h2 {
