@@ -10,6 +10,18 @@ export interface ICredentials {
   password: string
 }
 
+export interface IRegisterRequest {
+  username: string
+  password: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  regon: string
+  organizationName: string
+  organizationEmail: string
+}
+
 interface IContactDetail {
   id: number
   streetName: string
