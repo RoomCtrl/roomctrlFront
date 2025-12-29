@@ -21,10 +21,10 @@
             }}</span>
             <div>
               <p class="font-medium">
-                {{ room.name }}
+                {{ room.roomName }}
               </p>
               <p class="text-sm text-gray-500">
-                {{ room.bookings }}
+                {{ room.count }}
                 {{ $t('pages.adminDashboard.statistics.bookings') }}
               </p>
             </div>
@@ -41,11 +41,7 @@
 </template>
 
 <script setup>
-const topRooms = ref([
-  { id: 1, name: 'Sala nr 208', bookings: 45, percentage: 25 },
-  { id: 2, name: 'Sala Konferencyjna A', bookings: 38, percentage: 21 },
-  { id: 3, name: 'Sala Główna', bookings: 35, percentage: 19 },
-  { id: 4, name: 'Sala nr 215', bookings: 32, percentage: 18 },
-  { id: 5, name: 'Sala Spotkań B', bookings: 30, percentage: 17 },
-])
+const { fetchMostUsedRooms } = useStatistics()
+
+const topRooms = await fetchMostUsedRooms()
 </script>

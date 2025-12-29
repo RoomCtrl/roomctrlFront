@@ -19,17 +19,17 @@
             <span class="font-semibold text-lg w-8 text-center">{{ index + 1 }}</span>
             <div>
               <p class="font-medium">
-                {{ room.name }}
+                {{ room.roomName }}
               </p>
               <p class="text-sm text-gray-500">
-                {{ room.reports }} {{ $t('pages.adminDashboard.statistics.reports') }}
+                {{ room.issueCount }} {{ $t('pages.adminDashboard.statistics.reports') }}
               </p>
             </div>
           </div>
           <div class="text-right">
             <Tag
-              :value="`${room.severity}`"
-              :severity="getSeverity(room.severity)"
+              :value="`${room.priority}`"
+              :severity="getSeverity(room.priority)"
             />
           </div>
         </div>
@@ -39,13 +39,8 @@
 </template>
 
 <script setup>
-const reportedRooms = ref([
-  { id: 1, name: 'Sala nr 208', reports: 12, severity: 'high' },
-  { id: 2, name: 'Sala Konferencyjna A', reports: 8, severity: 'high' },
-  { id: 3, name: 'Sala Główna', reports: 5, severity: 'medium' },
-  { id: 4, name: 'Sala nr 215', reports: 3, severity: 'medium' },
-  { id: 5, name: 'Sala Spotkań B', reports: 2, severity: 'low' },
-])
+const { fetchMostIssuesRooms } = useStatistics()
+const reportedRooms = await fetchMostIssuesRooms()
 
 const getSeverity = (severity) => {
   const severityMap = {

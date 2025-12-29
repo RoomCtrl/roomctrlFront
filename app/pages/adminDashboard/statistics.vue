@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-4 h-full w-full overflow-auto">
+  <div class="flex flex-col gap-2 h-full w-full overflow-auto">
     <div class="flex">
       <Card>
         <template #content>
@@ -11,17 +11,17 @@
     </div>
 
     <div>
-      <div class="flex flex-row gap-2 mb-4">
+      <div class="flex flex-row gap-2 mb-2">
         <MostUsedRoomsCard />
 
         <LeastUsedRoomsCard />
 
         <MostReportsRoomsCard />
+
+        <TotalReservationsCard />
       </div>
 
-      <div class="flex flex-wrap gap-2 justify-between">
-        <TotalReservationsCard />
-
+      <div class="flex flex-wrap gap-2 justify-around">
         <ReservationStatusCard />
 
         <RoomsByCategoryCard />
@@ -29,8 +29,6 @@
         <OccupancyRateCard />
 
         <ReservationTrendsCard />
-
-        <RoomComparisonCard />
       </div>
     </div>
   </div>
@@ -45,7 +43,6 @@ import ReservationStatusCard from '~/components/adminDasboard/statistics/Reserva
 import ReservationTrendsCard from '~/components/adminDasboard/statistics/ReservationTrendsCard.vue'
 import RoomsByCategoryCard from '~/components/adminDasboard/statistics/RoomsByCategoryCard.vue'
 import OccupancyRateCard from '~/components/adminDasboard/statistics/OccupancyRateCard.vue'
-import RoomComparisonCard from '~/components/adminDasboard/statistics/RoomComparisonCard.vue'
 
 definePageMeta({
   layout: 'admin-dashboard',
