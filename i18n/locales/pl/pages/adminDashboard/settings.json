@@ -1,0 +1,64 @@
+{
+  "title": "Ustawienia organizacji",
+  "weekDays": {
+    "monday": "Poniedziałek",
+    "tuesday": "Wtorek",
+    "wednesday": "Środa",
+    "thursday": "Czwartek",
+    "friday": "Piątek",
+    "saturday": "Sobota",
+    "sunday": "Niedziela"
+  },
+  "sections": {
+    "organization": {
+      "title": "Dane organizacji",
+      "name": "Nazwa organizacji",
+      "namePlaceholder": "Wprowadź nazwę organizacji",
+      "regon": "REGON",
+      "regonPlaceholder": "Wprowadź numer REGON",
+      "email": "Email kontaktowy",
+      "emailPlaceholder": "kontakt@organizacja.pl",
+      "phone": "Telefon kontaktowy",
+      "phonePlaceholder": "+48 123 456 789",
+      "address": "Adres",
+      "addressPlaceholder": "Ulica, Kod pocztowy, Miasto",
+      "description": "Opis organizacji",
+      "descriptionPlaceholder": "Krótki opis organizacji, który będzie widoczny dla użytkowników"
+    },
+    "workingHours": {
+      "title": "Godziny pracy",
+      "openingTime": "Godzina otwarcia",
+      "closingTime": "Godzina zamknięcia",
+      "workingDays": "Dni robocze"
+    },
+    "bookingPolicy": {
+      "title": "Polityka rezerwacji",
+      "requireApproval": "Wymagane zatwierdzenie rezerwacji",
+      "requireApprovalDescription": "Wszystkie rezerwacje wymagają akceptacji administratora przed potwierdzeniem",
+      "maxAdvanceDays": "Maksymalny czas wyprzedzenia rezerwacji",
+      "days": "dni",
+      "maxActiveBookings": "Maksymalna liczba aktywnych rezerwacji na użytkownika",
+      "minGapBetween": "Minimalny odstęp między rezerwacjami",
+      "minutes": "min",
+      "cancellationDeadline": "Termin anulowania rezerwacji",
+      "hours": "godz.",
+      "cancellationDeadlineDescription": "Liczba godzin przed rozpoczęciem, w których możliwe jest anulowanie rezerwacji"
+    },
+    "notifications": {
+      "title": "Powiadomienia",
+      "newBookingNotification": "Powiadamiaj o nowych rezerwacjach",
+      "newBookingNotificationDescription": "Otrzymuj email gdy użytkownik utworzy nową rezerwację",
+      "reportNotification": "Powiadamiaj o zgłoszeniach",
+      "reportNotificationDescription": "Otrzymuj email gdy użytkownik zgłosi problem z salą",
+      "cancellationNotification": "Powiadamiaj o anulowaniach",
+      "cancellationNotificationDescription": "Otrzymuj email gdy użytkownik anuluje rezerwację",
+      "notificationEmail": "Email do powiadomień",
+      "notificationEmailPlaceholder": "admin@organizacja.pl"
+    }
+  },
+  "messages": {
+    "settingsSaved": "Ustawienia organizacji zostały zapisane pomyślnie",
+    "settingsSaveError": "Błąd podczas zapisywania ustawień organizacji",
+    "settingsReset": "Ustawienia zostały zresetowane do wartości domyślnych"
+  }
+}

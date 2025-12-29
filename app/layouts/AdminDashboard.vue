@@ -171,7 +171,7 @@ const items = computed(() => [
   },
   {
     label: t('layouts.adminSidebar.items.settings'),
-    link: '/',
+    link: '/adminDashboard/settings',
     icon: 'pi pi-cog'
   }
 ])
