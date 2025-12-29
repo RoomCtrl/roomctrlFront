@@ -1,6 +1,7 @@
 {
   "items": {
     "dashboard": "Dashboard",
+    "roomList": "Lista sal",
     "users": "Użytkownicy",
     "rentsToConfirm": "Rezerwacje do potwierdzenia",
     "reportsOfRooms": "Zgłoszenia sal",

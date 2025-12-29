@@ -1,45 +1,35 @@
 <template>
   <Card
-    pt:root:style="--p-card-body-padding: 0.5rem; --p-card-caption-gap: 0"
-    pt:body:class="flex justify-center h-full"
-    pt:content:class="flex flex-row justify-between w-full h-full"
+    class="h-full"
+    pt:root:class="h-full flex flex-col"
+    pt:body:class="flex-1 p-0 overflow-hidden"
   >
-    <template #title>
-      <h1 class="font-bold text-2xl">
-        {{ $t('pages.adminDashboard.dashboard.knob.' + statusType + '.title') }}
-      </h1>
-    </template>
-    <template #subtitle>
-      {{ $t('date.today') }}
-    </template>
     <template #content>
-      <div class="flex flex-row justify-between gap-2 items-center">
-        <Knob
-          v-model="valueProcentOfKnob"
-          pt:text:class="font-semibold"
-          readonly
-          :size="90"
-          :valueColor="knobColor"
-          valueTemplate="{value}%"
-        />
-        <div class="flex flex-col justify-center h-full">
-          <div class="flex flex-row items-center gap-1">
-            <h2 class="text-sm font-semibold">
-              {{ $t('pages.adminDashboard.dashboard.knob.generally') }}
-            </h2>
-            <h3>
-              {{ maxRooms }}
-            </h3>
-          </div>
-          <div class="flex flex-col">
-            <div class="flex flex-row items-center gap-1">
-              <h2 class="text-sm font-semibold">
-                {{ $t('pages.adminDashboard.dashboard.knob.' + statusType + '.count') }}
-              </h2>
-              <h3>
-                {{ numOfRooms }}
-              </h3>
-            </div>
+      <div class="flex flex-col items-center justify-center h-full p-2 gap-1.5">
+        <div class="flex-shrink-0">
+          <Knob
+            v-model="valueProcentOfKnob"
+            pt:text:class="font-bold text-lg"
+            readonly
+            :strokeWidth="6"
+            :valueColor="knobColor"
+            valueTemplate="{value}%"
+          />
+        </div>
+        <div class="text-center flex-shrink-0">
+          <h1 class="font-bold text-sm mb-0.5 line-clamp-2">
+            {{ $t('pages.adminDashboard.dashboard.knob.' + statusType + '.title') }}
+          </h1>
+          <div class="flex items-center justify-center gap-1.5">
+            <span
+              class="text-xl font-bold"
+              :style="{ color: knobColor }"
+            >
+              {{ numOfRooms }}
+            </span>
+            <span class="text-xs text-surface-500 dark:text-surface-400">
+              / {{ maxRooms }}
+            </span>
           </div>
         </div>
       </div>
@@ -56,7 +46,13 @@ const props = defineProps<{
   statusType: string
 }>()
 
-const valueProcentOfKnob = ((props.numOfRooms / props.maxRooms) * 100)
+const valueProcentOfKnob = computed(() => {
+  if (!props.maxRooms || props.maxRooms === 0) {
+    return 0
+  }
+  return Math.round((props.numOfRooms / props.maxRooms) * 100)
+})
+
 const colorMode = useColorMode()
 
 const isDarkMode = computed({

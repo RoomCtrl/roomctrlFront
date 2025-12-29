@@ -1,107 +1,98 @@
 <template>
-  <div class="scroll-wrapper flex flex-col mt-[-2rem] mb-[-2rem] gap-5">
-    <section class="section section-1">
-      <div class="section-overlay" />
-      <div class="section-content">
-        <LogoCarousel />
-      </div>
+  <div class="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-12 w-full">
+    <Hero />
+
+    <HowThisWorkSection />
+
+    <ForOrganizations />
+
+    <section class="w-full">
+      <Card class="w-full">
+        <template #title>
+          <div class="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight">
+              {{ $t('pages.home.benefits.title') }}
+            </h2>
+          </div>
+        </template>
+        <template #content>
+          <InfoSection />
+        </template>
+      </Card>
     </section>
 
-    <section class="section section-2">
-      <div class="section-overlay" />
-      <div class="section-content ">
-        <InfoSection />
+    <section class="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-red-400 to-[#ad3636ff]">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="space-y-4 sm:space-y-6 md:space-y-8">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight px-2">
+            {{ $t('pages.home.cta.title') }}
+          </h2>
+          <p class="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto px-4">
+            {{ $t('pages.home.cta.description') }}
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-2 sm:pt-4 px-4">
+            <NuxtLink
+              :to="localePath('/login')"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold bg-white text-red-600 rounded-xl hover:bg-gray-50 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+            >
+              {{ $t('pages.home.cta.startNow') }}
+            </NuxtLink>
+            <NuxtLink
+              :to="localePath('/contact')"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold bg-white/15 text-white border-2 border-white/30 rounded-xl hover:bg-white/25 hover:border-white transition-all duration-200 backdrop-blur-sm"
+            >
+              {{ $t('pages.home.cta.contact') }}
+            </NuxtLink>
+          </div>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+import ForOrganizations from '~/components/mainPage/ForOrganizations.vue'
+import Hero from '~/components/mainPage/Hero.vue'
+import HowThisWorkSection from '~/components/mainPage/howThisWorkSection.vue'
 import InfoSection from '~/components/mainPage/InfoSection.vue'
-import LogoCarousel from '~/components/mainPage/VisitView.vue'
+
+const localePath = useLocalePath()
 </script>
 
 <style scoped>
-.scroll-wrapper {
-  width: 100%;
-  height: 100%;
-  scroll-behavior: smooth;
+.text-accent {
+  display: block;
+  color: #ad3636ff;
 }
 
-.section {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  padding: 4rem 2rem;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  -webkit-mask-image:
-    linear-gradient(to right,
-      rgba(0,0,0,0),
-      rgba(0,0,0,1) 1%,
-      rgba(0,0,0,1) 99%,
-      rgba(0,0,0,0)
-    ),
-
-    linear-gradient(to bottom,
-      rgba(0,0,0,0),
-      rgba(0,0,0,1) 0.9%,
-      rgba(0,0,0,1) 99.1%,
-      rgba(0,0,0,0)
-    );
-
-  -webkit-mask-composite: intersect;
-  mask-composite: intersect;
-  mask-repeat: no-repeat;
-  mask-size: cover;
-}
-
-.section-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1;
-}
-
-.section-content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  margin: 0 auto;
-}
-
-.section-1 {
-  background-image: url('/images/mainPage/planning.jpg');
-}
-
-.section-2 {
-  background-image: url('/images/mainPage/school.jpg');
-}
-
-@media (max-width: 1024px) {
-  .section {
-    padding: 3rem 1.5rem;
-    background-attachment: scroll;
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-@media (max-width: 768px) {
-  .section {
-    min-height: auto;
-    padding: 2rem 1rem;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
   }
 }
 </style>

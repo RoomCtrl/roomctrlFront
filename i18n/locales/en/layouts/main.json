@@ -25,6 +25,10 @@
       "title": "Room list",
       "description": "Find a room that suits your needs – check availability and book"
     },
+    "favoriteRooms": {
+      "title": "Favorite rooms",
+      "description": "Quick access to your favorite conference rooms"
+    },
     "reservationHistory": {
       "title": "My history",
       "description": "Here is the history of your reservations."

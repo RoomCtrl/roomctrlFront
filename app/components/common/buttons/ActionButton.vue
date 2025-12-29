@@ -30,7 +30,7 @@
     :pt:root:style="buttonStyle"
     :label="label"
     :icon="icon"
-    severity="info"
+    severity="warn"
     variant="outlined"
     @click="handleGoRoom"
   />

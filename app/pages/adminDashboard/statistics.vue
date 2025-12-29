@@ -1,31 +1,37 @@
 <template>
-  <div class="h-full w-full p-4 overflow-auto">
-    <div class="mb-6">
-      <h1 class="text-3xl font-bold">
-        {{ $t('pages.adminDashboard.statistics.title') }}
-      </h1>
+  <div class="flex flex-col gap-4 h-full w-full overflow-auto">
+    <div class="flex">
+      <Card>
+        <template #content>
+          <h1 class="text-4xl font-extrabold">
+            {{ $t('pages.adminDashboard.statistics.title') }}
+          </h1>
+        </template>
+      </Card>
     </div>
 
-    <div class="flex flex-row gap-3  mb-4">
-      <MostUsedRoomsCard />
+    <div>
+      <div class="flex flex-row gap-2 mb-4">
+        <MostUsedRoomsCard />
 
-      <LeastUsedRoomsCard />
+        <LeastUsedRoomsCard />
 
-      <MostReportsRoomsCard />
-    </div>
+        <MostReportsRoomsCard />
+      </div>
 
-    <div class="flex flex-wrap gap-4 justify-between">
-      <TotalReservationsCard />
+      <div class="flex flex-wrap gap-2 justify-between">
+        <TotalReservationsCard />
 
-      <ReservationStatusCard />
+        <ReservationStatusCard />
 
-      <RoomsByCategoryCard />
+        <RoomsByCategoryCard />
 
-      <OccupancyRateCard />
+        <OccupancyRateCard />
 
-      <ReservationTrendsCard />
+        <ReservationTrendsCard />
 
-      <RoomComparisonCard />
+        <RoomComparisonCard />
+      </div>
     </div>
   </div>
 </template>

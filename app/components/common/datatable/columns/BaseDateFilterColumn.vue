@@ -17,7 +17,7 @@
             class="flex flex-row gap-1 items-center"
           >
             <h1>
-              {{ formatToHoursMinutes(slotProps.data[field]) }}
+              {{ formatToHoursMinutes(new Date(slotProps.data[field])) }}
             </h1>
             <i class="pi pi-clock" />
           </div>
@@ -26,7 +26,7 @@
             class="flex flex-row gap-1 items-center"
           >
             <h1>
-              {{ formatToDayMonth(slotProps.data[field]) }}
+              {{ formatToDayMonth(new Date(slotProps.data[field])) }}
             </h1>
             <i class="pi pi-calendar" />
           </div>
@@ -53,6 +53,8 @@
 </template>
 
 <script setup lang="ts">
+import { formatToHoursMinutes, formatToDayMonth } from '~/utils/dateHelpers'
+
 withDefaults(
   defineProps<{
     field: string

@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://185.25.151.154:8080/api/v1',
+      apiBase: 'http://185.25.151.154:8080/api/',
     },
   },
   compatibilityDate: '2025-05-15',

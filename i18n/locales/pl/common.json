@@ -16,12 +16,33 @@
     "start": "Rozpocznij",
     "details": "Szczegóły",
     "add": "Dodaj",
-    "save": "Zapisz"
+    "addRoom": "Dodaj salę",
+    "addUser": "Dodaj użytkownika",
+    "save": "Zapisz",
+    "next": "Następny",
+    "previous": "Poprzedni",
+    "yes": "Tak",
+    "no": "Nie",
+    "forgotPassword": "Zapomniałeś hasła?",
+    "sendCode": "Wyślij token",
+    "resetPassword": "Resetuj hasło",
+    "backToLogin": "Powrót do logowania",
+    "backToEmailStep": "Powrót do wprowadzania emaila"
   },
   "toast": {
     "danger": "Uwaga!",
     "success": "Sukces",
-    "update": "Zaktualizowano"
+    "update": "Zaktualizowano",
+    "bookingCreated": "Rezerwacja została utworzona",
+    "bookingUpdated": "Rezerwacja została zaktualizowana",
+    "bookingCancelled": "Rezerwacja została anulowana",
+    "bookingError": "Błąd podczas operacji na rezerwacji",
+    "bookingCancelError": "Błąd podczas anulowania rezerwacji",
+    "favoriteAdded": "Sala dodana do ulubionych",
+    "favoriteRemoved": "Sala usunięta z ulubionych",
+    "favoriteError": "Błąd podczas zmiany ulubionych",
+    "userDeleted": "Użytkownik został usunięty",
+    "userDeleteError": "Błąd podczas usuwania użytkownika"
   },
   "roomParameters": {
     "capacity": "Pojemność: ",
@@ -30,5 +51,8 @@
   },
   "filters": {
     "all": "Wszystkie"
-  }
+  },
+  "reset": "Resetuj",
+  "apply": "Zastosuj",
+  "persons": "osób"
 }

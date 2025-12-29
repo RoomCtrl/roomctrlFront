@@ -145,9 +145,9 @@ const items = computed(() => [
     icon: 'pi pi-home'
   },
   {
-    label: t('layouts.adminSidebar.items.dashboard'),
+    label: t('layouts.adminSidebar.items.roomList'),
     link: '/adminDashboard/roomList',
-    icon: 'pi pi-clone'
+    icon: 'pi pi-building'
   },
   {
     label: t('layouts.adminSidebar.items.users'),

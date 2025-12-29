@@ -1,0 +1,21 @@
+{
+  "rentDetails": {
+    "duration": "Duration",
+    "minutes": "min",
+    "person": "person",
+    "persons": "persons",
+    "startTime": "Start time",
+    "endTime": "End time",
+    "location": "Location",
+    "attendees": "Attendees"
+  },
+  "form": {
+    "title": "Title",
+    "date": "Date",
+    "time": "Time",
+    "duration": "Duration",
+    "attendees": "Number of attendees",
+    "location": "Location",
+    "color": "Color"
+  }
+}

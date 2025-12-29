@@ -1,36 +1,51 @@
 <template>
-  <div class="h-[98.2vh] p-2 overflow-hidden">
-    <div class="grid grid-cols-2 gap-1 h-full">
-      <div class="flex flex-col gap-1 h-full overflow-hidden">
-        <MostRentRooms class="h-[26%] min-h-0 overflow-auto" />
+  <div class="h-[98.2vh] overflow-auto w-full">
+    <div class="flex flex-col gap-2">
+      <div class="grid grid-cols-1 xl:grid-cols-6 gap-2">
+        <MostRentRooms
+          class="min-h-[280px] xl:col-span-2"
+          :bookings="bookings"
+        />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:col-span-4 gap-2">
+          <RentMonthCalendar
+            class="min-h-[280px] md:min-h-[320px]"
+            :bookings="bookings"
+          />
+          <LoadOfRooms
+            class="min-h-[280px] md:min-h-[320px]"
+            :bookings-data="bookingsChartData"
+            :bookings="bookings"
+          />
+
+          <div class="col-span-1 md:col-span-2 flex flex-col sm:flex-row gap-2">
+            <CardInfoAllRooms
+              v-for="room in rooms"
+              :key="room.type"
+              class="flex-1 min-h-[100px]"
+              :num-of-rooms="room.numOfRooms"
+              :max-rooms="maxRooms"
+              :color-light="room.colorLight"
+              :color-dark="room.colorDark"
+              :status-type="room.type"
+            />
+          </div>
+        </div>
+      </div>
+      <ReportRoomsTable />
+      <div class="grid grid-cols-1 2xl:grid-cols-2 gap-2">
         <IncomingRentsTable
-          class="h-[37%] min-h-0 overflow-auto"
           :rows="4"
           :header="$t('pages.adminDashboard.dashboard.tables.titles.incomingRents')"
           :to-approve="false"
+          :bookings="upcomingBookings"
         />
         <IncomingRentsTable
-          class="h-[37%] min-h-0 overflow-auto"
           :rows="4"
           :header="$t('pages.adminDashboard.dashboard.tables.titles.rentsToConfirm')"
           :to-approve="true"
+          :bookings="upcomingBookings"
         />
-      </div>
-
-      <div class="grid grid-cols-12 grid-rows-11 gap-1 h-full overflow-hidden">
-        <ReportRoomsTable class="col-span-8 row-span-6 min-h-0 overflow-auto" />
-        <CardInfoAllRooms
-          v-for="room in rooms"
-          :key="room.type"
-          class="col-span-4 row-span-2 min-h-0 overflow-hidden"
-          :num-of-rooms="room.numOfRooms"
-          :max-rooms="maxRooms"
-          :colorLight="room.colorLight"
-          :colorDark="room.colorDark"
-          :status-type="room.type"
-        />
-        <RentMonthCalendar class="col-span-6 row-span-5 min-h-0 overflow-auto" />
-        <LoadOfRooms class="col-span-6 row-span-5 min-h-0 overflow-auto" />
       </div>
     </div>
   </div>
@@ -43,31 +58,76 @@ import LoadOfRooms from '~/components/adminDasboard/main/LoadOfRooms.vue'
 import MostRentRooms from '~/components/adminDasboard/main/MostRentRooms.vue'
 import RentMonthCalendar from '~/components/adminDasboard/main/RentMonthCalendar.vue'
 import ReportRoomsTable from '~/components/adminDasboard/main/ReportRoomsTable.vue'
+import { useBooking } from '~/composables/useBooking'
+import { useRoom } from '~/composables/useRoom'
+import { useAuth } from '~/composables/useAuth'
+import { BookingService } from '~/services/BookingService'
 
 definePageMeta({
-  // middleware: ['admin'],
+  middleware: ['admin'],
   layout: 'admin-dashboard',
 })
 
-const maxRooms = ref(50)
-const rooms = ref([
-  {
-    numOfRooms: 40,
-    colorLight: 'var(--p-red-500)',
-    colorDark: 'var(--p-red-700)',
-    type: 'rent',
-  },
-  {
-    numOfRooms: 5,
-    colorLight: 'var(--p-green-500)',
-    colorDark: 'var(--p-green-700)',
-    type: 'available',
-  },
-  {
-    numOfRooms: 5,
-    colorLight: 'var(--p-yellow-500)',
-    colorDark: 'var(--p-yellow-700)',
-    type: 'closed',
-  },
-])
+const { bookings } = useBooking()
+const { rooms: roomsList, fetchRooms } = useRoom()
+
+const maxRooms = computed(() => roomsList.value.length)
+
+const rooms = computed(() => {
+  const rent = roomsList.value.filter(room =>
+    room.status === 'available' && room.currentBooking,
+  ).length
+
+  const available = roomsList.value.filter(room =>
+    room.status === 'available' && !room.currentBooking,
+  ).length
+
+  const closed = roomsList.value.filter(room =>
+    room.status === 'occupied',
+  ).length
+
+  return [
+    {
+      numOfRooms: rent,
+      colorLight: 'var(--p-red-500)',
+      colorDark: 'var(--p-red-700)',
+      type: 'rent',
+    },
+    {
+      numOfRooms: available,
+      colorLight: 'var(--p-green-500)',
+      colorDark: 'var(--p-green-700)',
+      type: 'available',
+    },
+    {
+      numOfRooms: closed,
+      colorLight: 'var(--p-yellow-500)',
+      colorDark: 'var(--p-yellow-700)',
+      type: 'closed',
+    },
+  ]
+})
+
+const bookingsChartData = computed(() => {
+  const now = new Date()
+  return {
+    planned: bookings.value.filter(booking => new Date(booking.startedAt) > now).length,
+    ended: bookings.value.filter(booking => new Date(booking.endedAt) < now).length,
+    cancelled: 0,
+  }
+})
+
+const upcomingBookings = computed(() => {
+  const now = new Date()
+  return [...bookings.value]
+    .filter(booking => new Date(booking.startedAt) > now)
+    .sort((a, b) => new Date(a.startedAt).getTime() - new Date(b.startedAt).getTime())
+})
+
+onMounted(async () => {
+  // Pobierz wszystkie rezerwacje bez filtrowania po statusie
+  bookings.value = await new BookingService(useAuth().token.value).getBookings()
+
+  fetchRooms(true)
+})
 </script>

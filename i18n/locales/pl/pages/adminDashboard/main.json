@@ -3,7 +3,7 @@
     "title": "Kalendarz rezerwacji"
   },
   "chart": {
-    "title": "Obłożenie sal",
+    "title": "Statusy rezerwacji",
     "buttons": {
       "today": "Dzisiaj",
       "thisWeek": "Ostatnie 7 dni",
@@ -51,5 +51,10 @@
       "details": "Szczegóły"
     },
     "tooltip": "Przejdź do pełnej tabeli"
+  },
+  "roomList": {
+    "deleteRoom": {
+      "title": "Czy na pewno chcesz usunąć tę salę?"
+    }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <Card
-    pt:root:class="dark:[--p-card-background:var(--p-zinc-900)] [--p-card-background:var(--p-zinc-300)] p-2"
+    pt:root:class="dark:[--p-card-background:var(--p-zinc-900)] [--p-card-background:var(--p-zinc-300)] p-2 mx-3 2xl:mx-6"
     pt:root:style="--p-card-body-gap: 0, --p-card-body-padding: 0.25rem"
     pt:footer:class="grid grid-cols-2 gap-x-2"
   >
@@ -52,6 +52,7 @@
           :pt:value:class="progressColorClass"
           :value="utilizationRate"
           aria-label="Percentage of room utilization"
+          mode="determinate"
         />
       </div>
 

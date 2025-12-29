@@ -3,7 +3,7 @@
     "title": "Booking Calendar"
   },
   "chart": {
-    "title": "Room Occupancy",
+    "title": "Booking Statuses",
     "buttons": {
       "today": "Today",
       "thisWeek": "Last 7 days",
@@ -51,5 +51,10 @@
       "details": "Details"
     },
     "tooltip": "Go to full table"
+  },
+  "roomList": {
+    "deleteRoom": {
+      "title": "Are you sure you want to delete this room?"
+    }
   }
 }

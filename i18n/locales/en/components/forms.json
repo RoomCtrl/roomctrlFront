@@ -11,7 +11,9 @@
   },
   "titles": {
     "contactForm": "Contact Form",
-    "loginForm": "Login"
+    "loginForm": "Login",
+    "passwordResetRequest": "Password Reset",
+    "passwordResetConfirm": "Set New Password"
   },
   "fields": {
     "name": "Full Name",
@@ -25,12 +27,90 @@
     "message": "Message",
     "login": "Login",
     "password": "Password",
+    "resetCode": "Reset Code",
+    "resetToken": "Reset Token",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
     "roomName": "Room Name",
     "capacity": "Capacity",
     "size": "Size",
     "location": "Location",
     "description": "Description",
-    "equpiment": "Equipment"
+    "equpiment": "Equipment",
+    "access": "Access",
+    "lighting": "Lighting",
+    "airConditioning": "Air Conditioning (min/max °C)",
+    "equipment": "Equipment",
+    "equipmentName": "Equipment Name",
+    "equipmentCategory": "Category",
+    "equipmentQuantity": "Quantity"
+  },
+  "roomForm": {
+    "buttons": {
+      "addRoom": "Add Room",
+      "create": "Create",
+      "update": "Update",
+      "cancel": "Cancel",
+      "addEquipment": "Add Equipment"
+    },
+    "placeholders": {
+      "roomName": "Conference Room 201",
+      "location": "Floor 2, Wing A",
+      "capacity": "12",
+      "size": "45.5",
+      "access": "Magnetic Card",
+      "description": "Spacious conference room...",
+      "airConditioningMin": "18",
+      "airConditioningMax": "24",
+      "equipmentName": "Equipment Name",
+      "equipmentQuantity": "Quantity"
+    },
+    "lighting": {
+      "natural": "Natural",
+      "artificial": "Artificial",
+      "mixed": "Mixed"
+    },
+    "equipmentCategories": {
+      "video": "Video",
+      "audio": "Audio",
+      "furniture": "Furniture",
+      "accessory": "Accessory",
+      "other": "Other"
+    },
+    "errors": {
+      "roomNameRequired": "Room name is required",
+      "capacityRequired": "Capacity must be greater than 0",
+      "sizeRequired": "Size must be greater than 0",
+      "locationRequired": "Location is required",
+      "accessRequired": "Access is required",
+      "descriptionRequired": "Description is required",
+      "airConditioningMinMax": "Min temperature must be less than max"
+    },
+    "messages": {
+      "noEquipment": "No equipment added"
+    },
+    "removeEquipment": {
+      "title": "Are you sure you want to remove this equipment?"
+    }
+  },
+  "booking": {
+    "title": "Booking Title",
+    "titlePlaceholder": "Enter booking title",
+    "room": "Room",
+    "selectRoom": "Select room",
+    "startDate": "Start Date",
+    "startDatePlaceholder": "Select start date",
+    "endDate": "End Date",
+    "endDatePlaceholder": "Select end date",
+    "participants": "Number of Participants",
+    "participantsPlaceholder": "Enter number of participants",
+    "addParticipants": "Add Participants",
+    "selectParticipants": "Select participants",
+    "participantsHint": "Select users who will participate in the booking",
+    "isPrivate": "Private Booking",
+    "editTitle": "Edit Booking",
+    "cancelTitle": "Cancel Booking",
+    "cancelConfirmation": "Are you sure you want to cancel this booking?"
   },
   "fieldMessages": {
     "error": {

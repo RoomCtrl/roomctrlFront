@@ -16,14 +16,13 @@
       pt:body:style="--p-card-body-padding: 0.25rem 1.25rem"
       :pt:subtitle:class="['h-full', { 'blur-sm': animationClass === 'show' }]"
       pt:caption:class="flex flex-col h-full"
-      :style="{ borderColor: statusColor }"
     >
       <template #header>
         <div
           class="flex flex-row justify-between items-center gap-2 w-full"
         >
           <div
-            v-if="room.status !== 'closed'"
+            v-if="room.status !== 'occupied'"
             class="w-[90%]"
           >
             <h1
@@ -33,6 +32,7 @@
               :class="{ 'blur-sm': animationClass === 'show' }"
               class="text-lg lg:text-xl font-semibold lg:truncate"
               @mouseenter="checkOverflow"
+              @focusin="checkOverflow"
             >
               {{ room.currentBooking.title }}
             </h1>
@@ -52,7 +52,7 @@
           </div>
           <div v-else />
           <div
-            v-if="status != 'closed'"
+            v-if="status != 'occupied'"
             class="hidden lg:block flex"
           >
             <i
@@ -60,6 +60,8 @@
               style="font-size: 1.25rem;"
               @mouseenter="playShow"
               @mouseleave="playHide"
+              @focusin="playShow"
+              @focusout="playHide"
             />
           </div>
         </div>
@@ -67,14 +69,14 @@
 
       <template #subtitle>
         <IncomingRent
-          v-if="room.status !== 'closed' && firstNextBooking"
+          v-if="room.status !== 'occupied' && firstNextBooking"
           :title="firstNextBooking.title"
           :started-at="firstNextBooking.startedAt"
           :ended-at="firstNextBooking.endedAt"
           :is-private="firstNextBooking.isPrivate"
         />
         <IncomingRent
-          v-else-if="room.status !== 'closed'"
+          v-else-if="room.status !== 'occupied'"
           :title="noRentIncomingTitle"
         />
         <div
@@ -113,13 +115,14 @@ const firstNextBooking = computed(() => {
 const status = computed(() => props.room.status)
 provide('roomStatus', status)
 
-const statusColor = computed(() => {
-  const map: Record<string, string> = {
-    avaiable: 'bg-green-600',
-    occupied: 'bg-red-600',
-    closed: 'bg-yellow-600',
-  }
-  return map[props.room.status] || map.default
+const formatTime = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })
+}
+
+const bookingTimeRange = computed(() => {
+  if (!props.room.currentBooking) return ''
+  return `${formatTime(props.room.currentBooking.startedAt)} - ${formatTime(props.room.currentBooking.endedAt)}`
 })
 
 const playShow = () => {

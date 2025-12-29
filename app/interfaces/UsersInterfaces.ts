@@ -7,6 +7,7 @@ interface IUser {
   phone: string
   roles: string[]
   firstLoginStatus: true
+  organizationId?: string
 }
 
 export interface IUserResponse extends IUser {

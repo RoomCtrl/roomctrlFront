@@ -10,6 +10,18 @@ export interface ICredentials {
   password: string
 }
 
+export interface IRegisterRequest {
+  username: string
+  password: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  regon: string
+  organizationName: string
+  organizationEmail: string
+}
+
 interface IContactDetail {
   id: number
   streetName: string
@@ -32,6 +44,7 @@ export interface IGetUserProfileResponse {
   firstName: string
   lastName: string
   firstLogonStatus: boolean
+  organizationId?: string
 }
 
 export interface IUserLoginResponse {
@@ -49,5 +62,18 @@ export interface IContactMailData {
 
 export interface IContactMailResponse {
   code: number
+  message: string
+}
+
+export interface IPasswordResetRequest {
+  email: string
+}
+
+export interface IPasswordResetConfirm {
+  token: string
+  newPassword: string
+}
+
+export interface IPasswordResetResponse {
   message: string
 }

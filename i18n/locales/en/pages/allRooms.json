@@ -20,5 +20,29 @@
   "incoming": {
     "title": "Upcoming",
     "noRent": "No upcoming reservations"
+  },
+  "filters": {
+    "status": "Status",
+    "capacity": "Capacity",
+    "size": "Room size",
+    "roomName": "Room name",
+    "searchPlaceholder": "Search...",
+    "equipment": "Equipment",
+    "selectEquipment": "Select equipment...",
+    "location": "Location",
+    "selectLocation": "All locations",
+    "lighting": "Lighting",
+    "selectLighting": "All lighting types",
+    "access": "Access",
+    "statuses": {
+      "available": "Available",
+      "occupied": "Occupied",
+      "maintenance": "Out of service"
+    },
+    "accessTypes": {
+      "magneticCard": "Magnetic Card",
+      "pin": "PIN",
+      "key": "Key"
+    }
   }
 }

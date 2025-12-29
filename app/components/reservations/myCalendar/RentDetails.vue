@@ -3,16 +3,23 @@
     :visible="props.open"
     class="min-w-[40rem]"
     modal
-    @update:visible="val => emit('update:open', val)"
+    @update:visible="(val) => emit('update:open', val)"
   >
     <template #header>
       <div class="w-full">
         <div class="flex items-start justify-between">
           <div class="flex-1">
             <div
-              :class="[rentColor(selectedReservation.color), 'w-1 h-16 rounded absolute left-0']"
+              :class="[
+                rentColor(selectedReservation.color),
+                'w-1 h-16 rounded absolute left-0',
+              ]"
             />
-            <h3 class="text-xl font-semibold ml-4">
+            <h3 class="text-xl font-semibold ml-4 flex items-center gap-2">
+              <i
+                v-if="selectedReservation.status === 'cancelled'"
+                class="pi pi-times-circle text-red-500"
+              />
               {{ selectedReservation.title }}
             </h3>
             <p class="text-sm ml-4 mt-1">
@@ -27,10 +34,18 @@
         <i class="pi pi-clock" />
         <div>
           <div class="text-sm font-medium">
-            {{ formatTime(selectedReservation.date) }} - {{ formatEndTime(selectedReservation.date, selectedReservation.duration) }}
+            {{ formatTime(selectedReservation.date) }} -
+            {{
+              formatEndTime(
+                selectedReservation.date,
+                selectedReservation.duration,
+              )
+            }}
           </div>
           <div class="text-sm">
-            Czas trwania: {{ selectedReservation.duration }} min
+            {{ $t('reservations.rentDetails.duration') }}:
+            {{ selectedReservation.duration }}
+            {{ $t('reservations.rentDetails.minutes') }}
           </div>
         </div>
       </div>
@@ -45,39 +60,74 @@
       <div class="flex items-start gap-3">
         <i class="pi pi-users" />
         <div class="text-sm">
-          {{ selectedReservation.attendees }} {{ selectedReservation.attendees === 1 ? 'osoba' : 'osoby' }}
+          {{ selectedReservation.attendees }}
+          {{
+            selectedReservation.attendees === 1
+              ? $t('reservations.rentDetails.person')
+              : $t('reservations.rentDetails.persons')
+          }}
         </div>
       </div>
     </div>
 
-    <div class="flex justify-end gap-3">
+    <div
+      v-if="selectedReservation.status !== 'cancelled'"
+      class="flex justify-end gap-3"
+    >
       <Button
-        :label="$t('common.buttons.delete')"
+        label="Anuluj rezerwację"
+        severity="danger"
+        :loading="deleteLoading"
+        @click="handleDelete"
       />
       <Button
         :label="$t('common.buttons.edit')"
+        severity="success"
+        @click="handleEdit"
       />
+    </div>
+    <div
+      v-else
+      class="flex justify-center"
+    >
+      <p class="text-red-500 font-semibold">
+        Ta rezerwacja została anulowana
+      </p>
     </div>
   </Dialog>
 </template>
 
 <script setup lang="ts">
+import { useBooking } from '~/composables/useBooking'
+import { ref } from 'vue'
+
 const props = defineProps<{
   open: boolean
   selectedReservation: {
+    id?: number
     title: string
     duration: number
     date: Date
     location: string
     attendees: number
     color: string
+    status?: 'active' | 'cancelled' | 'completed'
   }
 }>()
 
-const emit = defineEmits(['update:open'])
+const emit = defineEmits(['update:open', 'edit', 'deleted'])
+
+const { cancelBooking } = useBooking()
+const deleteLoading = ref(false)
+const confirm = useConfirm()
+const { t } = useI18n()
+const toast = useToast()
 
 const formatTime = (date: Date) => {
-  return date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })
+  return date.toLocaleTimeString('pl-PL', {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
 }
 
 const formatDate = (date: Date) => {
@@ -106,4 +156,52 @@ const colorMap = {
 }
 
 const rentColor = (color: string) => colorMap[color]
+
+const handleDelete = async () => {
+  confirm.require({
+    message: t('pages.myCalendar.cancelReservation.title'),
+    header: t('common.toast.danger'),
+    icon: 'pi pi-info-circle',
+    rejectLabel: t('common.buttons.cancel'),
+    rejectProps: {
+      label: t('common.buttons.cancel'),
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: t('common.buttons.delete'),
+      severity: 'danger',
+    },
+    accept: async () => {
+      deleteLoading.value = true
+      try {
+        await cancelBooking(props.selectedReservation.id)
+        toast.add({
+          severity: 'success',
+          summary: t('common.toast.success'),
+          detail: t('common.toast.bookingCancelled'),
+          life: 3000,
+        })
+        emit('update:open', false)
+        emit('deleted')
+      }
+      catch (err) {
+        console.error('Error cancelling booking:', err)
+        toast.add({
+          severity: 'error',
+          summary: t('common.error'),
+          detail: t('common.toast.bookingCancelError'),
+          life: 3000,
+        })
+      }
+      finally {
+        deleteLoading.value = false
+      }
+    },
+  })
+}
+
+const handleEdit = () => {
+  emit('edit', props.selectedReservation)
+}
 </script>

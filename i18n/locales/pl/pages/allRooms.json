@@ -20,5 +20,29 @@
   "incoming": {
     "title": "Nadchodzące",
     "noRent": "Brak nadchodzących rezerwacji"
+  },
+  "filters": {
+    "status": "Status",
+    "capacity": "Pojemność",
+    "size": "Rozmiar sali",
+    "roomName": "Nazwa sali",
+    "searchPlaceholder": "Szukaj...",
+    "equipment": "Wyposażenie",
+    "selectEquipment": "Wybierz wyposażenie...",
+    "location": "Lokalizacja",
+    "selectLocation": "Wszystkie lokalizacje",
+    "lighting": "Oświetlenie",
+    "selectLighting": "Wszystkie typy oświetlenia",
+    "access": "Dostęp",
+    "statuses": {
+      "available": "Dostępna",
+      "occupied": "Zajęta",
+      "maintenance": "Nieczynna"
+    },
+    "accessTypes": {
+      "magneticCard": "Karta magnetyczna",
+      "pin": "PIN",
+      "key": "Klucz"
+    }
   }
 }

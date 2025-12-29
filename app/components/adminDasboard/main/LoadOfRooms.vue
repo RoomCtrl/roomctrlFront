@@ -42,15 +42,72 @@
 <script setup lang="ts">
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 
+const props = defineProps<{
+  bookingsData?: {
+    planned: number
+    ended: number
+    cancelled: number
+  }
+  bookings?: any[]
+}>()
+
 const chartData = ref()
 const chartOptions = ref(null)
 const chartPlugins = ref([ChartDataLabels])
 
 const isActive = ref<string>('today')
 
-const todayData = ref([20, 25, 5])
-const thisWeekData = ref([190, 50, 10])
-const thisMontData = ref([900, 80, 20])
+// Funkcje pomocnicze do filtrowania rezerwacji według dat
+const getBookingsByDateRange = (days: number | null) => {
+  if (!props.bookings || props.bookings.length === 0) {
+    return { planned: 0, ended: 0, cancelled: 0 }
+  }
+
+  const now = new Date()
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+
+  let filteredBookings = props.bookings
+
+  if (days === 0) {
+    filteredBookings = props.bookings.filter((booking) => {
+      const bookingStart = new Date(booking.startedAt)
+      const bookingEnd = new Date(booking.endedAt)
+      const startOfBookingDay = new Date(bookingStart.getFullYear(), bookingStart.getMonth(), bookingStart.getDate())
+      const endOfBookingDay = new Date(bookingEnd.getFullYear(), bookingEnd.getMonth(), bookingEnd.getDate())
+      return startOfBookingDay <= startOfToday && endOfBookingDay >= startOfToday
+    })
+  }
+  else if (days !== null) {
+    const dateLimit = new Date(now.getTime() - days * 24 * 60 * 60 * 1000)
+    filteredBookings = props.bookings.filter((booking) => {
+      const bookingStart = new Date(booking.startedAt)
+      const bookingEnd = new Date(booking.endedAt)
+      return bookingStart >= dateLimit || bookingEnd >= dateLimit
+    })
+  }
+
+  return {
+    planned: filteredBookings.filter(b => b.status === 'active').length,
+    ended: filteredBookings.filter(b => b.status === 'completed').length,
+    cancelled: filteredBookings.filter(b => b.status === 'cancelled').length,
+  }
+}
+
+const todayData = computed(() => {
+  const data = getBookingsByDateRange(0)
+  return [data.planned, data.ended, data.cancelled]
+})
+
+const thisWeekData = computed(() => {
+  const data = getBookingsByDateRange(7)
+  return [data.planned, data.ended, data.cancelled]
+})
+
+const thisMontData = computed(() => {
+  const data = getBookingsByDateRange(30)
+  return [data.planned, data.ended, data.cancelled]
+})
+
 const colorMode = useColorMode()
 const { t } = useI18n()
 
@@ -64,7 +121,7 @@ const isDarkMode = computed({
     colorMode.preference = value ? 'dark' : 'light'
   },
 })
-const buttons = ref([
+const buttons = computed(() => [
   {
     id: 'today',
     title: t('pages.adminDashboard.dashboard.chart.buttons.today'),
@@ -93,19 +150,19 @@ const chartDataSets = computed(() => {
     {
       data: chooseData.value,
       backgroundColor: [
+        documentStyle.getPropertyValue(`--p-blue-${backgroundSuffix}`),
         documentStyle.getPropertyValue(`--p-green-${backgroundSuffix}`),
         documentStyle.getPropertyValue(`--p-red-${backgroundSuffix}`),
-        documentStyle.getPropertyValue(`--p-yellow-${backgroundSuffix}`),
       ],
       hoverBackgroundColor: [
+        documentStyle.getPropertyValue(`--p-blue-${hoverBackgroundSuffix}`),
         documentStyle.getPropertyValue(`--p-green-${hoverBackgroundSuffix}`),
         documentStyle.getPropertyValue(`--p-red-${hoverBackgroundSuffix}`),
-        documentStyle.getPropertyValue(`--p-yellow-${hoverBackgroundSuffix}`),
       ],
       borderColor: [
+        documentStyle.getPropertyValue(`--p-blue-${borderSuffix}`),
         documentStyle.getPropertyValue(`--p-green-${borderSuffix}`),
         documentStyle.getPropertyValue(`--p-red-${borderSuffix}`),
-        documentStyle.getPropertyValue(`--p-yellow-${borderSuffix}`),
       ],
     },
   ]
@@ -119,7 +176,7 @@ const changeDateRange = (data: number[], activeButton: string, title: string) =>
 
 const setChartData = () => {
   return {
-    labels: ['Wolne', 'Zajęte', 'Nieczynne'],
+    labels: ['Zaplanowane', 'Zakończone', 'Anulowane'],
     datasets: chartDataSets.value,
   }
 }
@@ -146,7 +203,7 @@ const setChartOptions = () => {
         },
         formatter: (value, context) => {
           const total = context.dataset.data.reduce((a, b) => a + b, 0)
-          const percentage = ((value / total) * 100)
+          const percentage = Math.round((value / total) * 100)
           if (percentage < 5) {
             return ''
           }
@@ -163,6 +220,12 @@ const setChartOptions = () => {
 
 watch(chartDataSets, () => {
   chartData.value = setChartData()
+})
+
+watch(todayData, () => {
+  if (isActive.value === 'today') {
+    chooseData.value = todayData.value
+  }
 })
 
 onMounted(() => {

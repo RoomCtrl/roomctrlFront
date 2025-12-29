@@ -1,6 +1,6 @@
 export class DownloadRepository {
   async downloadAndroid(): Promise<Blob> {
-    return await $fetch('/api/v1/download/android', {
+    return await $fetch('/api/download/android', {
       headers: {
         Accept: 'application/octet-stream',
       },
@@ -9,7 +9,7 @@ export class DownloadRepository {
   }
 
   async downloadIso(): Promise<Blob> {
-    return await $fetch('/api/v1/download/iso', {
+    return await $fetch('/api/download/iso', {
       headers: {
         Accept: 'application/octet-stream',
       },
