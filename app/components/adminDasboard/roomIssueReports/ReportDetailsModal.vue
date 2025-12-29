@@ -19,11 +19,11 @@
               {{ $t('pages.adminDashboard.roomIssueReports.modal.title', { issueNumber: selectedIssue.id }) }}
             </h2>
             <div class="grid grid-cols-2 gap-10 pr-10">
-              <div>
+              <div class="flex flex-col">
                 <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 pb-1">
                   {{ $t('pages.adminDashboard.roomIssueReports.modal.status') }}
                 </div>
-                <span :class="['inline-block px-2 py-1 rounded-full text-sm font-medium', getStatusColor(selectedIssue.status)]">
+                <span :class="['px-2 py-1 rounded-full text-sm font-medium w-[5rem]', getStatusColor(selectedIssue.status)]">
                   {{ $t('pages.adminDashboard.roomIssueReports.status.' + selectedIssue.status) }}
                 </span>
               </div>
@@ -39,7 +39,7 @@
           </div>
 
           <p class="text-blue-800 dark:text-blue-100">
-            {{ selectedIssue.room }}
+            {{ selectedIssue.roomName }}
           </p>
         </div>
       </div>
@@ -86,7 +86,7 @@
           </h3>
           <div class="space-y-3">
             <div
-              v-for="(log, index) in selectedIssue.activityLog"
+              v-for="(log, index) in selectedIssue.history"
               :key="index"
               class="flex gap-3 items-start"
             >
@@ -96,7 +96,7 @@
                   {{ log.action }}
                 </div>
                 <div class="text-xs text-gray-600 dark:text-gray-400">
-                  {{ log.date }} {{ log.time }} - {{ log.user }}
+                  {{ log.createdAt }} - {{ log.userName }}
                 </div>
               </div>
             </div>
@@ -117,10 +117,10 @@
               class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded"
             >
               <p class="text-gray-800 mb-2">
-                {{ note.text }}
+                {{ note.content }}
               </p>
               <div class="text-xs text-gray-600">
-                {{ note.author }} - {{ note.date }}
+                {{ note.authorName }} - {{ note.createdAt }}
               </div>
             </div>
           </div>
@@ -154,14 +154,14 @@
 
         <div class="border-t border-gray-200 pt-6 flex gap-3">
           <Button
-            v-if="selectedIssue.status === 'new'"
+            v-if="selectedIssue.status === 'pending'"
             class="flex-1 px-6 py-3"
             :label=" $t('pages.adminDashboard.roomIssueReports.modal.startRepair')"
             severity="warn"
-            @click="updateStatusFromModal('inProgress')"
+            @click="updateStatusFromModal('in_progress')"
           />
           <Button
-            v-if="selectedIssue.status === 'inProgress'"
+            v-if="selectedIssue.status === 'in_progress'"
             class="flex-1 px-6 py-3"
             :label="$t('pages.adminDashboard.roomIssueReports.modal.closeIssue')"
             severity="success"
@@ -175,83 +175,62 @@
 
 <script setup lang="ts">
 import { Textarea } from 'primevue'
-
-const visible = ref(false)
+import type { IIssueData } from '~/interfaces/IssuesInterfaces'
 
 const props = defineProps<{
-  selectedIssue: {
-    id: number
-    room: string
-    category: string
-    description: string
-    priority: string
-    status: string
-    reporter: string
-    date: string
-    time: string
-    activityLog: [{
-      action: string
-      date: string
-      time: string
-      user: string
-    }]
-    notes: {
-      text: string
-      author: string
-      date: string
-    }[]
-  }
+  issueId: string
 }>()
-
+const { fetchIssueById } = useIssue()
+const selectedIssue = await fetchIssueById(props.issueId) as IIssueData
+const visible = ref(false)
 const newNote = ref('')
 const { t } = useI18n()
 
 const baseReportInfo = computed(() => [
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.category'),
-    value: props.selectedIssue.category,
+    value: selectedIssue.category,
   },
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.roomNumber'),
-    value: props.selectedIssue.room,
+    value: selectedIssue.roomName,
   },
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.reportDate'),
-    value: props.selectedIssue.date,
+    value: selectedIssue.reportedAt,
   },
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.reporter'),
-    value: props.selectedIssue.reporter,
+    value: selectedIssue.reporterName,
   },
 ])
 
 const updateStatus = (id, newStatus) => {
-  const issue = props.selectedIssue
+  const issue = selectedIssue
   if (issue) {
     issue.status = newStatus
     const now = new Date()
-    issue.activityLog.push({
+    issue.history.push({
       action: `Status zmieniony na: ${newStatus}`,
-      date: now.toISOString().split('T')[0],
-      time: now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' }),
-      user: 'System',
+      createdAt: now.toISOString().split('T')[0],
+      userName: 'System',
     })
   }
 }
 
 const updateStatusFromModal = (newStatus) => {
-  if (props.selectedIssue) {
-    updateStatus(props.selectedIssue.id, newStatus)
+  if (selectedIssue) {
+    updateStatus(selectedIssue.id, newStatus)
   }
 }
 
 const addNote = () => {
-  if (newNote.value.trim() && props.selectedIssue) {
+  if (newNote.value.trim() && selectedIssue) {
     const now = new Date()
-    props.selectedIssue.notes.push({
-      text: newNote.value,
-      author: 'Bieżący użytkownik',
-      date: now.toISOString().split('T')[0],
+    selectedIssue.notes.push({
+      content: newNote.value,
+      authorName: 'Bieżący użytkownik',
+      createdAt: now.toISOString().split('T')[0],
     })
     newNote.value = ''
   }
@@ -259,8 +238,8 @@ const addNote = () => {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'new': return 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100'
-    case 'inProgress': return 'bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-100'
+    case 'pending': return 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100'
+    case 'in_progress': return 'bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-100'
     case 'closed': return 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100'
     default: return 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100'
   }
@@ -270,7 +249,7 @@ const getPriorityColor = (priority: string) => {
   switch (priority) {
     case 'critical': return 'text-red-500'
     case 'high': return 'text-orange-500'
-    case 'mid': return 'text-yellow-500'
+    case 'medium': return 'text-yellow-500'
     case 'low': return 'text-green-500'
     default: return 'text-gray-500'
   }
