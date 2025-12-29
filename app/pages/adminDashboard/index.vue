@@ -64,8 +64,8 @@ import { useAuth } from '~/composables/useAuth'
 import { BookingService } from '~/services/BookingService'
 
 definePageMeta({
-  middleware: ['admin'],
   layout: 'admin-dashboard',
+  middleware: 'admin',
 })
 
 const { bookings } = useBooking()

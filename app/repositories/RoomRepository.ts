@@ -8,7 +8,6 @@ export class RoomRepository {
       this.token = token
     }
     else if (typeof window !== 'undefined') {
-      // Get token from localStorage on client side
       this.token = localStorage.getItem('auth.token') || null
     }
   }
@@ -86,7 +85,6 @@ export class RoomRepository {
     })
 
     if (!response.ok) {
-      const errorText = await response.text()
       throw new Error(`API Error: ${response.status} ${response.statusText}`)
     }
 
@@ -139,14 +137,7 @@ export class RoomRepository {
 
   async uploadImage(roomId: string, image: File): Promise<{ message: string, imagePath: string }> {
     const formData = new FormData()
-    formData.append('file', image)
-
-    console.log('FormData before send:', {
-      roomId,
-      fileName: image.name,
-      fileSize: image.size,
-      fileType: image.type,
-    })
+    formData.append('files[]', image)
 
     const response = await fetch(`/api/rooms/${roomId}/upload`, {
       method: 'POST',
@@ -157,15 +148,66 @@ export class RoomRepository {
     })
 
     if (!response.ok) {
-      const errorText = await response.text()
-      console.error('Upload error:', errorText)
       throw new Error(`API Error: ${response.status} ${response.statusText}`)
     }
 
     return await response.json()
   }
 
-  getRoomImages(roomId: string): string {
-    return `/api/rooms/${roomId}/image`
+  async getRoomImagesURL(roomId: string): Promise<string[]> {
+    const response = await fetch(`/api/rooms/${roomId}/images`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+
+    return await response.json()
+  }
+
+  async getRoomImage(roomId: string, imageIndex: number): Promise<string> {
+    const response = await fetch(`/api/rooms/${roomId}/image/${imageIndex}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+
+    const blob = await response.blob()
+    return URL.createObjectURL(blob)
+  }
+
+  async deleteRoomImages(roomId: string): Promise<void> {
+    const response = await fetch(`/api/rooms/${roomId}/images`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+  }
+
+  async deleteSingleRoomImage(roomId: string, imageIndex: number): Promise<void> {
+    const response = await fetch(`/api/rooms/${roomId}/images/${imageIndex}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
   }
 }

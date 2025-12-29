@@ -1,10 +1,12 @@
-.p-button{
-  color: white;
-}
-
 /*Outlined buttons styles */
 .dark .p-button-outlined.p-button-primary {
-  background-color: color-mix(in srgb, var(--p-button-primary-background) 70%, transparent 0%);
+  background-color: color-mix(in srgb, var(--p-button-primary-background) 70%, transparent 100%);
+  border: 1px solid var(--p-primary-color);
+  color: #ff0000f8;
+}
+
+.dark .p-button-outlined.p-button-primary:hover {
+  color: #ff4848f8
 }
 
 .dark .p-button-outlined.p-button-secondary {
@@ -12,34 +14,97 @@
 }
 
 .dark .p-button-outlined.p-button-success {
-  background-color: color-mix(in srgb, var(--p-green-900) 70%, transparent);
-  border: 1px solid var(--p-green-700);  
+  background-color: color-mix(in srgb, var(--p-green-900) 50%, transparent);
+}
+
+.dark .p-button-outlined.p-button-success:hover {
+  color: var(--p-green-100)
 }
 
 .dark .p-button-outlined.p-button-info {
-  background-color: color-mix(in srgb, var(--p-sky-900) 70%, transparent);
-  border: 1px solid var(--p-sky-700);  
+  background-color: color-mix(in srgb, var(--p-sky-900) 50%, transparent);
+}
+
+.dark .p-button-outlined.p-button-info:hover {
+  color: var(--p-sky-100)
 }
 
 .dark .p-button-outlined.p-button-warn {
-  background-color: color-mix(in srgb, var(--p-orange-900) 70%, transparent 0%);
-  border: 1px solid var(--p-orange-700);  
+  background-color: color-mix(in srgb, var(--p-orange-900) 50%, transparent 0%);
+}
+
+.dark .p-button-outlined.p-button-warn:hover {
+  color: var(--p-orange-100)
 }
 
 .dark .p-button-outlined.p-button-help {
-  background-color: color-mix(in srgb, var(--p-violet-900) 70%, transparent 0%);
-  border: 1px solid var(--p-violet-700);  
+  background-color: color-mix(in srgb, var(--p-violet-900) 50%, transparent 0%);
+}
+
+.dark .p-button-outlined.p-button-help:hover {
+  color: var(--p-violet-100)
 }
 
 .dark .p-button-outlined.p-button-danger {
-  background-color: color-mix(in srgb, var(--p-red-900) 70%, transparent 0%);
-  border: 1px solid var(--p-red-700);  
+  background-color: color-mix(in srgb, var(--p-red-900) 50%, transparent 0%);
+}
+
+.dark .p-button-outlined.p-button-danger:hover {
+  color: var(--p-red-100)
 }
 
 .dark .p-button-outlined.p-button-contrast {
   background-color: color-mix(in srgb, var(--p-button-contrast-background) 30%, transparent 0%);
 }
 
-.dark .p-button-outlined.p-button-raised {
-  border: 0;  
+.light .p-button-outlined.p-button-primary {
+  background-color: color-mix(in srgb, var(--p-button-primary-background) 70%, transparent 0%);
+}
+
+.light .p-button-outlined.p-button-secondary {
+  background-color: color-mix(in srgb, var(--p-button-secondary-background) 30%, transparent 0%);
+}
+
+.light .p-button-outlined.p-button-success {
+  background-color: color-mix(in srgb, var(--p-green-400) 70%, transparent);
+}
+
+.light .p-button-outlined.p-button-success:hover {
+  --p-button-outlined-success-color:  var(--p-green-800);
+}
+
+.light .p-button-outlined.p-button-info {
+  background-color: color-mix(in srgb, var(--p-sky-400) 70%, transparent);
+}
+
+.light .p-button-outlined.p-button-info:hover {
+  color: var(--p-sky-800)
+}
+
+.light .p-button-outlined.p-button-warn {
+  background-color: color-mix(in srgb, var(--p-amber-400) 70%, transparent 0%);
+}
+
+.light .p-button-outlined.p-button-warn:hover {
+  color: var(--p-amber-800)
+}
+
+.light .p-button-outlined.p-button-help {
+  background-color: color-mix(in srgb, var(--p-violet-400) 70%, transparent 0%);
+}
+
+.light .p-button-outlined.p-button-help:hover {
+  color: var(--p-violet-800)
+}
+
+.light .p-button-outlined.p-button-danger {
+  background-color: color-mix(in srgb, var(--p-red-400) 70%, transparent 0%);
+}
+
+.light .p-button-outlined.p-button-danger:hover {
+  color: var(--p-red-800)
+}
+
+.light .p-button-outlined.p-button-contrast {
+  background-color: color-mix(in srgb, var(--p-button-contrast-background) 30%, transparent 0%);
 }

@@ -1,11 +1,24 @@
+.p-chip-remove-icon {
+  --p-chip-remove-icon-color: white;
+}
+
+.dark .p-multiselect-chip {
+  --p-chip-background: #ad3636ff;
+}
+
 .p-datatable-paginator-bottom, .p-datatable-paginator-top {
   --p-paginator-border-radius: 0px;
   --p-datatable-paginator-bottom-border-width: 0px;
-  --p-datatable-paginator-top-border-color: var(--p-zinc-300);
 }
 
-.light .p-datatable-paginator-bottom, .p-datatable-paginator-top > .p-paginator {
+.light .p-datatable-paginator-bottom, .light .p-datatable-paginator-top > .p-paginator {
   --p-paginator-background: var(--p-zinc-100);
+}
+.light .p-datatable-paginator-top {
+  border-bottom: 1px solid var(--p-zinc-300);
+}
+.light .p-datatable-paginator-bottom {
+  border-top: 1px solid var(--p-zinc-300);
 }
 
 .light .p-datatable-header-cell {
@@ -29,4 +42,8 @@
 
 .p-datatable-empty-message {
   display: grid;
+}
+
+.p-paginator-page:hover {
+  color: white;
 }

@@ -23,10 +23,10 @@
         root: { class: 'flex flex-col h-full' },
         table: { class: tableDisplay },
       }"
-      :value="users"
+      :value="organizationUsers"
       filterDisplay="row"
       :rows="rows"
-      :rowsPerPageOptions="rowsPerPage"
+      :rowsPerPageOptions="rowsPerPageOptions"
       :loading="loading"
       size="small"
       paginator
@@ -120,9 +120,13 @@ definePageMeta({
 })
 
 const { users, loading, fetchUsers } = useUser()
+const { user } = useAuth()
 const { t } = useI18n()
-const rowsPerPage = ref([12, 24, 36])
-const { rows, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 12)
+const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 12)
+
+const organizationUsers = computed(() => {
+  return users.value.filter(u => u.organization.id === user.value.organization.id)
+})
 
 const listOfRoles = ref([
   {
@@ -154,6 +158,6 @@ const translateRoles = (roles: string[]) => {
 }
 
 onMounted(async () => {
-  await fetchUsers(false)
+  await fetchUsers(true)
 })
 </script>

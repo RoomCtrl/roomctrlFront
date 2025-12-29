@@ -99,24 +99,26 @@ export const useAuth = () => {
   }
 
   const syncFromStorage = () => {
-    if (!token.value) {
-      const storedToken = authService.getStoredToken()
-      if (storedToken) {
-        token.value = storedToken
+    if (import.meta.client) {
+      if (!token.value) {
+        const storedToken = authService.getStoredToken()
+        if (storedToken) {
+          token.value = storedToken
+        }
       }
-    }
 
-    if (!user.value) {
-      const storedUser = authService.getStoredUser()
-      if (storedUser) {
-        user.value = storedUser
+      if (!user.value) {
+        const storedUser = authService.getStoredUser()
+        if (storedUser) {
+          user.value = storedUser
+        }
       }
-    }
 
-    if (!roles.value.length) {
-      const storedRoles = authService.getStoredRoles?.()
-      if (storedRoles) {
-        roles.value = storedRoles
+      if (!roles.value.length) {
+        const storedRoles = authService.getStoredRoles?.()
+        if (storedRoles) {
+          roles.value = storedRoles
+        }
       }
     }
   }
@@ -139,10 +141,6 @@ export const useAuth = () => {
 
   const hasAllRoles = (rolesList) => {
     return rolesList.every(role => roles.value.includes(role))
-  }
-
-  if (import.meta.server) {
-    syncFromStorage()
   }
 
   return {

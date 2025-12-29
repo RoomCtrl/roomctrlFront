@@ -107,42 +107,193 @@ const MyCustomPreset = definePreset(Aura, {
       colorScheme: {
         dark: {
           root: {
+            primary: {
+              background: 'color-mix(in srgb, var(--p-primary-color) 70%, transparent)',
+              borderColor: 'color-mix(in srgb, var(--p-primary-color) 70%, transparent)',
+              color: 'white',
+              hoverBackground: 'color-mix(in srgb, var(--p-primary-color) 50%, transparent)',
+              hoverBorderColor: 'transparent',
+            },
             success: {
               background: 'var(--p-green-700)',
-              borderColor: 'var(--p-green-600)',
-              color: '{text.color}',
-              hoverBackground: 'var(--p-green-600)',
+              borderColor: 'var(--p-green-700)',
+              color: 'white',
+              hoverBackground: 'var(--p-green-500)',
               hoverBorderColor: 'var(--p-green-500)',
             },
             info: {
               background: 'var(--p-sky-700)',
-              borderColor: 'var(--p-sky-600)',
-              color: '{text.color}',
-              hoverBackground: 'var(--p-sky-600)',
+              borderColor: 'var(--p-sky-700)',
+              color: 'white',
+              hoverBackground: 'var(--p-sky-500)',
               hoverBorderColor: 'var(--p-sky-500)',
             },
             warn: {
               background: 'var(--p-amber-700)',
-              borderColor: 'var(--p-amber-600)',
-              color: '{text.color}',
-              hoverBackground: 'var(--p-amber-600)',
+              borderColor: 'var(--p-amber-700)',
+              color: 'white',
+              hoverBackground: 'var(--p-amber-500)',
               hoverBorderColor: 'var(--p-amber-500)',
             },
             help: {
               background: 'var(--p-violet-700)',
-              borderColor: 'var(--p-violet-600)',
-              color: '{text.color}',
-              hoverBackground: 'var(--p-violet-600)',
+              borderColor: 'var(--p-violet-700)',
+              color: 'white',
+              hoverBackground: 'var(--p-violet-500)',
               hoverBorderColor: 'var(--p-violet-500)',
             },
             danger: {
               background: 'var(--p-red-700)',
-              borderColor: 'var(--p-red-600)',
-              color: '{text.color}',
-              hoverBackground: 'var(--p-red-600)',
+              borderColor: 'var(--p-red-700)',
+              color: 'white',
+              hoverBackground: 'var(--p-red-500)',
               hoverBorderColor: 'var(--p-red-500)',
             },
+            contrast: {
+              background: 'white',
+              color: 'black',
+              hoverBackground: 'lightgray',
+            },
             raisedShadow: '0 3px 1px -2px rgba(250, 250, 250, 0.2), 0 2px 2px 0 rgba(250, 250, 250, 0.14), 0 1px 5px 0 rgba(250, 250, 250, 0.12)',
+          },
+          outlined: {
+            primary: {
+              hoverBackground: 'var(--p-primary-color)',
+              borderColor: '{primary.color}',
+              color: '#ff5454ff',
+            },
+            success: {
+              hoverBackground: 'color-mix(in srgb, var(--p-green-700) 70%, transparent);',
+              borderColor: 'var(--p-green-700)',
+            },
+            info: {
+              hoverBackground: 'color-mix(in srgb, var(--p-sky-700) 70%, transparent);',
+              borderColor: 'var(--p-sky-700)',
+            },
+            warn: {
+              hoverBackground: 'color-mix(in srgb, var(--p-amber-700) 70%, transparent);',
+              borderColor: 'var(--p-amber-700)',
+            },
+            help: {
+              hoverBackground: 'color-mix(in srgb, var(--p-violet-700) 70%, transparent);',
+              borderColor: 'var(--p-violet-700)',
+            },
+            danger: {
+              hoverBackground: 'color-mix(in srgb, var(--p-red-700) 70%, transparent);',
+              borderColor: 'var(--p-red-700)',
+            },
+            contrast: {
+              hoverBackground: 'color-mix(in srgb, white 40%, transparent);',
+              borderColor: 'white',
+              color: 'lightgray',
+            },
+          },
+          text: {
+            primary: {
+              color: '#ad3636ff',
+              hoverBackground: 'color-mix(in srgb, var(--p-primary-color) 20%, transparent);',
+            },
+            success: {
+              hoverBackground: 'color-mix(in srgb, var(--p-green-950) 70%, transparent);',
+            },
+            info: {
+              hoverBackground: 'color-mix(in srgb, var(--p-sky-950) 70%, transparent);',
+            },
+            warn: {
+              hoverBackground: 'color-mix(in srgb, var(--p-amber-950) 70%, transparent);',
+            },
+            help: {
+              hoverBackground: 'color-mix(in srgb, var(--p-violet-950) 70%, transparent);',
+            },
+            danger: {
+              hoverBackground: 'color-mix(in srgb, var(--p-red-950) 70%, transparent);',
+            },
+            contrast: {
+              hoverBackground: 'color-mix(in srgb, white 10%, transparent);',
+              color: 'lightgray',
+            },
+          },
+        },
+        light: {
+          root: {
+            success: {
+              background: 'var(--p-green-600)',
+              borderColor: 'var(--p-green-600)',
+              hoverBackground: 'var(--p-green-500)',
+              hoverBorderColor: 'var(--p-green-500)',
+            },
+            info: {
+              background: 'var(--p-sky-600)',
+              borderColor: 'var(--p-sky-600)',
+              hoverBackground: 'var(--p-sky-500)',
+              hoverBorderColor: 'var(--p-sky-500)',
+            },
+            warn: {
+              background: 'var(--p-amber-600)',
+              borderColor: 'var(--p-amber-600)',
+              hoverBackground: 'var(--p-amber-500)',
+              hoverBorderColor: 'var(--p-amber-500)',
+            },
+            help: {
+              background: 'var(--p-violet-600)',
+              borderColor: 'var(--p-violet-600)',
+              hoverBackground: 'var(--p-violet-500)',
+              hoverBorderColor: 'var(--p-violet-500)',
+            },
+            danger: {
+              background: 'var(--p-red-600)',
+              borderColor: 'var(--p-red-600)',
+              hoverBackground: 'var(--p-red-500)',
+              hoverBorderColor: 'var(--p-red-500)',
+            },
+          },
+          outlined: {
+            success: {
+              hoverBackground: 'color-mix(in srgb, var(--p-green-300) 70%, transparent);',
+              borderColor: 'var(--p-green-700)',
+              color: 'var(--p-green-900)',
+            },
+            info: {
+              hoverBackground: 'color-mix(in srgb, var(--p-sky-300) 70%, transparent);',
+              borderColor: 'var(--p-sky-700)',
+              color: 'var(--p-sky-900)',
+            },
+            warn: {
+              hoverBackground: 'color-mix(in srgb, var(--p-amber-300) 70%, transparent);',
+              borderColor: 'var(--p-amber-700)',
+              color: 'var(--p-amber-900)',
+            },
+            help: {
+              hoverBackground: 'color-mix(in srgb, var(--p-violet-300) 70%, transparent);',
+              borderColor: 'var(--p-violet-700)',
+              color: 'var(--p-violet-900)',
+            },
+            danger: {
+              hoverBackground: 'color-mix(in srgb, var(--p-red-300) 70%, transparent);',
+              borderColor: 'var(--p-red-700)',
+              color: 'var(--p-red-900)',
+            },
+          },
+          text: {
+            primary: {
+              hoverBackground: 'color-mix(in srgb, var(--p-primary-color) 20%, transparent);',
+            },
+            success: {
+              hoverBackground: 'color-mix(in srgb, var(--p-green-300) 70%, transparent);',
+              color: 'var(--p-green-600)',
+            },
+            info: {
+              hoverBackground: 'color-mix(in srgb, var(--p-sky-300) 70%, transparent);',
+            },
+            warn: {
+              hoverBackground: 'color-mix(in srgb, var(--p-amber-300) 70%, transparent);',
+            },
+            help: {
+              hoverBackground: 'color-mix(in srgb, var(--p-violet-300) 70%, transparent);',
+            },
+            danger: {
+              hoverBackground: 'color-mix(in srgb, var(--p-red-300) 70%, transparent);',
+            },
           },
         },
       },
@@ -179,6 +330,9 @@ const MyCustomPreset = definePreset(Aura, {
     datatable: {
       colorScheme: {
         dark: {
+          root: {
+            borderColor: 'var(--p-gray-600)',
+          },
           headerCell: {
             selectedBackground: '{surface.250}',
           },
@@ -400,10 +554,10 @@ const MyCustomPreset = definePreset(Aura, {
           option: {
             color: '{text.color}',
             focusColor: '{text.focusColor}',
-            focusBackground: '{surface.100}',
+            focusBackground: 'var(--p-red-400)',
             selectedBackground: '{surface.100}',
             selectedColor: '{text.focusColor}',
-            selectedFocusBackground: '{surface.100}',
+            selectedFocusBackground: 'var(--p-red-800)',
             selectedFocusColor: '{text.focusColor}',
           },
         },

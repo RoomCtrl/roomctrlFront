@@ -40,7 +40,19 @@ export class RoomService {
     return await this.repository.uploadImage(roomId, image)
   }
 
-  getRoomImages(roomId: string): string {
-    return this.repository.getRoomImages(roomId)
+  async getRoomImagesURL(roomId: string): Promise<string[]> {
+    return await this.repository.getRoomImagesURL(roomId)
+  }
+
+  async getRoomImage(roomId: string, imageIndex: number): Promise<string> {
+    return await this.repository.getRoomImage(roomId, imageIndex)
+  }
+
+  async deleteRoomImages(roomId: string): Promise<void> {
+    return await this.repository.deleteRoomImages(roomId)
+  }
+
+  async deleteSingleRoomImage(roomId: string, imageIndex: number): Promise<void> {
+    return await this.repository.deleteSingleRoomImage(roomId, imageIndex)
   }
 }

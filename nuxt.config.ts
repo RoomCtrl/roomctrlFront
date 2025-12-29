@@ -12,7 +12,13 @@ export default defineNuxtConfig({
     '@hypernym/nuxt-anime',
     'nuxt-qrcode',
   ],
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
