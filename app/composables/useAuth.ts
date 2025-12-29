@@ -1,20 +1,38 @@
+import type { IAuthUser } from '~/interfaces/UsersInterfaces'
+import type { IUserLoginResponse } from '~/interfaces/RepositoriesInterface'
 import { AuthService } from '~/services/AuthService'
 
+interface ILoginCredentials {
+  username: string
+  password: string
+}
+
+interface ITokenValidationResponse {
+  valid: boolean
+  user?: IAuthUser
+  roles?: string[]
+}
+
+interface IRefreshTokenResponse {
+  token: string
+  roles?: string[]
+}
+
 export const useAuth = () => {
-  const user = useState('auth.user', () => null)
-  const token = useState('auth.token', () => null)
-  const loading = useState('auth.loading', () => false)
-  const roles = useState('auth.roles', () => [])
+  const user = useState<IAuthUser | null>('auth.user', () => null)
+  const token = useState<string | null>('auth.token', () => null)
+  const loading = useState<boolean>('auth.loading', () => false)
+  const roles = useState<string[]>('auth.roles', () => [])
 
   const authService = new AuthService()
 
-  const login = async (credentials) => {
+  const login = async (credentials: ILoginCredentials): Promise<IUserLoginResponse> => {
     loading.value = true
     try {
       const result = await authService.login(credentials)
       user.value = result.user
       token.value = result.token
-      roles.value = result.roles
+      roles.value = result.user.roles || []
       return result
     }
     finally {
@@ -22,10 +40,12 @@ export const useAuth = () => {
     }
   }
 
-  const logout = async (redirectTo) => {
+  const logout = async (redirectTo?: string): Promise<void> => {
     loading.value = true
     try {
-      await authService.logout(token.value)
+      if (token.value) {
+        await authService.logout(token.value)
+      }
       user.value = null
       token.value = null
       roles.value = []
@@ -39,7 +59,7 @@ export const useAuth = () => {
     }
   }
 
-  const checkAuth = async () => {
+  const checkAuth = async (): Promise<boolean> => {
     loading.value = true
     try {
       let currentToken = token.value
@@ -58,11 +78,9 @@ export const useAuth = () => {
       if (authService.isTokenExpired?.(currentToken)) {
         await logout()
         return false
-      }
-
-      const validation = await authService.validateToken(currentToken)
+      } as ITokenValidationResponse
       if (validation.valid) {
-        user.value = validation.user
+        user.value = validation.user || null
         roles.value = validation.roles || []
         return true
       }
@@ -80,12 +98,14 @@ export const useAuth = () => {
     }
   }
 
+  const refreshToken = async (): Promise<boolean>
+
   const refreshToken = async () => {
     if (!token.value) {
       return false
     }
     try {
-      const result = await authService.refreshUserToken(token.value)
+      const result = await authService.refreshUserToken(token.value) as IRefreshTokenResponse
       token.value = result.token
       if (result.roles) {
         roles.value = result.roles
@@ -98,7 +118,7 @@ export const useAuth = () => {
     }
   }
 
-  const syncFromStorage = () => {
+  const syncFromStorage = (): void => {
     if (!token.value) {
       const storedToken = authService.getStoredToken()
       if (storedToken) {
@@ -115,7 +135,7 @@ export const useAuth = () => {
 
     if (!roles.value.length) {
       const storedRoles = authService.getStoredRoles?.()
-      if (storedRoles) {
+      if (storedRoles && Array.isArray(storedRoles)) {
         roles.value = storedRoles
       }
     }
@@ -129,20 +149,16 @@ export const useAuth = () => {
     return roles.value.includes('ROLE_ADMIN')
   })
 
-  const hasRole = (role) => {
+  const hasRole = (role: string): boolean => {
     return roles.value.includes(role)
   }
 
-  const hasAnyRole = (rolesList) => {
+  const hasAnyRole = (rolesList: string[]): boolean => {
     return rolesList.some(role => roles.value.includes(role))
   }
 
-  const hasAllRoles = (rolesList) => {
+  const hasAllRoles = (rolesList: string[]): boolean => {
     return rolesList.every(role => roles.value.includes(role))
-  }
-
-  if (import.meta.server) {
-    syncFromStorage()
   }
 
   return {
