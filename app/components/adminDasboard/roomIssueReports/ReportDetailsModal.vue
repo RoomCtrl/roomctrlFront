@@ -16,7 +16,7 @@
         <div class="w-full">
           <div class="flex flex-row justify-between w-full">
             <h2 class="text-3xl font-bold mb-2">
-              {{ $t('pages.adminDashboard.roomIssueReports.modal.title', { issueNumber: selectedIssue.id }) }}
+              {{ $t('pages.adminDashboard.roomIssueReports.modal.title', { issueNumber: formatReportId(selectedIssue.id) }) }}
             </h2>
             <div class="grid grid-cols-2 gap-10 pr-10">
               <div class="flex flex-col">
@@ -180,7 +180,7 @@ import type { IIssueData } from '~/interfaces/IssuesInterfaces'
 const props = defineProps<{
   issueId: string
 }>()
-const { fetchIssueById } = useIssue()
+const { fetchIssueById, updateIssueStatusOrPriority, createIssueNewNote } = useIssue()
 const selectedIssue = await fetchIssueById(props.issueId) as IIssueData
 const visible = ref(false)
 const newNote = ref('')
@@ -205,17 +205,13 @@ const baseReportInfo = computed(() => [
   },
 ])
 
-const updateStatus = (id, newStatus) => {
-  const issue = selectedIssue
-  if (issue) {
-    issue.status = newStatus
-    const now = new Date()
-    issue.history.push({
-      action: `Status zmieniony na: ${newStatus}`,
-      createdAt: now.toISOString().split('T')[0],
-      userName: 'System',
-    })
-  }
+const formatReportId = (id: string) => {
+  const reportId = id.split('-')
+  return reportId[reportId.length - 1]
+}
+
+const updateStatus = async (id, newStatus) => {
+  await updateIssueStatusOrPriority(id, { status: newStatus })
 }
 
 const updateStatusFromModal = (newStatus) => {
@@ -224,16 +220,8 @@ const updateStatusFromModal = (newStatus) => {
   }
 }
 
-const addNote = () => {
-  if (newNote.value.trim() && selectedIssue) {
-    const now = new Date()
-    selectedIssue.notes.push({
-      content: newNote.value,
-      authorName: 'Bieżący użytkownik',
-      createdAt: now.toISOString().split('T')[0],
-    })
-    newNote.value = ''
-  }
+const addNote = async () => {
+  await createIssueNewNote(selectedIssue.id, newNote.value)
 }
 
 const getStatusColor = (status: string) => {

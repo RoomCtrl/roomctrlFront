@@ -37,7 +37,7 @@
           v-for="issue in slotProps.items"
           :key="issue.id"
           pt:caption:style="--p-card-caption-gap: 0"
-          class="shadow-sm hover:shadow-md transition-shadow m-2 dark:bg-gray-900"
+          class="shadow-sm hover:shadow-md transition-shadow m-2"
         >
           <template #title>
             <div class="flex justify-between items-start">
@@ -51,10 +51,10 @@
               </div>
               <div class="text-right">
                 <div class="text-base opacity-60">
-                  {{ issue.reportedAt }}
+                  {{ formatReportedAt(issue.reportedAt).date }}
                 </div>
                 <div class="text-sm opacity-60">
-                  {{ issue.reportedAt }}
+                  {{ formatReportedAt(issue.reportedAt).time }}
                 </div>
               </div>
             </div>
@@ -158,6 +158,11 @@ const getPriorityColor = (priority: string) => {
   }
 }
 
+const formatReportedAt = (reportedAt: string) => {
+  const [date, time] = reportedAt.split(' ')
+  return { date, time }
+}
+
 const onSortChange = (event) => {
   const value = event.value.value
   const sortValue = event.value
@@ -174,3 +179,9 @@ const onSortChange = (event) => {
   }
 }
 </script>
+
+<style scoped>
+.dark .p-card {
+  background-color: var(--p-gray-900);
+}
+</style>
