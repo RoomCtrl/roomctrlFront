@@ -48,11 +48,14 @@
             @click="handleToggleFavorite"
           />
         </div>
-        <WeekCalendar
-          class="flex justify-center"
-          :current-booking="currentBooking"
-          :next-bookings="nextBookings"
-        />
+        <div class="flex flex-row gap-2">
+          <WeekCalendar
+            class="flex justify-center"
+            :current-booking="currentBooking"
+            :next-bookings="nextBookings"
+          />
+          <ReportRoomIssue :room-id="roomId" />
+        </div>
       </div>
     </template>
   </Card>
@@ -65,6 +68,7 @@ import WeekCalendar from './WeekCalendar.vue'
 import type { IBooking } from '~/interfaces/RoomsIntefaces'
 import { useRoom } from '~/composables/useRoom'
 import { useToast } from 'primevue/usetoast'
+import ReportRoomIssue from '~/components/forms/ReportRoomIssue.vue'
 
 const props = defineProps<{
   roomName: string

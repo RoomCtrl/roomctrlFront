@@ -37,13 +37,13 @@
           v-for="issue in slotProps.items"
           :key="issue.id"
           pt:caption:style="--p-card-caption-gap: 0"
-          class="shadow-sm hover:shadow-md transition-shadow m-2 dark:bg-gray-900"
+          class="shadow-sm hover:shadow-md transition-shadow m-2"
         >
           <template #title>
             <div class="flex justify-between items-start">
               <div class="flex items-center gap-3">
                 <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg font-semibold">
-                  {{ issue.room }}
+                  {{ issue.roomName }}
                 </div>
                 <span :class="['px-3 py-1 rounded-full text-sm font-medium', getStatusColor(issue.status)]">
                   {{ $t('pages.adminDashboard.roomIssueReports.status.' + issue.status) }}
@@ -51,10 +51,10 @@
               </div>
               <div class="text-right">
                 <div class="text-base opacity-60">
-                  {{ issue.date }}
+                  {{ formatReportedAt(issue.reportedAt).date }}
                 </div>
                 <div class="text-sm opacity-60">
-                  {{ issue.time }}
+                  {{ formatReportedAt(issue.reportedAt).time }}
                 </div>
               </div>
             </div>
@@ -75,24 +75,24 @@
             <div class="flex items-center justify-between pt-3 border-t">
               <div class="text-sm text-gray-600 dark:text-gray-400">
                 {{ $t('pages.adminDashboard.roomIssueReports.reported') }}
-                <span class="font-medium text-black dark:text-white">{{ issue.reporter }}</span>
+                <span class="font-medium text-black dark:text-white">{{ issue.reporterName }}</span>
               </div>
               <div class="flex gap-2">
                 <Button
-                  v-if="issue.status === 'new'"
+                  v-if="issue.status === 'pending'"
                   :label="$t('common.buttons.start')"
                   severity="warn"
                   size="small"
-                  @click="updateStatus(issue.id, 'inProgress')"
+                  @click="updateStatus(issue.id, 'in_progress')"
                 />
                 <Button
-                  v-if="issue.status === 'inProgress'"
+                  v-if="issue.status === 'in_progress'"
                   :label="$t('common.buttons.close')"
                   severity="success"
                   size="small"
                   @click="updateStatus(issue.id, 'closed')"
                 />
-                <ReportDetailsModal :selectedIssue="issue" />
+                <ReportDetailsModal :issueId="issue.id" />
               </div>
             </div>
           </template>
@@ -112,33 +112,15 @@
 </template>
 
 <script setup lang="ts">
+import type { IIssuesDataResponse } from '~/interfaces/IssuesInterfaces'
 import ReportDataFilters from './ReportDataFilters.vue'
 import ReportDetailsModal from './ReportDetailsModal.vue'
 
 const props = defineProps<{
-  issues: Array<{
-    id: number
-    room: string
-    category: string
-    description: string
-    priority: string
-    status: string
-    reporter: string
-    date: string
-    time: string
-    activityLog: [{
-      action: string
-      date: string
-      time: string
-      user: string
-    }]
-    notes: {
-      text: string
-      author: string
-      date: string
-    }[]
-  }>
+  issues: IIssuesDataResponse[]
 }>()
+
+const { updateIssueStatusOrPriority } = useIssue()
 
 const filteredIssues = ref([...props.issues])
 const sortKey = ref()
@@ -149,11 +131,8 @@ const sortOptions = ref([
   { label: 'Waznosc od najmniej waznych', icon: 'pi pi-sort-amount-up', value: 'priority' },
 ])
 
-const updateStatus = (id: number, newStatus: string) => {
-  const issue = props.issues.find(i => i.id === id)
-  if (issue) {
-    issue.status = newStatus
-  }
+const updateStatus = async (id: string, newStatus: string) => {
+  await updateIssueStatusOrPriority(id, { status: newStatus })
 }
 
 const handleFilterIssues = (issues: any[]) => {
@@ -162,8 +141,8 @@ const handleFilterIssues = (issues: any[]) => {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'new': return 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100'
-    case 'inProgress': return 'bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-100'
+    case 'pending': return 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100'
+    case 'in_progress': return 'bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-100'
     case 'closed': return 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-100'
     default: return 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100'
   }
@@ -173,10 +152,15 @@ const getPriorityColor = (priority: string) => {
   switch (priority) {
     case 'critical': return 'text-red-700 dark:text-red-500'
     case 'high': return 'text-orange-700 dark:text-orange-500'
-    case 'mid': return 'text-yellow-700 dark:text-yellow-500'
+    case 'medium': return 'text-yellow-700 dark:text-yellow-500'
     case 'low': return 'text-green-700 dark:text-green-500'
     default: return 'text-gray-600 dark:text-gray-500'
   }
+}
+
+const formatReportedAt = (reportedAt: string) => {
+  const [date, time] = reportedAt.split(' ')
+  return { date, time }
 }
 
 const onSortChange = (event) => {
@@ -195,3 +179,9 @@ const onSortChange = (event) => {
   }
 }
 </script>
+
+<style scoped>
+.dark .p-card {
+  background-color: var(--p-gray-900);
+}
+</style>
