@@ -11,7 +11,6 @@ export const useRoom = () => {
   const error = useState<string | null>('rooms-error', () => null)
   const favoriteRoomIds = useState<Set<string>>('favorite-room-ids', () => new Set())
 
-  // Create a getter function to ensure we always have the latest token
   const getRoomService = () => new RoomService(token.value)
 
   const fetchRooms = async (withBookings: boolean = false, status?: 'available' | 'occupied' | 'maintenance') => {
@@ -19,10 +18,9 @@ export const useRoom = () => {
     error.value = null
     try {
       const fetchedRooms = await getRoomService().getRooms(withBookings, status)
-      // Mark rooms as favorite if they're in favoriteRoomIds
       rooms.value = fetchedRooms.map(r => ({
         ...r,
-        isFavorite: favoriteRoomIds.value.has(r.roomId)
+        isFavorite: favoriteRoomIds.value.has(r.roomId),
       }))
     }
     catch (err) {
@@ -40,7 +38,7 @@ export const useRoom = () => {
       const fetchedRoom = await getRoomService().getRoom(roomId, withBookings)
       room.value = {
         ...fetchedRoom,
-        isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId)
+        isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId),
       }
     }
     catch (err) {
@@ -115,9 +113,7 @@ export const useRoom = () => {
     error.value = null
     try {
       const favoriteRooms = await getRoomService().getFavoriteRooms(withBookings)
-      // Update favoriteRoomIds set
       favoriteRoomIds.value = new Set(favoriteRooms.map(r => r.roomId))
-      // Mark all as favorite
       rooms.value = favoriteRooms.map(r => ({ ...r, isFavorite: true }))
     }
     catch (err) {
@@ -133,22 +129,20 @@ export const useRoom = () => {
     error.value = null
     try {
       await getRoomService().toggleFavorite(roomId)
-      
-      // Update favoriteRoomIds set
+
       const newFavoriteIds = new Set(favoriteRoomIds.value)
       if (newFavoriteIds.has(roomId)) {
         newFavoriteIds.delete(roomId)
-      } else {
+      }
+      else {
         newFavoriteIds.add(roomId)
       }
       favoriteRoomIds.value = newFavoriteIds
-      
-      // Update room details if viewing this room
+
       if (room.value && room.value.roomId === roomId) {
         room.value.isFavorite = !room.value.isFavorite
       }
-      
-      // Update in rooms list if present
+
       const roomIndex = rooms.value.findIndex(r => r.roomId === roomId)
       if (roomIndex !== -1) {
         rooms.value[roomIndex].isFavorite = !rooms.value[roomIndex].isFavorite
@@ -193,14 +187,58 @@ export const useRoom = () => {
     }
   }
 
+  const getRoomImagesURL = async (roomId: string) => {
+    return await getRoomService().getRoomImagesURL(roomId)
+  }
+
+  const getRoomImage = async (roomId: string, imageIndex: number) => {
+    return await getRoomService().getRoomImage(roomId, imageIndex)
+  }
+
+  const deleteRoomImages = async (roomId: string) => {
+    loading.value = true
+    error.value = null
+    try {
+      await getRoomService().deleteRoomImages(roomId)
+      rooms.value = rooms.value.filter(r => r.roomId !== roomId)
+      if (room.value && room.value.roomId === roomId) {
+        room.value = null
+      }
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy usuwaniu sali'
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
+  const deleteSingleRoomImage = async (roomId: string, imageIndex: number) => {
+    loading.value = true
+    error.value = null
+    try {
+      await getRoomService().deleteSingleRoomImage(roomId, imageIndex)
+      rooms.value = rooms.value.filter(r => r.roomId !== roomId)
+      if (room.value && room.value.roomId === roomId) {
+        room.value = null
+      }
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy usuwaniu sali'
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
   return {
-    // State
     rooms,
     room,
     loading,
     error,
 
-    // Methods
     fetchRooms,
     fetchRoom,
     fetchFavoriteRooms,
@@ -208,8 +246,12 @@ export const useRoom = () => {
     createRoom,
     updateRoom,
     deleteRoom,
+    deleteRoomImages,
+    deleteSingleRoomImage,
     clearError,
     loadFavoriteIds,
     uploadImage,
+    getRoomImagesURL,
+    getRoomImage,
   }
 }

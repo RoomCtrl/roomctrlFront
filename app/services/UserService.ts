@@ -1,5 +1,5 @@
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
-import type { IUserAddResponse } from '~/interfaces/UsersInterfaces'
+import type { IChangePasswordForm, IUpdateUserProfileForm, IUserAddResponse } from '~/interfaces/UsersInterfaces'
 import { UserRepository } from '~/repositories/UserRepository'
 
 export class UserService {
@@ -29,5 +29,21 @@ export class UserService {
 
   async updateUser(guid: string, updatedUser: IAddUserForm) {
     return await this.repository.updateUser(guid, updatedUser)
+  }
+
+  async updateUserProfile(guid: string, updatedProfile: IUpdateUserProfileForm) {
+    return await this.repository.updateUserProfile(guid, updatedProfile)
+  }
+
+  async changePassword(guid: string, passwordData: IChangePasswordForm) {
+    return await this.repository.changePassword(guid, passwordData)
+  }
+
+  async getUserNotifications() {
+    return await this.repository.getUserNotifications()
+  }
+
+  async updateUserNotifications(emailNotificationsEnabled: boolean) {
+    return await this.repository.updateUserNotifications(emailNotificationsEnabled)
   }
 }

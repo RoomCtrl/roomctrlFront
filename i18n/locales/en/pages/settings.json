@@ -1,0 +1,26 @@
+{
+  "title": "Settings",
+  "noAccess": "You don't have access to this page. Please log in to continue.",
+  "personalData": {
+    "title": "Personal Data",
+    "description": "Manage your personal data"
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "description": "Update your password to keep your account secure"
+  },
+  "preferences": {
+    "title": "Preferences",
+    "language": "Interface Language",
+    "darkMode": "Dark Mode",
+    "notifications": "Notifications"
+  },
+  "success": {
+    "profileUpdated": "Your profile has been updated successfully",
+    "passwordChanged": "Your password has been changed successfully"
+  },
+  "error": {
+    "profileUpdateFailed": "Failed to update your profile",
+    "passwordChangeFailed": "Failed to change your password"
+  }
+}

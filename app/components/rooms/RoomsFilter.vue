@@ -154,23 +154,23 @@
               :key="acc.code"
               :label="acc.name"
               :outlined="selectedAccess !== acc.code"
-              severity="secondary"
+              severity="help"
               size="small"
               @click="selectedAccess = selectedAccess === acc.code ? null : acc.code"
             />
           </div>
         </div>
 
-        <!-- Action Buttons -->
         <div class="flex gap-2 justify-end">
           <Button
             :label="$t('common.reset') || 'Reset'"
-            severity="secondary"
+            severity="danger"
             size="small"
             @click="resetFilters"
           />
           <Button
             :label="$t('common.apply') || 'Apply'"
+            severity="success"
             size="small"
             @click="applyFilters"
           />
@@ -223,7 +223,7 @@ const statuses = computed(() => [
   {
     code: 'occupied',
     name: t('pages.allRooms.filters.statuses.occupied') || 'Occupied',
-    buttonColor: 'error',
+    buttonColor: 'danger',
   },
   {
     code: 'maintenance',
