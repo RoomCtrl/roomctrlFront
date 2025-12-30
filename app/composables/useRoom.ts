@@ -138,8 +138,6 @@ export const useRoom = () => {
         newFavoriteIds.delete(roomId)
       }
       else {
-      }
-      else {
         newFavoriteIds.add(roomId)
       }
       favoriteRoomIds.value = newFavoriteIds

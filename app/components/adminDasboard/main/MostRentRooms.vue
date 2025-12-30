@@ -26,51 +26,9 @@
 
 <script setup lang="ts">
 import TopRoomsCarousel from '../TopRoomsCarousel.vue'
-import type { IBooking } from '~/interfaces/BookingsInterfaces'
 
-const props = defineProps<{
-  bookings: IBooking[]
-}>()
+const { fetchMostUsedRooms, fetchLeastUsedRooms } = useStatistics()
 
-const roomStats = computed(() => {
-  const stats = new Map<string, { roomId: string, roomName: string, weeklyBookings: number, monthlyBookings: number }>()
-
-  const now = new Date()
-  const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
-  const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
-
-  props.bookings.forEach((booking) => {
-    const bookingDate = new Date(booking.startedAt)
-    const roomId = booking.room.id
-    const roomName = booking.room.roomName
-
-    if (!stats.has(roomId)) {
-      stats.set(roomId, { roomId, roomName, weeklyBookings: 0, monthlyBookings: 0 })
-    }
-
-    const stat = stats.get(roomId)!
-
-    if (bookingDate >= weekAgo) {
-      stat.weeklyBookings++
-    }
-    if (bookingDate >= monthAgo) {
-      stat.monthlyBookings++
-    }
-  })
-
-  return Array.from(stats.values())
-})
-
-const mostOftenRooms = computed(() => {
-  return [...roomStats.value]
-    .sort((a, b) => b.monthlyBookings - a.monthlyBookings)
-    .slice(0, 5)
-})
-
-const leastOftenRooms = computed(() => {
-  return [...roomStats.value]
-    .filter(room => room.monthlyBookings > 0) // Tylko pokoje, które były używane
-    .sort((a, b) => a.monthlyBookings - b.monthlyBookings)
-    .slice(0, 5)
-})
+const mostOftenRooms = await fetchMostUsedRooms()
+const leastOftenRooms = await fetchLeastUsedRooms()
 </script>

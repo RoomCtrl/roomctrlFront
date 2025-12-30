@@ -79,7 +79,7 @@ const filteredRooms = computed(() => {
         matches = matches && !!room.currentBooking
       }
       else if (filters.value.status === 'maintenance') {
-        matches = matches && (room.status === 'occupied' || room.status === 'maintenance')
+        matches = matches && (room.status === 'out_of_use')
       }
     }
 

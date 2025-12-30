@@ -1,3 +1,4 @@
+import type { IStatisticsReservationTrendResponse } from '~/interfaces/StatisticsInterfaces'
 import { StatisticsService } from '~/services/StatisticsService'
 
 export const useStatistics = () => {
@@ -32,6 +33,17 @@ export const useStatistics = () => {
   const fetchMostIssuesRooms = async () => {
     return await getRoomService().getMostIssuesRooms()
   }
+
+  const fetchReservationTrend = async () => {
+    const response: IStatisticsReservationTrendResponse = await getRoomService().getReservationTrend()
+
+    const confirmed: number[] = Object.values(response.confirmed)
+    const pending: number[] = Object.values(response.pending)
+    const cancelled: number[] = Object.values(response.cancelled)
+
+    return { confirmed, pending, cancelled }
+  }
+
   return {
     fetchBookingTypeCount,
     fetchBookingTimeBreakdownTotal,
@@ -40,5 +52,6 @@ export const useStatistics = () => {
     fetchMostUsedRooms,
     fetchLeastUsedRooms,
     fetchMostIssuesRooms,
+    fetchReservationTrend,
   }
 }

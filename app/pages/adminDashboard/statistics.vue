@@ -24,8 +24,6 @@
       <div class="flex flex-wrap gap-2 justify-around">
         <ReservationStatusCard />
 
-        <RoomsByCategoryCard />
-
         <OccupancyRateCard />
 
         <ReservationTrendsCard />
@@ -41,7 +39,6 @@ import MostReportsRoomsCard from '~/components/adminDasboard/statistics/MostRepo
 import TotalReservationsCard from '~/components/adminDasboard/statistics/TotalReservationsCard.vue'
 import ReservationStatusCard from '~/components/adminDasboard/statistics/ReservationStatusCard.vue'
 import ReservationTrendsCard from '~/components/adminDasboard/statistics/ReservationTrendsCard.vue'
-import RoomsByCategoryCard from '~/components/adminDasboard/statistics/RoomsByCategoryCard.vue'
 import OccupancyRateCard from '~/components/adminDasboard/statistics/OccupancyRateCard.vue'
 
 definePageMeta({

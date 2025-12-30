@@ -50,7 +50,7 @@
         </div>
         <ProgressBar
           :pt:value:class="progressColorClass"
-          :value="utilizationRate"
+          :value="Math.round(room.percentage)"
           aria-label="Percentage of room utilization"
           mode="determinate"
         />
@@ -70,35 +70,22 @@
   </Card>
 </template>
 
-<script setup>
-import { defineProps, computed } from 'vue'
+<script setup lang="ts">
+import type { IStatisticsUsageRoomsResponse } from '~/interfaces/StatisticsInterfaces'
 
-const props = defineProps({
-  room: {
-    type: Object,
-    required: true,
-  },
-  rank: {
-    type: Number,
-    required: true,
-  },
-})
-
-// Wskaźnik wykorzystania (zakładając max 40 rezerwacji/miesiąc dla 100%)
-const utilizationRate = computed(() => {
-  const maxBookings = 40
-  return Math.min(Math.round((props.room.monthlyBookings / maxBookings) * 100), 100)
-})
+const props = defineProps<{
+  room: IStatisticsUsageRoomsResponse
+  rank: number
+}>()
 
 const progressColorClass = computed(() => {
-  const rate = utilizationRate.value
+  const rate = Math.round(props.room.percentage)
   if (rate >= 80) return 'bg-gradient-to-r from-green-500 to-green-600'
   if (rate >= 60) return 'bg-gradient-to-r from-blue-500 to-blue-600'
   if (rate >= 40) return 'bg-gradient-to-r from-orange-500 to-orange-600'
   return 'bg-gradient-to-r from-red-500 to-red-600'
 })
 
-// Trend (porównanie tyg. z miesięczną średnią)
 const trendDirection = computed(() => {
   const weeklyAvg = props.room.monthlyBookings / 4
   return props.room.weeklyBookings > weeklyAvg ? 'trending-up' : 'trending-down'
@@ -110,6 +97,7 @@ const trendIcon = computed(() => {
 
 const trendText = computed(() => {
   const weeklyAvg = props.room.monthlyBookings / 4
+  if (weeklyAvg === 0) return 'Brak danych do porównania'
   const diff = Math.abs(props.room.weeklyBookings - weeklyAvg)
   const percent = Math.round((diff / weeklyAvg) * 100)
   return trendDirection.value === 'trending-up'

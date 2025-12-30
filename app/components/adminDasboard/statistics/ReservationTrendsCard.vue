@@ -25,6 +25,9 @@
 import { ref, computed } from 'vue'
 
 const { t } = useI18n()
+const { fetchReservationTrend } = useStatistics()
+
+const { confirmed, pending, cancelled } = await fetchReservationTrend()
 
 const dayKeys = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
@@ -33,7 +36,7 @@ const chartData = computed(() => ({
   datasets: [
     {
       label: t('pages.adminDashboard.statistics.confirmedReservations'),
-      data: [65, 72, 68, 85, 92, 78, 88],
+      data: confirmed,
       borderColor: '#10b981',
       backgroundColor: 'rgba(16, 185, 129, 0.1)',
       tension: 0.4,
@@ -45,7 +48,7 @@ const chartData = computed(() => ({
     },
     {
       label: t('pages.adminDashboard.statistics.pendingReservations'),
-      data: [25, 18, 32, 28, 22, 35, 20],
+      data: pending,
       borderColor: '#f59e0b',
       backgroundColor: 'rgba(245, 158, 11, 0.1)',
       tension: 0.4,
@@ -57,7 +60,7 @@ const chartData = computed(() => ({
     },
     {
       label: t('pages.adminDashboard.statistics.cancelledReservations'),
-      data: [8, 12, 5, 10, 7, 14, 6],
+      data: cancelled,
       borderColor: '#ef4444',
       backgroundColor: 'rgba(239, 68, 68, 0.1)',
       tension: 0.4,

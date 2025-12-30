@@ -69,14 +69,14 @@
 
       <template #subtitle>
         <IncomingRent
-          v-if="room.status !== 'occupied' && firstNextBooking"
+          v-if="room.status !== 'out_of_use' && firstNextBooking"
           :title="firstNextBooking.title"
           :started-at="firstNextBooking.startedAt"
           :ended-at="firstNextBooking.endedAt"
           :is-private="firstNextBooking.isPrivate"
         />
         <IncomingRent
-          v-else-if="room.status !== 'occupied'"
+          v-else-if="room.status !== 'out_of_use'"
           :title="noRentIncomingTitle"
         />
         <div
