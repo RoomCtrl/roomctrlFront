@@ -41,7 +41,7 @@
         </div>
       </div>
     </ClientOnly>
-    
+
     <UserHeaderOptions
       :dark-mode="darkMode"
     />

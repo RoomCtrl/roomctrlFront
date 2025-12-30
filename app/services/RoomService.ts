@@ -1,4 +1,4 @@
-import type { IRoomCard, IRoomDetails, IRoomCreateRequest, IRoomUpdateRequest } from '~/interfaces/RoomsIntefaces'
+import type { IRoomCard, IRoomDetails, IRoomCreateRequest, IRoomUpdateRequest, IRoomImagesResponse } from '~/interfaces/RoomsIntefaces'
 import { RoomRepository } from '~/repositories/RoomRepository'
 
 export class RoomService {
@@ -38,5 +38,21 @@ export class RoomService {
 
   async uploadImage(roomId: string, image: File): Promise<{ message: string, imagePath: string }> {
     return await this.repository.uploadImage(roomId, image)
+  }
+
+  async getRoomImagesURL(roomId: string): Promise<IRoomImagesResponse> {
+    return await this.repository.getRoomImagesURL(roomId)
+  }
+
+  async getRoomImage(roomId: string, imageIndex: number): Promise<string> {
+    return await this.repository.getRoomImage(roomId, imageIndex)
+  }
+
+  async deleteRoomImages(roomId: string): Promise<void> {
+    return await this.repository.deleteRoomImages(roomId)
+  }
+
+  async deleteSingleRoomImage(roomId: string, imageIndex: number): Promise<void> {
+    return await this.repository.deleteSingleRoomImage(roomId, imageIndex)
   }
 }

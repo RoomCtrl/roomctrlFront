@@ -11,9 +11,10 @@
     paginator
     size="small"
     stripedRows
+    :loading="loading"
     :paginatorPosition="paginatorPosition"
     :rows="rows"
-    :rowsPerPageOptions="[10, 20, 30]"
+    :rowsPerPageOptions="[13, 26, 39]"
     @update:rows="handleUpdateRows"
     @filter="onFilter"
   >
@@ -105,10 +106,12 @@
             v-show="data.status === 'active'"
             v-tooltip.left="{ value: $t('common.buttons.cancel') }"
             pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+            severity="danger"
             icon="pi pi-times"
             variant="outlined"
             @click="openCancelModal(data)"
           />
+          <ReportRoomIssue :room-id="data.roomId" />
         </div>
       </template>
     </Column>
@@ -118,9 +121,13 @@
         {{ $t('pages.reservationsHistory.noRent') }}
       </h1>
     </template>
+    <template #loading>
+      <div class="flex justify-center items-center bg-white border-2 w-full h-full">
+        <ProgressSpinner />
+      </div>
+    </template>
   </DataTable>
 
-  <!-- Modal edycji rezerwacji -->
   <Dialog
     v-model:visible="editModalVisible"
     modal
@@ -139,16 +146,17 @@
 
 <script setup lang="ts">
 import { FilterMatchMode, FilterService } from '@primevue/core/api'
-import { useRoom } from '~/composables/useRoom'
 import { useBooking } from '~/composables/useBooking'
 import BaseTextFilterColumn from '../common/datatable/columns/BaseTextFilterColumn.vue'
 import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectMessageFilter.vue'
 import BaseDateFilterColumn from '../common/datatable/columns/BaseDateFilterColumn.vue'
 import BaseSelectFilterColumn from '../common/datatable/columns/BaseSelectFilterColumn.vue'
 import BookingEditForm from '../forms/BookingEditForm.vue'
+import ReportRoomIssue from '../forms/ReportRoomIssue.vue'
 
 const props = defineProps<{
   title?: string
+  loading?: boolean
   reservations: any[]
 }>()
 
@@ -156,7 +164,6 @@ const emit = defineEmits<{
   refresh: []
 }>()
 
-const dataTable = ref()
 const { t } = useI18n()
 const toast = useToast()
 const { customDateAndTimeFilter, customStatusFilter } = useCustomFilterMatch()
@@ -237,7 +244,7 @@ const filteredRents = computed(() => {
   })
 })
 
-const { rows, tableDisplay, paginatorPosition, handleUpdateRows, onFilter } = useDataTable(filteredRents, 10)
+const { rows, tableDisplay, paginatorPosition, handleUpdateRows, onFilter } = useDataTable(filteredRents, 13)
 
 const filters = ref({
   roomName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },

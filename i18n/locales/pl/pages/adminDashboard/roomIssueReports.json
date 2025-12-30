@@ -3,13 +3,13 @@
   "subtitle": "Zarządzaj zgłoszeniami problemów w salach",
   "status": {
     "closed": "Zamknięte",
-    "new": "Nowe",
-    "inProgress": "W trakcie"
+    "pending": "Oczekujące",
+    "in_progress": "W trakcie"
   },
   "priority": {
     "critical": "Krytyczny",
     "high": "Wysoki",
-    "mid": "Średni",
+    "medium": "Średni",
     "low": "Niski"
   },
   "reported": "Zgłosił: ",

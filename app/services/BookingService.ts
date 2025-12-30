@@ -11,7 +11,7 @@ export class BookingService {
   async getBookings(
     roomId?: string,
     status?: 'active' | 'cancelled' | 'completed',
-    userId?: string
+    userId?: string,
   ): Promise<IBooking[]> {
     return this.repository.getBookings(roomId, status, userId)
   }

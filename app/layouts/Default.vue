@@ -70,6 +70,6 @@ background-color: #1B2532;
   border-top: 1px solid #404040;
 }
 .light .p-content {
-  background-color: var(--p-gray-200);
+  @apply bg-gray-500/40
 }
 </style>

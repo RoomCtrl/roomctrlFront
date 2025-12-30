@@ -30,30 +30,10 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
+import type { IIssuesDataResponse } from '~/interfaces/IssuesInterfaces'
 
 const props = defineProps<{
-  issues: Array<{
-    id: number
-    room: string
-    category: string
-    description: string
-    priority: string
-    status: string
-    reporter: string
-    date: string
-    time: string
-    activityLog: [{
-      action: string
-      date: string
-      time: string
-      user: string
-    }]
-    notes: {
-      text: string
-      author: string
-      date: string
-    }[]
-  }>
+  issues: IIssuesDataResponse[]
 }>()
 
 const emit = defineEmits(['FilterIssues'])
@@ -65,8 +45,8 @@ const { t } = useI18n()
 
 const options = ref([
   { label: t('common.filters.all'), value: 'all' },
-  { label: t('pages.adminDashboard.roomIssueReports.status.new'), value: 'new' },
-  { label: t('pages.adminDashboard.roomIssueReports.status.inProgress'), value: 'inProgress' },
+  { label: t('pages.adminDashboard.roomIssueReports.status.pending'), value: 'pending' },
+  { label: t('pages.adminDashboard.roomIssueReports.status.in_progress'), value: 'in_progress' },
   { label: t('pages.adminDashboard.roomIssueReports.status.closed'), value: 'closed' },
 ])
 
@@ -74,7 +54,7 @@ const filteredIssues = computed(() => {
   return props.issues.filter((issue) => {
     const search = searchTerm.value.toLowerCase()
     const matchesSearch
-      = issue.room?.toLowerCase().includes(search)
+      = issue.roomName?.toLowerCase().includes(search)
         || issue.description?.toLowerCase().includes(search)
 
     const matchesFilter

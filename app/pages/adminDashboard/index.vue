@@ -64,8 +64,8 @@ import { useAuth } from '~/composables/useAuth'
 import { BookingService } from '~/services/BookingService'
 
 definePageMeta({
-  middleware: ['admin'],
   layout: 'admin-dashboard',
+  middleware: 'admin',
 })
 
 const { bookings } = useBooking()
@@ -125,7 +125,6 @@ const upcomingBookings = computed(() => {
 })
 
 onMounted(async () => {
-  // Pobierz wszystkie rezerwacje bez filtrowania po statusie
   bookings.value = await new BookingService(useAuth().token.value).getBookings()
 
   fetchRooms(true)

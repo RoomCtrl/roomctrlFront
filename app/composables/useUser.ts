@@ -39,12 +39,23 @@ export const useUser = () => {
     await fetchUsers(false)
   }
 
+  const fetchUserNotifications = async () => {
+    const notifications = await userService.getUserNotifications()
+    return notifications
+  }
+
+  const updateUserNotifications = async (emailNotificationsEnabled: boolean) => {
+    await userService.updateUserNotifications(emailNotificationsEnabled)
+  }
+
   return {
     fetchUsers,
     fetchUser,
+    fetchUserNotifications,
     deleteUser,
     addUser,
     updateUser,
+    updateUserNotifications,
 
     loading,
     users,

@@ -12,7 +12,13 @@ export default defineNuxtConfig({
     '@hypernym/nuxt-anime',
     'nuxt-qrcode',
   ],
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
@@ -25,6 +31,7 @@ export default defineNuxtConfig({
   css: [
     'primeicons/primeicons.css',
     '~/assets/css/main.css',
+    '~/assets/css/buttons.css',
   ],
   colorMode: {
     preference: 'system',

@@ -21,6 +21,7 @@ export const useRoom = () => {
       rooms.value = fetchedRooms.map(r => ({
         ...r,
         isFavorite: favoriteRoomIds.value.has(r.roomId),
+        isFavorite: favoriteRoomIds.value.has(r.roomId),
       }))
     }
     catch (err) {
@@ -38,6 +39,7 @@ export const useRoom = () => {
       const fetchedRoom = await getRoomService().getRoom(roomId, withBookings)
       room.value = {
         ...fetchedRoom,
+        isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId),
         isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId),
       }
     }
@@ -113,9 +115,7 @@ export const useRoom = () => {
     error.value = null
     try {
       const favoriteRooms = await getRoomService().getFavoriteRooms(withBookings)
-      // Update favoriteRoomIds set
       favoriteRoomIds.value = new Set(favoriteRooms.map(r => r.roomId))
-      // Mark all as favorite
       rooms.value = favoriteRooms.map(r => ({ ...r, isFavorite: true }))
     }
     catch (err) {
@@ -136,6 +136,8 @@ export const useRoom = () => {
       const newFavoriteIds = new Set(favoriteRoomIds.value)
       if (newFavoriteIds.has(roomId)) {
         newFavoriteIds.delete(roomId)
+      }
+      else {
       }
       else {
         newFavoriteIds.add(roomId)
@@ -192,14 +194,58 @@ export const useRoom = () => {
     }
   }
 
+  const getRoomImagesURL = async (roomId: string) => {
+    return await getRoomService().getRoomImagesURL(roomId)
+  }
+
+  const getRoomImage = async (roomId: string, imageIndex: number) => {
+    return await getRoomService().getRoomImage(roomId, imageIndex)
+  }
+
+  const deleteRoomImages = async (roomId: string) => {
+    loading.value = true
+    error.value = null
+    try {
+      await getRoomService().deleteRoomImages(roomId)
+      rooms.value = rooms.value.filter(r => r.roomId !== roomId)
+      if (room.value && room.value.roomId === roomId) {
+        room.value = null
+      }
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy usuwaniu sali'
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
+  const deleteSingleRoomImage = async (roomId: string, imageIndex: number) => {
+    loading.value = true
+    error.value = null
+    try {
+      await getRoomService().deleteSingleRoomImage(roomId, imageIndex)
+      rooms.value = rooms.value.filter(r => r.roomId !== roomId)
+      if (room.value && room.value.roomId === roomId) {
+        room.value = null
+      }
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy usuwaniu sali'
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
   return {
-    // State
     rooms,
     room,
     loading,
     error,
 
-    // Methods
     fetchRooms,
     fetchRoom,
     fetchFavoriteRooms,
@@ -207,8 +253,12 @@ export const useRoom = () => {
     createRoom,
     updateRoom,
     deleteRoom,
+    deleteRoomImages,
+    deleteSingleRoomImage,
     clearError,
     loadFavoriteIds,
     uploadImage,
+    getRoomImagesURL,
+    getRoomImage,
   }
 }

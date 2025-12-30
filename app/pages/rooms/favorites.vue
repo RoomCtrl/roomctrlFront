@@ -1,11 +1,13 @@
 <template>
   <div class="flex flex-col xl:flex-col w-full">
     <div class="relative flex flex-row items-center justify-center gap-4 mb-14 w-full">
-      <div class="absolute left-0 shadow-md p-4 rounded-lg bg-white">
-        <h1 class="font-bold text-4xl">
-          Ulubione sale
-        </h1>
-      </div>
+      <Card class="absolute left-0">
+        <template #title>
+          <h1 class="font-bold text-4xl">
+            Lista sal
+          </h1>
+        </template>
+      </Card>
       <Paginator
         v-if="paginatorPosition"
         class="flex self-center"

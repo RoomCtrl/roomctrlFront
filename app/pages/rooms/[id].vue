@@ -54,11 +54,17 @@
       />
 
       <UpcomingMeeting
-        class="col-span-1 md:col-span-4 lg:col-span-2 md:row-start-3 lg:col-start-5 lg:row-start-2 lg:row-span-2"
+        class="col-span-1 md:col-span-4 lg:col-span-2 md:row-start-3 lg:col-start-5 lg:row-start-2 lg:row-span-3"
         :meetings="roomDetails?.nextBookings as any"
       />
 
-      <div class="col-span-1 md:col-span-4 lg:col-span-4 md:col-start-1 md:row-start-4 lg:row-start-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+      <RoomImages
+        v-if="roomDetails"
+        :room-id="roomDetails.roomId"
+        class="col-span-3 md:col-span-4 lg:col-span-3"
+      />
+
+      <div class="col-span-1 md:col-span-4 lg:col-span-1 md:col-start-1 grid md:grid-rows-3 gap-2">
         <InfoCard
           :header="$t('pages.roomDetails.cleaning.title')"
         >
@@ -154,6 +160,7 @@ import EqupimentInfo from '~/components/rooms/detailsParts/EqupimentInfo.vue'
 import GeneralInfo from '~/components/rooms/detailsParts/GeneralInfo.vue'
 import InfoCard from '~/components/rooms/detailsParts/InfoCard.vue'
 import UpcomingMeeting from '~/components/rooms/detailsParts/UpcomingMeeting.vue'
+import RoomImages from '~/components/rooms/detailsParts/RoomImages.vue'
 import BookingForm from '~/components/rooms/BookingForm.vue'
 import { useRoom } from '~/composables/useRoom'
 
@@ -185,7 +192,6 @@ watch(status, (newStatus) => {
 
 const handleBookingSuccess = () => {
   showBookingForm.value = false
-  // Refresh room details to get updated bookings
   const roomId = String(route.params.id)
   fetchRoom(roomId, true)
 }
