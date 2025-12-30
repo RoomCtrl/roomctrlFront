@@ -63,4 +63,9 @@ export interface IRoomCreateRequest {
   organizationId?: string
 }
 
+export interface IRoomImagesResponse {
+  code: number
+  imagePaths: string[]
+}
+
 export interface IRoomUpdateRequest extends Partial<IRoomCreateRequest> {}

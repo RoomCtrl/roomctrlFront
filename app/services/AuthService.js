@@ -19,7 +19,6 @@ export class AuthService {
       this.storageRepository.saveToken(token)
       this.storageRepository.saveUser(userData)
 
-      // Zapisz role jeśli są w userData
       if (userData.roles) {
         this.storageRepository.saveRoles(userData.roles)
       }
@@ -46,7 +45,6 @@ export class AuthService {
       if (response.success && response.data?.token) {
         this.storageRepository.saveToken(response.data.token)
 
-        // Jeśli refresh zwraca też nowe dane usera z rolami
         if (response.data.user?.roles) {
           this.storageRepository.saveRoles(response.data.user.roles)
         }
@@ -69,7 +67,6 @@ export class AuthService {
       if (userData) {
         this.storageRepository.saveUser(userData)
 
-        // Zapisz role
         if (userData.roles) {
           this.storageRepository.saveRoles(userData.roles)
         }

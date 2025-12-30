@@ -126,12 +126,12 @@ export const useAuth = () => {
       }
     }
 
-    if (!user.value) {
-      const storedUser = authService.getStoredUser()
-      if (storedUser) {
-        user.value = storedUser
+      if (!user.value) {
+        const storedUser = authService.getStoredUser()
+        if (storedUser) {
+          user.value = storedUser
+        }
       }
-    }
 
     if (!roles.value.length) {
       const storedRoles = authService.getStoredRoles?.()
