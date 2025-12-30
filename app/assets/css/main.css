@@ -36,7 +36,6 @@
 }
 
 .p-datatable-table-container {
-  height: 100%;
   @apply bg-white dark:bg-neutral-800;
 }
 
@@ -46,4 +45,51 @@
 
 .p-paginator-page:hover {
   color: white;
+}
+
+.light .p-fileupload-choose-button {
+  --p-button-primary-background: var(--p-sky-600);
+  --p-button-primary-border-color: var(--p-sky-600);
+}
+
+.dark .p-fileupload-choose-button {
+  --p-button-primary-background: var(--p-sky-700);
+  --p-button-primary-border-color: var(--p-sky-700);
+}
+
+.light .p-fileupload-choose-button:hover, .dark .p-fileupload-choose-button:hover {
+  --p-button-primary-hover-background: var(--p-sky-500);
+  --p-button-primary-hover-border-color: var(--p-sky-500);
+}
+
+.light .p-fileupload-upload-button {
+  --p-button-secondary-background: var(--p-green-600);
+  --p-button-secondary-border-color: var(--p-green-600);
+  color: white;
+}
+
+.dark .p-fileupload-upload-button {
+  --p-button-secondary-background: var(--p-green-700);
+  --p-button-secondary-border-color: var(--p-green-700);
+}
+
+.light .p-fileupload-upload-button:hover, .dark .p-fileupload-upload-button:hover {
+  --p-button-secondary-hover-background: var(--p-green-500);
+  --p-button-secondary-hover-border-color: var(--p-green-500);
+}
+
+.light .p-fileupload-cancel-button {
+  --p-button-secondary-background: var(--p-red-600);
+  --p-button-secondary-border-color: var(--p-red-600);
+  color: white;
+}
+
+.dark .p-fileupload-cancel-button {
+  --p-button-secondary-background: var(--p-red-700);
+  --p-button-secondary-border-color: var(--p-red-700);
+}
+
+.light .p-fileupload-cancel-button:hover, .dark .p-fileupload-cancel-button:hover {
+  --p-button-secondary-hover-background: var(--p-red-500);
+  --p-button-secondary-hover-border-color: var(--p-red-500);
 }

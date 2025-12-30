@@ -1,4 +1,4 @@
-import type { IRoomCard, IRoomDetails, IRoomCreateRequest, IRoomUpdateRequest } from '~/interfaces/RoomsIntefaces'
+import type { IRoomCard, IRoomDetails, IRoomCreateRequest, IRoomUpdateRequest, IRoomImagesResponse } from '~/interfaces/RoomsIntefaces'
 
 export class RoomRepository {
   private token: string | null = null
@@ -154,7 +154,7 @@ export class RoomRepository {
     return await response.json()
   }
 
-  async getRoomImagesURL(roomId: string): Promise<string[]> {
+  async getRoomImagesURL(roomId: string): Promise<IRoomImagesResponse> {
     const response = await fetch(`/api/rooms/${roomId}/images`, {
       method: 'GET',
       headers: {

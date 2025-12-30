@@ -154,7 +154,7 @@
       @hide="resetUploadModal"
     >
       <div class="flex flex-col gap-4">
-        <p class="text-gray-300">
+        <p class="text-gray-600 dark:text-gray-400">
           Dozwolone formaty: JPG, PNG, PDF
         </p>
         <FileUpload
@@ -168,7 +168,7 @@
           @select="onFileSelect"
         />
         <div>
-          <RoomImages
+          <RoomImagesDelete
             :room-id="uploadRoomId"
             class="col-span-3 md:col-span-4 lg:col-span-3"
           />
@@ -178,11 +178,12 @@
             label="Prześlij"
             :loading="uploadLoading"
             :disabled="uploadedFiles.length === 0"
+            severity="success"
             @click="handleUpload"
           />
           <Button
             label="Anuluj"
-            severity="secondary"
+            severity="danger"
             @click="showUploadModal = false"
           />
         </div>
@@ -202,7 +203,7 @@ import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseText
 import ActionButton from '~/components/common/buttons/ActionButton.vue'
 import RoomForm from '~/components/forms/RoomForm.vue'
 import type { IRoomCard, IRoomCreateRequest, IRoomUpdateRequest } from '~/interfaces/RoomsIntefaces'
-import RoomImages from '~/components/rooms/detailsParts/RoomImages.vue'
+import RoomImagesDelete from '~/components/rooms/detailsParts/RoomImagesDelete.vue'
 
 definePageMeta({
   middleware: 'admin',

@@ -686,6 +686,20 @@ const MyCustomPreset = definePreset(Aura, {
         },
       },
     },
+    fileupload: {
+      colorScheme: {
+        dark: {
+          root: {
+            background: 'var(--p-neutral-900)',
+          },
+        },
+        light: {
+          root: {
+            background: 'var(--p-gray-200)',
+          },
+        },
+      },
+    },
     password: {
       colorScheme: {
         dark: {
