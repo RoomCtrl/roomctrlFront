@@ -11,7 +11,6 @@ export const useBooking = () => {
   const loading = useState<boolean>('bookings-loading', () => false)
   const error = useState<string | null>('bookings-error', () => null)
 
-  // Create a getter function to ensure we always have the latest token
   const getBookingService = () => new BookingService(token.value)
 
   const fetchBookings = async (roomId?: string, status?: 'active' | 'cancelled' | 'completed', userId?: string) => {

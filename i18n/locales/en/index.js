@@ -29,6 +29,7 @@ export default () => ({
     notFound,
     reservationsHistory,
     myCalendar,
+    settings,
     adminDashboard: {
       users,
       dashboard,

@@ -2,6 +2,7 @@
   <div class="h-full w-full">
     <ReservationCollection
       :reservations="allReservations"
+      :loading="loading"
       @refresh="refreshBookings"
     />
     <ConfirmDialog />
@@ -18,7 +19,7 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const { bookings, fetchUserBookings } = useBooking()
+const { bookings, loading, fetchUserBookings } = useBooking()
 const { user } = useAuth()
 
 const mapBookingToReservation = (booking: any) => {
@@ -51,7 +52,6 @@ const allReservations = computed(() =>
   bookings.value.map(mapBookingToReservation),
 )
 
-// Pobierz rezerwacje użytkownika
 onMounted(async () => {
   if (user.value?.id) {
     await fetchUserBookings(user.value.id)

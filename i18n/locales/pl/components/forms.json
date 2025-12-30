@@ -1,4 +1,7 @@
 {
+  "submit": {
+    "changePassword": "Zmień hasło"
+  },
   "filters": {
     "title": "Filtrowanie",
     "fields": {
@@ -27,10 +30,11 @@
     "message": "Wiadomość",
     "login": "Login",
     "password": "Hasło",
-    "resetCode": "Kod resetujący",
-    "resetToken": "Token resetujący",
     "newPassword": "Nowe hasło",
     "confirmPassword": "Potwierdź hasło",
+    "currentPassword": "Obecne hasło",
+    "resetCode": "Kod resetujący",
+    "resetToken": "Token resetujący",
     "roomName": "Nazwa sali",
     "capacity": "Pojemność",
     "size": "Rozmiar",

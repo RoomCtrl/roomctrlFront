@@ -60,7 +60,7 @@
                 v-for="j in rentsPerDay[i-1]"
                 :key="j"
                 :class="[
-                  { 'bg-blue-400 dark:bg-blue-800': i < 13, 'bg-green-500 dark:bg-green-800': i >= 13, 'bg-red-500 dark:bg-red-800': j % 3 === 0 && i <13 },
+                  { 'bg-blue-400 dark:bg-blue-800': i < today, 'bg-green-500 dark:bg-green-800': i >= today, 'bg-red-500 dark:bg-red-800': j % 3 === 0 && i < today },
                   'h-1 2xl:h-2 w-[80%] rounded-full',
                 ]"
               />
@@ -73,8 +73,8 @@
 </template>
 
 <script setup lang="ts">
-const days = ref(28)
 const today = new Date().getDate()
+const days = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()
 
 function randomRentNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -107,7 +107,7 @@ const animateValue = (start: number, end: number, duration: number, callback: (v
 
 onMounted(() => {
   rentsPerDay.value = Array.from(
-    { length: days.value },
+    { length: days },
     () => randomRentNumber(0, 3),
   )
 
@@ -141,7 +141,6 @@ onMounted(() => {
 
 .hero-visual {
   position: relative;
-  height: 600px;
 }
 
 .floating-card {

@@ -10,13 +10,17 @@
         name="body"
         v-bind="slotProps"
       >
-        <Message
+        <Tag
+          :value="$t('pages.reservationsHistory.statuses.' +slotProps.data[field])"
+          :severity="statusColor[slotProps.data[field] as keyof typeof statusColor]"
+        />
+        <!-- <Message
           pt:content:style="--p-message-content-padding: 0.25rem "
           pt:text:class="text-center w-full text-md"
           :severity="statusColor[slotProps.data[field] as keyof typeof statusColor]"
         >
           {{ $t('pages.reservationsHistory.statuses.' +slotProps.data[field]) }}
-        </Message>
+        </Message> -->
       </slot>
     </template>
     <template
@@ -57,7 +61,7 @@ withDefaults(
 )
 
 const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string>>(() => ({
-  cancelled: 'error',
+  cancelled: 'danger',
   completed: 'success',
   active: 'info',
 }))

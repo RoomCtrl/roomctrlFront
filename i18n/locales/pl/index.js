@@ -31,6 +31,7 @@ export default {
     reservationsHistory,
     notFound,
     myCalendar,
+    settings,
     adminDashboard: {
       users,
       dashboard,
