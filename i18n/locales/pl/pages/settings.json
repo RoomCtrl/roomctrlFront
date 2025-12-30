@@ -1,0 +1,27 @@
+{
+  "title": "Ustawienia",
+  "noAccess": "Brak dostępu do tej strony. Zaloguj się, aby kontynuować.",
+  "personalData": {
+    "title": "Dane osobowe",
+    "description": "Zarządzaj swoimi danymi osobowymi"
+  },
+  "changePassword": {
+    "title": "Zmiana hasła",
+    "description": "Zaktualizuj swoje hasło, aby utrzymać bezpieczeństwo konta"
+  },
+  "preferences": {
+    "title": "Preferencje",
+    "description": "Dostosuj swoje ustawienia i preferencje",
+    "language": "Język interfejsu",
+    "darkMode": "Tryb ciemny",
+    "notifications": "Powiadomienia"
+  },
+  "success": {
+    "profileUpdated": "Profil został pomyślnie zaktualizowany",
+    "passwordChanged": "Hasło zostało zmienione pomyślnie"
+  },
+  "error": {
+    "profileUpdateFailed": "Nie udało się zaktualizować profilu",
+    "passwordChangeFailed": "Nie udało się zmienić hasła"
+  }
+}

@@ -2,7 +2,7 @@
   <Select
     v-model="selectedLanguage"
     :options="languages"
-    option-label="name"
+    :option-label="fullNameDisplay ? 'fullname' : 'name'"
     option-value="code"
     placeholder="Select Language"
     @change="onLanguageSelect"
@@ -10,6 +10,9 @@
 </template>
 
 <script setup lang="ts">
+defineProps<{
+  fullNameDisplay?: boolean
+}>()
 type LanguageCode = (typeof languages)[number]['code']
 type LanguageSelectEvent = { value: LanguageCode }
 
@@ -18,8 +21,8 @@ const { locale } = useI18n()
 const selectedLanguage = ref(locale.value)
 const switchLocalePath = useSwitchLocalePath()
 const languages = [
-  { name: 'PL', code: 'pl' },
-  { name: 'ENG', code: 'en' },
+  { name: 'PL', fullname: 'Polski', code: 'pl' },
+  { name: 'ENG', fullname: 'English', code: 'en' },
 ]
 
 const onLanguageSelect = (event: LanguageSelectEvent) => {

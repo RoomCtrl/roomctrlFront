@@ -61,7 +61,7 @@ const options = computed(() => [
     id: 'settings',
     title: 'Ustawienia',
     icon: 'pi pi-cog',
-    route: '/',
+    route: '/settings',
     auth: true,
   },
   {
