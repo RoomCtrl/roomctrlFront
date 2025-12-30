@@ -2,7 +2,7 @@
   <Button
     v-tooltip.left="{ value: $t('pages.adminDashboard.users.buttons.tooltip.delete') }"
     pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
-    severity="error"
+    severity="danger"
     variant="outlined"
     icon="pi pi-user-minus"
     @click="handleDeleteUser()"

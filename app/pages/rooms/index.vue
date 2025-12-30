@@ -1,11 +1,13 @@
 <template>
   <div class="flex flex-col xl:flex-col w-full">
     <div class="relative flex flex-row items-center justify-center gap-4 mb-14 w-full">
-      <div class="absolute left-0 shadow-md p-4 rounded-lg bg-white">
-        <h1 class="font-bold text-4xl">
-          Lista sal
-        </h1>
-      </div>
+      <Card class="absolute left-0">
+        <template #title>
+          <h1 class="font-bold text-4xl">
+            Lista sal
+          </h1>
+        </template>
+      </Card>
       <Paginator
         v-if="paginatorPosition"
         class="flex self-center"
@@ -41,7 +43,6 @@
 </template>
 
 <script setup lang="ts">
-import { filter } from '@primeuix/themes/aura/datatable'
 import RoomGrid from '~/components/rooms/RoomGrid.vue'
 import RoomsFilter from '~/components/rooms/RoomsFilter.vue'
 import { useRoom } from '~/composables/useRoom'
@@ -50,7 +51,7 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const { rooms: allRooms, fetchRooms, loadFavoriteIds } = useRoom()
+const { rooms: allRooms, fetchRooms } = useRoom()
 
 const first = ref(0)
 const rows = ref(12)
@@ -137,7 +138,6 @@ const onFilterChange = (newFilters: { status: string | null, minCapacity: number
 }
 
 onMounted(async () => {
-  await loadFavoriteIds()
   await fetchRooms(true)
 })
 </script>

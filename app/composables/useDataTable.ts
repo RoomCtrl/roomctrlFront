@@ -3,7 +3,7 @@ export function useDataTable(data: T[] | Ref<T[]>, defaultRows = 10) {
 
   const isTableEmpty = ref(false)
   const rows = ref(defaultRows)
-
+  const rowsPerPageOptions = [defaultRows, defaultRows * 2, defaultRows * 3]
   const tableDisplay = computed(() => {
     return isTableEmpty.value || dataRef.value.length === 0
       ? 'flex flex-col h-full'
@@ -25,6 +25,7 @@ export function useDataTable(data: T[] | Ref<T[]>, defaultRows = 10) {
   return {
     isTableEmpty,
     rows,
+    rowsPerPageOptions,
 
     tableDisplay,
     paginatorPosition,

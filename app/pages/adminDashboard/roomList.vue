@@ -33,7 +33,7 @@
       }"
       :value="rooms"
       :rows="rows"
-      :rowsPerPageOptions="rowsPerPage"
+      :rowsPerPageOptions="rowsPerPageOptions"
       filterDisplay="row"
       size="small"
       paginator
@@ -93,6 +93,15 @@
               :room-id="slotProps.data.roomId"
             />
             <Button
+              v-tooltip.left="{ value: 'Dodaj zdjęcie' }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+              icon="pi pi-image"
+              severity="success"
+              raised
+              variant="outlined"
+              @click="openUploadModal(slotProps.data)"
+            />
+            <Button
               v-tooltip.left="{ value: $t('common.buttons.edit') }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-pencil"
@@ -136,6 +145,51 @@
       />
     </Dialog>
 
+    <Dialog
+      v-model:visible="showUploadModal"
+      header="Dodaj zdjęcie do sali"
+      :modal="true"
+      :closable="true"
+      class="w-[40vw]"
+      @hide="resetUploadModal"
+    >
+      <div class="flex flex-col gap-4">
+        <p class="text-gray-600 dark:text-gray-400">
+          Dozwolone formaty: JPG, PNG, PDF
+        </p>
+        <FileUpload
+          ref="fileUploadRef"
+          name="demo[]"
+          accept="image/jpeg,image/png,application/pdf"
+          :max-file-size="5000000"
+          :choose-label="uploadedFiles.length > 0 ? `Wybrano ${uploadedFiles.length} plik(ów)` : 'Wybierz pliki'"
+          :auto="false"
+          :multiple="true"
+          @select="onFileSelect"
+        />
+        <div>
+          <RoomImagesDelete
+            :room-id="uploadRoomId"
+            class="col-span-3 md:col-span-4 lg:col-span-3"
+          />
+        </div>
+        <div class="flex justify-end gap-3">
+          <Button
+            label="Prześlij"
+            :loading="uploadLoading"
+            :disabled="uploadedFiles.length === 0"
+            severity="success"
+            @click="handleUpload"
+          />
+          <Button
+            label="Anuluj"
+            severity="danger"
+            @click="showUploadModal = false"
+          />
+        </div>
+      </div>
+    </Dialog>
+
     <ConfirmDialog />
     <Toast />
   </div>
@@ -149,6 +203,7 @@ import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseText
 import ActionButton from '~/components/common/buttons/ActionButton.vue'
 import RoomForm from '~/components/forms/RoomForm.vue'
 import type { IRoomCard, IRoomCreateRequest, IRoomUpdateRequest } from '~/interfaces/RoomsIntefaces'
+import RoomImagesDelete from '~/components/rooms/detailsParts/RoomImagesDelete.vue'
 
 definePageMeta({
   middleware: 'admin',
@@ -157,12 +212,10 @@ definePageMeta({
 
 const { rooms, loading, fetchRooms, createRoom, updateRoom, deleteRoom: deleteRoomAPI, uploadImage } = useRoom()
 const { user } = useAuth()
-const { rows, paginatorPosition, tableDisplay, onFilter, handleUpdateRows } = useDataTable(rooms, 17)
+const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, onFilter, handleUpdateRows } = useDataTable(rooms, 15)
 const toast = useToast()
 const confirm = useConfirm()
 const { t } = useI18n()
-
-const rowsPerPage = [17, 34, 51]
 
 const filters = ref({
   roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -178,6 +231,12 @@ const formLoading = ref(false)
 const selectedRoom = ref<any>(null)
 const isEditMode = computed(() => !!selectedRoom.value)
 
+const showUploadModal = ref(false)
+const uploadLoading = ref(false)
+const uploadedFiles = ref<File[]>([])
+const uploadRoomId = ref<string | null>(null)
+const fileUploadRef = ref<string[]>([])
+
 const openAddModal = () => {
   selectedRoom.value = null
   showModal.value = true
@@ -188,9 +247,71 @@ const openEditModal = (room: IRoomCard) => {
   showModal.value = true
 }
 
+const openUploadModal = (room: IRoomCard) => {
+  uploadRoomId.value = room.roomId
+  uploadedFiles.value = []
+  showUploadModal.value = true
+}
+
 const resetModal = () => {
   selectedRoom.value = null
   showModal.value = false
+}
+
+const resetUploadModal = () => {
+  uploadedFiles.value = []
+  uploadRoomId.value = null
+  showUploadModal.value = false
+  fileUploadRef.value = []
+}
+
+const onFileSelect = (event: any) => {
+  if (event.files && event.files.length > 0) {
+    uploadedFiles.value = Array.from(event.files)
+  }
+}
+
+const handleUpload = async () => {
+  if (uploadedFiles.value.length === 0 || !uploadRoomId.value) {
+    toast.add({
+      severity: 'error',
+      summary: 'Błąd',
+      detail: 'Nie wybrano plików',
+      life: 3000,
+    })
+    return
+  }
+
+  uploadLoading.value = true
+  try {
+    for (const file of uploadedFiles.value) {
+      await uploadImage(uploadRoomId.value, file)
+    }
+
+    const message = uploadedFiles.value.length === 1
+      ? 'Zdjęcie zostało przesłane'
+      : `${uploadedFiles.value.length} zdjęć zostało przesłanych`
+
+    toast.add({
+      severity: 'success',
+      summary: 'Sukces',
+      detail: message,
+      life: 3000,
+    })
+    showUploadModal.value = false
+    resetUploadModal()
+  }
+  catch (error) {
+    toast.add({
+      severity: 'error',
+      summary: 'Błąd',
+      detail: error instanceof Error ? error.message : 'Przesyłanie nie powiodło się',
+      life: 3000,
+    })
+  }
+  finally {
+    uploadLoading.value = false
+  }
 }
 
 const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateRequest, image?: File) => {
