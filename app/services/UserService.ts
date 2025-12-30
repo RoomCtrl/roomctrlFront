@@ -38,4 +38,12 @@ export class UserService {
   async changePassword(guid: string, passwordData: IChangePasswordForm) {
     return await this.repository.changePassword(guid, passwordData)
   }
+
+  async getUserNotifications() {
+    return await this.repository.getUserNotifications()
+  }
+
+  async updateUserNotifications(emailNotificationsEnabled: boolean) {
+    return await this.repository.updateUserNotifications(emailNotificationsEnabled)
+  }
 }

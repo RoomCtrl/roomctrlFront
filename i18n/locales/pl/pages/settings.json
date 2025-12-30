@@ -3,33 +3,18 @@
   "noAccess": "Brak dostępu do tej strony. Zaloguj się, aby kontynuować.",
   "personalData": {
     "title": "Dane osobowe",
-    "firstName": "Imię",
-    "lastName": "Nazwisko",
-    "email": "Adres e-mail",
-    "emailNotEditable": "Adres e-mail nie może być edytowany",
-    "phone": "Numer telefonu"
+    "description": "Zarządzaj swoimi danymi osobowymi"
   },
   "changePassword": {
     "title": "Zmiana hasła",
-    "currentPassword": "Obecne hasło",
-    "newPassword": "Nowe hasło",
-    "confirmPassword": "Potwierdź hasło",
-    "change": "Zmień hasło"
+    "description": "Zaktualizuj swoje hasło, aby utrzymać bezpieczeństwo konta"
   },
   "preferences": {
     "title": "Preferencje",
+    "description": "Dostosuj swoje ustawienia i preferencje",
     "language": "Język interfejsu",
     "darkMode": "Tryb ciemny",
     "notifications": "Powiadomienia"
-  },
-  "validation": {
-    "firstNameRequired": "Imię jest wymagane",
-    "lastNameRequired": "Nazwisko jest wymagane",
-    "invalidEmail": "Podaj prawidłowy adres e-mail",
-    "currentPasswordRequired": "Podaj obecne hasło",
-    "newPasswordRequired": "Podaj nowe hasło",
-    "passwordTooShort": "Hasło musi mieć co najmniej 8 znaków",
-    "passwordMismatch": "Hasła nie zgadzają się"
   },
   "success": {
     "profileUpdated": "Profil został pomyślnie zaktualizowany",

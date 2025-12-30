@@ -2,7 +2,7 @@
   <div
     class="flex-1 w-full"
   >
-    <div class="w-full max-w-7xl mx-auto">
+    <div class="w-full max-w-7xl mx-auto ">
       <h1 class="text-3xl font-bold mb-8">
         {{ t('pages.settings.title') }}
       </h1>
@@ -48,7 +48,7 @@ const { t } = useI18n()
 
 const activeSection = ref<'profile' | 'password' | 'preferences'>('profile')
 
-const settingsMenu = computed(() => [
+const settingsMenu = computed<Array<{ id: 'profile' | 'password' | 'preferences', label: string }>>(() => [
   { id: 'profile', label: t('pages.settings.personalData.title') },
   { id: 'password', label: t('pages.settings.changePassword.title') },
   { id: 'preferences', label: t('pages.settings.preferences.title') },

@@ -3,33 +3,17 @@
   "noAccess": "You don't have access to this page. Please log in to continue.",
   "personalData": {
     "title": "Personal Data",
-    "firstName": "First Name",
-    "lastName": "Last Name",
-    "email": "Email Address",
-    "emailNotEditable": "Email address cannot be edited",
-    "phone": "Phone Number"
+    "description": "Manage your personal data"
   },
   "changePassword": {
     "title": "Change Password",
-    "currentPassword": "Current Password",
-    "newPassword": "New Password",
-    "confirmPassword": "Confirm Password",
-    "change": "Change Password"
+    "description": "Update your password to keep your account secure"
   },
   "preferences": {
     "title": "Preferences",
     "language": "Interface Language",
     "darkMode": "Dark Mode",
     "notifications": "Notifications"
-  },
-  "validation": {
-    "firstNameRequired": "First name is required",
-    "lastNameRequired": "Last name is required",
-    "invalidEmail": "Please enter a valid email address",
-    "currentPasswordRequired": "Please enter your current password",
-    "newPasswordRequired": "Please enter a new password",
-    "passwordTooShort": "Password must be at least 8 characters long",
-    "passwordMismatch": "Passwords do not match"
   },
   "success": {
     "profileUpdated": "Your profile has been updated successfully",

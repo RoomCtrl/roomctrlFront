@@ -18,7 +18,7 @@
             >
               {{ $t('pages.settings.preferences.language') }}
             </div>
-            <LangSelect />
+            <LangSelect full-name-display />
           </div>
 
           <div
@@ -41,7 +41,8 @@
               {{ $t('pages.settings.preferences.notifications') }}
             </span>
             <InputSwitch
-              v-model="preferences.notifications"
+              v-model="newNotifications"
+              :default-value="notifications"
               @change="handleNotificationsChange"
             />
           </div>
@@ -55,26 +56,20 @@
 import LangSelect from '~/components/layoutParts/headerParts/LangSelect.vue'
 import ModeSwitch from '~/components/layoutParts/headerParts/ModeSwitch.vue'
 
-const preferences = reactive({
-  language: 'pl' as 'pl' | 'en',
-  darkMode: false,
-  notifications: true,
-})
+const { fetchUserNotifications, updateUserNotifications } = useUser()
 
-const languageOptions = computed(() => [
-  { label: 'Polski', value: 'pl' },
-  { label: 'English', value: 'en' },
-])
+const toast = useToast()
 
-// const handleLanguageChange = async (newLanguage: 'pl' | 'en') => {
+const notifications = await fetchUserNotifications()
+const newNotifications = ref(notifications)
 
-// }
-
-// const handleDarkModeChange = async (isDark: boolean) => {
-//   await updateDarkModePreference(isDark)
-// }
-
-const handleNotificationsChange = () => {
-  localStorage.setItem('notifications-preference', String(preferences.notifications))
+const handleNotificationsChange = async () => {
+  await updateUserNotifications(newNotifications.value)
+  toast.add({
+    severity: 'success',
+    summary: '',
+    detail: 'Notification preferences updated successfully',
+    life: 3000,
+  })
 }
 </script>

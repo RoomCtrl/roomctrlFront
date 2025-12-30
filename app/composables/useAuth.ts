@@ -78,7 +78,10 @@ export const useAuth = () => {
       if (authService.isTokenExpired?.(currentToken)) {
         await logout()
         return false
-      } as ITokenValidationResponse
+      }
+
+      const validation = await authService.validateToken(currentToken) as ITokenValidationResponse
+
       if (validation.valid) {
         user.value = validation.user || null
         roles.value = validation.roles || []
@@ -98,12 +101,11 @@ export const useAuth = () => {
     }
   }
 
-  const refreshToken = async (): Promise<boolean>
-
-  const refreshToken = async () => {
+  const refreshToken = async (): Promise<boolean> => {
     if (!token.value) {
       return false
     }
+
     try {
       const result = await authService.refreshUserToken(token.value) as IRefreshTokenResponse
       token.value = result.token
@@ -126,12 +128,12 @@ export const useAuth = () => {
       }
     }
 
-      if (!user.value) {
-        const storedUser = authService.getStoredUser()
-        if (storedUser) {
-          user.value = storedUser
-        }
+    if (!user.value) {
+      const storedUser = authService.getStoredUser()
+      if (storedUser) {
+        user.value = storedUser
       }
+    }
 
     if (!roles.value.length) {
       const storedRoles = authService.getStoredRoles?.()

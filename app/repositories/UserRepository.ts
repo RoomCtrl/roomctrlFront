@@ -80,4 +80,26 @@ export class UserRepository {
       },
     }).then(res => res.json())
   }
+
+  async getUserNotifications(): Promise<boolean> {
+    const response = await fetch('/api/users/settings/notifications', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+    const data = await response.json()
+    return data.emailNotificationsEnabled
+  }
+
+  async updateUserNotifications(emailNotificationsEnabled: boolean) {
+    return await fetch('/api/users/settings/notifications', {
+      method: 'PATCH',
+      body: JSON.stringify({ emailNotificationsEnabled }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`,
+      },
+    })
+  }
 }

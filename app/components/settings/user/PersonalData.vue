@@ -20,8 +20,9 @@
             </div>
             <InputText
               v-model="username"
-              class="w-full"
+              class="w-[30rem]"
               aria-labelledby="usernamelabel"
+              fluid
               @blur="usernameBlur"
             />
           </div>
