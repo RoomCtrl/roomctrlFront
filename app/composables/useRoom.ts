@@ -21,7 +21,6 @@ export const useRoom = () => {
       rooms.value = fetchedRooms.map(r => ({
         ...r,
         isFavorite: favoriteRoomIds.value.has(r.roomId),
-        isFavorite: favoriteRoomIds.value.has(r.roomId),
       }))
     }
     catch (err) {
@@ -39,7 +38,6 @@ export const useRoom = () => {
       const fetchedRoom = await getRoomService().getRoom(roomId, withBookings)
       room.value = {
         ...fetchedRoom,
-        isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId),
         isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId),
       }
     }

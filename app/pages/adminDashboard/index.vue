@@ -39,12 +39,6 @@
           :to-approve="false"
           :bookings="upcomingBookings"
         />
-        <IncomingRentsTable
-          :rows="4"
-          :header="$t('pages.adminDashboard.dashboard.tables.titles.rentsToConfirm')"
-          :to-approve="true"
-          :bookings="upcomingBookings"
-        />
       </div>
     </div>
   </div>
