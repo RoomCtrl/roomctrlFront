@@ -19,11 +19,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { IStatisticsUsageRoomsResponse } from '~/interfaces/StatisticsInterfaces'
 import RoomStatCard from './main/RoomStatCard.vue'
 
-defineProps({
-  rooms: Array,
-  title: String,
-})
+defineProps<{
+  rooms: IStatisticsUsageRoomsResponse[]
+  title: string
+}>()
 </script>

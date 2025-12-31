@@ -25,13 +25,19 @@
 import { ref, computed } from 'vue'
 
 const { t } = useI18n()
+const { fetchBookingOccupancyRate } = useStatistics()
+
+const occupancyData = await fetchBookingOccupancyRate()
+const occupancyDataProcent = occupancyData.map(
+  item => item.occupancyRate,
+)
 
 const chartData = computed(() => ({
   labels: ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'],
   datasets: [
     {
       label: t('pages.adminDashboard.statistics.occupancyPercentage'),
-      data: [85, 78, 92, 88, 95, 45, 30],
+      data: occupancyDataProcent,
       backgroundColor: [
         '#10b981',
         '#10b981',
@@ -41,7 +47,15 @@ const chartData = computed(() => ({
         '#f59e0b',
         '#f59e0b',
       ],
-      borderColor: '#059669',
+      borderColor: [
+        '#059669',
+        '#059669',
+        '#059669',
+        '#059669',
+        '#059669',
+        '#b45309',
+        '#b45309',
+      ],
       borderWidth: 2,
     },
   ],

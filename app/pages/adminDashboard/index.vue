@@ -4,7 +4,6 @@
       <div class="grid grid-cols-1 xl:grid-cols-6 gap-2">
         <MostRentRooms
           class="min-h-[280px] xl:col-span-2"
-          :bookings="bookings"
         />
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:col-span-4 gap-2">
@@ -38,12 +37,6 @@
           :rows="4"
           :header="$t('pages.adminDashboard.dashboard.tables.titles.incomingRents')"
           :to-approve="false"
-          :bookings="upcomingBookings"
-        />
-        <IncomingRentsTable
-          :rows="4"
-          :header="$t('pages.adminDashboard.dashboard.tables.titles.rentsToConfirm')"
-          :to-approve="true"
           :bookings="upcomingBookings"
         />
       </div>
@@ -83,7 +76,7 @@ const rooms = computed(() => {
   ).length
 
   const closed = roomsList.value.filter(room =>
-    room.status === 'occupied',
+    room.status === 'out_of_use',
   ).length
 
   return [

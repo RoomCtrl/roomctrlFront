@@ -11,7 +11,11 @@
     <template #content>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="flex justify-center">
-          <Chart type="doughnut" :data="chartData" :options="chartOptions" />
+          <Chart
+            type="doughnut"
+            :data="chartData"
+            :options="chartOptions"
+          />
         </div>
         <div class="space-y-3">
           <div
@@ -27,8 +31,12 @@
               <span class="font-medium">{{ status.label }}</span>
             </div>
             <div class="text-right">
-              <p class="font-bold">{{ status.count }}</p>
-              <p class="text-sm text-gray-500">{{ status.percentage }}%</p>
+              <p class="font-bold">
+                {{ status.count }}
+              </p>
+              <p class="text-sm text-gray-500">
+                {{ status.percentage }}%
+              </p>
             </div>
           </div>
         </div>
@@ -41,12 +49,32 @@
 import { ref, computed } from 'vue'
 
 const { t } = useI18n()
+const { fetchBookingTypeCount } = useStatistics()
+
+const bookingTypeCount = await fetchBookingTypeCount()
 
 const statusList = computed(() => [
-  { id: 1, label: t('pages.adminDashboard.statistics.statusConfirmed'), count: 520, percentage: 62, color: '#10b981' },
-  { id: 2, label: t('pages.adminDashboard.statistics.statusPending'), count: 210, percentage: 25, color: '#f59e0b' },
-  { id: 3, label: t('pages.adminDashboard.statistics.statusCancelled'), count: 85, percentage: 10, color: '#ef4444' },
-  { id: 4, label: t('pages.adminDashboard.statistics.statusCompleted'), count: 32, percentage: 3, color: '#8b5cf6' },
+  {
+    id: 1,
+    label: t('pages.adminDashboard.statistics.statusConfirmed'),
+    count: bookingTypeCount.active,
+    percentage: Math.round((bookingTypeCount.active / bookingTypeCount.count) * 100),
+    color: '#10b981',
+  },
+  {
+    id: 3,
+    label: t('pages.adminDashboard.statistics.statusCancelled'),
+    count: bookingTypeCount.cancelled,
+    percentage: Math.round((bookingTypeCount.cancelled / bookingTypeCount.count) * 100),
+    color: '#ef4444',
+  },
+  {
+    id: 4,
+    label: t('pages.adminDashboard.statistics.statusCompleted'),
+    count: bookingTypeCount.completed,
+    percentage: Math.round((bookingTypeCount.completed / bookingTypeCount.count) * 100),
+    color: '#8b5cf6',
+  },
 ])
 
 const chartData = computed(() => ({
@@ -58,7 +86,7 @@ const chartData = computed(() => ({
   ],
   datasets: [
     {
-      data: [520, 210, 85, 32],
+      data: [bookingTypeCount.active, bookingTypeCount.cancelled, bookingTypeCount.completed],
       backgroundColor: ['#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
       borderColor: ['#059669', '#d97706', '#dc2626', '#7c3aed'],
       borderWidth: 2,

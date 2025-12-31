@@ -78,7 +78,7 @@ const isDarkMode = computed(() => {
   return colorMode.value === 'dark' || colorMode.preference === 'dark'
 })
 const statusColor = computed(() => {
-  if (roomStatus!.value === 'maintenance' || roomStatus!.value === 'occupied') {
+  if (roomStatus!.value === 'out_of_use') {
     return isDarkMode.value ? 'bg-yellow-900' : 'bg-yellow-600'
   }
   const hasBooking = !!currentBooking.value
@@ -89,7 +89,7 @@ const statusColor = computed(() => {
 })
 
 const statusBadgeColor = computed(() => {
-  if (roomStatus!.value === 'maintenance' || roomStatus!.value === 'occupied') {
+  if (roomStatus!.value === 'out_of_use') {
     return isDarkMode.value
       ? '--p-message-info-background: var(--p-yellow-950); --p-message-info-border-color: var(--p-yellow-950); --p-message-info-color: var(--p-yellow-400)'
       : '--p-message-info-background: var(--p-yellow-800); --p-message-info-border-color: var(--p-yellow-800); --p-message-info-color: var(--p-yellow-200)'
@@ -105,7 +105,7 @@ const statusBadgeColor = computed(() => {
     : '--p-message-info-background: var(--p-green-800); --p-message-info-border-color: var(--p-green-800); --p-message-info-color: var(--p-green-200)'
 })
 const badgeColor = computed(() => {
-  if (roomStatus!.value === 'maintenance' || roomStatus!.value === 'occupied') {
+  if (roomStatus!.value === 'out_of_use') {
     return 'warn'
   }
   return currentBooking.value ? 'error' : 'success'
