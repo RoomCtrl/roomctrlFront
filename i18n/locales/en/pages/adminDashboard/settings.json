@@ -52,8 +52,7 @@
       "reportNotificationDescription": "Receive email when user reports a room issue",
       "cancellationNotification": "Notify about cancellations",
       "cancellationNotificationDescription": "Receive email when user cancels a booking",
-      "notificationEmail": "Notification Email",
-      "notificationEmailPlaceholder": "admin@organization.com"
+      "notificationEmail": "Notification Email"
     }
   },
   "messages": {

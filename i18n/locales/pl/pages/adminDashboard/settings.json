@@ -52,8 +52,7 @@
       "reportNotificationDescription": "Otrzymuj email gdy użytkownik zgłosi problem z salą",
       "cancellationNotification": "Powiadamiaj o anulowaniach",
       "cancellationNotificationDescription": "Otrzymuj email gdy użytkownik anuluje rezerwację",
-      "notificationEmail": "Email do powiadomień",
-      "notificationEmailPlaceholder": "admin@organizacja.pl"
+      "notificationEmail": "Email do powiadomień"
     }
   },
   "messages": {

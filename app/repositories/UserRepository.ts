@@ -1,5 +1,6 @@
 import { useAuth } from '~/composables/useAuth'
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
+import type { IOrganization } from '~/interfaces/OrganizationInterfaces'
 import type { IChangePasswordForm, IUpdateUserProfileForm, IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
 
 export class UserRepository {
@@ -101,5 +102,16 @@ export class UserRepository {
         'Authorization': `Bearer ${this.token}`,
       },
     })
+  }
+
+  async updateOrganization(organizationId: string, newData: IOrganization) {
+    return await fetch(`/api/organizations/${organizationId}`, {
+      method: 'PUT',
+      body: JSON.stringify(newData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`,
+      },
+    }).then(res => res.json())
   }
 }
