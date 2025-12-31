@@ -21,16 +21,21 @@ export interface IAirConditioning {
 export interface IRoomCard {
   roomId: string
   roomName: string
-  status: 'available' | 'occupied' | 'maintenance'
+  status: 'available' | 'out_of_use'
   capacity: number
   size: number
-  location?: string
-  equipment?: IEquipment[]
-  access?: string
-  lighting?: string
+  location: string
+  access: string
+  description: string
+  lighting: string
+  airConditioning: {
+    min: number
+    max: number
+  }
+  imagePath?: string
+  equipment: IEquipment[]
   currentBooking?: IBooking
   nextBookings?: IBooking[]
-  isFavorite?: boolean
 }
 
 export interface IRoomDetails {

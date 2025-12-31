@@ -1,4 +1,4 @@
-import type { IBooking, IBookingCreateRequest, IBookingUpdateRequest } from '~/interfaces/BookingsInterfaces'
+import type { IBooking, IBookingCreateRequest, IBookingRecurringRequest, IBookingUpdateRequest } from '~/interfaces/BookingsInterfaces'
 import { BookingRepository } from '~/repositories/BookingRepository'
 
 export class BookingService {
@@ -42,5 +42,9 @@ export class BookingService {
 
   async getBookingStats(): Promise<import('~/interfaces/BookingsInterfaces').IBookingStats> {
     return this.repository.getBookingStats()
+  }
+
+  async createRecurringBooking(recurringBooking: IBookingRecurringRequest): Promise<void> {
+    return this.repository.createRecurringBookings(recurringBooking)
   }
 }

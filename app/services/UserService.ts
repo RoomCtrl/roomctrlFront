@@ -1,4 +1,5 @@
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
+import type { IOrganization } from '~/interfaces/OrganizationInterfaces'
 import type { IChangePasswordForm, IUpdateUserProfileForm, IUserAddResponse } from '~/interfaces/UsersInterfaces'
 import { UserRepository } from '~/repositories/UserRepository'
 
@@ -45,5 +46,9 @@ export class UserService {
 
   async updateUserNotifications(emailNotificationsEnabled: boolean) {
     return await this.repository.updateUserNotifications(emailNotificationsEnabled)
+  }
+
+  async updateOrganization(organizationId: string, newData: IOrganization) {
+    return await this.repository.updateOrganization(organizationId, newData)
   }
 }

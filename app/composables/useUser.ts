@@ -1,4 +1,5 @@
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
+import type { IOrganization } from '~/interfaces/OrganizationInterfaces'
 import type { IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
 import { UserService } from '~/services/UserService'
 
@@ -48,6 +49,10 @@ export const useUser = () => {
     await userService.updateUserNotifications(emailNotificationsEnabled)
   }
 
+  const updateOrganization = async (organizationId: string, newData: IOrganization) => {
+    await userService.updateOrganization(organizationId, newData)
+  }
+
   return {
     fetchUsers,
     fetchUser,
@@ -56,6 +61,7 @@ export const useUser = () => {
     addUser,
     updateUser,
     updateUserNotifications,
+    updateOrganization,
 
     loading,
     users,

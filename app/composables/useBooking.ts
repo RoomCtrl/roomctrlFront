@@ -1,4 +1,4 @@
-import type { IBooking, IBookingCreateRequest, IBookingUpdateRequest, IBookingStats } from '~/interfaces/BookingsInterfaces'
+import type { IBooking, IBookingCreateRequest, IBookingUpdateRequest, IBookingStats, IBookingRecurringRequest } from '~/interfaces/BookingsInterfaces'
 import { BookingService } from '~/services/BookingService'
 import { useAuth } from '~/composables/useAuth'
 
@@ -151,6 +151,21 @@ export const useBooking = () => {
     }
   }
 
+  const createBookingRecurring = async (recurringBooking: IBookingRecurringRequest) => {
+    loading.value = true
+    error.value = null
+    try {
+      await getBookingService().createRecurringBooking(recurringBooking)
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy tworzeniu cyklicznych rezerwacji'
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
   return {
     bookings,
     booking,
@@ -160,6 +175,7 @@ export const useBooking = () => {
     fetchBookings,
     fetchBooking,
     createBooking,
+    createBookingRecurring,
     updateBooking,
     deleteBooking,
     cancelBooking,

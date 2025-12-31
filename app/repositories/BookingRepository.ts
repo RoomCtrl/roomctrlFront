@@ -1,4 +1,4 @@
-import type { IBooking, IBookingCreateRequest, IBookingUpdateRequest } from '~/interfaces/BookingsInterfaces'
+import type { IBooking, IBookingCreateRequest, IBookingRecurringRequest, IBookingUpdateRequest } from '~/interfaces/BookingsInterfaces'
 
 export class BookingRepository {
   private token: string | null = null
@@ -160,6 +160,24 @@ export class BookingRepository {
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(`API Error: ${response.status} ${response.statusText}`)
+    }
+
+    return await response.json()
+  }
+
+  async createRecurringBookings(recurringData: IBookingRecurringRequest): Promise<void> {
+    const response = await fetch('/api/bookings/recurring', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(recurringData),
     })
 
     if (!response.ok) {
