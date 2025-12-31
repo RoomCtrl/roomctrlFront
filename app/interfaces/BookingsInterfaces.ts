@@ -51,3 +51,12 @@ export interface IBookingStats {
   completed: number
   cancelled: number
 }
+
+export interface IBookingRecurringRequest {
+  roomId: string
+  type: 'cleaning' | 'maintenance'
+  startTime: string
+  endTime: string
+  daysOfWeek: number[]
+  weeksAhead: number
+}

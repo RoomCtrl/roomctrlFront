@@ -33,7 +33,7 @@ export class RoomRepository {
     return await response.json()
   }
 
-  async getRoom(roomId: string, withBookings: boolean = false): Promise<IRoomDetails> {
+  async getRoom(roomId: string, withBookings: boolean = false): Promise<IRoomCard> {
     const params = new URLSearchParams()
     params.append('withBookings', String(withBookings))
 

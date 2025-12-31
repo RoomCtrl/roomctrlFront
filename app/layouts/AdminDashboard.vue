@@ -193,9 +193,9 @@ const items = computed(() => [
   },
   {
     label: t('layouts.adminSidebar.items.settings'),
-    link: '/',
-    icon: 'pi pi-cog',
-  },
+    link: '/adminDashboard/settings',
+    icon: 'pi pi-cog'
+  }
 ])
 
 const handleLogout = async () => {
