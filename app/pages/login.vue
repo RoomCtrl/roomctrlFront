@@ -14,7 +14,7 @@
       </TabList>
       <TabPanels>
         <TabPanel value="0">
-          <BaseLogin />
+          <FormsLogin />
         </TabPanel>
         <TabPanel value="1">
           <Registration />
@@ -25,7 +25,6 @@
 </template>
 
 <script setup>
-import BaseLogin from '~/components/forms/BaseLogin.vue'
 import Registration from '~/components/forms/Registration.vue'
 
 definePageMeta({
