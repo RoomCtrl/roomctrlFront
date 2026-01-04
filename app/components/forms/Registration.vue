@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center">
       <div class="flex itemx-center justify-center">
         <h1 class="text-start w-full text-5xl font-bold py-[3vh]">
-          Rejestracja
+          {{ $t('forms.registration.title') }}
         </h1>
       </div>
 
@@ -11,7 +11,7 @@
         <div class="flex flex-col">
           <div class="section-title">
             <i class="pi pi-building" />
-            <h2>Dane organizacji</h2>
+            <h2>{{ $t('forms.registration.organizationData') }}</h2>
           </div>
 
           <div class="flex flex-col">
@@ -27,7 +27,7 @@
                     :class="{ 'p-invalid': regonError }"
                     @blur="regonBlur"
                   />
-                  <label for="regon">REGON</label>
+                  <label for="regon">{{ $t('forms.registration.regon') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -54,7 +54,7 @@
                     :class="{ 'p-invalid': organizationNameError }"
                     @blur="organizationNameBlur"
                   />
-                  <label for="organizationName">Nazwa organizacji</label>
+                  <label for="organizationName">{{ $t('forms.registration.organizationName') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -82,7 +82,7 @@
                     :class="{ 'p-invalid': organizationEmailError }"
                     @blur="organizationEmailBlur"
                   />
-                  <label for="organizationEmail">Email organizacji</label>
+                  <label for="organizationEmail">{{ $t('forms.registration.organizationEmail') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -102,7 +102,7 @@
         <div class="flex flex-col">
           <div class="section-title">
             <i class="pi pi-user" />
-            <h2>Dane użytkownika</h2>
+            <h2>{{ $t('forms.registration.userData') }}</h2>
           </div>
 
           <div class="grid grid-cols-2 grid-rows-4 gap-x-4">
@@ -118,7 +118,7 @@
                     :class="{ 'p-invalid': firstNameError }"
                     @blur="firstNameBlur"
                   />
-                  <label for="firstName">Imię</label>
+                  <label for="firstName">{{ $t('forms.registration.firstName') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -145,7 +145,7 @@
                     :class="{ 'p-invalid': lastNameError }"
                     @blur="lastNameBlur"
                   />
-                  <label for="lastName">Nazwisko</label>
+                  <label for="lastName">{{ $t('forms.registration.lastName') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -172,7 +172,7 @@
                     :class="{ 'p-invalid': usernameError }"
                     @blur="usernameBlur"
                   />
-                  <label for="username">Nazwa użytkownika</label>
+                  <label for="username">{{ $t('forms.registration.username') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -200,7 +200,7 @@
                     :class="{ 'p-invalid': emailError }"
                     @blur="emailBlur"
                   />
-                  <label for="email">Email</label>
+                  <label for="email">{{ $t('forms.registration.email') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -227,7 +227,7 @@
                     :class="{ 'p-invalid': phoneError }"
                     @blur="phoneBlur"
                   />
-                  <label for="phone">Telefon</label>
+                  <label for="phone">{{ $t('forms.registration.phone') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -257,7 +257,7 @@
                     :feedback="true"
                     @blur="passwordBlur"
                   />
-                  <label for="password">Hasło</label>
+                  <label for="password">{{ $t('forms.registration.password') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -287,7 +287,7 @@
                     :feedback="false"
                     @blur="confirmPasswordBlur"
                   />
-                  <label for="confirmPassword">Potwierdź hasło</label>
+                  <label for="confirmPassword">{{ $t('forms.registration.confirmPassword') }}</label>
                 </FloatLabel>
               </InputGroup>
               <div class="error-message-wrapper">
@@ -305,9 +305,32 @@
         </div>
       </div>
 
+      <!-- Akceptacja regulaminu -->
+      <div class="flex flex-col items-center mt-6">
+        <div class="flex items-center gap-2">
+          <Checkbox
+            v-model="acceptTerms"
+            inputId="acceptTerms"
+            :binary="true"
+            @blur="acceptTermsBlur"
+          />
+          <label for="acceptTerms" class="text-sm">
+            {{ $t('forms.registration.acceptTerms') }}
+            <NuxtLink :to="localePath('/rules')" target="_blank" class="text-primary-400 hover:underline">{{ $t('forms.registration.rules') }}</NuxtLink>
+            {{ $t('forms.registration.and') }}
+            <NuxtLink :to="localePath('/privacyPolicy')" target="_blank" class="text-primary-400 hover:underline">{{ $t('forms.registration.privacyPolicy') }}</NuxtLink>
+          </label>
+        </div>
+        <div class="error-message-wrapper">
+          <Message v-if="acceptTermsError" severity="error" size="small" variant="simple">
+            {{ acceptTermsError }}
+          </Message>
+        </div>
+      </div>
+
       <Button
         type="submit"
-        label="Zarejestruj się"
+        :label="$t('forms.registration.submit')"
         :loading="loading"
         class="w-[65vw] md:w-[15rem] mt-[2rem]"
       />
@@ -323,6 +346,8 @@ import { AuthRepository } from '~/repositories/AuthRepository'
 import type { IRegisterRequest } from '~/interfaces/RepositoriesInterface'
 
 const toast = useToast()
+const localePath = useLocalePath()
+const { t } = useI18n()
 const authRepository = new AuthRepository()
 
 const { handleSubmit, resetForm } = useForm<IRegisterRequest>({
@@ -337,6 +362,7 @@ const { handleSubmit, resetForm } = useForm<IRegisterRequest>({
     phone: 'required',
     password: 'required|min:8',
     confirmPassword: 'required|confirmed:@password',
+    acceptTerms: 'required|accepted',
   },
 })
 
@@ -350,6 +376,7 @@ const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useFie
 const { value: phone, errorMessage: phoneError, handleBlur: phoneBlur } = useField<string>('phone')
 const { value: password, errorMessage: passwordError, handleBlur: passwordBlur } = useField<string>('password')
 const { value: confirmPassword, errorMessage: confirmPasswordError, handleBlur: confirmPasswordBlur } = useField<string>('confirmPassword')
+const { value: acceptTerms, errorMessage: acceptTermsError, handleBlur: acceptTermsBlur } = useField<boolean>('acceptTerms')
 
 const loading = ref<boolean>(false)
 
@@ -361,8 +388,8 @@ const submitForm = handleSubmit(async (formValues) => {
 
     toast.add({
       severity: 'success',
-      summary: 'Sukces',
-      detail: 'Rejestracja przebiegła pomyślnie! Możesz się teraz zalogować.',
+      summary: t('forms.registration.successTitle'),
+      detail: t('forms.registration.successMessage'),
       life: 5000,
     })
 
@@ -376,8 +403,8 @@ const submitForm = handleSubmit(async (formValues) => {
   catch (error: any) {
     toast.add({
       severity: 'error',
-      summary: 'Błąd rejestracji',
-      detail: error?.data?.message || error?.message || 'Nie udało się zarejestrować. Spróbuj ponownie.',
+      summary: t('forms.registration.errorTitle'),
+      detail: error?.data?.message || error?.message || t('forms.registration.errorMessage'),
       life: 5000,
     })
   }

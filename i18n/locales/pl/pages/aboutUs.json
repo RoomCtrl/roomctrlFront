@@ -38,8 +38,27 @@
   },
   "opinions": {
     "title": "Co mówią o nas użytkownicy?",
-    "feedback": "„W końcu proste i szybkie narzędzie do rezerwacji sal – bez telefonów i komplikacji!”",
-    "inProgress": "(Sekcja opinii w przygotowaniu)"
+    "feedback": "„W końcu proste i szybkie narzędzie do rezerwacji sal – bez telefonów i komplikacji!",
+    "opinion1": {
+      "name": "Anna Kowalska",
+      "role": "Office Manager, TechCorp",
+      "text": "RoomCtrl całkowicie zmienił sposób, w jaki zarządzamy salami konferencyjnymi. Koniec z podwójnymi rezerwacjami i chaosem w kalendarzu!"
+    },
+    "opinion2": {
+      "name": "Marcin Nowak",
+      "role": "Team Leader, FinanceHub",
+      "text": "Intuicyjny interfejs i szybkość działania to ogromne plusy. Zespół zaadaptował się do nowego systemu w ciągu jednego dnia."
+    },
+    "opinion3": {
+      "name": "Katarzyna Wiśniewska",
+      "role": "HR Director, MediaGroup",
+      "text": "Dzięki raportom i analityce mamy pełen obraz wykorzystania przestrzeni biurowej. To nieocenione narzędzie dla dużych organizacji."
+    },
+    "opinion4": {
+      "name": "Piotr Zieliński",
+      "role": "IT Administrator, LogiTrans",
+      "text": "Integracja z naszymi systemami była bezproblemowa. Wsparcie techniczne na najwyższym poziomie!"
+    }
   },
   "joinUs": {
     "title": "Chcesz dołączyć?",

@@ -51,39 +51,53 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="absolute flex right-0">
-      <div class="bg-blue-50 dark:bg-blue-900 border-l-4 border-blue-500 rounded-r-lg p-6">
-        <div class="flex gap-4">
-          <i class="pi pi-info-circle text-blue-600 text-2xl mt-1" />
-          <div>
-            <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">
-              Wskazówka bezpieczeństwa
-            </h4>
-            <ul class="space-y-2 text-sm text-blue-800 dark:text-blue-300">
-              <li>✓ Zawsze używaj bezpiecznego hasła (min. 8 znaków)</li>
-              <li>✓ Nigdy nie udostępniaj swojego loginu innym osobom</li>
-              <li>✓ Jeśli zapomnisz hasła, skontaktuj się z administratorem</li>
-            </ul>
+      <!-- Wskazówka bezpieczeństwa -->
+      <div class="flex items-center">
+        <div class="bg-blue-50 dark:bg-blue-900 border-l-4 border-blue-500 rounded-r-lg p-6 h-full">
+          <div class="flex gap-4">
+            <i class="pi pi-info-circle text-blue-600 text-2xl mt-1" />
+            <div>
+              <h4 class="font-bold text-blue-900 dark:text-blue-200 mb-2">
+                Wskazówka bezpieczeństwa
+              </h4>
+              <ul class="space-y-2 text-sm text-blue-800 dark:text-blue-300">
+                <li>✓ Zawsze używaj bezpiecznego hasła (min. 8 znaków)</li>
+                <li>✓ Nigdy nie udostępniaj swojego loginu innym osobom</li>
+                <li>✓ Jeśli zapomnisz hasła, skontaktuj się z administratorem</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Screenshot -->
-    <div class="flex justify-center pt-20">
-      <div class="h-[40rem] aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center group hover:scale-105 transition-transform duration-300">
-        <div class="text-center">
-          <i class="pi pi-image text-6xl text-gray-400 mb-4 block" />
-          <p class="text-gray-500 dark:text-gray-400 font-semibold">
-            Placeholder: Zrzut ekranu ekranu logowania
-          </p>
-          <p class="text-sm text-gray-400 dark:text-gray-500">
-            Obraz będzie tutaj
-          </p>
-        </div>
-      </div>
+    <!-- Galeria zdjęć -->
+    <div class="mt-12 galleria-glow">
+      <Galleria
+        :value="images"
+        :numVisible="2"
+        :circular="true"
+        :showThumbnails="true"
+        :showItemNavigators="true"
+        containerStyle="max-width: 900px; margin: 0 auto;"
+      >
+        <template #item="slotProps">
+          <img
+            :src="slotProps.item.src"
+            :alt="slotProps.item.alt"
+            class="w-full rounded-xl"
+          />
+        </template>
+        <template #thumbnail="slotProps">
+          <img
+            :src="slotProps.item.src"
+            :alt="slotProps.item.alt"
+            class="rounded-lg"
+            style="max-height: 80px;"
+          />
+        </template>
+      </Galleria>
     </div>
   </div>
 </template>
@@ -110,16 +124,6 @@ const steps = [
     ],
   },
   {
-    icon: 'pi pi-lock',
-    title: 'Weryfikacja bezpieczeństwa',
-    description: 'System może prosić o dodatkową weryfikację dla bezpieczeństwa konta.',
-    details: [
-      'Kod wysyłany SMS lub email',
-      'Wpisz kod w ciągu 5 minut',
-      'Jeśli nie otrzymasz kodu, kliknij "Wyślij ponownie"',
-    ],
-  },
-  {
     icon: 'pi pi-check-circle',
     title: 'Logowanie zakończone!',
     description: 'Zostałeś zalogowany i masz dostęp do pełnej aplikacji.',
@@ -129,6 +133,11 @@ const steps = [
       'Twój profil jest teraz aktywny',
     ],
   },
+]
+
+const images = [
+  { src: '/images/howThisWork/mainPage.png', alt: 'Strona główna' },
+  { src: '/images/howThisWork/loginPage.png', alt: 'Strona logowania' },
 ]
 </script>
 
@@ -147,5 +156,14 @@ const steps = [
 .animate-step-in {
   animation: stepIn 0.6s ease-out forwards;
   animation-delay: var(--delay, 0ms);
+}
+
+.galleria-glow :deep(.p-galleria) {
+  box-shadow: 0 0 20px rgba(44, 44, 44, 0.7);
+  border-radius: 1rem;
+}
+
+:root.p-dark .galleria-glow :deep(.p-galleria) {
+  box-shadow: 0 0 20px rgba(44, 44, 44, 0.5);
 }
 </style>

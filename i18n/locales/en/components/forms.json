@@ -1,4 +1,32 @@
 {
+  "submit": {
+    "changePassword": "Change Password",
+    "register": "Register"
+  },
+  "registration": {
+    "title": "Registration",
+    "organizationData": "Organization Data",
+    "userData": "User Data",
+    "regon": "REGON",
+    "organizationName": "Organization Name",
+    "organizationEmail": "Organization Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "username": "Username",
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "acceptTerms": "I accept the",
+    "rules": "terms and conditions",
+    "and": "and",
+    "privacyPolicy": "privacy policy",
+    "submit": "Register",
+    "successTitle": "Success",
+    "successMessage": "Registration successful! You can now log in.",
+    "errorTitle": "Registration Error",
+    "errorMessage": "Registration failed. Please try again."
+  },
   "filters": {
     "title": "Filtering",
     "fields": {
@@ -12,38 +40,44 @@
   "titles": {
     "contactForm": "Contact Form",
     "loginForm": "Login",
+    "registrationForm": "Registration",
     "passwordResetRequest": "Password Reset",
     "passwordResetConfirm": "Set New Password"
   },
   "fields": {
-    "name": "Full Name",
-    "username": "Username",
-    "firstName": "First Name",
-    "lastName": "Last Name",
-    "roles": "Roles",
+    "user": {
+      "fullName": "Full Name",
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "roles": "Roles",
+      "login": "Login",
+      "resetToken": "Reset Token",
+      "password": "Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password"
+    },
+    "room": {
+      "name": "Room Name",
+      "capacity": "Capacity",
+      "size": "Size",
+      "location": "Location",
+      "access": "Access",
+      "lighting": "Lighting",
+      "airConditioning": "Air Conditioning (min/max °C)",
+      "equipment": {
+        "title": "Equipment",
+        "name": "Equipment Name",
+        "category": "Category",
+        "quantity": "Quantity"
+      }
+    },
     "email": "Email",
     "subject": "Subject",
     "phone": "Phone",
     "message": "Message",
-    "login": "Login",
-    "password": "Password",
-    "resetCode": "Reset Code",
-    "resetToken": "Reset Token",
-    "newPassword": "New Password",
-    "confirmPassword": "Confirm Password",
-    "roomName": "Room Name",
-    "capacity": "Capacity",
-    "size": "Size",
-    "location": "Location",
     "description": "Description",
-    "equpiment": "Equipment",
-    "access": "Access",
-    "lighting": "Lighting",
-    "airConditioning": "Air Conditioning (min/max °C)",
-    "equipment": "Equipment",
-    "equipmentName": "Equipment Name",
-    "equipmentCategory": "Category",
-    "equipmentQuantity": "Quantity"
+    "acceptTerms": "Terms acceptance"
   },
   "roomForm": {
     "buttons": {
@@ -116,7 +150,8 @@
     "error": {
       "email": "Enter a valid email address",
       "required": "The field {fieldName} is required.",
-      "invalidField": "The field {fieldName} is invalid."
+      "invalidField": "The field {fieldName} is invalid.",
+      "acceptTerms": "You must accept the terms and privacy policy."
     }
   },
   "messages": {

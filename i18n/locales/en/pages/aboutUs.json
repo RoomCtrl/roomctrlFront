@@ -39,7 +39,30 @@
   "opinions": {
     "title": "What do our users say?",
     "feedback": "\"Finally, a simple and fast tool for booking rooms – no calls, no complications!\"",
-    "inProgress": "(Feedback section in progress)"
+    "opinion1": {
+      "name": "Anna Kowalska",
+      "role": "Office Manager, TechCorp",
+      "text": "RoomCtrl completely changed the way we manage conference rooms. No more double bookings and calendar chaos!",
+      "rating": 5
+    },
+    "opinion2": {
+      "name": "Marcin Nowak",
+      "role": "Team Leader, FinanceHub",
+      "text": "Intuitive interface and fast performance are huge advantages. The team adapted to the new system within a single day.",
+      "rating": 5
+    },
+    "opinion3": {
+      "name": "Katarzyna Wiśniewska",
+      "role": "HR Director, MediaGroup",
+      "text": "Thanks to reports and analytics, we have a full picture of office space utilization. An invaluable tool for large organizations.",
+      "rating": 5
+    },
+    "opinion4": {
+      "name": "Piotr Zieliński",
+      "role": "IT Administrator, LogiTrans",
+      "text": "Integration with our systems was seamless. Technical support at the highest level!",
+      "rating": 4
+    }
   },
   "joinUs": {
     "title": "Want to join?",
