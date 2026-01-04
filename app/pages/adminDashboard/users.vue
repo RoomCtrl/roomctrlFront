@@ -30,6 +30,7 @@
       :loading="loading"
       size="small"
       paginator
+      removableSort
       :paginatorPosition="paginatorPosition"
       @update:rows="handleUpdateRows"
       @filter="onFilter"
@@ -37,7 +38,7 @@
       <BaseTextFilterColumn
         :key="'username'"
         field="username"
-        :header="$t('forms.fields.username')"
+        :header="$t('tables.headers.username')"
         class="w-[10%]"
         sortable
         filter
@@ -45,7 +46,7 @@
       <BaseTextFilterColumn
         :key="'firstName'"
         field="firstName"
-        :header="$t('forms.fields.firstName')"
+        :header="$t('tables.headers.firstName')"
         class="w-[15%]"
         sortable
         filter
@@ -53,7 +54,7 @@
       <BaseTextFilterColumn
         :key="'lastName'"
         field="lastName"
-        :header="$t('forms.fields.lastName')"
+        :header="$t('tables.headers.lastName')"
         class="w-[15%]"
         sortable
         filter
@@ -61,7 +62,7 @@
       <BaseTextFilterColumn
         :key="'email'"
         field="email"
-        :header="$t('forms.fields.email')"
+        :header="$t('tables.headers.email')"
         class="w-[20%]"
         sortable
         filter
@@ -69,7 +70,7 @@
       <BaseTextFilterColumn
         :key="'phone'"
         field="phone"
-        :header="$t('forms.fields.phone')"
+        :header="$t('tables.headers.phone')"
         class="w-[15%]"
         sortable
         filter
@@ -77,7 +78,7 @@
       <BaseSelectFilterColumn
         :key="'roles'"
         field="roles"
-        :header="$t('forms.fields.roles')"
+        :header="$t('tables.headers.role')"
         class="w-[20%]"
         :options="listOfRoles"
         sortable

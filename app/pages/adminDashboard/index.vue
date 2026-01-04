@@ -32,12 +32,12 @@
         </div>
       </div>
       <ReportRoomsTable />
-      <div class="grid grid-cols-1 2xl:grid-cols-2 gap-2">
+      <div class="flex flex-row justify-center">
         <IncomingRentsTable
           :rows="4"
           :header="$t('pages.adminDashboard.dashboard.tables.titles.incomingRents')"
-          :to-approve="false"
           :bookings="upcomingBookings"
+          class="w-[60%]"
         />
       </div>
     </div>

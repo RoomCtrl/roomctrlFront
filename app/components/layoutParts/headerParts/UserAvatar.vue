@@ -46,10 +46,19 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const { user, logout, isAdmin } = useAuth() as {
   user: Ref<IGetUserProfileResponse | null>
-  logout: () => Promise<void>
+  logout: (redirectTo?: string) => Promise<void>
+  isAdmin: ComputedRef<boolean>
 }
 
 const handleLogout = async () => {
+  // Zamknij popover przed wylogowaniem
+  if (op.value) {
+    op.value.hide()
+  }
+  
+  // Poczekaj chwilę na zamknięcie popovera
+  await new Promise(resolve => setTimeout(resolve, 100))
+  
   await logout('/')
 }
 const toggle = (event) => {

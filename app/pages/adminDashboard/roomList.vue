@@ -37,6 +37,7 @@
       filterDisplay="row"
       size="small"
       paginator
+      removableSort
       :paginatorPosition="paginatorPosition"
       :loading="loading"
       @update:rows="handleUpdateRows"

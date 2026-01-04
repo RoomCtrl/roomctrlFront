@@ -13,13 +13,13 @@ export default defineNuxtPlugin((nuxtApp) => {
       const { t } = nuxtApp.$i18n || { t: (key: string) => key }
 
       const fieldNames = {
-        name: t('forms.fields.name'),
+        name: t('forms.fields.room.name'),
         email: t('forms.fields.email'),
         subject: t('forms.fields.subject'),
         message: t('forms.fields.message'),
-        login: t('forms.fields.login'),
-        username: t('forms.fields.login'),
-        password: t('forms.fields.password'),
+        login: t('forms.fields.user.login'),
+        username: t('forms.fields.user.username'),
+        password: t('forms.fields.user.password'),
       }
 
       const fieldName = fieldNames[ctx.field] || ctx.field

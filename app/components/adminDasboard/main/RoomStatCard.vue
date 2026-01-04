@@ -48,18 +48,25 @@
         <div class="flex justify-between text-xs font-medium">
           <span>Wykorzystanie</span>
         </div>
-        <ProgressBar
-          :pt:value:class="progressColorClass"
-          :value="Math.round(room.percentage)"
-          aria-label="Percentage of room utilization"
-          mode="determinate"
-        />
+        <div class="relative">
+          <div
+            v-if="room.percentage < 15"
+            class="alternative-label"
+          >
+            {{ Math.round(room.percentage) }}%
+          </div>
+          <ProgressBar
+            :pt:value:class="[progressColorClass]"
+            :value="Math.round(room.percentage)"
+            :show-value="room.percentage > 15"
+            class="z-0"
+            aria-label="Percentage of room utilization"
+            mode="determinate"
+          />
+        </div>
       </div>
 
-      <div
-        class="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-md text-[10px] font-semibold mt-auto"
-        :class="trendDirection === 'trending-up' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
-      >
+      <div :class="['flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-md text-[10px] font-semibold mt-auto', trendColorClass]">
         <i
           :class="trendIcon"
           class="text-[10px]"
@@ -81,18 +88,26 @@ const props = defineProps<{
 const progressColorClass = computed(() => {
   const rate = Math.round(props.room.percentage)
   if (rate >= 80) return 'bg-gradient-to-r from-green-500 to-green-600'
-  if (rate >= 60) return 'bg-gradient-to-r from-blue-500 to-blue-600'
+  if (rate >= 60) return 'bg-gradient-to-r from-yellow-500 to-yellow-600'
   if (rate >= 40) return 'bg-gradient-to-r from-orange-500 to-orange-600'
   return 'bg-gradient-to-r from-red-500 to-red-600'
 })
 
 const trendDirection = computed(() => {
   const weeklyAvg = props.room.monthlyBookings / 4
+  if (weeklyAvg === 0) return 'trending-no-data'
   return props.room.weeklyBookings > weeklyAvg ? 'trending-up' : 'trending-down'
 })
 
 const trendIcon = computed(() => {
-  return trendDirection.value === 'trending-up' ? 'pi pi-arrow-up' : 'pi pi-arrow-down'
+  switch (trendDirection.value) {
+    case 'trending-up':
+      return 'pi pi-arrow-up'
+    case 'trending-down':
+      return 'pi pi-arrow-down'
+    default:
+      return ''
+  }
 })
 
 const trendText = computed(() => {
@@ -104,4 +119,24 @@ const trendText = computed(() => {
     ? `+${percent}% vs średnia`
     : `-${percent}% vs średnia`
 })
+
+const trendColorClass = computed(() => {
+  switch (trendDirection.value) {
+    case 'trending-up':
+      return 'bg-green-100 text-green-800'
+    case 'trending-down':
+      return 'bg-red-100 text-red-800'
+    default:
+      return 'bg-gray-100 text-gray-600'
+  }
+})
 </script>
+
+<style scoped>
+.alternative-label {
+  color: var(--p-progressbar-label-color);
+  font-size: var(--p-progressbar-label-font-size);
+  font-weight: var(--p-progressbar-label-font-weight);
+  @apply absolute z-10 flex justify-center items-center h-5 w-full
+}
+</style>

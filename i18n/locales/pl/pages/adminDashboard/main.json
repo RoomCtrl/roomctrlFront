@@ -1,6 +1,10 @@
 {
   "calendar": {
-    "title": "Kalendarz rezerwacji"
+    "title": "Kalendarz rezerwacji",
+    "statuses": {
+      "ended": "Zakończone",
+      "planned": "Zaplanowane"
+    }
   },
   "chart": {
     "title": "Statusy rezerwacji",
@@ -8,7 +12,8 @@
       "today": "Dzisiaj",
       "thisWeek": "Ostatnie 7 dni",
       "thisMonth": "Ostatnie 30 dni"
-    }
+    },
+    "noBookingsToday": "Brak rezerwacji dzisiaj"
   },
   "knob": {
     "generally": "Ogólnie: ",

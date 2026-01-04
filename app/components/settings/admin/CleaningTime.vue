@@ -3,7 +3,7 @@
     <template #title>
       <div class="flex items-center gap-2">
         <i class="pi pi-clock" />
-        {{ $t('pages.adminDashboard.settingsAdmin.sections.workingHours.title') }}
+        {{ $t('pages.adminDashboard.settingsAdmin.sections.workingHours') }}
       </div>
     </template>
     <template #content>
@@ -17,7 +17,7 @@
             for="type"
             class="font-semibold"
           >
-            {{ $t('forms.fields.roomName') }}
+            {{ $t('forms.fields.room.name') }}
           </label>
           <Select
             id="roomId"

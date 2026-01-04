@@ -23,6 +23,7 @@ export const useAuth = () => {
   const token = useState<string | null>('auth.token', () => null)
   const loading = useState<boolean>('auth.loading', () => false)
   const roles = useState<string[]>('auth.roles', () => [])
+  const sessionMonitoringInterval = useState<number | null>('auth.sessionMonitoring', () => null)
 
   const authService = new AuthService()
 
@@ -33,6 +34,12 @@ export const useAuth = () => {
       user.value = result.user
       token.value = result.token
       roles.value = result.user.roles || []
+      
+      // Uruchom monitorowanie sesji po zalogowaniu
+      if (import.meta.client) {
+        startSessionMonitoring()
+      }
+      
       return result
     }
     finally {
@@ -42,20 +49,32 @@ export const useAuth = () => {
 
   const logout = async (redirectTo?: string): Promise<void> => {
     loading.value = true
+    
+    // Zatrzymaj monitorowanie sesji
+    if (sessionMonitoringInterval.value) {
+      clearInterval(sessionMonitoringInterval.value)
+      sessionMonitoringInterval.value = null
+    }
+    
     try {
       if (token.value) {
         await authService.logout(token.value)
       }
+    }
+    catch (error) {
+      // Ignoruj błędy podczas wylogowania
+      console.error('Logout error:', error)
+    }
+    finally {
+      // Zawsze wyczyść stan, nawet jeśli wystąpił błąd
       user.value = null
       token.value = null
       roles.value = []
+      loading.value = false
 
       if (import.meta.client && redirectTo) {
         await navigateTo(redirectTo)
       }
-    }
-    finally {
-      loading.value = false
     }
   }
 
@@ -163,6 +182,42 @@ export const useAuth = () => {
     return rolesList.every(role => roles.value.includes(role))
   }
 
+  // Monitorowanie wygaśnięcia tokenu
+  const startSessionMonitoring = () => {
+    if (import.meta.server) return
+
+    // Zatrzymaj poprzednie monitorowanie, jeśli istnieje
+    if (sessionMonitoringInterval.value) {
+      clearInterval(sessionMonitoringInterval.value)
+      sessionMonitoringInterval.value = null
+    }
+
+    // Sprawdzaj sesję co 30 sekund
+    const intervalId = setInterval(async () => {
+      if (!isAuthenticated.value) {
+        clearInterval(intervalId)
+        sessionMonitoringInterval.value = null
+        return
+      }
+
+      const currentToken = token.value
+      if (!currentToken) {
+        clearInterval(intervalId)
+        sessionMonitoringInterval.value = null
+        return
+      }
+
+      // Sprawdź czy token wygasł
+      if (authService.isTokenExpired?.(currentToken)) {
+        clearInterval(intervalId)
+        sessionMonitoringInterval.value = null
+        await logout('/login')
+      }
+    }, 30000) // Co 30 sekund
+
+    sessionMonitoringInterval.value = intervalId as unknown as number
+  }
+
   return {
     user: readonly(user),
     token: readonly(token),
@@ -178,5 +233,6 @@ export const useAuth = () => {
     checkAuth,
     refreshToken,
     syncFromStorage,
+    startSessionMonitoring,
   }
 }

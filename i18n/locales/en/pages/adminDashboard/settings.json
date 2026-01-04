@@ -1,63 +1,23 @@
 {
   "title": "Organization Settings",
-  "weekDays": {
-    "monday": "Monday",
-    "tuesday": "Tuesday",
-    "wednesday": "Wednesday",
-    "thursday": "Thursday",
-    "friday": "Friday",
-    "saturday": "Saturday",
-    "sunday": "Sunday"
-  },
   "sections": {
     "organization": {
       "title": "Organization Information",
       "name": "Organization Name",
       "namePlaceholder": "Enter organization name",
-      "regon": "REGON",
-      "regonPlaceholder": "Enter REGON number",
       "email": "Contact Email",
-      "emailPlaceholder": "contact@organization.com",
-      "phone": "Contact Phone",
-      "phonePlaceholder": "+48 123 456 789",
-      "address": "Address",
-      "addressPlaceholder": "Street, Postal Code, City",
-      "description": "Organization Description",
-      "descriptionPlaceholder": "Brief description of the organization that will be visible to users"
+      "emailPlaceholder": "contact@organization.com"
     },
-    "workingHours": {
-      "title": "Working Hours",
-      "openingTime": "Opening Time",
-      "closingTime": "Closing Time",
-      "workingDays": "Working Days"
-    },
-    "bookingPolicy": {
-      "title": "Booking Policy",
-      "requireApproval": "Require booking approval",
-      "requireApprovalDescription": "All bookings require administrator approval before confirmation",
-      "maxAdvanceDays": "Maximum advance booking period",
-      "days": "days",
-      "maxActiveBookings": "Maximum active bookings per user",
-      "minGapBetween": "Minimum gap between bookings",
-      "minutes": "min",
-      "cancellationDeadline": "Cancellation deadline",
-      "hours": "hrs",
-      "cancellationDeadlineDescription": "Number of hours before start time when cancellation is allowed"
-    },
-    "notifications": {
-      "title": "Notifications",
-      "newBookingNotification": "Notify about new bookings",
-      "newBookingNotificationDescription": "Receive email when user creates a new booking",
-      "reportNotification": "Notify about reports",
-      "reportNotificationDescription": "Receive email when user reports a room issue",
-      "cancellationNotification": "Notify about cancellations",
-      "cancellationNotificationDescription": "Receive email when user cancels a booking",
-      "notificationEmail": "Notification Email"
-    }
+    "workingHours": "Working Hours"
   },
-  "messages": {
-    "settingsSaved": "Organization settings have been saved successfully",
-    "settingsSaveError": "Error saving organization settings",
-    "settingsReset": "Settings have been reset to default values"
+  "notifications": {
+    "title": "Notifications",
+    "newBookingNotification": "Notify about new bookings",
+    "newBookingNotificationDescription": "Receive email when user creates a new booking",
+    "reportNotification": "Notify about reports",
+    "reportNotificationDescription": "Receive email when user reports a room issue",
+    "cancellationNotification": "Notify about cancellations",
+    "cancellationNotificationDescription": "Receive email when user cancels a booking",
+    "notificationEmail": "Notification Email"
   }
 }

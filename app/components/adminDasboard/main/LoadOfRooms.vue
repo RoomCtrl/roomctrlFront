@@ -28,12 +28,19 @@
       </div>
       <div class="flex flex-col justify-center items-center w-full h-full">
         <Chart
+          v-if="bookings"
           type="pie"
           class="flex flex-col justify-end h-[90%] w-[90%]"
           :data="chartData"
           :options="chartOptions"
           :plugins="chartPlugins"
         />
+        <span
+          v-else
+          class="text-xl font-semibold"
+        >
+          {{ $t('pages.adminDashboard.dashboard.chart.noBookingsToday') }}
+        </span>
       </div>
     </template>
   </Card>
@@ -57,7 +64,6 @@ const chartPlugins = ref([ChartDataLabels])
 
 const isActive = ref<string>('today')
 
-// Funkcje pomocnicze do filtrowania rezerwacji według dat
 const getBookingsByDateRange = (days: number | null) => {
   if (!props.bookings || props.bookings.length === 0) {
     return { planned: 0, ended: 0, cancelled: 0 }

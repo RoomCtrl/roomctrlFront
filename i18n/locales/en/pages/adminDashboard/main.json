@@ -1,6 +1,10 @@
 {
   "calendar": {
-    "title": "Booking Calendar"
+    "title": "Booking Calendar",
+    "statuses": {
+      "ended": "Ended",
+      "planned": "Planned"
+    }
   },
   "chart": {
     "title": "Booking Statuses",
@@ -8,7 +12,8 @@
       "today": "Today",
       "thisWeek": "Last 7 days",
       "thisMonth": "Last 30 days"
-    }
+    },
+    "noBookingsToday": "No bookings today"
   },
   "knob": {
     "generally": "Overall: ",

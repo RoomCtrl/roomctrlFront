@@ -1,6 +1,7 @@
 {
   "submit": {
-    "changePassword": "Zmień hasło"
+    "changePassword": "Zmień hasło",
+    "register": "Zarejestruj się"
   },
   "filters": {
     "title": "Filtrowanie",
@@ -15,44 +16,56 @@
   "titles": {
     "contactForm": "Formularz kontaktowy",
     "loginForm": "Logowanie",
+    "registrationForm": "Rejestracja",
     "passwordResetRequest": "Resetowanie hasła",
     "passwordResetConfirm": "Ustaw nowe hasło"
   },
   "fields": {
-    "name": "Imię i nazwisko",
-    "username": "Nazwa użytkownika",
-    "firstName": "Imię",
-    "lastName": "Nazwisko",
-    "roles": "Role",
+    "user": {
+      "fullName": "Imię i nazwisko",
+      "username": "Nazwa użytkownika",
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "roles": "Role",
+      "login": "Login",
+      "resetToken": "Token resetujący",
+      "password": "Hasło",
+      "newPassword": "Nowe hasło",
+      "confirmPassword": "Potwierdź hasło"
+    },
+    "room": {
+      "name": "Nazwa sali",
+      "capacity": "Pojemność",
+      "size": "Rozmiar",
+      "location": "Lokalizacja",
+      "access": "Dostęp",
+      "lighting": "Oświetlenie",
+      "airConditioning": "Klimatyzacja (min/max °C)",
+      "equipment": {
+        "title": "Wyposażenie",
+        "name": "Nazwa wyposażenia",
+        "category": "Kategoria",
+        "quantity": "Ilość"
+      }
+    },
+    "booking": {
+      "title": "Tytuł rezerwacji",
+      "roomId": "Wybierz salę",
+      "startedAt": "Data i godzina rozpoczęcia",
+      "endedAt": "Data i godzina zakończenia",
+      "participantsCount": "Liczba uczestników",
+      "participantIds": "Wybierz uczestników"
+    },
     "email": "Email",
     "subject": "Temat",
     "phone": "Telefon",
     "message": "Wiadomość",
-    "login": "Login",
-    "password": "Hasło",
-    "newPassword": "Nowe hasło",
-    "confirmPassword": "Potwierdź hasło",
-    "currentPassword": "Obecne hasło",
-    "resetCode": "Kod resetujący",
-    "resetToken": "Token resetujący",
-    "roomName": "Nazwa sali",
-    "capacity": "Pojemność",
     "workType": "Rodzaj pracy",
     "startTime": "Czas rozpoczęcia",
     "endTime": "Czas zakończenia",
     "daysOfWeek": "Dni tygodnia",
     "weeksAhead": "Tygodnie do przodu",
-    "size": "Rozmiar",
-    "location": "Lokalizacja",
-    "description": "Opis",
-    "equpiment": "Wyposażenie",
-    "access": "Dostęp",
-    "lighting": "Oświetlenie",
-    "airConditioning": "Klimatyzacja (min/max °C)",
-    "equipment": "Wyposażenie",
-    "equipmentName": "Nazwa wyposażenia",
-    "equipmentCategory": "Kategoria",
-    "equipmentQuantity": "Ilość"
+    "description": "Opis"
   },
   "roomForm": {
     "buttons": {
