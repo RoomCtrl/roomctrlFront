@@ -12,7 +12,7 @@
         :ended-at="roomDetails.currentBooking?.endedAt"
         :current-booking="roomDetails?.currentBooking"
         :next-bookings="roomDetails?.nextBookings"
-        :room-id="roomDetails?.roomId || ''"
+        :room-id="roomDetails?.roomId"
         :is-favorite="roomDetails?.isFavorite || false"
         @show-booking-form="showBookingForm = true"
       />
@@ -139,16 +139,6 @@
         </InfoCard>
       </div>
     </div>
-
-    <BookingForm
-      v-if="roomDetails"
-      :visible="showBookingForm"
-      :room-id="roomDetails.roomId"
-      :capacity="roomDetails.capacity"
-      @success="handleBookingSuccess"
-      @cancel="showBookingForm = false"
-      @close="showBookingForm = false"
-    />
     <Toast />
   </div>
 </template>
@@ -161,7 +151,6 @@ import GeneralInfo from '~/components/rooms/detailsParts/GeneralInfo.vue'
 import InfoCard from '~/components/rooms/detailsParts/InfoCard.vue'
 import UpcomingMeeting from '~/components/rooms/detailsParts/UpcomingMeeting.vue'
 import RoomImages from '~/components/rooms/detailsParts/RoomImages.vue'
-import BookingForm from '~/components/rooms/BookingForm.vue'
 import { useRoom } from '~/composables/useRoom'
 
 definePageMeta({
@@ -190,15 +179,9 @@ watch(status, (newStatus) => {
   }
 })
 
-const handleBookingSuccess = () => {
-  showBookingForm.value = false
-  const roomId = String(route.params.id)
-  fetchRoom(roomId, true)
-}
-
 onMounted(async () => {
   const roomId = String(route.params.id)
-  await loadFavoriteIds() // Load favorite IDs first
+  await loadFavoriteIds()
   await fetchRoom(roomId, true)
 })
 </script>

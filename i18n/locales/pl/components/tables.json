@@ -12,10 +12,32 @@
     "booker": "Rezerwujący",
     "day": "Dzień",
     "hour": "Godzina",
+    "startedAt": "Rozpoczęcie",
+    "endedAt": "Zakończenie",
+    "startDate": "Data rozpoczęcia",
+    "endDate": "Data zakończenia",
+    "startTime": "Czas rozpoczęcia",
+    "endTime": "Czas zakończenia",
     "status": "Status",
     "email": "Email",
     "phone": "Telefon",
-    "actions": "Akcje"
+    "actions": "Akcje",
+    "reservationTitle": "Tytuł rezerwacji",
+    "isPrivate": "Prywatna",
+    "participantsCount": "Liczba uczestników",
+    "priority": "Priorytet",
+    "reportedBy": "Zgłoszona przez",
+    "reportDate": "Data zgłoszenia",
+    "username": "Nazwa użytkownika",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "role": "Role"
+  },
+  "buttonTooltips": {
+    "goToRoom": "Przejdź do sali",
+    "cancelRent": "Anuluj rezerwację",
+    "editRent": "Edytuj rezerwację",
+    "viewParticipants": "Zobacz uczestników"
   },
   "emptyMessages": {
     "noRentsToConfirm": "Brak rezerwacji do potwierdzenia",
@@ -26,5 +48,9 @@
     "goToRoom": "Przejdź do sali",
     "approveRent": "Zakceptuj rezerwacje",
     "deniedRent": "Odrzuć rezerwacje"
+  },
+  "fieldValue": {
+    "true": "Tak",
+    "false": "Nie"
   }
 }

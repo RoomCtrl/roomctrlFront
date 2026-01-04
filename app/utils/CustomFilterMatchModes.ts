@@ -7,9 +7,9 @@ export const customTimeFilter = (value: string, filter: Date): boolean => {
   const minutes = String(filter.getMinutes()).padStart(2, '0')
 
   const filterString = `${hours}:${minutes}`
-
+  const valueTime = value.slice(11, 16)
   return (
-    value === filterString
+    valueTime === filterString
   )
 }
 

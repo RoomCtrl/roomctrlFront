@@ -14,6 +14,7 @@
     :loading="loading"
     :paginatorPosition="paginatorPosition"
     :rows="rows"
+    removableSort
     :rowsPerPageOptions="[13, 26, 39]"
     @update:rows="handleUpdateRows"
     @filter="onFilter"
@@ -61,6 +62,7 @@
       :header="$t('pages.reservationsHistory.rentStatus')"
       class="20%"
       sortable
+      :status-color="statusColor"
       :options="statuses"
       filter
     />
@@ -94,18 +96,18 @@
             class="flex-none"
           />
           <Button
-            v-show="data.status === 'active'"
-            v-tooltip.left="{ value: $t('common.buttons.edit') }"
+            v-tooltip.left="{ value: $t('common.buttons.edit'), disabled: data.status === 'cancelled' }"
             pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
             icon="pi pi-pencil"
+            :disabled="data.status === 'cancelled'"
             severity="success"
             variant="outlined"
             @click="openEditModal(data)"
           />
           <Button
-            v-show="data.status === 'active'"
-            v-tooltip.left="{ value: $t('common.buttons.cancel') }"
+            v-tooltip.left="{ value: $t('common.buttons.cancel'), disabled: data.status === 'cancelled' }"
             pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+            :disabled="data.status === 'cancelled'"
             severity="danger"
             icon="pi pi-times"
             variant="outlined"
@@ -135,7 +137,7 @@
     :style="{ width: '50rem' }"
     :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
   >
-    <BookingEditForm
+    <FormsBookingEditForm
       v-if="selectedBooking"
       :booking-id="selectedBooking.id"
       @success="handleBookingSuccess"
@@ -148,10 +150,9 @@
 import { FilterMatchMode, FilterService } from '@primevue/core/api'
 import { useBooking } from '~/composables/useBooking'
 import BaseTextFilterColumn from '../common/datatable/columns/BaseTextFilterColumn.vue'
-import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectMessageFilter.vue'
+import BaseSelectMessageFilter from '../common/datatable/columns/BaseSelectTagFilter.vue'
 import BaseDateFilterColumn from '../common/datatable/columns/BaseDateFilterColumn.vue'
 import BaseSelectFilterColumn from '../common/datatable/columns/BaseSelectFilterColumn.vue'
-import BookingEditForm from '../forms/BookingEditForm.vue'
 import ReportRoomIssue from '../forms/ReportRoomIssue.vue'
 
 const props = defineProps<{
@@ -189,6 +190,12 @@ const handleBookingSuccess = () => {
   editModalVisible.value = false
   emit('refresh')
 }
+
+const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string>>(() => ({
+  cancelled: 'danger',
+  completed: 'success',
+  active: 'info',
+}))
 
 const handleCancelBooking = async () => {
   if (!selectedBooking.value?.id) return

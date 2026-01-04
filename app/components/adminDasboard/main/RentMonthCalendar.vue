@@ -48,7 +48,6 @@ const props = defineProps<{
 const date = ref()
 const visible = ref(false)
 
-// Filter bookings for the selected date
 const selectedDayBookings = computed(() => {
   if (!date.value || !props.bookings) {
     return []

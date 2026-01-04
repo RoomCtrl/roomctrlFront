@@ -7,60 +7,24 @@
 
       <div class="flex flex-col gap-4">
         <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-user" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="username"
-                v-model="username"
-                :class="{ 'p-invalid': usernameError }"
-                type="text"
-                autofocus
-                @blur="usernameBlur"
-              />
-              <label for="username">{{ $t('forms.fields.login') }}</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="usernameError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ usernameError }}
-          </Message>
+          <FormTextField
+            id="username"
+            v-model="username"
+            :label="$t('forms.fields.user.login')"
+            :error-message="usernameError"
+            icon="pi pi-user"
+            autofocus
+            @blur="usernameBlur"
+          />
         </div>
 
-        <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-key" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <Password
-                id="password"
-                v-model="password"
-                :class="{ 'p-invalid': passwordError }"
-                type="password"
-                toggleMask
-                fluid
-                :feedback="false"
-                @blur="passwordBlur"
-              />
-              <label for="password">{{ $t('forms.fields.password') }}</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="passwordError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ passwordError }}
-          </Message>
-        </div>
+        <FormPasswordField
+          id="password"
+          v-model="password"
+          :label="$t('forms.fields.user.password')"
+          :error-message="passwordError"
+          @blur="passwordBlur"
+        />
       </div>
 
       <div class="flex flex-col gap-3 text-center">
@@ -84,6 +48,8 @@
 <script setup lang="ts">
 import { useForm, useField, defineRule } from 'vee-validate'
 import { required } from '@vee-validate/rules'
+import FormTextField from '../common/FormTextField.vue'
+import FormPasswordField from '../common/FormPasswordField.vue'
 
 defineRule('required', required)
 

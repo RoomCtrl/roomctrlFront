@@ -28,7 +28,7 @@
           root: { class: 'flex flex-col h-full' },
           table: { class: tableDisplay },
         }"
-        :value="tableData"
+        :value="reservations"
         paginator
         size="small"
         :rows="rows"
@@ -65,7 +65,7 @@
         >
           <template #body="slotProps">
             <Tag
-              :value="slotProps.data.status"
+              :value="$t(`pages.adminDashboard.dashboard.calendar.statuses.${slotProps.data.status}`)"
               :severity="statusColor[slotProps.data.status]"
               class="w-full text-center"
             />
@@ -80,7 +80,6 @@
 const props = defineProps<{
   rows: number
   header?: string
-  toApprove: boolean
   bookings?: any[]
 }>()
 
@@ -104,20 +103,7 @@ const reservations = computed(() => {
   })
 })
 
-const toApproveReservations = computed(() =>
-  reservations.value.filter(r => r.status === 'toApprove'),
-)
-
-const tableData = computed(() => {
-  if (props.toApprove) {
-    return toApproveReservations.value
-  }
-  else {
-    return reservations.value
-  }
-})
-
-const { tableDisplay } = useDataTable(tableData, 4)
+const { tableDisplay } = useDataTable(reservations, 4)
 
 const statusColor = computed(() => ({
   cancelled: 'error',

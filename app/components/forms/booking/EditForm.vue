@@ -1,5 +1,8 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form
+    v-if="booking"
+    @submit.prevent="submitForm"
+  >
     <div class="grid grid-cols-3 gap-4">
       <div class="flex flex-col gap-2 col-span-full">
         <label
@@ -8,14 +11,13 @@
         >{{ $t('forms.booking.title') }}</label>
         <InputText
           id="title"
-          v-model="formData.title"
-          :placeholder="$t('forms.booking.titlePlaceholder')"
-          :invalid="!!errors.title"
+          v-model="title"
+          :invalid="!!titleError"
         />
         <small
-          v-if="errors.title"
+          v-if="titleError"
           class="text-red-500"
-        >{{ errors.title }}</small>
+        >{{ titleError }}</small>
       </div>
 
       <div class="flex flex-col gap-2 col-span-full">
@@ -25,18 +27,18 @@
         >{{ $t('forms.booking.room') }}</label>
         <Select
           id="roomId"
-          v-model="formData.roomId"
+          v-model="roomId"
           :options="availableRooms"
           optionLabel="roomName"
           optionValue="roomId"
           :placeholder="$t('forms.booking.selectRoom')"
           :loading="roomsLoading"
-          :invalid="!!errors.roomId"
+          :invalid="!!roomIdError"
         />
         <small
-          v-if="errors.roomId"
+          v-if="roomIdError"
           class="text-red-500"
-        >{{ errors.roomId }}</small>
+        >{{ roomIdError }}</small>
       </div>
 
       <div class="flex flex-col gap-2">
@@ -46,18 +48,18 @@
         >{{ $t('forms.booking.startDate') }}</label>
         <DatePicker
           id="startedAt"
-          v-model="formData.startedAt"
+          v-model="startedAt"
           showTime
           hourFormat="24"
           dateFormat="yy/mm/dd"
           :placeholder="$t('forms.booking.startDatePlaceholder')"
-          :invalid="!!errors.startedAt"
+          :invalid="!!startedAtError"
           fluid
         />
         <small
-          v-if="errors.startedAt"
+          v-if="startedAtError"
           class="text-red-500"
-        >{{ errors.startedAt }}</small>
+        >{{ startedAtError }}</small>
       </div>
 
       <div class="flex flex-col gap-2">
@@ -67,18 +69,18 @@
         >{{ $t('forms.booking.endDate') }}</label>
         <DatePicker
           id="endedAt"
-          v-model="formData.endedAt"
+          v-model="endedAt"
           showTime
           dateFormat="yy/mm/dd"
           hourFormat="24"
           :placeholder="$t('forms.booking.endDatePlaceholder')"
-          :invalid="!!errors.endedAt"
+          :invalid="!!endedAtError"
           fluid
         />
         <small
-          v-if="errors.endedAt"
+          v-if="endedAtError"
           class="text-red-500"
-        >{{ errors.endedAt }}</small>
+        >{{ endedAtError }}</small>
       </div>
 
       <div class="flex flex-col gap-2">
@@ -88,17 +90,16 @@
         >{{ $t('forms.booking.participants') }}</label>
         <InputNumber
           id="participants"
-          v-model="formData.participantsCount"
+          v-model="participantsCount"
           :min="1"
           class="w-[5rem]"
-          :placeholder="$t('forms.booking.participantsPlaceholder')"
-          :invalid="!!errors.participantsCount"
+          :invalid="!!participantsCountError || !!customParticipantsError"
           fluid
         />
         <small
-          v-if="errors.participantsCount"
+          v-if="customParticipantsError || participantsCountError"
           class="text-red-500"
-        >{{ errors.participantsCount }}</small>
+        >{{ customParticipantsError || participantsCountError }}</small>
       </div>
 
       <div class="flex flex-col gap-2 col-span-full">
@@ -108,7 +109,7 @@
         >{{ $t('forms.booking.addParticipants') }}</label>
         <MultiSelect
           id="participantIds"
-          v-model="formData.participantIds"
+          v-model="participantIds"
           :options="availableUsers"
           optionLabel="displayName"
           optionValue="id"
@@ -124,7 +125,7 @@
       <div class="flex items-center gap-2 col-span-full">
         <Checkbox
           id="isPrivate"
-          v-model="formData.isPrivate"
+          v-model="isPrivate"
           :binary="true"
         />
         <label
@@ -159,14 +160,10 @@ import { useRoom } from '~/composables/useRoom'
 import { useAuth } from '~/composables/useAuth'
 import { useBooking } from '~/composables/useBooking'
 import { useToast } from 'primevue/usetoast'
+import { useField, useForm } from 'vee-validate'
 
 const props = defineProps<{
   bookingId: string
-}>()
-
-const emit = defineEmits<{
-  success: []
-  cancel: []
 }>()
 
 const { t } = useI18n()
@@ -174,49 +171,38 @@ const toast = useToast()
 const { users, fetchUsers, loading: usersLoading } = useUser()
 const { rooms, fetchRooms, loading: roomsLoading } = useRoom()
 const { user, isAdmin } = useAuth()
-const { fetchBooking, updateBooking, booking, loading } = useBooking()
+const { fetchBooking, updateBooking, loading, booking } = useBooking()
 
-const formData = ref({
-  title: '',
-  roomId: '',
-  startedAt: new Date(),
-  endedAt: new Date(),
-  participantsCount: 1,
-  isPrivate: false,
-  participantIds: [] as string[],
+const { handleSubmit, resetForm } = useForm<IBookingUpdateRequest>({
+  validationSchema: {
+    title: 'required',
+    roomId: 'required',
+    startedAt: 'required',
+    endedAt: 'required',
+    participantsCount: 'required|min:1',
+    isPrivate: 'required',
+  },
 })
 
-// Watch dla bookingId - pobierz dane gdy się zmieni
-watch(() => props.bookingId, async (newBookingId) => {
-  if (newBookingId) {
-    await fetchBooking(newBookingId)
-    if (booking.value) {
-      const participantIds = booking.value.participants?.map(p => p.id) || []
-      formData.value = {
-        title: booking.value.title,
-        roomId: booking.value.room.id,
-        startedAt: new Date(booking.value.startedAt),
-        endedAt: new Date(booking.value.endedAt),
-        participantsCount: booking.value.participantsCount,
-        isPrivate: booking.value.isPrivate,
-        participantIds,
-      }
-    }
-  }
-}, { immediate: true })
+const { value: title, errorMessage: titleError } = useField<string>('title')
+const { value: roomId, errorMessage: roomIdError } = useField<string>('roomId')
+const { value: startedAt, errorMessage: startedAtError } = useField<Date | null>('startedAt')
+const { value: endedAt, errorMessage: endedAtError } = useField<Date | null>('endedAt')
+const { value: participantsCount, errorMessage: participantsCountError } = useField<number>('participantsCount')
+const { value: isPrivate, errorMessage: isPrivateError } = useField<boolean>('isPrivate')
+const { value: participantIds, errorMessage: participantIdsError } = useField<string[]>('participantIds')
 
-// Reaktywna walidacja liczby uczestników
-watch([() => formData.value.participantIds, () => formData.value.participantsCount], () => {
-  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
-    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
+const customParticipantsError = ref<string>('')
+
+watch([() => participantIds.value, () => participantsCount.value], () => {
+  if (participantIds.value && participantIds.value.length > participantsCount.value) {
+    customParticipantsError.value = `Liczba uczestników (${participantsCount.value}) nie może być mniejsza niż liczba wybranych osób (${participantIds.value.length})`
   }
-  else if (errors.value.participantsCount && errors.value.participantsCount.includes('liczba wybranych osób')) {
-    // Usuń błąd tylko jeśli był związany z liczbą wybranych osób
-    delete errors.value.participantsCount
+  else {
+    customParticipantsError.value = ''
   }
 })
 
-// Lista dostępnych sal
 const availableRooms = computed(() => {
   if (!rooms.value || !Array.isArray(rooms.value)) {
     return []
@@ -241,92 +227,41 @@ const availableUsers = computed(() => {
     }))
 })
 
-const errors = ref<Record<string, string>>({})
-
-const validate = () => {
-  errors.value = {}
-
-  if (!formData.value.title || formData.value.title.trim() === '') {
-    errors.value.title = 'Tytuł jest wymagany'
-  }
-
-  if (!formData.value.roomId) {
-    errors.value.roomId = 'Sala jest wymagana'
-  }
-
-  if (!formData.value.startedAt) {
-    errors.value.startedAt = 'Data rozpoczęcia jest wymagana'
-  }
-
-  if (!formData.value.endedAt) {
-    errors.value.endedAt = 'Data zakończenia jest wymagana'
-  }
-
-  if (formData.value.startedAt && formData.value.endedAt) {
-    if (formData.value.startedAt >= formData.value.endedAt) {
-      errors.value.endedAt = 'Data zakończenia musi być później niż data rozpoczęcia'
-    }
-  }
-
-  if (!formData.value.participantsCount || formData.value.participantsCount < 1) {
-    errors.value.participantsCount = 'Liczba uczestników musi być większa niż 0'
-  }
-
-  if (formData.value.participantIds && formData.value.participantIds.length > formData.value.participantsCount) {
-    errors.value.participantsCount = `Liczba uczestników (${formData.value.participantsCount}) nie może być mniejsza niż liczba wybranych osób (${formData.value.participantIds.length})`
-  }
-
-  return Object.keys(errors.value).length === 0
-}
-
-const handleSubmit = async () => {
-  if (!validate()) {
+const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
+  if (customParticipantsError.value) {
     return
   }
 
   try {
-    // Formatowanie daty do ISO 8601 z offsetem strefy czasowej
-    const formatDateWithTimezone = (date: Date) => {
+    // Konwersja Date do ISO string format (bez Z i milisekund)
+    const formatDateTime = (date: Date | null | undefined) => {
+      if (!date || !(date instanceof Date)) return undefined
       const year = date.getFullYear()
       const month = String(date.getMonth() + 1).padStart(2, '0')
       const day = String(date.getDate()).padStart(2, '0')
       const hours = String(date.getHours()).padStart(2, '0')
       const minutes = String(date.getMinutes()).padStart(2, '0')
       const seconds = String(date.getSeconds()).padStart(2, '0')
-
-      // Oblicz offset strefy czasowej
-      const timezoneOffset = -date.getTimezoneOffset()
-      const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60)
-      const offsetMinutes = Math.abs(timezoneOffset) % 60
-      const offsetSign = timezoneOffset >= 0 ? '+' : '-'
-      const offset = `${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`
-
-      return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${offset}`
+      return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
     }
 
-    const updateData: IBookingUpdateRequest = {
-      title: formData.value.title,
-      roomId: formData.value.roomId,
-      startedAt: formatDateWithTimezone(formData.value.startedAt),
-      endedAt: formatDateWithTimezone(formData.value.endedAt),
-      participantsCount: formData.value.participantsCount,
-      isPrivate: formData.value.isPrivate,
-      participantIds: formData.value.participantIds,
+    const payload = {
+      ...formValue,
+      startedAt: formatDateTime(startedAt.value),
+      endedAt: formatDateTime(endedAt.value),
     }
 
-    await updateBooking(props.bookingId, updateData)
+    await updateBooking(props.bookingId, payload)
     toast.add({
       severity: 'success',
       summary: t('common.toast.success'),
       detail: t('common.toast.bookingUpdated'),
       life: 3000,
     })
-    emit('success')
   }
   catch (error: any) {
     console.error('Błąd podczas aktualizacji rezerwacji:', error)
 
-    // Sprawdź czy to błąd 409 (konflikt - zajęty slot czasowy)
     if (error?.status === 409 || error?.response?.status === 409) {
       const errorMessage = error?.data?.message || error?.response?.data?.message || ''
 
@@ -342,7 +277,6 @@ const handleSubmit = async () => {
       }
     }
 
-    // Domyślna obsługa błędów
     toast.add({
       severity: 'error',
       summary: t('common.error'),
@@ -350,13 +284,24 @@ const handleSubmit = async () => {
       life: 3000,
     })
   }
-}
+})
 
-// Pobierz użytkowników i sale przy montowaniu komponentu
 onMounted(async () => {
-  await Promise.all([
-    fetchUsers(false),
-    fetchRooms(false, 'available'),
-  ])
+  await fetchBooking(props.bookingId)
+  if (booking.value) {
+    resetForm({
+      values: {
+        title: booking.value.title,
+        roomId: booking.value.room.id,
+        startedAt: new Date(booking.value.startedAt),
+        endedAt: new Date(booking.value.endedAt),
+        participantsCount: Number(booking.value.participantsCount),
+        isPrivate: booking.value.isPrivate,
+        participantIds: booking.value.participants.map(p => p.id),
+      },
+    })
+  }
+  await fetchUsers(false)
+  await fetchRooms(false)
 })
 </script>

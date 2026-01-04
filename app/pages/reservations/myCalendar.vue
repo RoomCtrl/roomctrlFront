@@ -224,9 +224,9 @@
           @deleted="handleDeleted"
         />
 
-        <BookingForm
+        <FormsBookingRentForm
           :visible="showBookingForm"
-          :room-id="selectedRoomId"
+          :provided-room-id="selectedRoomId"
           :booking-id="editingBookingId"
           @success="handleBookingSuccess"
           @cancel="showBookingForm = false"
@@ -243,7 +243,6 @@
 import { ref, computed, onMounted } from 'vue'
 import CalendarHeader from '~/components/reservations/myCalendar/CalendarHeader.vue'
 import RentDetails from '~/components/reservations/myCalendar/RentDetails.vue'
-import BookingForm from '~/components/rooms/BookingForm.vue'
 import { useBooking } from '~/composables/useBooking'
 import { useAuth } from '~/composables/useAuth'
 import { dayOfWeekFullNames } from '~/utils/dateHelpers'

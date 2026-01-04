@@ -1,8 +1,14 @@
 <template>
-  <div v-if="loading" class="flex items-center justify-center min-h-screen">
+  <div
+    v-if="loading"
+    class="flex items-center justify-center min-h-screen"
+  >
     <ProgressSpinner />
   </div>
-  <div v-else class="p-content flex min-h-screen overflow-hidden">
+  <div
+    v-else
+    class="p-content flex min-h-screen overflow-hidden"
+  >
     <aside>
       <Menu
         :model="items"
@@ -137,21 +143,12 @@ import LanguageSelect from '~/components/layoutParts/LanguageSelect.vue'
 
 const localePath = useLocalePath()
 const { t } = useI18n()
-const { logout, user, syncFromStorage } = useAuth()
+const { logout, syncFromStorage } = useAuth()
 const route = useRoute()
 const router = useRouter()
 
 const isCollapsed = ref(true)
 const loading = ref(true)
-
-onMounted(() => {
-  // Upewnij się, że dane są załadowane przed wyświetleniem layoutu
-  syncFromStorage()
-  // Daj chwilę na synchronizację danych
-  setTimeout(() => {
-    loading.value = false
-  }, 50)
-})
 
 const normalizePath = (path) => {
   if (!path) return '/'
@@ -182,6 +179,11 @@ const items = computed(() => [
     icon: 'pi pi-users',
   },
   {
+    label: t('layouts.adminSidebar.items.reservationList'),
+    link: '/adminDashboard/reservationList',
+    icon: 'pi pi-book',
+  },
+  {
     label: t('layouts.adminSidebar.items.reportsOfRooms'),
     link: '/adminDashboard/roomIssueReports',
     icon: 'pi pi-exclamation-circle',
@@ -194,20 +196,28 @@ const items = computed(() => [
   {
     label: t('layouts.adminSidebar.items.settings'),
     link: '/adminDashboard/settings',
-    icon: 'pi pi-cog'
-  }
+    icon: 'pi pi-cog',
+  },
 ])
 
 const handleLogout = async () => {
-  await logout('/')
+  loading.value = true
+  try {
+    await logout('/')
+  }
+  finally {
+    loading.value = false
+  }
 }
+
+onMounted(() => {
+  syncFromStorage()
+  loading.value = false
+})
 </script>
 
 <style scoped>
 .light .p-content {
   @apply bg-gray-500/40
-}
-.p-button-outlined {
-  background-color: ;
 }
 </style>

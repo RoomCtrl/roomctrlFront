@@ -46,7 +46,6 @@ const accessibilityRules = {
   'vuejs-accessibility/form-control-has-label': 'warn',
   'vuejs-accessibility/interactive-supports-focus': 'warn',
   'vuejs-accessibility/mouse-events-have-key-events': 'warn',
-  'vuejs-accessibility/label-has-for': 'warn',
   'vuejs-accessibility/tabindex-no-positive': 'warn',
   'vuejs-accessibility/anchor-has-content': 'warn',
   'vuejs-accessibility/heading-has-content': 'warn',

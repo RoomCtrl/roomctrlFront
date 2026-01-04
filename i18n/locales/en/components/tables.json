@@ -12,10 +12,32 @@
     "booker": "Booker",
     "day": "Day",
     "hour": "Hour",
+    "startedAt": "Start",
+    "endedAt": "End",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "startTime": "Start Time",
+    "endTime": "End Time",
     "status": "Status",
     "email": "Email",
     "phone": "Phone",
-    "actions": "Actions"
+    "actions": "Actions",
+    "reservationTitle": "Reservation Title",
+    "isPrivate": "Private",
+    "participantsCount": "Participants Count",
+    "priority": "Priority",
+    "reportedBy": "Reported By",
+    "reportDate": "Report Date",
+    "username": "Username",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "role": "Role"
+  },
+  "buttonTooltips": {
+    "goToRoom": "Go to room",
+    "cancelRent": "Cancel reservation",
+    "editRent": "Edit reservation",
+    "viewParticipants": "View participants"
   },
   "emptyMessages": {
     "noRentsToConfirm": "No reservations to confirm",
@@ -26,5 +48,9 @@
     "goToRoom": "Go to room",
     "approveRent": "Approve reservation",
     "deniedRent": "Reject reservation"
+  },
+  "fieldValue": {
+    "true": "Yes",
+    "false": "No"
   }
 }

@@ -56,7 +56,7 @@ const bookingTypeCount = await fetchBookingTypeCount()
 const statusList = computed(() => [
   {
     id: 1,
-    label: t('pages.adminDashboard.statistics.statusConfirmed'),
+    label: t('pages.adminDashboard.statistics.statusActive'),
     count: bookingTypeCount.active,
     percentage: Math.round((bookingTypeCount.active / bookingTypeCount.count) * 100),
     color: '#10b981',
@@ -79,8 +79,7 @@ const statusList = computed(() => [
 
 const chartData = computed(() => ({
   labels: [
-    t('pages.adminDashboard.statistics.statusConfirmed'),
-    t('pages.adminDashboard.statistics.statusPending'),
+    t('pages.adminDashboard.statistics.statusActive'),
     t('pages.adminDashboard.statistics.statusCancelled'),
     t('pages.adminDashboard.statistics.statusCompleted'),
   ],

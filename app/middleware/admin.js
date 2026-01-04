@@ -5,34 +5,28 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return
   }
 
-  const { checkAuth, isAdmin, syncFromStorage, isAuthenticated, user } = useAuth()
+  const { checkAuth, isAdmin, syncFromStorage, isAuthenticated, logout } = useAuth()
   const localePath = useLocalePath()
   
   // Synchronizuj dane z localStorage
   syncFromStorage()
   
-  // Czekaj krótką chwilę na załadowanie danych
-  await new Promise(resolve => setTimeout(resolve, 10))
-  
-  // Jeśli użytkownik i token są dostępne lokalnie
-  if (isAuthenticated.value && user.value) {
-    // Sprawdź czy jest adminem na podstawie lokalnych danych
-    if (!isAdmin.value) {
-      return navigateTo(localePath('/unauthorized'))
-    }
-    // Waliduj token w tle, nie blokując nawigacji
-    checkAuth().catch(() => {})
-    return
+  // Sprawdź czy użytkownik jest zalogowany
+  if (!isAuthenticated.value) {
+    return navigateTo(localePath('/login'))
   }
   
-  // Jeśli nie ma danych lokalnych, wykonaj pełną walidację
+  // Waliduj token przy każdym przejściu
   const authResult = await checkAuth()
 
   if (!authResult) {
+    // Token wygasł lub jest nieprawidłowy
+    await logout()
     return navigateTo(localePath('/login'))
   }
 
+  // Sprawdź czy użytkownik jest adminem
   if (!isAdmin.value) {
-    return navigateTo(localePath('/unauthorized'))
+    return navigateTo(localePath('/'))
   }
 })

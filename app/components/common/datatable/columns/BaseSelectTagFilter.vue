@@ -10,17 +10,12 @@
         name="body"
         v-bind="slotProps"
       >
-        <Tag
-          :value="$t('pages.reservationsHistory.statuses.' +slotProps.data[field])"
-          :severity="statusColor[slotProps.data[field] as keyof typeof statusColor]"
-        />
-        <!-- <Message
-          pt:content:style="--p-message-content-padding: 0.25rem "
-          pt:text:class="text-center w-full text-md"
-          :severity="statusColor[slotProps.data[field] as keyof typeof statusColor]"
-        >
-          {{ $t('pages.reservationsHistory.statuses.' +slotProps.data[field]) }}
-        </Message> -->
+        <div class="flex justify-center">
+          <Tag
+            :value="$t('pages.reservationsHistory.statuses.' + slotProps.data[field])"
+            :severity="statusColor[slotProps.data[field] as keyof typeof statusColor]"
+          />
+        </div>
       </slot>
     </template>
     <template
@@ -46,6 +41,7 @@ withDefaults(
   defineProps<{
     field: string
     header: string
+    statusColor: Record<string, string>
     sortable?: boolean
     filter?: boolean
     showFilterMenu?: boolean
@@ -59,10 +55,4 @@ withDefaults(
     showFilterMenu: false,
   },
 )
-
-const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string>>(() => ({
-  cancelled: 'danger',
-  completed: 'success',
-  active: 'info',
-}))
 </script>

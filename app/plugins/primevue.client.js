@@ -1,11 +1,16 @@
 import { defineNuxtPlugin } from '#app'
 import PrimeVue from 'primevue/config'
+import { FilterService } from '@primevue/core/api'
+import { customDateFilter, customTimeFilter } from '~/utils/CustomFilterMatchModes'
 
 export default defineNuxtPlugin({
   name: 'primevue-locale',
   dependsOn: ['i18n:plugin'],
   async setup(nuxtApp) {
     const { locale, t } = nuxtApp.$i18n
+
+    FilterService.register('customDateFilter', customDateFilter)
+    FilterService.register('customTimeFilter', customTimeFilter)
 
     const updatePrimeVueLocale = () => {
       return {

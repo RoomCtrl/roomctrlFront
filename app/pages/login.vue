@@ -6,10 +6,10 @@
     >
       <TabList>
         <Tab value="0">
-          Logowanie
+          {{ $t('forms.titles.loginForm') }}
         </Tab>
         <Tab value="1">
-          Rejestracja
+          {{ $t('forms.titles.registrationForm') }}
         </Tab>
       </TabList>
       <TabPanels>
@@ -25,6 +25,10 @@
 </template>
 
 <script setup>
-import BaseLogin from '~/components/forms/baseLogin.vue'
+import BaseLogin from '~/components/forms/BaseLogin.vue'
 import Registration from '~/components/forms/Registration.vue'
+
+definePageMeta({
+  middleware: ['guest'],
+})
 </script>

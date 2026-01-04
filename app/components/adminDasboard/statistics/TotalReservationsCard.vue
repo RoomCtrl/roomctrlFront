@@ -35,7 +35,7 @@
             />
           </div>
           <div class="flex justify-between items-center">
-            <span>{{ $t('pages.adminDashboard.statistics.today') }}:</span>
+            <span>{{ $t('date.today') }}:</span>
             <Tag
               :value="reservationsCount.today"
               severity="warning"

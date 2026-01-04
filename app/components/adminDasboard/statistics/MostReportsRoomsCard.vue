@@ -28,7 +28,7 @@
           </div>
           <div class="text-right">
             <Tag
-              :value="`${room.priority}`"
+              :value="$t(`pages.adminDashboard.roomIssueReports.priority.${room.priority}`)"
               :severity="getSeverity(room.priority)"
             />
           </div>

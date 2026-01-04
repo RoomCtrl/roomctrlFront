@@ -34,10 +34,9 @@
       />
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
         <div class="flex gap-2 justify-center sm:justify-start">
-          <Button
-            :label="t('pages.roomDetails.buttons.rentNow')"
-            class="flex-1 sm:flex-none"
-            @click="emit('showBookingForm')"
+          <RentButton
+            :buttonLabel="t('pages.roomDetails.buttons.rentNow')"
+            :roomId="roomId"
           />
           <Button
             v-tooltip="isFavoriteLocal ? t('pages.roomDetails.buttons.removeFavorite') : t('pages.roomDetails.buttons.addFavorite')"
@@ -69,6 +68,7 @@ import type { IBooking } from '~/interfaces/RoomsIntefaces'
 import { useRoom } from '~/composables/useRoom'
 import { useToast } from 'primevue/usetoast'
 import ReportRoomIssue from '~/components/forms/ReportRoomIssue.vue'
+import RentButton from '~/components/booking/RentButton.vue'
 
 const props = defineProps<{
   roomName: string
@@ -79,10 +79,6 @@ const props = defineProps<{
   nextBookings?: IBooking[]
   roomId: string
   isFavorite?: boolean
-}>()
-
-const emit = defineEmits<{
-  showBookingForm: []
 }>()
 
 const { t } = useI18n()
@@ -127,11 +123,6 @@ const handleToggleFavorite = async () => {
     })
   }
 }
-
-const buttons = [
-  t('pages.roomDetails.buttons.rentNow'),
-  t('pages.roomDetails.buttons.addFavorite'),
-]
 
 watch(() => props.isFavorite, (newValue) => {
   isFavoriteLocal.value = newValue || false

@@ -11,7 +11,7 @@
         name="body"
         v-bind="slotProps"
       >
-        <div class="flex flex-row gap-2 items-center">
+        <div class="flex flex-row gap-2 items-center justify-center">
           <div
             v-if="showTime || onlyTime"
             class="flex flex-row gap-1 items-center"
@@ -45,6 +45,7 @@
         :showTime="showTime && !onlyTime"
         showButtonBar
         :placeholder="$t('forms.filters.search')"
+        fluid
         @date-select="filterCallback()"
         @clear-click="handleClearDate(filterModel, filterCallback)"
       />
