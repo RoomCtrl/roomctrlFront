@@ -3,6 +3,10 @@
     "rentNow": "Book now",
     "addFavorite": "Add to favorites"
   },
+  "images": {
+    "title": "Room Photos",
+    "noImages": "No photos"
+  },
   "detailedInfo": {
     "title": "Room information: ",
     "parameters": {

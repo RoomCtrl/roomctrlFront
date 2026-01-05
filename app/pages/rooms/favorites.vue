@@ -4,7 +4,7 @@
       <Card class="absolute left-0">
         <template #title>
           <h1 class="font-bold text-4xl">
-            Lista sal
+            {{ $t('pages.rooms.favoriteRooms') }}
           </h1>
         </template>
       </Card>

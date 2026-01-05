@@ -1,5 +1,6 @@
 {
   "room": "Room no. ",
+  "favoriteRooms": "Favorite Rooms",
   "size": "Room size: ",
   "capacity": "Capacity: ",
   "location": "Location: ",

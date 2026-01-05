@@ -3,6 +3,10 @@
     "rentNow": "Zarezerwuj teraz",
     "addFavorite": "Dodaj do ulubinych"
   },
+  "images": {
+    "title": "Zdjęcia sali",
+    "noImages": "Brak zdjęć"
+  },
   "detailedInfo": {
     "title": "Informacje o sali: ",
     "parameters": {

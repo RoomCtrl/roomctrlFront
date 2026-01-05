@@ -1,70 +1,79 @@
 <template>
-  <div class="flex w-full">
+  <div class="flex w-full overflow-x-hidden">
     <div
       v-if="roomDetails"
-      class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-2 mx-2 sm:mx-3 md:mx-4 lg:mx-5 w-full auto-rows-min"
+      class="flex flex-col lg:grid lg:grid-cols-6 gap-2 mx-2 sm:mx-3 md:mx-4 lg:mx-5 w-full"
     >
-      <GeneralInfo
-        class="col-span-1 md:col-span-3 lg:col-span-5 md:row-start-1"
-        :room-name="roomDetails.roomName"
-        :room-description="roomDetails.description"
-        :started-at="roomDetails.currentBooking?.startedAt"
-        :ended-at="roomDetails.currentBooking?.endedAt"
-        :current-booking="roomDetails?.currentBooking"
-        :next-bookings="roomDetails?.nextBookings"
-        :room-id="roomDetails?.roomId"
-        :is-favorite="roomDetails?.isFavorite || false"
-        @show-booking-form="showBookingForm = true"
-      />
+      <!-- Row 1: General Info + Current Meeting -->
+      <div class="flex flex-col md:flex-row gap-2 lg:contents">
+        <GeneralInfo
+          class="flex-1 lg:col-span-5"
+          :room-name="roomDetails.roomName"
+          :room-description="roomDetails.description"
+          :started-at="roomDetails.currentBooking?.startedAt"
+          :ended-at="roomDetails.currentBooking?.endedAt"
+          :current-booking="roomDetails?.currentBooking"
+          :next-bookings="roomDetails?.nextBookings"
+          :room-id="roomDetails?.roomId"
+          :is-favorite="roomDetails?.isFavorite || false"
+          @show-booking-form="showBookingForm = true"
+        />
 
-      <CurrentMeeting
-        v-if="roomDetails && status !== 'maintance'"
-        class="col-span-1 md:row-start-1"
-        :current-booking="roomDetails.currentBooking as any"
-      />
+        <CurrentMeeting
+          v-if="roomDetails && status !== 'maintance'"
+          class="md:w-64 lg:w-auto lg:col-span-1"
+          :current-booking="roomDetails.currentBooking as any"
+        />
 
-      <Card
-        v-else
-        class="col-span-1 md:row-start-1"
-        pt:root:class="border-l-4 border-yellow-600 overflow-hidden"
-        pt:body:class="flex justify-center items-center bg-yellow-200/80 text-yellow-900 w-full h-full"
-        pt:content:class="text-lg font-extrabold"
-      >
-        <template #content>
-          <div class="flex flex-col gap-2 items-center text-center">
-            <i
-              class="pi pi-exclamation-triangle"
-              style="font-size: 2.5rem;"
-            />
-            <h1 class="text-2xl">
-              {{ $t('pages.allRooms.statuses.roomTitle.closed') }}
-            </h1>
-          </div>
-        </template>
-      </Card>
+        <Card
+          v-else
+          class="md:w-64 lg:w-auto lg:col-span-1"
+          pt:root:class="border-l-4 border-yellow-600 overflow-hidden"
+          pt:body:class="flex justify-center items-center bg-yellow-200/80 text-yellow-900 w-full h-full"
+          pt:content:class="text-lg font-extrabold"
+        >
+          <template #content>
+            <div class="flex flex-col gap-2 items-center text-center">
+              <i
+                class="pi pi-exclamation-triangle"
+                style="font-size: 2.5rem;"
+              />
+              <h1 class="text-2xl">
+                {{ $t('pages.allRooms.statuses.roomTitle.closed') }}
+              </h1>
+            </div>
+          </template>
+        </Card>
+      </div>
 
-      <DetailedInfo
-        class="col-span-1 md:col-span-2 lg:col-span-2 md:col-start-1 md:row-start-2"
-        :room-parameters="roomDetails as any"
-      />
+      <!-- Row 2: Detailed Info + Equipment -->
+      <div class="flex flex-col md:flex-row gap-2 lg:contents">
+        <DetailedInfo
+          class="flex-1 lg:col-span-2"
+          :room-parameters="roomDetails as any"
+        />
 
-      <EqupimentInfo
-        class="col-span-1 md:col-span-2 lg:col-span-2 md:col-start-3 md:row-start-2"
-        :equpiments="roomDetails?.equipment as any"
-      />
+        <EqupimentInfo
+          class="flex-1 lg:col-span-2"
+          :equpiments="roomDetails?.equipment as any"
+        />
+      </div>
 
+      <!-- Upcoming Meetings -->
       <UpcomingMeeting
-        class="col-span-1 md:col-span-4 lg:col-span-2 md:row-start-3 lg:col-start-5 lg:row-start-2 lg:row-span-3"
+        class="lg:col-span-2 lg:row-span-2"
         :meetings="roomDetails?.nextBookings as any"
       />
 
+      <!-- Room Images -->
       <RoomImages
         v-if="roomDetails"
         :room-id="roomDetails.roomId"
-        class="col-span-3 md:col-span-4 lg:col-span-3"
+        class="lg:col-span-3"
       />
 
-      <div class="col-span-1 md:col-span-4 lg:col-span-1 md:col-start-1 grid md:grid-rows-3 gap-2">
+      <!-- Info Cards Row -->
+      <div class="flex flex-col md:flex-row lg:flex-col gap-2 lg:col-span-1 min-w-0">
         <InfoCard
           :header="$t('pages.roomDetails.cleaning.title')"
         >
@@ -111,20 +120,20 @@
         <InfoCard
           :header="$t('pages.roomDetails.contact.title')"
         >
-          <div class="flex flex-col max-lg:flex-row max-lg:gap-2">
-            <div class="flex flex-row gap-1">
-              <h1>
+          <div class="flex flex-col gap-1">
+            <div class="flex flex-col">
+              <h1 class="shrink-0">
                 {{ $t('pages.roomDetails.contact.name') }}
               </h1>
-              <h2>
+              <h2 class="break-all">
                 {{ organization?.name || $t('common.noData') }}
               </h2>
             </div>
-            <div class="flex flex-row gap-1">
-              <h1>
+            <div class="flex flex-col">
+              <h1 class="shrink-0">
                 {{ $t('pages.roomDetails.contact.email') }}
               </h1>
-              <h2>
+              <h2 class="break-all">
                 {{ organization?.email || $t('common.noData') }}
               </h2>
             </div>
