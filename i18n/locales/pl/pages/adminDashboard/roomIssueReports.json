@@ -19,6 +19,7 @@
   },
   "reported": "Zgłosił: ",
   "empty": "Brak zgłoszeń pasujących do wybranych filtrów",
+  "notFoundIssues": "Nie znaleziono zgłoszeń",
   "modal": {
     "title": "Szczegóły zgłoszenia #{issueNumber}",
     "status": "Status",

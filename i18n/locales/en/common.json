@@ -53,6 +53,9 @@
   "filters": {
     "all": "All"
   },
+  "navigation": {
+    "adminPanel": "Admin Panel"
+  },
   "reset": "Reset",
   "apply": "Apply",
   "persons": "persons"
