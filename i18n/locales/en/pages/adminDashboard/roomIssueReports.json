@@ -3,14 +3,19 @@
   "subtitle": "Manage reported room problems",
   "status": {
     "closed": "Closed",
-    "new": "New",
-    "inProgress": "In progress"
+    "pending": "Pending",
+    "in_progress": "In Progress"
   },
   "priority": {
     "critical": "Critical",
     "high": "High",
-    "mid": "Medium",
+    "medium": "Medium",
     "low": "Low"
+  },
+  "category": {
+    "equipment": "Equipment",
+    "infrastructure": "Infrastructure",
+    "furniture": "Furniture"
   },
   "reported": "Reported by: ",
   "empty": "No issues match the selected filters",

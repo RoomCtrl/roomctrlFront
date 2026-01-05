@@ -28,7 +28,7 @@
       </div>
       <div class="flex flex-col justify-center items-center w-full h-full">
         <Chart
-          v-if="bookings"
+          v-if="bookings?.length > 0"
           type="pie"
           class="flex flex-col justify-end h-[90%] w-[90%]"
           :data="chartData"

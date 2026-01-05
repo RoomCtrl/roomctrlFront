@@ -18,5 +18,6 @@
   "confirmedReservations": "Rezerwacje potwierdzone",
   "pendingReservations": "Rezerwacje oczekujące",
   "cancelledReservations": "Rezerwacje anulowane",
-  "occupancyPercentage": "Procent obłożenia"
+  "occupancyPercentage": "Procent obłożenia",
+  "noData": "Brak danych do wyświetlenia"
 }

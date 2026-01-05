@@ -1,4 +1,4 @@
-import type { IStatisticsReservationTrendResponse, IStatisticsUsageRoomsResponse } from '~/interfaces/StatisticsInterfaces'
+import type { IStatisticsMostIsssuesRoomsResponse, IStatisticsReservationTrendResponse, IStatisticsUsageRoomsResponse } from '~/interfaces/StatisticsInterfaces'
 
 export class StatisticsRepository {
   private token: string | null = null
@@ -66,7 +66,7 @@ export class StatisticsRepository {
     })
   }
 
-  async getMostIssuesRooms() {
+  async getMostIssuesRooms(): Promise<IStatisticsMostIsssuesRoomsResponse[]> {
     return await $fetch('/api/rooms/statistics/most_issues', {
       method: 'GET',
       headers: {

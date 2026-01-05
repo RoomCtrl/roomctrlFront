@@ -55,22 +55,35 @@ export interface IRoomDetails {
   isFavorite?: boolean
 }
 
+export interface IRoomImagesResponse {
+  code: number
+  imagePaths: string[]
+}
+
 export interface IRoomCreateRequest {
   roomName: string
+  status: 'available' | 'out_of_use'
   capacity: number
   size: number
   location: string
   access: string
   description: string
   lighting: string
-  airConditioning: IAirConditioning
-  equipment: IEquipment[]
-  organizationId?: string
+  airConditioning: {
+    min: number
+    max: number
+  }
+  organizationId: string
+  equipment: IRoomEqupiment[]
 }
 
-export interface IRoomImagesResponse {
-  code: number
-  imagePaths: string[]
+export interface IRoomEqupiment {
+  name: string
+  category: 'video' | 'audio' | 'computer' | 'accessory' | 'furniture'
+  quantity: number
 }
 
-export interface IRoomUpdateRequest extends Partial<IRoomCreateRequest> {}
+export interface IRoomAirConditioning {
+  min: number
+  max: number
+}

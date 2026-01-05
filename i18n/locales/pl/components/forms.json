@@ -42,7 +42,8 @@
     "loginForm": "Logowanie",
     "registrationForm": "Rejestracja",
     "passwordResetRequest": "Resetowanie hasła",
-    "passwordResetConfirm": "Ustaw nowe hasło"
+    "passwordResetConfirm": "Ustaw nowe hasło",
+    "roomIssueReport": "Zgłoszenie sali"
   },
   "fields": {
     "user": {
@@ -90,6 +91,9 @@
     "daysOfWeek": "Dni tygodnia",
     "weeksAhead": "Tygodnie do przodu",
     "description": "Opis",
+    "status": "Status",
+    "category": "Kategoria",
+    "priority": "Priorytet",
     "acceptTerms": "Akceptacja regulaminu"
   },
   "roomForm": {

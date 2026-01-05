@@ -14,7 +14,7 @@
       pt:title:class="text-3xl font-bold"
       modal
     >
-      <UpdateUserForms
+      <FormsUserUpdateForm
         :userId="userId"
         @update-visible="onUpdate"
       />
@@ -23,8 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import UpdateUserForms from '~/components/forms/UpdateUserForms.vue'
-
 defineProps<{
   userId: string
 }>()

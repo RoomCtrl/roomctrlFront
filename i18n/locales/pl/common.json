@@ -5,6 +5,7 @@
   "success": "Sukces",
   "roomCtrl": "RoomCtrl",
   "logoAlt": "Logo RoomCtrl",
+  "noData": "Brak danych",
   "buttons": {
     "logIn": "Zaloguj się",
     "logOut": "Wyloguj się",

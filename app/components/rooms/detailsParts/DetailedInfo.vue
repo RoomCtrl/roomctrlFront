@@ -25,20 +25,25 @@
         </div>
       </template>
       <template #subtitle>
-        <span class="text-xs sm:text-sm">{{ info.value }}</span>
+        <span
+          v-if="info.value"
+          class="text-xs sm:text-sm"
+        >{{ info.value }}</span>
       </template>
     </Card>
   </Panel>
 </template>
 
 <script setup lang="ts">
+import type { IRoomAirConditioning } from '~/interfaces/RoomsIntefaces'
+
 const props = defineProps<{
   roomParameters: {
     capacity: number
     size: string
     location: string
     access: string
-    airConditioning: string
+    airConditioning: IRoomAirConditioning
     lighting: string
   }
 }>()
@@ -69,12 +74,12 @@ const Informations = [
   {
     title: t('pages.roomDetails.detailedInfo.parameters.airConditioning'),
     icon: 'pi pi-wrench',
-    value: `Min: ${props.roomParameters.airConditioning.min}°C, Max: ${props.roomParameters.airConditioning.max}°C`,
+    value: props.roomParameters.airConditioning ? `Min: ${props.roomParameters.airConditioning.min}°C, Max: ${props.roomParameters.airConditioning.max}°C` : 'Brak',
   },
   {
     title: t('pages.roomDetails.detailedInfo.parameters.lighting'),
     icon: 'pi pi-lightbulb',
-    value: props.roomParameters.lighting,
+    value: props.roomParameters.lighting || 'Brak',
   },
 ]
 

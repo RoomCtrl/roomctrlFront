@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 h-full w-full overflow-auto">
+  <div class="flex flex-col gap-4 h-full w-full overflow-auto">
     <div class="flex">
       <Card>
         <template #content>

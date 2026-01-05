@@ -181,20 +181,20 @@ const availableUsers = computed(() => {
     }))
 })
 
-watch([() => participantIds.value, () => participantsCount.value, () => room.value?.capacity], () => {
-  const roomCapacity = props.capacity || room.value?.capacity
-  if (roomCapacity && participantsCount.value > roomCapacity) {
-    participantsCountError.value = `Liczba uczestników nie może przekroczyć pojemności sali (${roomCapacity})`
-    return
-  }
+// watch([() => participantIds.value, () => participantsCount.value, () => room.value?.capacity], () => {
+//   const roomCapacity = props.capacity || room.value?.capacity
+//   if (roomCapacity && participantsCount.value > roomCapacity) {
+//     participantsCountError.value = `Liczba uczestników nie może przekroczyć pojemności sali (${roomCapacity})`
+//     return
+//   }
 
-  if (participantIds.value && participantIds.value.length > participantsCount.value) {
-    participantsCountError.value = `Liczba uczestników (${participantsCount.value}) nie może być mniejsza niż liczba wybranych osób (${participantIds.value.length})`
-  }
-  else if (participantIdsError && (participantIdsError.includes('liczba wybranych osób') || participantsCountError.value.includes('pojemności sali'))) {
-    delete participantsCountError.value
-  }
-})
+//   if (participantIds.value && participantIds.value.length > participantsCount.value) {
+//     participantsCountError.value = `Liczba uczestników (${participantsCount.value}) nie może być mniejsza niż liczba wybranych osób (${participantIds.value.length})`
+//   }
+//   else if (participantIdsError && (participantIdsError.includes('liczba wybranych osób') || participantsCountError.value.includes('pojemności sali'))) {
+//     delete participantsCountError.value
+//   }
+// })
 
 const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
   try {

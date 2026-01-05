@@ -42,7 +42,8 @@
     "loginForm": "Login",
     "registrationForm": "Registration",
     "passwordResetRequest": "Password Reset",
-    "passwordResetConfirm": "Set New Password"
+    "passwordResetConfirm": "Set New Password",
+    "roomIssueReport": "Room Issue Report"
   },
   "fields": {
     "user": {
@@ -72,11 +73,27 @@
         "quantity": "Quantity"
       }
     },
+    "booking": {
+      "title": "Booking Title",
+      "roomId": "Select Room",
+      "startedAt": "Start Date and Time",
+      "endedAt": "End Date and Time",
+      "participantsCount": "Number of Participants",
+      "participantIds": "Select Participants"
+    },
     "email": "Email",
     "subject": "Subject",
     "phone": "Phone",
     "message": "Message",
+    "workType": "Work Type",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "daysOfWeek": "Days of Week",
+    "weeksAhead": "Weeks Ahead",
     "description": "Description",
+    "status": "Status",
+    "category": "Category",
+    "priority": "Priority",
     "acceptTerms": "Terms acceptance"
   },
   "roomForm": {

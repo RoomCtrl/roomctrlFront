@@ -32,14 +32,11 @@
         </div>
       </div>
       <ReportRoomsTable />
-      <div class="flex flex-row justify-center">
-        <IncomingRentsTable
-          :rows="4"
-          :header="$t('pages.adminDashboard.dashboard.tables.titles.incomingRents')"
-          :bookings="upcomingBookings"
-          class="w-[60%]"
-        />
-      </div>
+      <IncomingRentsTable
+        :rows="4"
+        :header="$t('pages.adminDashboard.dashboard.tables.titles.incomingRents')"
+        :bookings="upcomingBookings"
+      />
     </div>
   </div>
 </template>

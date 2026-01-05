@@ -1,4 +1,4 @@
-import type { IStatisticsReservationTrendResponse, IStatisticsUsageRoomsResponse } from '~/interfaces/StatisticsInterfaces'
+import type { IStatisticsMostIsssuesRoomsResponse, IStatisticsReservationTrendResponse, IStatisticsUsageRoomsResponse } from '~/interfaces/StatisticsInterfaces'
 import { StatisticsRepository } from '~/repositories/StatisticsRepository'
 
 export class StatisticsService {
@@ -32,7 +32,7 @@ export class StatisticsService {
     return await this.repsitory.getLeastUsedRooms()
   }
 
-  async getMostIssuesRooms() {
+  async getMostIssuesRooms(): Promise<IStatisticsMostIsssuesRoomsResponse[]> {
     return await this.repsitory.getMostIssuesRooms()
   }
 

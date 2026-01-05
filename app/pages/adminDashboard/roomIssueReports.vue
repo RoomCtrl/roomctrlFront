@@ -22,7 +22,9 @@ definePageMeta({
   middleware: 'admin',
 })
 
-const { fetchIssues } = useIssue()
+const { fetchIssues, issues } = useIssue()
 
-const issues = await fetchIssues()
+onMounted(async () => {
+  await fetchIssues()
+})
 </script>

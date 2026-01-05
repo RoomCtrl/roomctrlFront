@@ -1,5 +1,9 @@
 <template>
-  <Card class="w-full md:w-[calc(33.333%-0.35rem)]">
+  <Card
+    class="w-full md:w-[calc(33.333%-0.35rem)]"
+    pt:body:class="h-full"
+    pt:content:class="h-full"
+  >
     <template #header>
       <div class="flex items-center justify-between w-full p-4">
         <h3 class="text-lg font-semibold">
@@ -9,9 +13,12 @@
       </div>
     </template>
     <template #content>
-      <div class="space-y-3">
+      <div
+        v-if="mostIssuesRooms.length > 0"
+        class="space-y-3"
+      >
         <div
-          v-for="(room, index) in reportedRooms"
+          v-for="(room, index) in mostIssuesRooms"
           :key="room.id"
           class="flex items-center justify-between p-3 rounded bg-gray-100 dark:bg-gray-800"
         >
@@ -34,13 +41,18 @@
           </div>
         </div>
       </div>
+      <div
+        v-else
+        class="flex justify-center items-center h-full text-2xl font-semibold"
+      >
+        {{ $t('pages.adminDashboard.statistics.noData') }}
+      </div>
     </template>
   </Card>
 </template>
 
 <script setup>
-const { fetchMostIssuesRooms } = useStatistics()
-const reportedRooms = await fetchMostIssuesRooms()
+const { fetchMostIssuesRooms, mostIssuesRooms } = useStatistics()
 
 const getSeverity = (severity) => {
   const severityMap = {
@@ -50,4 +62,8 @@ const getSeverity = (severity) => {
   }
   return severityMap[severity]
 }
+
+onMounted(async () => {
+  await fetchMostIssuesRooms()
+})
 </script>

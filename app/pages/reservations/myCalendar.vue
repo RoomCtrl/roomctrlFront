@@ -223,15 +223,22 @@
           @edit="handleEdit"
           @deleted="handleDeleted"
         />
-
-        <FormsBookingRentForm
-          :visible="showBookingForm"
-          :provided-room-id="selectedRoomId"
-          :booking-id="editingBookingId"
-          @success="handleBookingSuccess"
-          @cancel="showBookingForm = false"
-          @close="showBookingForm = false"
-        />
+        <Dialog
+          v-model:visible="showBookingForm"
+          modal
+          :header="editedReservation ? t('forms.booking.editTitle') : t('forms.booking.newTitle')"
+          :style="{ width: '50rem' }"
+          :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+        >
+          <FormsBookingRentForm
+            :visible="showBookingForm"
+            :provided-room-id="selectedRoomId"
+            :booking-id="editingBookingId"
+            @success="handleBookingSuccess"
+            @cancel="showBookingForm = false"
+            @close="showBookingForm = false"
+          />
+        </Dialog>
       </template>
     </Card>
     <ConfirmDialog />

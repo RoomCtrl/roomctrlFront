@@ -1,4 +1,4 @@
-import type { IIssueCreateResponse, IIssueNewStatusOrPriority } from '~/interfaces/IssuesInterfaces'
+import type { IIssueCreateResponse, IIssueData, IIssueNewStatusOrPriority, IIssuesDataResponse } from '~/interfaces/IssuesInterfaces'
 
 export class IssueRepository {
   private token: string | null = null
@@ -12,7 +12,7 @@ export class IssueRepository {
     }
   }
 
-  async getIssues() {
+  async getIssues(): Promise<IIssuesDataResponse[]> {
     return $fetch('/api/issues', {
       method: 'GET',
       headers: {
@@ -21,7 +21,7 @@ export class IssueRepository {
     })
   }
 
-  async getCurrentUserIssues() {
+  async getCurrentUserIssues(): Promise<IIssuesDataResponse[]> {
     return $fetch('/api/issues/my', {
       method: 'GET',
       headers: {
@@ -30,7 +30,7 @@ export class IssueRepository {
     })
   }
 
-  async getIssueById(issueId: string) {
+  async getIssueById(issueId: string): Promise<IIssueData> {
     return $fetch(`/api/issues/${issueId}`, {
       method: 'GET',
       headers: {

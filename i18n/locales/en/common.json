@@ -5,6 +5,7 @@
   "success": "Success",
   "roomCtrl": "RoomCtrl",
   "logoAlt": "RoomCtrl Logo",
+  "noData": "No data",
   "buttons": {
     "logIn": "Log In",
     "logOut": "Log Out",
@@ -16,6 +17,8 @@
     "start": "Start",
     "details": "Details",
     "add": "Add",
+    "addRoom": "Add Room",
+    "addUser": "Add User",
     "save": "Save",
     "next": "Next",
     "previous": "Previous",

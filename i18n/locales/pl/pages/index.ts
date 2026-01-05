@@ -15,6 +15,7 @@ export { default as roomIssueReports } from './adminDashboard/roomIssueReports.j
 export { default as statistics } from './adminDashboard/statistics.json'
 export { default as settingsAdmin } from './adminDashboard/settings.json'
 export { default as reservationList } from './adminDashboard/reservationList.json'
+export { default as roomList } from './adminDashboard/roomList.json'
 export { default as panelSelector } from './panelSelector.json'
 export { default as notFound } from './notFound.json'
 export { default as myCalendar } from './myCalendar.json'

@@ -6,6 +6,7 @@
   "headers": {
     "roomName": "Room",
     "capacity": "Capacity",
+    "category": "Category",
     "size": "Size",
     "location": "Location",
     "description": "Description",
@@ -28,10 +29,12 @@
     "priority": "Priority",
     "reportedBy": "Reported By",
     "reportDate": "Report Date",
+    "reportTime": "Report Time",
     "username": "Username",
     "firstName": "First Name",
     "lastName": "Last Name",
-    "role": "Role"
+    "role": "Role",
+    "closedAt": "Closed"
   },
   "buttonTooltips": {
     "goToRoom": "Go to room",

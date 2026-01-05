@@ -59,7 +59,6 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          {{ endTime }}
           <label
             for="endTime"
             class="font-semibold"
@@ -185,7 +184,9 @@ const submitForm = handleSubmit(async (formValues: IOrganizationSettings) => {
   try {
     await createBookingRecurring(formValues)
   }
+
   finally {
+    resetForm()
     loading.value = false
     toast.add({
       severity: 'success',

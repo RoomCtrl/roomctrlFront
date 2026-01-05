@@ -16,30 +16,30 @@
         <div class="w-full">
           <div class="flex flex-row justify-between w-full">
             <h2 class="text-3xl font-bold mb-2">
-              {{ $t('pages.adminDashboard.roomIssueReports.modal.title', { issueNumber: formatReportId(selectedIssue.id) }) }}
+              {{ $t('pages.adminDashboard.roomIssueReports.modal.title', { issueNumber: formatReportId(issue?.id || '') }) }}
             </h2>
             <div class="grid grid-cols-2 gap-10 pr-10">
               <div class="flex flex-col">
                 <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 pb-1">
                   {{ $t('pages.adminDashboard.roomIssueReports.modal.status') }}
                 </div>
-                <span :class="['px-2 py-1 rounded-full text-sm font-medium w-[5rem]', getStatusColor(selectedIssue.status)]">
-                  {{ $t('pages.adminDashboard.roomIssueReports.status.' + selectedIssue.status) }}
+                <span :class="['px-2 py-1 rounded-full text-sm font-medium w-[5rem]', getStatusColor(issue?.status || '')]">
+                  {{ $t('pages.adminDashboard.roomIssueReports.status.' + issue?.status) }}
                 </span>
               </div>
               <div>
                 <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 pb-1">
                   {{ $t('pages.adminDashboard.roomIssueReports.modal.priority') }}
                 </div>
-                <span :class="['text-lg font-bold', getPriorityColor(selectedIssue.priority)]">
-                  {{ $t('pages.adminDashboard.roomIssueReports.priority.'+ selectedIssue.priority) }}
+                <span :class="['text-lg font-bold', getPriorityColor(issue?.priority || '')]">
+                  {{ $t('pages.adminDashboard.roomIssueReports.priority.'+ issue?.priority) }}
                 </span>
               </div>
             </div>
           </div>
 
           <p class="text-blue-800 dark:text-blue-100">
-            {{ selectedIssue.roomName }}
+            {{ issue?.roomName }}
           </p>
         </div>
       </div>
@@ -75,7 +75,7 @@
           </h3>
           <div class="bg-gray-300 dark:bg-gray-500 rounded-lg p-4">
             <p class="leading-relaxed">
-              {{ selectedIssue.description }}
+              {{ issue?.description }}
             </p>
           </div>
         </div>
@@ -86,7 +86,7 @@
           </h3>
           <div class="space-y-3">
             <div
-              v-for="(log, index) in selectedIssue.history"
+              v-for="(log, index) in issue?.history"
               :key="index"
               class="flex gap-3 items-start"
             >
@@ -108,11 +108,11 @@
             {{ $t('pages.adminDashboard.roomIssueReports.modal.serviceNotes') }}
           </h3>
           <div
-            v-if="selectedIssue.notes && selectedIssue.notes.length > 0"
+            v-if="issue?.notes && issue.notes.length > 0"
             class="space-y-3"
           >
             <div
-              v-for="(note, index) in selectedIssue.notes"
+              v-for="(note, index) in issue.notes"
               :key="index"
               class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded"
             >
@@ -154,14 +154,14 @@
 
         <div class="border-t border-gray-200 pt-6 flex gap-3">
           <Button
-            v-if="selectedIssue.status === 'pending'"
+            v-if="issue?.status === 'pending'"
             class="flex-1 px-6 py-3"
             :label=" $t('pages.adminDashboard.roomIssueReports.modal.startRepair')"
             severity="warn"
             @click="updateStatusFromModal('in_progress')"
           />
           <Button
-            v-if="selectedIssue.status === 'in_progress'"
+            v-if="issue?.status === 'in_progress'"
             class="flex-1 px-6 py-3"
             :label="$t('pages.adminDashboard.roomIssueReports.modal.closeIssue')"
             severity="success"
@@ -175,13 +175,11 @@
 
 <script setup lang="ts">
 import { Textarea } from 'primevue'
-import type { IIssueData } from '~/interfaces/IssuesInterfaces'
 
 const props = defineProps<{
   issueId: string
 }>()
-const { fetchIssueById, updateIssueStatusOrPriority, createIssueNewNote } = useIssue()
-const selectedIssue = await fetchIssueById(props.issueId) as IIssueData
+const { fetchIssueById, updateIssueStatusOrPriority, createIssueNewNote, issue } = useIssue()
 const visible = ref(false)
 const newNote = ref('')
 const { t } = useI18n()
@@ -189,19 +187,19 @@ const { t } = useI18n()
 const baseReportInfo = computed(() => [
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.category'),
-    value: selectedIssue.category,
+    value: issue.value ? t('pages.adminDashboard.roomIssueReports.category.' + issue.value.category) : '',
   },
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.roomNumber'),
-    value: selectedIssue.roomName,
+    value: issue.value?.roomName || '',
   },
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.reportDate'),
-    value: selectedIssue.reportedAt,
+    value: issue.value?.reportedAt || '',
   },
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.reporter'),
-    value: selectedIssue.reporterName,
+    value: issue.value?.reporterName || '',
   },
 ])
 
@@ -210,18 +208,19 @@ const formatReportId = (id: string) => {
   return reportId[reportId.length - 1]
 }
 
-const updateStatus = async (id, newStatus) => {
-  await updateIssueStatusOrPriority(id, { status: newStatus })
-}
-
-const updateStatusFromModal = (newStatus) => {
-  if (selectedIssue) {
-    updateStatus(selectedIssue.id, newStatus)
+const updateStatusFromModal = async (newStatus: string) => {
+  if (issue.value) {
+    await updateIssueStatusOrPriority(issue.value.id, { status: newStatus })
+    await fetchIssueById(issue.value.id)
+    visible.value = false
   }
 }
 
 const addNote = async () => {
-  await createIssueNewNote(selectedIssue.id, newNote.value)
+  if (issue.value && newNote.value.trim()) {
+    await createIssueNewNote(issue.value.id, newNote.value)
+    newNote.value = ''
+  }
 }
 
 const getStatusColor = (status: string) => {
@@ -242,4 +241,8 @@ const getPriorityColor = (priority: string) => {
     default: return 'text-gray-500'
   }
 }
+
+onMounted(async () => {
+  await fetchIssueById(props.issueId)
+})
 </script>

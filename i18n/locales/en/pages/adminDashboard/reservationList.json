@@ -1,0 +1,8 @@
+{
+  "title": "Reservation List",
+  "status": {
+    "pending": "Pending",
+    "active": "Active",
+    "cancelled": "Cancelled"
+  }
+}

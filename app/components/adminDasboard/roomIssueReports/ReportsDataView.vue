@@ -63,7 +63,9 @@
           <template #content>
             <div class="mb-3">
               <div class="flex items-center gap-2 mb-2">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-400">{{ issue.category }}</span>
+                <span class="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  {{ $t('pages.adminDashboard.roomIssueReports.category.' + issue.category) }}
+                </span>
                 <span :class="['text-sm font-semibold', getPriorityColor(issue.priority)]">
                   • {{ $t('pages.adminDashboard.roomIssueReports.priority.'+ issue.priority) }}
                 </span>

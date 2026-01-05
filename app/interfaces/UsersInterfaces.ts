@@ -20,8 +20,6 @@ export interface IUserAddResponse extends IUser {
   organizationId: string
 }
 
-export interface IUserCredentials { 
-
 export interface IUpdateUserProfileForm {
   username: string
   firstName: string

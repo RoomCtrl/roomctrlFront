@@ -1,10 +1,8 @@
 <template>
   <Card
     pt:root:style="--p-card-body-padding:  0.2rem 0rem 0rem 0rem "
-    pt:caption:class="h-full"
-    pt:title:class="h-full"
-    pt:body:class="flex justify-between h-full"
-    pt:content:class="flex flex-col justify-between"
+    pt:body:class=" h-full"
+    pt:content:class="h-full"
   >
     <template #title>
       <div class="flex flex-row justify-between items-center h-full px-2">
@@ -22,38 +20,41 @@
     <template #content>
       <DataTable
         :pt="{
-          root: {
-            class: 'h-full flex flex-col',
-          },
-          tableContainer: { class: 'flex flex-col justify-end' },
+          root: { class: 'flex flex-col h-full' },
+          table: { class: tableDisplay },
         }"
-        :value="reservations"
+        :value="activeIssues"
         paginator
         size="small"
         :rows="8"
       >
+        <template #empty>
+          <h1 class="flex justify-center items-center text-xl font-semibold min-h-[10rem]">
+            {{ $t('tables.emptyMessages.noRoom') }}
+          </h1>
+        </template>
         <Column
-          class="w-[20%]"
+          class="w-[25%]"
           field="roomName"
           :header="$t('tables.headers.roomName')"
         />
         <Column
-          class="w-[15%]"
+          class="w-[30%]"
           field="reporterName"
           :header="$t('tables.headers.reportedBy')"
         />
         <Column
-          class="w-[35%]"
+          class="w-[25%]"
           field="description"
           :header="$t('tables.headers.description')"
         />
         <Column
-          class="w-[20%]"
+          class="w-[25%]"
           field="reportedAt"
           :header="$t('tables.headers.reportDate')"
         />
         <Column
-          class="w-[20%]"
+          class="w-[10%]"
           field="priority"
           :header="$t('tables.headers.priority')"
         >
@@ -70,8 +71,12 @@
 </template>
 
 <script setup lang="ts">
-const { fetchIssues } = useIssue()
-const reservations = await fetchIssues()
+const { fetchIssues, issues } = useIssue()
+
+const activeIssues = computed(() => {
+  return issues.value.filter(i => !i.closedAt)
+})
+const { tableDisplay } = useDataTable(activeIssues, 8)
 
 const priorityColorClass = (priority: string) => {
   switch (priority) {
@@ -85,4 +90,7 @@ const priorityColorClass = (priority: string) => {
       return 'success'
   }
 }
+onMounted(async () => {
+  await fetchIssues()
+})
 </script>

@@ -54,6 +54,7 @@ export const useBooking = () => {
       throw err
     }
     finally {
+      await fetchBookings()
       loading.value = false
     }
   }

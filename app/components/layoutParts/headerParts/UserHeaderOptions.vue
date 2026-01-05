@@ -16,7 +16,7 @@
       <ClientOnly>
         <ColorModeSwitch />
       </ClientOnly>
-      
+
       <ClientOnly>
         <Button
           v-if="!user"

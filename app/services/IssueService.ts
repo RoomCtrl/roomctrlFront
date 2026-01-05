@@ -1,4 +1,4 @@
-import type { IIssueCreateResponse, IIssueNewStatusOrPriority } from '~/interfaces/IssuesInterfaces'
+import type { IIssueCreateResponse, IIssueData, IIssueNewStatusOrPriority, IIssuesDataResponse } from '~/interfaces/IssuesInterfaces'
 import { IssueRepository } from '~/repositories/IssueRepository'
 
 export class IssueService {
@@ -8,15 +8,15 @@ export class IssueService {
     this.repository = new IssueRepository(token)
   }
 
-  async getIssues() {
+  async getIssues(): Promise<IIssuesDataResponse[]> {
     return this.repository.getIssues()
   }
 
-  async getCurrentUserIssues() {
+  async getCurrentUserIssues(): Promise<IIssuesDataResponse[]> {
     return this.repository.getCurrentUserIssues()
   }
 
-  async getIssueById(issueId: string) {
+  async getIssueById(issueId: string): Promise<IIssueData> {
     return this.repository.getIssueById(issueId)
   }
 

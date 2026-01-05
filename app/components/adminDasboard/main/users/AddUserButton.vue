@@ -12,13 +12,11 @@
     modal
     pt:title:class="text-3xl font-bold"
   >
-    <AddUserFroms @update-visible="onAdd" />
+    <FormsUserAddFrom @update-visible="onAdd" />
   </Dialog>
 </template>
 
 <script setup lang="ts">
-import AddUserFroms from '~/components/forms/AddUserFroms.vue'
-
 const visible = ref(false)
 
 const onAdd = (updateVisible: boolean) => {
