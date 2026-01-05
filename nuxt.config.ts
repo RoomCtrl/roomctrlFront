@@ -45,7 +45,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://185.25.151.154:8080/api/',
+      apiBase: 'http://185.25.151.154/api/',
     },
   },
   compatibilityDate: '2025-05-15',
@@ -53,13 +53,13 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
     devProxy: {
       '/api': {
-        target: 'http://185.25.151.154:8080/api/',
+        target: 'http://185.25.151.154/api/',
         changeOrigin: true,
       },
     },
     routeRules: {
       '/api/**': {
-        proxy: 'http://185.25.151.154:8080/api/**',
+        proxy: 'http://185.25.151.154/api/**',
       },
     },
   },

@@ -50,5 +50,12 @@
   },
   "ios": {
     "title": "iOS"
+  },
+  "screens": {
+    "main": "Home",
+    "rooms": "Rooms",
+    "roomDetails": "Room Details",
+    "calendar": "Calendar",
+    "booking": "Booking"
   }
 }

@@ -45,15 +45,44 @@
           </div>
 
           <div class="bg-[rgba(150,151,140,0.2)] border-2 p-10 rounded-2xl text-center inset-shadow-sm">
-            <h2 class="text-2xl lg:text-4xl font-bold mb-4">
+            <h2 class="text-2xl lg:text-4xl font-bold mb-8">
               {{ $t('pages.aboutUs.opinions.title') }}
             </h2>
-            <p class="italic">
+            <p class="italic text-lg mb-8">
               {{ $t('pages.aboutUs.opinions.feedback') }}
             </p>
-            <p class="mt-2">
-              {{ $t('pages.aboutUs.opinions.inProgress') }}
-            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <div
+                v-for="(opinion, index) in opinions"
+                :key="index"
+                class="bg-white dark:bg-surface-800 p-6 rounded-xl shadow-md text-left hover:shadow-lg transition-shadow duration-300"
+              >
+                <div class="flex items-center gap-1 mb-3">
+                  <i
+                    v-for="star in 5"
+                    :key="star"
+                    class="pi pi-star-fill text-sm"
+                    :class="star <= opinion.rating ? 'text-yellow-400' : 'text-gray-300'"
+                  />
+                </div>
+                <p class="text-gray-700 dark:text-gray-300 italic mb-4">
+                  "{{ opinion.text }}"
+                </p>
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <i class="pi pi-user text-xl text-primary" />
+                  </div>
+                  <div>
+                    <p class="font-semibold text-gray-900 dark:text-white">
+                      {{ opinion.name }}
+                    </p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                      {{ opinion.role }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </template>
@@ -126,4 +155,31 @@ const whyWe = [
     content: t('pages.aboutUs.chooseUs.growthAndScalability.description'),
   },
 ]
+
+const opinions = computed(() => [
+  {
+    name: t('pages.aboutUs.opinions.opinion1.name'),
+    role: t('pages.aboutUs.opinions.opinion1.role'),
+    text: t('pages.aboutUs.opinions.opinion1.text'),
+    rating: 5,
+  },
+  {
+    name: t('pages.aboutUs.opinions.opinion2.name'),
+    role: t('pages.aboutUs.opinions.opinion2.role'),
+    text: t('pages.aboutUs.opinions.opinion2.text'),
+    rating: 5,
+  },
+  {
+    name: t('pages.aboutUs.opinions.opinion3.name'),
+    role: t('pages.aboutUs.opinions.opinion3.role'),
+    text: t('pages.aboutUs.opinions.opinion3.text'),
+    rating: 5,
+  },
+  {
+    name: t('pages.aboutUs.opinions.opinion4.name'),
+    role: t('pages.aboutUs.opinions.opinion4.role'),
+    text: t('pages.aboutUs.opinions.opinion4.text'),
+    rating: 4,
+  },
+])
 </script>

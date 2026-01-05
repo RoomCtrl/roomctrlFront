@@ -20,6 +20,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         login: t('forms.fields.user.login'),
         username: t('forms.fields.user.username'),
         password: t('forms.fields.user.password'),
+        acceptTerms: t('forms.fields.acceptTerms'),
       }
 
       const fieldName = fieldNames[ctx.field] || ctx.field
@@ -27,6 +28,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       const messages = {
         email: t('forms.fieldMessages.error.email'),
         required: t('forms.fieldMessages.error.required', { fieldName }),
+        accepted: t('forms.fieldMessages.error.acceptTerms'),
       }
 
       return messages[ctx.rule.name] || t('forms.fieldMessages.error.invalidField', { fieldName })
