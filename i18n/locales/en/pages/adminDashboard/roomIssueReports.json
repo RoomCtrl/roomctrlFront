@@ -19,6 +19,7 @@
   },
   "reported": "Reported by: ",
   "empty": "No issues match the selected filters",
+  "notFoundIssues": "No issues found",
   "modal": {
     "title": "Issue details #{issueNumber}",
     "status": "Status",

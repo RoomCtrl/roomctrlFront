@@ -53,6 +53,9 @@
   "filters": {
     "all": "Wszystkie"
   },
+  "navigation": {
+    "adminPanel": "Panel administratora"
+  },
   "reset": "Resetuj",
   "apply": "Zastosuj",
   "persons": "osób"

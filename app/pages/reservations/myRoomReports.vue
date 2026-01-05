@@ -117,7 +117,7 @@
       </BaseDateFilterColumn>
       <template #empty>
         <h1 class="flex justify-center items-center min-h-[60vh] font-bold text-2xl">
-          {{ $t('pages.adminDashboard.users.notFoundUsers') }}
+          {{ $t('pages.adminDashboard.roomIssueReports.notFoundIssues') }}
         </h1>
       </template>
     </DataTable>

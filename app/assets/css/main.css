@@ -39,8 +39,8 @@
   @apply bg-white dark:bg-neutral-800;
 }
 
-.p-datatable-empty-message {
-  display: grid;
+.p-datatable tbody tr td[data-pc-section="emptymessagecell"] {
+  text-align: center !important;
 }
 
 .p-paginator-page:hover {
