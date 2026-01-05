@@ -93,7 +93,7 @@
     "description": "Description",
     "status": "Status",
     "category": "Category",
-    "priority": "Priority"
+    "priority": "Priority",
     "acceptTerms": "Terms acceptance"
   },
   "roomForm": {
