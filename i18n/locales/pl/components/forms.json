@@ -94,7 +94,10 @@
     "status": "Status",
     "category": "Kategoria",
     "priority": "Priorytet",
-    "acceptTerms": "Akceptacja regulaminu"
+    "acceptTerms": "Akceptacja regulaminu",
+    "organizationName": "Nazwa organizacji",
+    "organizationEmail": "Email organizacji",
+    "regon": "REGON"
   },
   "roomForm": {
     "buttons": {
@@ -161,14 +164,19 @@
     "isPrivate": "Rezerwacja prywatna",
     "editTitle": "Edytuj rezerwację",
     "cancelTitle": "Anuluj rezerwację",
-    "cancelConfirmation": "Czy na pewno chcesz anulować tę rezerwację?"
+    "cancelConfirmation": "Czy na pewno chcesz anulować tę rezerwację?",
+    "errors": {
+      "exceedsCapacity": "Liczba uczestników nie może przekroczyć pojemności sali ({capacity})",
+      "lessThanSelected": "Liczba uczestników ({count}) nie może być mniejsza niż liczba wybranych osób ({selected})"
+    }
   },
   "fieldMessages": {
     "error": {
       "email": "Wpisz poprawny adres e-mail",
       "required": "Pole {fieldName} jest wymagane.",
       "invalidField": "Pole {fieldName} jest nieprawidłowe.",
-      "acceptTerms": "Musisz zaakceptować regulamin i politykę prywatności."
+      "acceptTerms": "Musisz zaakceptować regulamin",
+      "min": "Pole {fieldName} musi mieć co najmniej {length} znaków."
     }
   },
   "messages": {

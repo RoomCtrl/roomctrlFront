@@ -37,24 +37,40 @@
       filter
     />
     <BaseDateFilterColumn
-      :key="'startedAt'"
+      :key="'startedAtDate'"
       field="startedAt"
-      :header="$t('pages.reservationsHistory.rentStart')"
+      :header="$t('pages.reservationsHistory.rentStartDate')"
       dateFormat="dd/mm/yy"
-      class="w-[12%]"
+      class="w-[10%]"
       sortable
-      showTime
       filter
     />
     <BaseDateFilterColumn
-      :key="'endedAt'"
-      field="endedAt"
-      :header="$t('pages.reservationsHistory.rentEnd')"
-      dateFormat="dd/mm/yy"
-      class="w-[12%]"
+      :key="'startedAtTime'"
+      field="startedAtTime"
+      :header="$t('pages.reservationsHistory.rentStartTime')"
+      class="w-[8%]"
       sortable
-      showTime
       filter
+      onlyTime
+    />
+    <BaseDateFilterColumn
+      :key="'endedAtDate'"
+      field="endedAt"
+      :header="$t('pages.reservationsHistory.rentEndDate')"
+      dateFormat="dd/mm/yy"
+      class="w-[10%]"
+      sortable
+      filter
+    />
+    <BaseDateFilterColumn
+      :key="'endedAtTime'"
+      field="endedAtTime"
+      :header="$t('pages.reservationsHistory.rentEndTime')"
+      class="w-[8%]"
+      sortable
+      filter
+      onlyTime
     />
     <BaseSelectMessageFilter
       :key="'status'"
@@ -62,6 +78,7 @@
       :header="$t('pages.reservationsHistory.rentStatus')"
       class="20%"
       sortable
+      translationPrefix="pages.adminDashboard.reservationList.status."
       :status-color="statusColor"
       :options="statuses"
       filter
@@ -247,6 +264,8 @@ const filteredRents = computed(() => {
     return {
       ...rent,
       roomName: rent.room?.roomName || rent.roomName || 'Brak danych',
+      startedAtTime: rent.startedAt,
+      endedAtTime: rent.endedAt,
     }
   })
 })
@@ -256,8 +275,10 @@ const { rows, tableDisplay, paginatorPosition, handleUpdateRows, onFilter } = us
 const filters = ref({
   roomName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  startedAt: { value: null, matchMode: 'dateEquals' },
-  endedAt: { value: null, matchMode: 'dateEquals' },
+  startedAt: { value: null, matchMode: 'customDateFilter' },
+  startedAtTime: { value: null, matchMode: 'customTimeFilter' },
+  endedAt: { value: null, matchMode: 'customDateFilter' },
+  endedAtTime: { value: null, matchMode: 'customTimeFilter' },
   status: { value: null, matchMode: 'statusEquals' },
   reservationsType: { value: null, matchMode: 'statusEquals' },
 })

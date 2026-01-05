@@ -116,6 +116,7 @@ const { handleSubmit, resetForm } = useForm<IIssueRoomCreate>({
   validationSchema: {
     category: 'required',
     description: 'required|min:10',
+    priority: 'required',
   },
 })
 

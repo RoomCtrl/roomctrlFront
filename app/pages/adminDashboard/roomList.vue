@@ -90,7 +90,11 @@
         :options="statusOptions"
         filter
         sortable
-      />
+      >
+        <template #body="slotProps">
+          {{ $t(`pages.adminDashboard.roomList.statuses.${slotProps.data.status}`) }}
+        </template>
+      </BaseSelectFilterColumn>
       <Column :header="$t('tables.headers.actions')">
         <template #body="slotProps">
           <div class="flex flex-row gap-2">
@@ -141,7 +145,7 @@
 
     <Dialog
       v-model:visible="showModal"
-      :header="isEditMode ? 'Edytuj salę' : 'Dodaj nową salę'"
+      :header="'Dodaj nową salę'"
       :modal="true"
       :closable="true"
       class="w-[50vw]"
@@ -152,6 +156,22 @@
         :loading="formLoading"
         @submit="handleFormSubmit"
         @cancel="showModal = false"
+      />
+    </Dialog>
+
+    <Dialog
+      v-model:visible="showEditModal"
+      header="Edytuj salę"
+      :modal="true"
+      :closable="true"
+      class="w-[50vw]"
+      @hide="resetEditModal"
+    >
+      <EditForm
+        v-if="editRoomId"
+        :room-id="editRoomId"
+        @success="handleEditSuccess"
+        @cancel="showEditModal = false"
       />
     </Dialog>
 
@@ -212,6 +232,7 @@ import { FilterMatchMode } from '@primevue/core/api'
 import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseTextFilterColumn.vue'
 import ActionButton from '~/components/common/buttons/ActionButton.vue'
 import RoomForm from '~/components/forms/RoomForm.vue'
+import EditForm from '~/components/forms/room/EditForm.vue'
 import type { IRoomCard, IRoomCreateRequest, IRoomUpdateRequest } from '~/interfaces/RoomsIntefaces'
 import RoomImagesDelete from '~/components/rooms/detailsParts/RoomImagesDelete.vue'
 import BaseSelectFilterColumn from '~/components/common/datatable/columns/BaseSelectFilterColumn.vue'
@@ -243,10 +264,11 @@ const statusOptions = [
 ]
 
 const showModal = ref(false)
+const showEditModal = ref(false)
 const formLoading = ref(false)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const selectedRoom = ref<any>(null)
-const isEditMode = computed(() => !!selectedRoom.value)
+const editRoomId = ref<string | null>(null)
 
 const showUploadModal = ref(false)
 const uploadLoading = ref(false)
@@ -260,8 +282,8 @@ const openAddModal = () => {
 }
 
 const openEditModal = (room: IRoomCard) => {
-  selectedRoom.value = room as unknown
-  showModal.value = true
+  editRoomId.value = room.roomId
+  showEditModal.value = true
 }
 
 const openUploadModal = (room: IRoomCard) => {
@@ -273,6 +295,11 @@ const openUploadModal = (room: IRoomCard) => {
 const resetModal = () => {
   selectedRoom.value = null
   showModal.value = false
+}
+
+const resetEditModal = () => {
+  editRoomId.value = null
+  showEditModal.value = false
 }
 
 const resetUploadModal = () => {
@@ -334,44 +361,25 @@ const handleUpload = async () => {
 const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateRequest, image?: File) => {
   formLoading.value = true
   try {
-    let roomId: string
+    const organizationId = user.value?.organization.id
 
-    if (isEditMode.value && selectedRoom.value && 'roomId' in selectedRoom.value) {
-      roomId = selectedRoom.value.roomId as string
-      await updateRoom(roomId, formData as IRoomUpdateRequest)
-
-      if (image) {
-        await uploadImage(roomId, image)
-      }
-
-      toast.add({
-        severity: 'success',
-        summary: 'Sukces',
-        detail: 'Sala została zaktualizowana',
-        life: 3000,
-      })
+    const createData: IRoomCreateRequest = {
+      ...formData as IRoomCreateRequest,
+      organizationId,
     }
-    else {
-      const organizationId = user.value?.organization.id
+    const createdRoom = await createRoom(createData)
+    const roomId = createdRoom.roomId
 
-      const createData: IRoomCreateRequest = {
-        ...formData as IRoomCreateRequest,
-        organizationId,
-      }
-      const createdRoom = await createRoom(createData)
-      roomId = createdRoom.roomId
-
-      if (image) {
-        await uploadImage(roomId, image)
-      }
-
-      toast.add({
-        severity: 'success',
-        summary: 'Sukces',
-        detail: 'Sala została dodana',
-        life: 3000,
-      })
+    if (image) {
+      await uploadImage(roomId, image)
     }
+
+    toast.add({
+      severity: 'success',
+      summary: 'Sukces',
+      detail: 'Sala została dodana',
+      life: 3000,
+    })
 
     showModal.value = false
     selectedRoom.value = null
@@ -388,6 +396,12 @@ const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateReques
   finally {
     formLoading.value = false
   }
+}
+
+const handleEditSuccess = async () => {
+  showEditModal.value = false
+  editRoomId.value = null
+  await fetchRooms(false)
 }
 
 const deleteRoom = async (roomId: string) => {

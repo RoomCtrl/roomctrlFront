@@ -1,5 +1,9 @@
 {
   "tableNoData": {
     "description": "Brak opisu"
+  },
+  "statuses": {
+    "available": "Dostępna",
+    "out_of_use": "Wyłączona z użytku"
   }
 }

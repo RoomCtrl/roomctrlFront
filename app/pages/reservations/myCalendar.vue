@@ -290,11 +290,11 @@ const reservations = computed(() => {
         date: startDate,
         endDate: endDate,
         duration: duration,
-        location: booking.room.location,
+        location: booking.room?.location || t('pages.myCalendar.noLocations'),
         attendees: booking.participantsCount,
         color: color,
         isPrivate: booking.isPrivate,
-        roomName: booking.room.roomName,
+        roomName: booking.room?.roomName || t('pages.myCalendar.noRoom'),
       })
     }
     else {
@@ -519,8 +519,6 @@ const handleDeleted = () => {
 defineExpose({ handleShowBookingForm })
 
 onMounted(() => {
-  if (user.value?.id) {
-    fetchUserBookings(user.value.id, 'active')
-  }
+  fetchUserBookings(user.value.id, 'active')
 })
 </script>

@@ -18,14 +18,16 @@
       >{{ label }}</label>
     </FloatLabel>
   </InputGroup>
-  <Message
-    v-if="errorMessage"
-    severity="error"
-    size="small"
-    variant="simple"
-  >
-    {{ errorMessage }}
-  </Message>
+  <div class="error-message-wrapper">
+    <Message
+      v-if="errorMessage"
+      severity="error"
+      size="small"
+      variant="simple"
+    >
+      {{ errorMessage }}
+    </Message>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -50,3 +52,9 @@ defineEmits<{
   'blur': []
 }>()
 </script>
+
+<style scoped>
+.error-message-wrapper {
+  min-height: 1.5rem;
+}
+</style>

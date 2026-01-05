@@ -55,7 +55,10 @@
         style="width: 25%"
       >
         <template #body="slotProps">
-          <span>{{ slotProps.data.room.roomName }}</span>
+          <span v-if="slotProps.data.room">{{ slotProps.data.room.roomName || '' }}</span>
+          <div v-else>
+            {{ $t('pages.adminDashboard.reservationList.noExistRoom') }}
+          </div>
         </template>
       </BaseTextFilterColumn>
       <BaseDateFilterColumn

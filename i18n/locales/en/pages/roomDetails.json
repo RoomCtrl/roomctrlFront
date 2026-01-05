@@ -14,6 +14,14 @@
       "lighting": "Lighting: ",
       "access": "Room access: "
     },
+    "noData": {
+      "capacity": "No capacity data",
+      "size": "No size data",
+      "location": "No location data",
+      "access": "No access data",
+      "airConditioning": "No air conditioning data",
+      "lighting": "No lighting data"
+    },
     "accessMethod": {
       "magneticCard": "Magnetic card",
       "pin": "PIN code",

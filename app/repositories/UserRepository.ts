@@ -21,14 +21,19 @@ export class UserRepository {
   }
 
   async addUser(newUser: IUserAddResponse) {
-    return await fetch('/api/users', {
+    const res = await fetch('/api/users', {
       method: 'POST',
       body: JSON.stringify(newUser),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`,
       },
-    }).then(res => res.json())
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      throw data
+    }
+    return data
   }
 
   async getUser(guid: string, withDetails: boolean): Promise<IUserResponse> {

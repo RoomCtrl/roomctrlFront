@@ -21,7 +21,7 @@
               :class="{ 'p-invalid': nameError }"
               @blur="nameBlur"
             />
-            <label for="name">{{ $t('forms.fields.name') }}</label>
+            <label for="name">{{ $t('forms.fields.user.username') }}</label>
           </FloatLabel>
         </InputGroup>
         <Message
@@ -149,7 +149,7 @@ const { handleSubmit, resetForm } = useForm<IContactMailData>({
   validationSchema: {
     name: 'required',
     email: 'required|email',
-    subject: 'required',
+    subject: 'required|max:255',
     message: 'required',
   },
 })

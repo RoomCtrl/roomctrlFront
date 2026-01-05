@@ -220,19 +220,64 @@ const weekDays = computed(() => {
 })
 
 const allReservations = computed(() => {
-  const reservations: IReservation[] = []
+  const result: IReservation[] = []
+  const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
+
+  const bookingsToProcess: IBooking[] = []
   if (props.currentBooking) {
-    reservations.push({ ...props.currentBooking, color: 'red' })
+    bookingsToProcess.push(props.currentBooking)
   }
   if (props.nextBookings) {
-    reservations.push(
-      ...props.nextBookings.map((booking, idx) => ({
-        ...booking,
-        color: idx % 2 === 0 ? 'blue' : 'green',
-      })),
-    )
+    bookingsToProcess.push(...props.nextBookings)
   }
-  return reservations
+
+  bookingsToProcess.forEach((booking, index) => {
+    const startDate = new Date(booking.startedAt)
+    const endDate = new Date(booking.endedAt)
+    const color = colors[index % colors.length]
+
+    const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+    const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
+
+    if (startDay.getTime() === endDay.getTime()) {
+      result.push({
+        ...booking,
+        color,
+      })
+    }
+    else {
+      const currentDay = new Date(startDay)
+
+      while (currentDay <= endDay) {
+        let segmentStart: Date, segmentEnd: Date
+
+        if (currentDay.getTime() === startDay.getTime()) {
+          segmentStart = new Date(startDate)
+          segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
+        }
+        else if (currentDay.getTime() === endDay.getTime()) {
+          segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
+          segmentEnd = new Date(endDate)
+        }
+        else {
+          segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
+          segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
+        }
+
+        result.push({
+          ...booking,
+          startedAt: segmentStart.toISOString(),
+          endedAt: segmentEnd.toISOString(),
+          color,
+          isMultiDay: true,
+        })
+
+        currentDay.setDate(currentDay.getDate() + 1)
+      }
+    }
+  })
+
+  return result
 })
 
 const getReservationsForDay = (day: Date): IReservation[] => {
@@ -290,7 +335,7 @@ const calculateDuration = (res: IReservation): number => {
   const startDate = new Date(res.startedAt)
   const endDate = new Date(res.endedAt)
   const durationMs = endDate.getTime() - startDate.getTime()
-  return Math.max(30, Math.round(durationMs / (1000 * 60)))
+  return Math.round(durationMs / (1000 * 60))
 }
 
 const dayOfWeekFullNames = [

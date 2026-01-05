@@ -132,8 +132,8 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const toast = useToast()
-const { users, fetchUsers, loading: usersLoading } = useUser()
-const { rooms, fetchRooms, loading: roomsLoading } = useRoom()
+const { users, fetchUsers } = useUser()
+const { rooms, fetchRooms } = useRoom()
 const { user, isAdmin } = useAuth()
 const { fetchBooking, updateBooking, loading, booking } = useBooking()
 
@@ -144,7 +144,6 @@ const { handleSubmit, resetForm } = useForm<IBookingUpdateRequest>({
     startedAt: 'required',
     endedAt: 'required',
     participantsCount: 'required|min:1',
-    isPrivate: 'required',
   },
 })
 

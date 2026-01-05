@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="grid grid-cols-3 grid-rows-4 gap-2 py-[0.4rem]">
+    <div class="grid grid-cols-3 grid-rows-4 gap-x-2 py-[0.4rem]">
       <div class="w-[70vw] md:w-[23rem]">
         <FormTextField
           id="username"
@@ -103,16 +103,17 @@ const emit = defineEmits(['updateVisible'])
 
 defineRule('required', required)
 
-const { addUser } = useUser()
+const { addUser, error, fetchUsers } = useUser()
 const { t } = useI18n()
 const toast = useToast()
 const { handleSubmit, resetForm } = useForm<IUserAddResponse>({
   validationSchema: {
     username: 'required|min:3',
-    firstName: 'min:3',
-    lastName: 'min:3',
-    email: 'email',
+    firstName: 'required|min:3',
+    lastName: 'required|min:3',
+    email: 'required|email',
     password: 'required',
+    phone: 'required',
     roles: 'required',
   },
 })
@@ -146,16 +147,28 @@ const submitForm = handleSubmit(async (formValues: IUserAddResponse) => {
   try {
     formValues.organizationId = user.value?.organization.id
     formValues.firstLoginStatus = true
-    addUser(formValues)
+    await addUser(formValues)
+    await fetchUsers(false)
     resetForm()
-  }
-  finally {
     toast.add({
       severity: 'success',
-      summary: t('common.toast.success'),
+      summary: t('toast.success'),
       detail: t('pages.adminDashboard.users.toast.success'),
-      life: 3000 })
+      life: 3000,
+    })
     emit('updateVisible', false)
+  }
+  catch (err: any) {
+    const errorMessage = error.value || err?.message || t('toast.error')
+    toast.add({
+      severity: 'error',
+      summary: t('toast.error'),
+      detail: errorMessage,
+      life: 5000,
+    })
+    console.error('Error adding user:', err, 'Error value:', error.value)
+  }
+  finally {
     loading.value = false
   }
 })

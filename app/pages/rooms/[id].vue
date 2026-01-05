@@ -4,7 +4,6 @@
       v-if="roomDetails"
       class="flex flex-col lg:grid lg:grid-cols-6 gap-2 mx-2 sm:mx-3 md:mx-4 lg:mx-5 w-full"
     >
-      <!-- Row 1: General Info + Current Meeting -->
       <div class="flex flex-col md:flex-row gap-2 lg:contents">
         <GeneralInfo
           class="flex-1 lg:col-span-5"
@@ -46,7 +45,6 @@
         </Card>
       </div>
 
-      <!-- Row 2: Detailed Info + Equipment -->
       <div class="flex flex-col md:flex-row gap-2 lg:contents">
         <DetailedInfo
           class="flex-1 lg:col-span-2"
@@ -72,7 +70,6 @@
         class="lg:col-span-3"
       />
 
-      <!-- Info Cards Row -->
       <div class="flex flex-col md:flex-row lg:flex-col gap-2 lg:col-span-1 min-w-0">
         <InfoCard
           :header="$t('pages.roomDetails.cleaning.title')"

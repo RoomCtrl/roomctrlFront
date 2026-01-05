@@ -4,5 +4,6 @@
     "pending": "Pending",
     "active": "Active",
     "cancelled": "Cancelled"
-  }
+  },
+  "noExistRoom": "No room exists"
 }

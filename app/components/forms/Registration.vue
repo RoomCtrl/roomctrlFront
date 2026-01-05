@@ -7,7 +7,7 @@
         </h1>
       </div>
 
-      <div class="flex flex-row justify-around w-full">
+      <div class="flex flex-row justify-around w-full ">
         <div class="flex flex-col">
           <div class="section-title">
             <i class="pi pi-building" />
@@ -15,86 +15,37 @@
           </div>
 
           <div class="flex flex-col">
-            <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-hashtag" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="regon"
-                    v-model="regon"
-                    :class="{ 'p-invalid': regonError }"
-                    @blur="regonBlur"
-                  />
-                  <label for="regon">{{ $t('forms.registration.regon') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="regonError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ regonError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem]">
+              <FormTextField
+                id="regon"
+                v-model="regon"
+                icon="pi pi-hashtag"
+                :label="$t('forms.registration.regon')"
+                :errorMessage="regonError"
+                @blur="regonBlur"
+              />
             </div>
 
-            <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-building" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="organizationName"
-                    v-model="organizationName"
-                    :class="{ 'p-invalid': organizationNameError }"
-                    @blur="organizationNameBlur"
-                  />
-                  <label for="organizationName">{{ $t('forms.registration.organizationName') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="organizationNameError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ organizationNameError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem]">
+              <FormTextField
+                id="organizationName"
+                v-model="organizationName"
+                icon="pi pi-building"
+                :label="$t('forms.registration.organizationName')"
+                :errorMessage="organizationNameError"
+                @blur="organizationNameBlur"
+              />
             </div>
 
-            <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-envelope" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="organizationEmail"
-                    v-model="organizationEmail"
-                    type="email"
-                    :class="{ 'p-invalid': organizationEmailError }"
-                    @blur="organizationEmailBlur"
-                  />
-                  <label for="organizationEmail">{{ $t('forms.registration.organizationEmail') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="organizationEmailError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ organizationEmailError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem]">
+              <FormTextField
+                id="organizationEmail"
+                v-model="organizationEmail"
+                icon="pi pi-envelope"
+                :label="$t('forms.registration.organizationEmail')"
+                :errorMessage="organizationEmailError"
+                @blur="organizationEmailBlur"
+              />
             </div>
           </div>
         </div>
@@ -105,207 +56,84 @@
             <h2>{{ $t('forms.registration.userData') }}</h2>
           </div>
 
-          <div class="grid grid-cols-2 grid-rows-4 gap-x-4">
-            <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-id-card" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="firstName"
-                    v-model="firstName"
-                    :class="{ 'p-invalid': firstNameError }"
-                    @blur="firstNameBlur"
-                  />
-                  <label for="firstName">{{ $t('forms.registration.firstName') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="firstNameError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ firstNameError }}
-                </Message>
-              </div>
+          <div class="flex flex-col md:grid md:grid-cols-2 md:grid-rows-4 md:gap-x-4">
+            <div class="w-full md:w-[23rem] col-span-full">
+              <FormTextField
+                id="username"
+                v-model="username"
+                icon="pi pi-user"
+                :label="$t('forms.registration.username')"
+                :errorMessage="usernameError"
+                @blur="usernameBlur"
+              />
             </div>
 
-            <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-id-card" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="lastName"
-                    v-model="lastName"
-                    :class="{ 'p-invalid': lastNameError }"
-                    @blur="lastNameBlur"
-                  />
-                  <label for="lastName">{{ $t('forms.registration.lastName') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="lastNameError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ lastNameError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem]">
+              <FormTextField
+                id="firstName"
+                v-model="firstName"
+                icon="pi pi-id-card"
+                :label="$t('forms.registration.firstName')"
+                :errorMessage="firstNameError"
+                @blur="firstNameBlur"
+              />
             </div>
 
-            <div class="w-[70vw] md:w-[23rem] col-span-full">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-user" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="username"
-                    v-model="username"
-                    :class="{ 'p-invalid': usernameError }"
-                    @blur="usernameBlur"
-                  />
-                  <label for="username">{{ $t('forms.registration.username') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="usernameError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ usernameError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem]">
+              <FormTextField
+                id="lastName"
+                v-model="lastName"
+                icon="pi pi-id-card"
+                :label="$t('forms.registration.lastName')"
+                :errorMessage="lastNameError"
+                @blur="lastNameBlur"
+              />
             </div>
 
-            <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-at" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="email"
-                    v-model="email"
-                    type="email"
-                    :class="{ 'p-invalid': emailError }"
-                    @blur="emailBlur"
-                  />
-                  <label for="email">{{ $t('forms.registration.email') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="emailError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ emailError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem]">
+              <FormTextField
+                id="email"
+                v-model="email"
+                icon="pi pi-at"
+                :label="$t('forms.registration.email')"
+                :errorMessage="emailError"
+                @blur="emailBlur"
+              />
             </div>
 
-            <div class="w-[70vw] md:w-[23rem] rows-start-3">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-phone" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="phone"
-                    v-model="phone"
-                    :class="{ 'p-invalid': phoneError }"
-                    @blur="phoneBlur"
-                  />
-                  <label for="phone">{{ $t('forms.registration.phone') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="phoneError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ phoneError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem] rows-start-3">
+              <FormTextField
+                id="phone"
+                v-model="phone"
+                icon="pi pi-phone"
+                :label="$t('forms.registration.phone')"
+                :errorMessage="phoneError"
+                @blur="phoneBlur"
+              />
             </div>
 
-            <div class="w-[70vw] md:w-[23rem] row-start-4">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-key" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <Password
-                    id="password"
-                    v-model="password"
-                    :class="{ 'p-invalid': passwordError }"
-                    toggleMask
-                    fluid
-                    :feedback="true"
-                    @blur="passwordBlur"
-                  />
-                  <label for="password">{{ $t('forms.registration.password') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="passwordError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ passwordError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem] row-start-4">
+              <FormPasswordField
+                id="password"
+                v-model="password"
+                :label="$t('forms.registration.password')"
+                :errorMessage="passwordError"
+                @blur="passwordBlur"
+              />
             </div>
 
-            <div class="w-[70vw] md:w-[23rem] row-start-4">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-key" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <Password
-                    id="confirmPassword"
-                    v-model="confirmPassword"
-                    :class="{ 'p-invalid': confirmPasswordError }"
-                    toggleMask
-                    fluid
-                    :feedback="false"
-                    @blur="confirmPasswordBlur"
-                  />
-                  <label for="confirmPassword">{{ $t('forms.registration.confirmPassword') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <div class="error-message-wrapper">
-                <Message
-                  v-if="confirmPasswordError"
-                  severity="error"
-                  size="small"
-                  variant="simple"
-                >
-                  {{ confirmPasswordError }}
-                </Message>
-              </div>
+            <div class="w-full md:w-[23rem] row-start-4">
+              <FormPasswordField
+                id="confirmPassword"
+                v-model="confirmPassword"
+                :label="$t('forms.registration.confirmPassword')"
+                :errorMessage="confirmPasswordError"
+                @blur="confirmPasswordBlur"
+              />
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Akceptacja regulaminu -->
       <div class="flex flex-col items-center mt-6">
         <div class="flex items-center gap-2">
           <Checkbox
@@ -314,26 +142,43 @@
             :binary="true"
             @blur="acceptTermsBlur"
           />
-          <label for="acceptTerms" class="text-sm">
+          <label
+            for="acceptTerms"
+            class="text-sm"
+          >
             {{ $t('forms.registration.acceptTerms') }}
-            <NuxtLink :to="localePath('/rules')" target="_blank" class="text-primary-400 hover:underline">{{ $t('forms.registration.rules') }}</NuxtLink>
+            <NuxtLink
+              :to="localePath('/rules')"
+              target="_blank"
+              class="text-primary-400 hover:underline"
+            >{{ $t('forms.registration.rules') }}</NuxtLink>
             {{ $t('forms.registration.and') }}
-            <NuxtLink :to="localePath('/privacyPolicy')" target="_blank" class="text-primary-400 hover:underline">{{ $t('forms.registration.privacyPolicy') }}</NuxtLink>
+            <NuxtLink
+              :to="localePath('/privacyPolicy')"
+              target="_blank"
+              class="text-primary-400 hover:underline"
+            >{{ $t('forms.registration.privacyPolicy') }}</NuxtLink>
           </label>
         </div>
         <div class="error-message-wrapper">
-          <Message v-if="acceptTermsError" severity="error" size="small" variant="simple">
+          <Message
+            v-if="acceptTermsError"
+            severity="error"
+            size="small"
+            variant="simple"
+          >
             {{ acceptTermsError }}
           </Message>
         </div>
       </div>
-
-      <Button
-        type="submit"
-        :label="$t('forms.registration.submit')"
-        :loading="loading"
-        class="w-[65vw] md:w-[15rem] mt-[2rem]"
-      />
+      <div class="flex justify-center">
+        <Button
+          type="submit"
+          :label="$t('forms.registration.submit')"
+          :loading="loading"
+          class="w-[65vw] md:w-[15rem]"
+        />
+      </div>
     </div>
   </form>
   <Toast />
@@ -344,11 +189,15 @@ import { useForm, useField } from 'vee-validate'
 import { useToast } from 'primevue/usetoast'
 import { AuthRepository } from '~/repositories/AuthRepository'
 import type { IRegisterRequest } from '~/interfaces/RepositoriesInterface'
+import FormTextField from '../common/FormTextField.vue'
+import FormPasswordField from '../common/FormPasswordField.vue'
 
 const toast = useToast()
 const localePath = useLocalePath()
 const { t } = useI18n()
 const authRepository = new AuthRepository()
+
+const emit = defineEmits(['registrationAttempted'])
 
 const { handleSubmit, resetForm } = useForm<IRegisterRequest>({
   validationSchema: {
@@ -362,7 +211,7 @@ const { handleSubmit, resetForm } = useForm<IRegisterRequest>({
     phone: 'required',
     password: 'required|min:8',
     confirmPassword: 'required|confirmed:@password',
-    acceptTerms: 'required|accepted',
+    acceptTerms: 'accepted',
   },
 })
 
@@ -409,6 +258,7 @@ const submitForm = handleSubmit(async (formValues) => {
     })
   }
   finally {
+    emit('registrationAttempted')
     loading.value = false
   }
 })
@@ -423,7 +273,6 @@ const submitForm = handleSubmit(async (formValues) => {
   @apply text-xl font-semibold;
 }
 
-/* Rezerwacja miejsca dla komunikatów błędów */
 .error-message-wrapper {
   min-height: 1.5rem;
 }

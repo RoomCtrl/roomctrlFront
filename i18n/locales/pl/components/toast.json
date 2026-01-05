@@ -1,5 +1,6 @@
 {
   "success": "Sukces",
+  "error": "Błąd",
   "messages": {
     "copied": "Skopiowano!",
     "passwordResetCodeSent": "Token resetujący został wysłany na podany adres email",
