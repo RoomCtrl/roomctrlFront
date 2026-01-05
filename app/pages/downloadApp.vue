@@ -79,6 +79,20 @@
                 <h2>{{ t('pages.downloadApp.androidIos') }}</h2>
                 <p>{{ t('pages.downloadApp.compareText') }}</p>
               </div>
+
+              <!-- Wybór ekranu -->
+              <div class="screen-selector">
+                <button
+                  v-for="screen in screens"
+                  :key="screen.key"
+                  :class="['screen-btn', { active: selectedScreen === screen.key }]"
+                  @click="selectedScreen = screen.key"
+                >
+                  <i :class="screen.icon" />
+                  <span>{{ t(`pages.downloadApp.screens.${screen.key}`) }}</span>
+                </button>
+              </div>
+
               <ClientOnly>
                 <div
                   ref="containerRef"
@@ -111,9 +125,20 @@
                   </div>
                 </template>
               </ClientOnly>
+
+              <!-- Platformy indicator -->
+              <div class="platform-indicators">
+                <div class="platform-label android">
+                  <i class="pi pi-android" />
+                  <span>Android</span>
+                </div>
+                <div class="platform-label ios">
+                  <i class="pi pi-apple" />
+                  <span>iOS</span>
+                </div>
+              </div>
             </div>
           </div>
-
           <div class="flex justify-center items-center h-full">
             <div class="side-card">
               <DeviceSysCard :content="ios" />
@@ -131,13 +156,13 @@
           </h2>
           <p>{{ t('pages.downloadApp.featuresSubtitle') }}</p>
         </div>
-        <div class="grid grid-cols-6  gap-4 mt-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4 mt-8">
           <div
             v-for="feature in features"
             :key="feature.icon"
             class="feature-card"
           >
-            <div class="flex items-center gap-2 pb-4">
+            <div class="flex flex-col items-center gap-3 pb-4 text-center">
               <div class="feature-icon">
                 <i :class="feature.icon" />
               </div>
@@ -153,7 +178,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, nextTick, computed } from 'vue'
 import DeviceSysCard from '~/components/downloadApp/deviceSysCard.vue'
 
 const { t } = useI18n()
@@ -161,15 +186,34 @@ const colorMode = useColorMode()
 const containerRef = ref()
 const imageCompareRef = ref()
 const isMounted = ref(false)
+const selectedScreen = ref('main')
+
+const screens = [
+  { key: 'main', icon: 'pi pi-home' },
+  { key: 'rooms', icon: 'pi pi-building' },
+  { key: 'roomDetails', icon: 'pi pi-info-circle' },
+  { key: 'calendar', icon: 'pi pi-calendar' },
+  { key: 'booking', icon: 'pi pi-check-square' },
+]
+
+const screenFileMap = {
+  main: { android: 'android_main', ios: 'ios_main' },
+  rooms: { android: 'android_rooms', ios: 'ios_rooms' },
+  roomDetails: { android: 'android_room_det', ios: 'ios_room_det' },
+  calendar: { android: 'android_calendar', ios: 'ios_calendar' },
+  booking: { android: 'android_booking', ios: 'ios_booking' },
+}
 
 const androidImg = computed(() => {
-  if (!isMounted.value) return 'android.png'
-  return colorMode.value === 'dark' ? 'android_dark.png' : 'android.png'
+  if (!isMounted.value) return 'android_main.png'
+  const base = screenFileMap[selectedScreen.value].android
+  return colorMode.value === 'dark' ? `${base}_dark.png` : `${base}.png`
 })
 
 const iosImg = computed(() => {
-  if (!isMounted.value) return 'ios.png'
-  return colorMode.value === 'dark' ? 'ios_dark.png' : 'ios.png'
+  if (!isMounted.value) return 'ios_main.png'
+  const base = screenFileMap[selectedScreen.value].ios
+  return colorMode.value === 'dark' ? `${base}_dark.png` : `${base}.png`
 })
 
 const android = {
@@ -367,6 +411,95 @@ onMounted(async () => {
   margin-bottom: 0.5rem;
 }
 
+/* Screen Selector */
+.screen-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.screen-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  background: white;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark .screen-btn {
+  background: var(--p-neutral-700);
+  border-color: var(--p-neutral-600);
+  color: #9ca3af;
+}
+
+.screen-btn:hover {
+  border-color: var(--p-red-400);
+  color: var(--p-red-600);
+}
+
+.dark .screen-btn:hover {
+  border-color: var(--p-red-400);
+  color: var(--p-red-400);
+}
+
+.screen-btn.active {
+  background: var(--p-red-800);
+  border-color: var(--p-red-800);
+  color: white;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.screen-btn i {
+  font-size: 1rem;
+}
+
+/* Platform Indicators */
+.platform-indicators {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+
+.platform-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.platform-label.android {
+  background: rgba(61, 220, 132, 0.15);
+  color: #3DDC84;
+}
+
+.platform-label.ios {
+  background: rgba(100, 100, 100, 0.15);
+  color: #666;
+}
+
+.dark .platform-label.ios {
+  background: rgba(200, 200, 200, 0.15);
+  color: #ccc;
+}
+
+.platform-label i {
+  font-size: 1.1rem;
+}
+
 .download-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -433,6 +566,41 @@ onMounted(async () => {
 }
 
 /* Responsive */
+@media (max-width: 1280px) {
+  .side-card > * {
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .download-preview-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .download-preview-grid > div:first-child {
+    order: 2;
+  }
+
+  .download-preview-grid > div:nth-child(2) {
+    order: 1;
+  }
+
+  .download-preview-grid > div:last-child {
+    order: 3;
+  }
+
+  .side-card {
+    width: 100%;
+  }
+
+  .side-card > * {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.5rem;
@@ -462,6 +630,18 @@ onMounted(async () => {
     grid-template-columns: 1fr;
   }
 
+  .screen-selector {
+    gap: 0.4rem;
+  }
+
+  .screen-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .screen-btn i {
+    font-size: 0.875rem;
+  }
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 1) {

@@ -50,5 +50,12 @@
   },
   "ios": {
     "title": "iOS"
+  },
+  "screens": {
+    "main": "Ekran główny",
+    "rooms": "Lista sal",
+    "roomDetails": "Szczegóły sali",
+    "calendar": "Kalendarz",
+    "booking": "Rezerwacja"
   }
 }

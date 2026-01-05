@@ -1,8 +1,31 @@
 {
   "submit": {
     "changePassword": "Change Password",
-    "register": "Register",
-    "reportRoomIssue": "Report Room Issue"
+    "register": "Register"
+  },
+  "registration": {
+    "title": "Registration",
+    "organizationData": "Organization Data",
+    "userData": "User Data",
+    "regon": "REGON",
+    "organizationName": "Organization Name",
+    "organizationEmail": "Organization Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "username": "Username",
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "acceptTerms": "I accept the",
+    "rules": "terms and conditions",
+    "and": "and",
+    "privacyPolicy": "privacy policy",
+    "submit": "Register",
+    "successTitle": "Success",
+    "successMessage": "Registration successful! You can now log in.",
+    "errorTitle": "Registration Error",
+    "errorMessage": "Registration failed. Please try again."
   },
   "filters": {
     "title": "Filtering",
@@ -71,6 +94,7 @@
     "status": "Status",
     "category": "Category",
     "priority": "Priority"
+    "acceptTerms": "Terms acceptance"
   },
   "roomForm": {
     "buttons": {
@@ -143,7 +167,8 @@
     "error": {
       "email": "Enter a valid email address",
       "required": "The field {fieldName} is required.",
-      "invalidField": "The field {fieldName} is invalid."
+      "invalidField": "The field {fieldName} is invalid.",
+      "acceptTerms": "You must accept the terms and privacy policy."
     }
   },
   "messages": {

@@ -1,8 +1,31 @@
 {
   "submit": {
     "changePassword": "Zmień hasło",
-    "register": "Zarejestruj się",
-    "reportRoomIssue": "Zgłoś problem z salą"
+    "register": "Zarejestruj się"
+  },
+  "registration": {
+    "title": "Rejestracja",
+    "organizationData": "Dane organizacji",
+    "userData": "Dane użytkownika",
+    "regon": "REGON",
+    "organizationName": "Nazwa organizacji",
+    "organizationEmail": "Email organizacji",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "username": "Nazwa użytkownika",
+    "email": "Email",
+    "phone": "Telefon",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "acceptTerms": "Akceptuję",
+    "rules": "regulamin",
+    "and": "oraz",
+    "privacyPolicy": "politykę prywatności",
+    "submit": "Zarejestruj się",
+    "successTitle": "Sukces",
+    "successMessage": "Rejestracja przebiegła pomyślnie! Możesz się teraz zalogować.",
+    "errorTitle": "Błąd rejestracji",
+    "errorMessage": "Nie udało się zarejestrować. Spróbuj ponownie."
   },
   "filters": {
     "title": "Filtrowanie",
@@ -70,7 +93,8 @@
     "description": "Opis",
     "status": "Status",
     "category": "Kategoria",
-    "priority": "Priorytet"
+    "priority": "Priorytet",
+    "acceptTerms": "Akceptacja regulaminu"
   },
   "roomForm": {
     "buttons": {
@@ -143,7 +167,8 @@
     "error": {
       "email": "Wpisz poprawny adres e-mail",
       "required": "Pole {fieldName} jest wymagane.",
-      "invalidField": "Pole {fieldName} jest nieprawidłowe."
+      "invalidField": "Pole {fieldName} jest nieprawidłowe.",
+      "acceptTerms": "Musisz zaakceptować regulamin i politykę prywatności."
     }
   },
   "messages": {

@@ -130,10 +130,10 @@ const isAndroid = computed(() => props.content.id === 'android')
 
 const qrValue = computed(() => {
   if (isAndroid.value) {
-    return 'http://185.25.151.154/api/v1/download/android'
+    return 'http://185.25.151.154/api/download/android'
   }
   else {
-    return 'http://185.25.151.154/api/v1/download/ios'
+    return 'http://185.25.151.154/api/download/ios'
   }
 })
 

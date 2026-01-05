@@ -47,7 +47,8 @@
       </div>
     </div>
 
-    <div class="absolute flex right-0">
+    <!-- Wymagania rejestracji -->
+    <div class="flex justify-center">
       <div class="bg-green-50 dark:bg-green-900 border-l-4 border-green-500 rounded-r-lg p-6">
         <div class="flex gap-4">
           <i class="pi pi-check-circle text-green-600 text-2xl flex-shrink-0 mt-1" />
@@ -70,38 +71,38 @@
                   <strong>Hasło:</strong> Min. 8 znaków, 1 wielka litera
                 </p>
               </div>
-              <div class="space-y-2 text-sm text-green-800 dark:text-green-300">
-                <p class="flex items-center gap-2">
-                  <span class="inline-block w-2 h-2 bg-green-600 rounded-full" />
-                  <strong>Rola:</strong> Pracownik lub administrator
-                </p>
-                <p class="flex items-center gap-2">
-                  <span class="inline-block w-2 h-2 bg-green-600 rounded-full" />
-                  <strong>Kod zaproszenia:</strong> Od administratora
-                </p>
-                <p class="flex items-center gap-2">
-                  <span class="inline-block w-2 h-2 bg-green-600 rounded-full" />
-                  <strong>Akceptacja:</strong> Regulaminu i polityki
-                </p>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="flex justify-center pt-20">
-      <div class="h-[40rem] aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center group hover:scale-105 transition-transform duration-300">
-        <div class="text-center">
-          <i class="pi pi-image text-6xl text-gray-400 mb-4 block" />
-          <p class="text-gray-500 dark:text-gray-400 font-semibold">
-            Placeholder: Zrzut ekranu formularza rejestracji
-          </p>
-          <p class="text-sm text-gray-400 dark:text-gray-500">
-            Obraz będzie tutaj
-          </p>
-        </div>
-      </div>
+    <!-- Galeria zdjęć -->
+    <div class="mt-12 galleria-glow">
+      <Galleria
+        :value="images"
+        :numVisible="2"
+        :circular="true"
+        :showThumbnails="true"
+        :showItemNavigators="true"
+        containerStyle="max-width: 900px; margin: 0 auto;"
+      >
+        <template #item="slotProps">
+          <img
+            :src="slotProps.item.src"
+            :alt="slotProps.item.alt"
+            class="w-full rounded-xl"
+          />
+        </template>
+        <template #thumbnail="slotProps">
+          <img
+            :src="slotProps.item.src"
+            :alt="slotProps.item.alt"
+            class="rounded-lg"
+            style="max-height: 80px;"
+          />
+        </template>
+      </Galleria>
     </div>
   </div>
 </template>
@@ -139,26 +140,6 @@ const steps = [
     ],
   },
   {
-    icon: 'pi pi-envelope',
-    title: 'Potwierdź email',
-    description: 'Otrzymasz email z linkiem potwierdzającym. Kliknij go, aby aktywować konto.',
-    details: [
-      'Sprawdź folder spam jeśli nie widzisz emaila',
-      'Link wygasa po 24 godzinach',
-      'Po potwierdzeniu możesz się zalogować',
-    ],
-  },
-  {
-    icon: 'pi pi-info-circle',
-    title: 'Czekaj na akceptację',
-    description: 'Administrator musi zatwierdzić Twoją rejestrację zanim uzyskasz pełny dostęp.',
-    details: [
-      'Powiadomienie przez email',
-      'Zazwyczaj do 24 godzin',
-      'Możesz znaleźć status w profilu',
-    ],
-  },
-  {
     icon: 'pi pi-check-circle',
     title: 'Gotowe!',
     description: 'Twoje konto jest aktywne. Możesz teraz w pełni korzystać z aplikacji.',
@@ -168,6 +149,11 @@ const steps = [
       'Zarezerwuj swoją pierwszą salę!',
     ],
   },
+]
+
+const images = [
+  { src: '/images/howThisWork/mainPage.png', alt: 'Strona główna' },
+  { src: '/images/howThisWork/registerPage.png', alt: 'Strona rejestracji' },
 ]
 </script>
 
@@ -186,5 +172,14 @@ const steps = [
 .animate-step-in {
   animation: stepIn 0.6s ease-out forwards;
   animation-delay: var(--delay, 0ms);
+}
+
+.galleria-glow :deep(.p-galleria) {
+  box-shadow: 0 0 20px rgba(44, 44, 44, 0.7);
+  border-radius: 1rem;
+}
+
+:root.p-dark .galleria-glow :deep(.p-galleria) {
+  box-shadow: 0 0 20px rgba(44, 44, 44, 0.5);
 }
 </style>
