@@ -566,6 +566,12 @@ onMounted(async () => {
 }
 
 /* Responsive */
+@media (max-width: 1280px) {
+  .side-card > * {
+    max-width: 350px;
+  }
+}
+
 @media (max-width: 1024px) {
   .download-preview-grid {
     grid-template-columns: 1fr;
@@ -585,7 +591,12 @@ onMounted(async () => {
   }
 
   .side-card {
-    max-width: 400px;
+    width: 100%;
+  }
+
+  .side-card > * {
+    width: 100%;
+    max-width: 600px;
     margin: 0 auto;
   }
 }
