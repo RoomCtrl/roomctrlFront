@@ -263,16 +263,16 @@ const filters = ref({
 })
 
 const statuses = ref([
-  { name: t('pages.reservationsHistory.statuses.all'), code: 'all' },
-  { name: t('pages.reservationsHistory.statuses.active'), code: 'active' },
-  { name: t('pages.reservationsHistory.statuses.cancelled'), code: 'cancelled' },
-  { name: t('pages.reservationsHistory.statuses.completed'), code: 'completed' },
+  { label: t('pages.reservationsHistory.statuses.all'), value: 'all' },
+  { label: t('pages.reservationsHistory.statuses.active'), value: 'active' },
+  { label: t('pages.reservationsHistory.statuses.cancelled'), value: 'cancelled' },
+  { label: t('pages.reservationsHistory.statuses.completed'), value: 'completed' },
 ])
 
 const typesOfReservation = ref([
-  { name: t('pages.reservationsHistory.statuses.all'), code: 'all' },
-  { name: t('pages.reservationsHistory.reservationTypes.public'), code: 'public' },
-  { name: t('pages.reservationsHistory.reservationTypes.private'), code: 'private' },
+  { label: t('pages.reservationsHistory.statuses.all'), value: 'all' },
+  { label: t('pages.reservationsHistory.reservationTypes.public'), value: 'public' },
+  { label: t('pages.reservationsHistory.reservationTypes.private'), value: 'private' },
 ])
 
 onMounted(() => {

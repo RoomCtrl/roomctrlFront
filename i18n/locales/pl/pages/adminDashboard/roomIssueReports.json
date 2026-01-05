@@ -12,6 +12,11 @@
     "medium": "Średni",
     "low": "Niski"
   },
+  "category": {
+    "equipment": "Sprzęt",
+    "infrastructure": "Infrastruktura",
+    "furniture": "Meble"
+  },
   "reported": "Zgłosił: ",
   "empty": "Brak zgłoszeń pasujących do wybranych filtrów",
   "modal": {

@@ -2,7 +2,7 @@ import type { IBooking, IBookingCreateRequest, IBookingRecurringRequest, IBookin
 
 export class BookingRepository {
   private token: string | null = null
-  private baseURL = 'http://185.25.151.154:8080/api/bookings'
+  private baseURL = 'http://185.25.151.154/api/bookings'
 
   constructor(token?: string | null) {
     if (token) {

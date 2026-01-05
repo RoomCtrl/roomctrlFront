@@ -70,10 +70,6 @@ const { handleSubmit, resetForm } = useForm<IOrganizationSettings>({
     name: 'required',
     email: 'required',
   },
-  initialValues: {
-    name: user.value.organization.name,
-    email: user.value.organization.email,
-  },
 })
 
 const { value: name, errorMessage: nameError, handleBlur: nameBlur } = useField<string>('name')
@@ -82,5 +78,17 @@ const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useFie
 const onSubmit = handleSubmit(async (formValues: IOrganizationSettings) => {
   await updateOrganization(user.value?.organization?.id, formValues)
   toast.add({ severity: 'success', summary: 'Success', detail: 'Organization data updated successfully' })
+  resetForm({
+    values: formValues,
+  })
+})
+
+onMounted(() => {
+  resetForm({
+    values: {
+      name: user.value.organization.name,
+      email: user.value.organization.email,
+    },
+  })
 })
 </script>

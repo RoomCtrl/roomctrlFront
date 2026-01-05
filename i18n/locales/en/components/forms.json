@@ -1,4 +1,9 @@
 {
+  "submit": {
+    "changePassword": "Change Password",
+    "register": "Register",
+    "reportRoomIssue": "Report Room Issue"
+  },
   "filters": {
     "title": "Filtering",
     "fields": {
@@ -12,38 +17,60 @@
   "titles": {
     "contactForm": "Contact Form",
     "loginForm": "Login",
+    "registrationForm": "Registration",
     "passwordResetRequest": "Password Reset",
-    "passwordResetConfirm": "Set New Password"
+    "passwordResetConfirm": "Set New Password",
+    "roomIssueReport": "Room Issue Report"
   },
   "fields": {
-    "name": "Full Name",
-    "username": "Username",
-    "firstName": "First Name",
-    "lastName": "Last Name",
-    "roles": "Roles",
+    "user": {
+      "fullName": "Full Name",
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "roles": "Roles",
+      "login": "Login",
+      "resetToken": "Reset Token",
+      "password": "Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password"
+    },
+    "room": {
+      "name": "Room Name",
+      "capacity": "Capacity",
+      "size": "Size",
+      "location": "Location",
+      "access": "Access",
+      "lighting": "Lighting",
+      "airConditioning": "Air Conditioning (min/max °C)",
+      "equipment": {
+        "title": "Equipment",
+        "name": "Equipment Name",
+        "category": "Category",
+        "quantity": "Quantity"
+      }
+    },
+    "booking": {
+      "title": "Booking Title",
+      "roomId": "Select Room",
+      "startedAt": "Start Date and Time",
+      "endedAt": "End Date and Time",
+      "participantsCount": "Number of Participants",
+      "participantIds": "Select Participants"
+    },
     "email": "Email",
     "subject": "Subject",
     "phone": "Phone",
     "message": "Message",
-    "login": "Login",
-    "password": "Password",
-    "resetCode": "Reset Code",
-    "resetToken": "Reset Token",
-    "newPassword": "New Password",
-    "confirmPassword": "Confirm Password",
-    "roomName": "Room Name",
-    "capacity": "Capacity",
-    "size": "Size",
-    "location": "Location",
+    "workType": "Work Type",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "daysOfWeek": "Days of Week",
+    "weeksAhead": "Weeks Ahead",
     "description": "Description",
-    "equpiment": "Equipment",
-    "access": "Access",
-    "lighting": "Lighting",
-    "airConditioning": "Air Conditioning (min/max °C)",
-    "equipment": "Equipment",
-    "equipmentName": "Equipment Name",
-    "equipmentCategory": "Category",
-    "equipmentQuantity": "Quantity"
+    "status": "Status",
+    "category": "Category",
+    "priority": "Priority"
   },
   "roomForm": {
     "buttons": {

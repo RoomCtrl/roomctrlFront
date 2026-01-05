@@ -13,6 +13,13 @@ export interface IStatisticsUsageRoomsResponse {
   monthlyBookings: number
 }
 
+export interface IStatisticsMostIsssuesRoomsResponse {
+  roomId: string
+  roomName: string
+  issuesCount: number
+  priority: string
+}
+
 interface IStatisticsReservationTrendDays {
   Pon: number
   Wt: number

@@ -10,7 +10,7 @@
         name="body"
         v-bind="slotProps"
       >
-        {{ slotProps.data[field] }}
+        {{ slotProps.data[field] || noData }}
       </slot>
     </template>
     <template
@@ -32,6 +32,7 @@ withDefaults(
   defineProps<{
     field: string
     header: string
+    noData?: string
     sortable?: boolean
     filter?: boolean
     showFilterMenu?: boolean

@@ -23,11 +23,10 @@
         root: { class: 'flex flex-col h-full' },
         table: { class: tableDisplay },
       }"
-      :value="organizationUsers"
+      :value="users"
       filterDisplay="row"
       :rows="rows"
       :rowsPerPageOptions="rowsPerPageOptions"
-      :loading="loading"
       size="small"
       paginator
       removableSort
@@ -120,23 +119,18 @@ definePageMeta({
   layout: 'admin-dashboard',
 })
 
-const { users, loading, fetchUsers } = useUser()
-const { user } = useAuth()
+const { users, fetchUsers } = useUser()
 const { t } = useI18n()
-const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 12)
-
-const organizationUsers = computed(() => {
-  return users.value.filter(u => u.organization.id === user.value.organization.id)
-})
+const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 15)
 
 const listOfRoles = ref([
   {
-    name: t('pages.adminDashboard.users.roles.admin'),
-    code: 'ROLE_ADMIN',
+    label: t('pages.adminDashboard.users.roles.admin'),
+    value: 'ROLE_ADMIN',
   },
   {
-    name: t('pages.adminDashboard.users.roles.user'),
-    code: 'ROLE_USER',
+    label: t('pages.adminDashboard.users.roles.user'),
+    value: 'ROLE_USER',
   },
 ])
 

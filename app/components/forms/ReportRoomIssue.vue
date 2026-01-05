@@ -8,68 +8,40 @@
     />
     <Dialog
       v-model:visible="visible"
-      header="Zglosznie sali"
+      :header="$t('forms.titles.roomIssueReport')"
+      modal
     >
       <form
-        class="flex flex-col gap-4"
+        class="flex flex-col gap-4 pt-4"
         @submit.prevent="submitForm"
       >
         <div class="flex flex-col gap-4">
           <div class="w-[70vw] md:w-[23rem]">
-            <InputGroup>
-              <InputGroupAddon>
-                <i class="pi pi-bars" />
-              </InputGroupAddon>
-              <FloatLabel variant="on">
-                <Select
-                  id="category"
-                  v-model="category"
-                  :class="{ 'p-invalid': categoryError }"
-                  :options="categoryOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  autofocus
-                  @blur="categoryBlur"
-                />
-                <label for="category">{{ $t('forms.fields.category') }}</label>
-              </FloatLabel>
-            </InputGroup>
-            <Message
-              v-if="categoryError"
-              severity="error"
-              size="small"
-              variant="simple"
-            >
-              {{ categoryError }}
-            </Message>
+            <FormSelectField
+              id="category"
+              v-model="category"
+              :options="categoryOptions"
+              autofocus
+              icon="pi pi-bars"
+              :label="$t('forms.fields.category')"
+              :errorMessage="categoryError"
+              @blur="categoryBlur"
+            />
           </div>
 
           <div class="w-[70vw] md:w-[23rem]">
-            <InputGroup>
-              <InputGroupAddon>
-                <i class="pi pi-pencil" />
-              </InputGroupAddon>
-              <FloatLabel variant="on">
-                <Textarea
-                  id="description"
-                  v-model="description"
-                  :class="{ 'p-invalid': descriptionError }"
-                  type="description"
-                  toggleMask
-                  fluid
-                  @blur="descriptionBlur"
-                />
-                <label for="description">{{ $t('forms.fields.description') }}</label>
-              </FloatLabel>
-            </InputGroup>
-            <Message
-              v-if="descriptionError"
-              severity="error"
-              size="small"
-              variant="simple"
-            >
-              {{ descriptionError }}
-            </Message>
+            <FormTextArea
+              id="description"
+              v-model="description"
+              icon="pi pi-pencil"
+              :label="$t('forms.fields.description')"
+              :errorMessage="descriptionError"
+              type="description"
+              :rows="3"
+              toggleMask
+              fluid
+              @blur="descriptionBlur"
+            />
           </div>
 
           <div class="w-[70vw] md:w-[23rem]">
@@ -103,9 +75,9 @@
           </div>
         </div>
 
-        <div class="flex justify-end">
+        <div class="flex justify-center">
           <Button
-            :label="$t('common.buttons.logIn')"
+            :label="$t('forms.submit.reportRoomIssue')"
             :loading="loading"
             severity="danger"
             type="submit"
@@ -120,14 +92,19 @@
 <script setup lang="ts">
 import { useForm, useField, defineRule } from 'vee-validate'
 import { required } from '@vee-validate/rules'
+import FormTextArea from '../common/FormTextArea.vue'
+import FormSelectField from '../common/FormSelectField.vue'
 
 defineRule('required', required)
 const props = defineProps<{
   roomId: string
 }>()
+
 const visible = ref(false)
 const { createIssue } = useIssue()
 const toast = useToast()
+const { t } = useI18n()
+
 interface IIssueRoomCreate {
   roomId: string
   category: string
@@ -138,8 +115,7 @@ interface IIssueRoomCreate {
 const { handleSubmit, resetForm } = useForm<IIssueRoomCreate>({
   validationSchema: {
     category: 'required',
-    description: 'required',
-    priority: 'required',
+    description: 'required|min:10',
   },
 })
 
@@ -151,17 +127,17 @@ const loading = ref<boolean>(false)
 
 const categoryOptions = [
 
-  { label: 'Equipment', value: 'equipment' },
-  { label: 'Infrastructure', value: 'infrastructure' },
-  { label: 'Furniture', value: 'furniture' },
+  { label: t('pages.adminDashboard.roomIssueReports.category.equipment'), value: 'equipment' },
+  { label: t('pages.adminDashboard.roomIssueReports.category.infrastructure'), value: 'infrastructure' },
+  { label: t('pages.adminDashboard.roomIssueReports.category.furniture'), value: 'furniture' },
 
 ]
 
 const priorityOptions = [
-  { label: 'Low', value: 'low' },
-  { label: 'Medium', value: 'medium' },
-  { label: 'High', value: 'high' },
-  { label: 'Critical', value: 'critical' },
+  { label: t('pages.adminDashboard.roomIssueReports.priority.low'), value: 'low' },
+  { label: t('pages.adminDashboard.roomIssueReports.priority.medium'), value: 'medium' },
+  { label: t('pages.adminDashboard.roomIssueReports.priority.high'), value: 'high' },
+  { label: t('pages.adminDashboard.roomIssueReports.priority.critical'), value: 'critical' },
 ]
 
 const submitForm = handleSubmit(async (formValues: IIssueRoomCreate) => {
@@ -173,6 +149,7 @@ const submitForm = handleSubmit(async (formValues: IIssueRoomCreate) => {
   }
   finally {
     loading.value = false
+    visible.value = false
     toast.add({
       severity: 'success',
       summary: 'Success',

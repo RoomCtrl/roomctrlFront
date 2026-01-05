@@ -1,5 +1,9 @@
 <template>
-  <Card class="w-full md:w-[calc(50%-0.5rem)]">
+  <Card
+    class="w-full md:w-[calc(50%-0.5rem)]"
+    pt:body:class="h-full min-h-[10rem]"
+    pt:content:class="h-full"
+  >
     <template #header>
       <div class="flex items-center justify-between w-full p-4">
         <h3 class="text-lg font-semibold">
@@ -9,7 +13,10 @@
       </div>
     </template>
     <template #content>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div
+        v-if="bookingTypeCount.count > 0"
+        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
         <div class="flex justify-center">
           <Chart
             type="doughnut"
@@ -40,6 +47,12 @@
             </div>
           </div>
         </div>
+      </div>
+      <div
+        v-else
+        class="flex justify-center items-center h-full text-2xl font-semibold"
+      >
+        {{ $t('pages.adminDashboard.statistics.noData') }}
       </div>
     </template>
   </Card>
@@ -86,8 +99,8 @@ const chartData = computed(() => ({
   datasets: [
     {
       data: [bookingTypeCount.active, bookingTypeCount.cancelled, bookingTypeCount.completed],
-      backgroundColor: ['#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
-      borderColor: ['#059669', '#d97706', '#dc2626', '#7c3aed'],
+      backgroundColor: ['#10b981', '#ef4444', '#8b5cf6'],
+      borderColor: ['#059669', '#dc2626', '#7c3aed'],
       borderWidth: 2,
     },
   ],

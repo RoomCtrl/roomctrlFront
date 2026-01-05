@@ -5,10 +5,7 @@
     pt:content:class="h-full"
   >
     <template #title>
-      <div
-        v-if="header"
-        class="flex flex-row justify-between pt-2 px-2"
-      >
+      <div class="flex flex-row justify-between pt-2 px-2">
         <div />
         <h1 class="font-bold text-3xl ">
           {{ header }}

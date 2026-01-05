@@ -46,12 +46,12 @@
   },
   "maintenance": {
     "title": "Maintenance",
-    "planned": "Planned: "
+    "last": "Last: ",
+    "next": "Next: "
   },
   "contact": {
     "title": "Contact",
-    "phone": "Tel: +48 123 456 789",
-    "insidePhone": "Extension tel: 2247",
+    "name": "Name:",
     "email": "Email: "
   },
   "bookingForm": {

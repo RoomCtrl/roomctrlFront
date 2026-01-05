@@ -138,6 +138,12 @@ const tabs = computed(() => [
         description: t('layouts.main.pages.myCalendar.description'),
         auth: isUserLogin.value,
       },
+      {
+        label: 'Moje zgłoszenia',
+        route: '/reservations/myRoomReports',
+        description: t('layouts.main.pages.myCalendar.description'),
+        auth: isUserLogin.value,
+      },
     ],
   },
   {

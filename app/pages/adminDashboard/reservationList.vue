@@ -97,6 +97,7 @@
         field="status"
         :status-color="statusColor"
         :header="$t('tables.headers.status')"
+        translationPrefix="pages.adminDashboard.reservationList.status."
         filter
         sortable
         style="width: 10%"
@@ -126,6 +127,7 @@
           <div class="flex gap-2">
             <Button
               v-tooltip.left="{ value: $t('tables.buttonTooltips.goToRoom') }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-sign-out"
               severity="warn"
               variant="outlined"
@@ -133,6 +135,7 @@
             />
             <Button
               v-tooltip.left="{ value: $t('tables.buttonTooltips.editRent'), disabled: slotProps.data.status === 'cancelled' }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-pencil"
               severity="info"
               :disabled="slotProps.data.status === 'cancelled'"
@@ -141,6 +144,7 @@
             />
             <Button
               v-tooltip.left="{ value: $t('tables.buttonTooltips.cancelRent'), disabled: slotProps.data.status === 'cancelled' }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-times-circle"
               severity="danger"
               :disabled="slotProps.data.status === 'cancelled'"
@@ -149,6 +153,7 @@
             />
             <Button
               v-tooltip.left="{ value: $t('tables.buttonTooltips.viewParticipants'), disabled: slotProps.data.participants.length === 0 }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-address-book"
               severity="help"
               :disabled="slotProps.data.participants.length === 0"
@@ -245,7 +250,7 @@ const selectedUsers = ref(null)
 const selectedBooking = ref<any>(null)
 const { loading } = useRoom()
 const { fetchBookings, cancelBooking, bookings } = useBooking()
-const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, onFilter, handleUpdateRows } = useDataTable(bookings, 12)
+const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, onFilter, handleUpdateRows } = useDataTable(bookings, 15)
 const filters = ref({
   title: { value: null, matchMode: FilterMatchMode.CONTAINS },
   roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -259,7 +264,6 @@ const filters = ref({
   participantsCount: { value: null, matchMode: FilterMatchMode.CONTAINS },
 })
 
-// Dodaj pola czasu do bookings
 const bookingsWithTimeFields = computed(() => {
   if (!bookings.value) return []
   return bookings.value.map(booking => ({
@@ -270,14 +274,7 @@ const bookingsWithTimeFields = computed(() => {
 })
 
 const editModalVisible = ref(false)
-const showModal = ref(false)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const selectedRoom = ref<any>(null)
 
-const openAddModal = () => {
-  selectedRoom.value = null
-  showModal.value = true
-}
 const handleGoToRoom = (roomId: string) => {
   navigateTo(`/rooms/${roomId}`)
 }

@@ -1,4 +1,4 @@
-import type { IRoomCard, IRoomDetails, IRoomCreateRequest, IRoomUpdateRequest } from '~/interfaces/RoomsIntefaces'
+import type { IRoomCard, IRoomDetails, IRoomCreateRequest } from '~/interfaces/RoomsIntefaces'
 import { RoomService } from '~/services/RoomService'
 import { useAuth } from '~/composables/useAuth'
 
@@ -62,6 +62,7 @@ export const useRoom = () => {
       throw err
     }
     finally {
+      await fetchRooms()
       loading.value = false
     }
   }

@@ -3,123 +3,82 @@
     v-if="booking"
     @submit.prevent="submitForm"
   >
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-4 pt-4">
       <div class="flex flex-col gap-2 col-span-full">
-        <label
-          for="title"
-          class="font-semibold"
-        >{{ $t('forms.booking.title') }}</label>
-        <InputText
+        <FormTextField
           id="title"
           v-model="title"
-          :invalid="!!titleError"
+          :label="$t('forms.booking.title')"
+          :errorMessage="titleError"
+          @blur="titleBlur"
         />
-        <small
-          v-if="titleError"
-          class="text-red-500"
-        >{{ titleError }}</small>
       </div>
 
       <div class="flex flex-col gap-2 col-span-full">
-        <label
-          for="roomId"
-          class="font-semibold"
-        >{{ $t('forms.booking.room') }}</label>
-        <Select
+        <FormSelectField
           id="roomId"
           v-model="roomId"
           :options="availableRooms"
           optionLabel="roomName"
           optionValue="roomId"
-          :placeholder="$t('forms.booking.selectRoom')"
-          :loading="roomsLoading"
-          :invalid="!!roomIdError"
+          :label="$t('forms.booking.selectRoom')"
+          :errorMessage="roomIdError"
+          @blur="roomIdBlur"
         />
-        <small
-          v-if="roomIdError"
-          class="text-red-500"
-        >{{ roomIdError }}</small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label
-          for="startedAt"
-          class="font-semibold"
-        >{{ $t('forms.booking.startDate') }}</label>
-        <DatePicker
+        <FormDateField
           id="startedAt"
           v-model="startedAt"
           showTime
           hourFormat="24"
           dateFormat="yy/mm/dd"
-          :placeholder="$t('forms.booking.startDatePlaceholder')"
-          :invalid="!!startedAtError"
+          :label="$t('forms.booking.startDatePlaceholder')"
+          :errorMessage="startedAtError"
           fluid
+          @blur="startedAtBlur"
         />
-        <small
-          v-if="startedAtError"
-          class="text-red-500"
-        >{{ startedAtError }}</small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label
-          for="endedAt"
-          class="font-semibold"
-        >{{ $t('forms.booking.endDate') }}</label>
-        <DatePicker
+        <FormDateField
           id="endedAt"
           v-model="endedAt"
           showTime
           dateFormat="yy/mm/dd"
           hourFormat="24"
-          :placeholder="$t('forms.booking.endDatePlaceholder')"
-          :invalid="!!endedAtError"
+          :label="$t('forms.booking.endDatePlaceholder')"
+          :errorMessage="endedAtError"
           fluid
+          @blur="endedAtBlur"
         />
-        <small
-          v-if="endedAtError"
-          class="text-red-500"
-        >{{ endedAtError }}</small>
       </div>
 
       <div class="flex flex-col gap-2">
-        <label
-          for="participants"
-          class="font-semibold"
-        >{{ $t('forms.booking.participants') }}</label>
-        <InputNumber
+        <FormNumberField
           id="participants"
           v-model="participantsCount"
           :min="1"
-          class="w-[5rem]"
-          :invalid="!!participantsCountError || !!customParticipantsError"
+          :label="$t('forms.booking.participants')"
+          :errorMessage="participantsCountError"
           fluid
+          @blur="participantsCountBlur"
         />
-        <small
-          v-if="customParticipantsError || participantsCountError"
-          class="text-red-500"
-        >{{ customParticipantsError || participantsCountError }}</small>
       </div>
 
       <div class="flex flex-col gap-2 col-span-full">
-        <label
-          for="participantIds"
-          class="font-semibold"
-        >{{ $t('forms.booking.addParticipants') }}</label>
-        <MultiSelect
+        <FormMultiSelectField
           id="participantIds"
           v-model="participantIds"
           :options="availableUsers"
           optionLabel="displayName"
           optionValue="id"
-          :placeholder="$t('forms.booking.selectParticipants')"
+          :label="$t('forms.booking.selectParticipants')"
           :filter="true"
-          :loading="usersLoading"
-          display="chip"
-          class="w-full"
+          :errorMessage="customParticipantsError || participantIdsError"
+          @blur="participantIdsBlur"
         />
-        <small class="text-gray-500">{{ $t('forms.booking.participantsHint') }}</small>
       </div>
 
       <div class="flex items-center gap-2 col-span-full">
@@ -138,7 +97,7 @@
         <Button
           type="button"
           :label="$t('common.buttons.cancel')"
-          severity="secondary"
+          severity="danger"
           variant="outlined"
           @click="$emit('cancel')"
         />
@@ -161,6 +120,11 @@ import { useAuth } from '~/composables/useAuth'
 import { useBooking } from '~/composables/useBooking'
 import { useToast } from 'primevue/usetoast'
 import { useField, useForm } from 'vee-validate'
+import FormTextField from '~/components/common/FormTextField.vue'
+import FormSelectField from '~/components/common/FormSelectField.vue'
+import FormDateField from '~/components/common/FormDateField.vue'
+import FormNumberField from '~/components/common/FormNumberField.vue'
+import FormMultiSelectField from '~/components/common/FormMultiSelectField.vue'
 
 const props = defineProps<{
   bookingId: string
@@ -184,13 +148,13 @@ const { handleSubmit, resetForm } = useForm<IBookingUpdateRequest>({
   },
 })
 
-const { value: title, errorMessage: titleError } = useField<string>('title')
-const { value: roomId, errorMessage: roomIdError } = useField<string>('roomId')
-const { value: startedAt, errorMessage: startedAtError } = useField<Date | null>('startedAt')
-const { value: endedAt, errorMessage: endedAtError } = useField<Date | null>('endedAt')
-const { value: participantsCount, errorMessage: participantsCountError } = useField<number>('participantsCount')
-const { value: isPrivate, errorMessage: isPrivateError } = useField<boolean>('isPrivate')
-const { value: participantIds, errorMessage: participantIdsError } = useField<string[]>('participantIds')
+const { value: title, errorMessage: titleError, handleBlur: titleBlur } = useField<string>('title')
+const { value: roomId, errorMessage: roomIdError, handleBlur: roomIdBlur } = useField<string>('roomId')
+const { value: startedAt, errorMessage: startedAtError, handleBlur: startedAtBlur } = useField<Date | null>('startedAt')
+const { value: endedAt, errorMessage: endedAtError, handleBlur: endedAtBlur } = useField<Date | null>('endedAt')
+const { value: participantsCount, errorMessage: participantsCountError, handleBlur: participantsCountBlur } = useField<number>('participantsCount')
+const { value: isPrivate, errorMessage: isPrivateError, handleBlur: isPrivateBlur } = useField<boolean>('isPrivate')
+const { value: participantIds, errorMessage: participantIdsError, handleBlur: participantIdsBlur } = useField<string[]>('participantIds')
 
 const customParticipantsError = ref<string>('')
 
@@ -233,7 +197,6 @@ const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
   }
 
   try {
-    // Konwersja Date do ISO string format (bez Z i milisekund)
     const formatDateTime = (date: Date | null | undefined) => {
       if (!date || !(date instanceof Date)) return undefined
       const year = date.getFullYear()

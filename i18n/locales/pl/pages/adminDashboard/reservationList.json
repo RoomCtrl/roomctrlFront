@@ -1,3 +1,8 @@
 {
-  "title": "Lista rezerwacji"
+  "title": "Lista rezerwacji",
+  "status": {
+    "pending": "Oczekująca",
+    "active": "Aktywna",
+    "cancelled": "Anulowana"
+  }
 }

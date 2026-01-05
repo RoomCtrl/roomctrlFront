@@ -10,16 +10,24 @@
       </div>
     </template>
     <template #content>
-      <TopRoomsCarousel
-        :rooms="mostOftenRooms"
-        :title="$t('pages.adminDashboard.dashboard.carousel.title.mostOftenUse')"
-        class="flex-1 min-w-0"
-      />
-      <TopRoomsCarousel
-        :rooms="leastOftenRooms"
-        :title="$t('pages.adminDashboard.dashboard.carousel.title.leastOftenUse')"
-        class="flex-1 min-w-0"
-      />
+      <div v-if="mostUsedRooms.length > 0 || leastUsedRooms.length > 0">
+        <TopRoomsCarousel
+          :rooms="mostUsedRooms"
+          :title="$t('pages.adminDashboard.dashboard.carousel.title.mostOftenUse')"
+          class="flex-1 min-w-0"
+        />
+        <TopRoomsCarousel
+          :rooms="leastUsedRooms"
+          :title="$t('pages.adminDashboard.dashboard.carousel.title.leastOftenUse')"
+          class="flex-1 min-w-0"
+        />
+      </div>
+      <div
+        v-else
+        class="flex justify-center items-center h-full font-semibold text-2xl"
+      >
+        {{ $t('pages.adminDashboard.dashboard.carousel.noData') }}
+      </div>
     </template>
   </Card>
 </template>
@@ -27,8 +35,10 @@
 <script setup lang="ts">
 import TopRoomsCarousel from '../TopRoomsCarousel.vue'
 
-const { fetchMostUsedRooms, fetchLeastUsedRooms } = useStatistics()
+const { fetchMostUsedRooms, fetchLeastUsedRooms, mostUsedRooms, leastUsedRooms } = useStatistics()
 
-const mostOftenRooms = await fetchMostUsedRooms()
-const leastOftenRooms = await fetchLeastUsedRooms()
+onMounted(async () => {
+  await fetchMostUsedRooms()
+  await fetchLeastUsedRooms()
+})
 </script>

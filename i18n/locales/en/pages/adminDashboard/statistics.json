@@ -12,11 +12,12 @@
   "totalCount": "Total reservations",
   "thisMonth": "This month",
   "thisWeek": "This week",
-  "statusPending": "Pending",
+  "statusActive": "Active",
   "statusCancelled": "Cancelled",
   "statusCompleted": "Completed",
   "confirmedReservations": "Confirmed Reservations",
   "pendingReservations": "Pending Reservations",
   "cancelledReservations": "Cancelled Reservations",
-  "occupancyPercentage": "Occupancy Percentage"
+  "occupancyPercentage": "Occupancy Percentage",
+  "noData": "No data to display"
 }

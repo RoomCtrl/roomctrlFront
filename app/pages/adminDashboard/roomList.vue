@@ -79,6 +79,15 @@
         key="description"
         field="description"
         :header="$t('tables.headers.description')"
+        :noData="$t('pages.adminDashboard.roomList.tableNoData.description')"
+        filter
+        sortable
+      />
+      <BaseSelectFilterColumn
+        key="status"
+        field="status"
+        :header="$t('tables.headers.status')"
+        :options="statusOptions"
         filter
         sortable
       />
@@ -205,6 +214,7 @@ import ActionButton from '~/components/common/buttons/ActionButton.vue'
 import RoomForm from '~/components/forms/RoomForm.vue'
 import type { IRoomCard, IRoomCreateRequest, IRoomUpdateRequest } from '~/interfaces/RoomsIntefaces'
 import RoomImagesDelete from '~/components/rooms/detailsParts/RoomImagesDelete.vue'
+import BaseSelectFilterColumn from '~/components/common/datatable/columns/BaseSelectFilterColumn.vue'
 
 definePageMeta({
   middleware: 'admin',
@@ -224,7 +234,13 @@ const filters = ref({
   size: { value: null, matchMode: FilterMatchMode.EQUALS },
   location: { value: null, matchMode: FilterMatchMode.CONTAINS },
   description: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  status: { value: null, matchMode: FilterMatchMode.EQUALS },
 })
+
+const statusOptions = [
+  { label: 'available', value: 'available' },
+  { label: 'out_of_use', value: 'out_of_use' },
+]
 
 const showModal = ref(false)
 const formLoading = ref(false)

@@ -25,7 +25,7 @@
         class="w-full"
         :options="options"
         optionLabel="label"
-        optionValue="code"
+        optionValue="value"
         filter
         :placeholder="$t('forms.filters.search')"
         @change="filterCallback()"
@@ -36,8 +36,8 @@
         class="w-full"
         :placeholder="$t('forms.filters.choose')"
         :options="options"
-        optionLabel="name"
-        optionValue="code"
+        optionLabel="label"
+        optionValue="value"
         @change="filterCallback()"
       />
     </template>
@@ -54,8 +54,8 @@ withDefaults(
     showFilterMenu?: boolean
     multiSelect?: boolean
     options: {
-      name: string
-      code: string
+      label: string
+      value: string
     }[]
   }>(), {
     sortable: false,

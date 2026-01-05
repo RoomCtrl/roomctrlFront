@@ -1,7 +1,8 @@
 {
   "submit": {
     "changePassword": "Zmień hasło",
-    "register": "Zarejestruj się"
+    "register": "Zarejestruj się",
+    "reportRoomIssue": "Zgłoś problem z salą"
   },
   "filters": {
     "title": "Filtrowanie",
@@ -18,7 +19,8 @@
     "loginForm": "Logowanie",
     "registrationForm": "Rejestracja",
     "passwordResetRequest": "Resetowanie hasła",
-    "passwordResetConfirm": "Ustaw nowe hasło"
+    "passwordResetConfirm": "Ustaw nowe hasło",
+    "roomIssueReport": "Zgłoszenie sali"
   },
   "fields": {
     "user": {
@@ -65,7 +67,10 @@
     "endTime": "Czas zakończenia",
     "daysOfWeek": "Dni tygodnia",
     "weeksAhead": "Tygodnie do przodu",
-    "description": "Opis"
+    "description": "Opis",
+    "status": "Status",
+    "category": "Kategoria",
+    "priority": "Priorytet"
   },
   "roomForm": {
     "buttons": {

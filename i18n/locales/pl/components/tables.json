@@ -6,6 +6,7 @@
   "headers": {
     "roomName": "Sala",
     "capacity": "Pojemność",
+    "category": "Kategoria",
     "size": "Rozmiar",
     "location": "Lokalizacja",
     "description": "Opis",
@@ -28,10 +29,12 @@
     "priority": "Priorytet",
     "reportedBy": "Zgłoszona przez",
     "reportDate": "Data zgłoszenia",
+    "reportTime": "Czas zgłoszenia",
     "username": "Nazwa użytkownika",
     "firstName": "Imię",
     "lastName": "Nazwisko",
-    "role": "Role"
+    "role": "Role",
+    "closedAt": "Zamknięte"
   },
   "buttonTooltips": {
     "goToRoom": "Przejdź do sali",

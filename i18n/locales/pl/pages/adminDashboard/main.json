@@ -37,7 +37,8 @@
       "leastOftenUse": "TOP 5 najrzadziej"
     },
     "weekly": "Tygodniowo",
-    "monthly": "Miesięcznie"
+    "monthly": "Miesięcznie",
+    "noData": "Brak danych do wyświetlenia"
   },
   "tables": {
     "titles": {

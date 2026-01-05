@@ -12,7 +12,7 @@
       >
         <div class="flex justify-center">
           <Tag
-            :value="$t('pages.reservationsHistory.statuses.' + slotProps.data[field])"
+            :value="$t(translationPrefix + slotProps.data[field])"
             :severity="statusColor[slotProps.data[field] as keyof typeof statusColor]"
           />
         </div>
@@ -28,8 +28,8 @@
         class="w-full"
         :placeholder="$t('forms.filters.choose')"
         :options="options"
-        optionLabel="name"
-        optionValue="code"
+        :optionLabel="optionLabel"
+        :optionValue="optionValue"
         @change="filterCallback()"
       />
     </template>
@@ -41,13 +41,16 @@ withDefaults(
   defineProps<{
     field: string
     header: string
+    translationPrefix: string
     statusColor: Record<string, string>
     sortable?: boolean
     filter?: boolean
+    optionLabel?: string
+    optionValue?: string
     showFilterMenu?: boolean
     options?: {
-      name: string
-      code: string
+      label: string
+      value: string
     }[]
   }>(), {
     sortable: false,

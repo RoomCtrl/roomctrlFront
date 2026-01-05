@@ -1,10 +1,16 @@
-import type { IStatisticsReservationTrendResponse } from '~/interfaces/StatisticsInterfaces'
+import type { IStatisticsMostIsssuesRoomsResponse, IStatisticsReservationTrendResponse, IStatisticsUsageRoomsResponse } from '~/interfaces/StatisticsInterfaces'
 import { StatisticsService } from '~/services/StatisticsService'
 
 export const useStatistics = () => {
   const { token } = useAuth()
 
+  const mostUsedRooms = useState<IStatisticsUsageRoomsResponse[]>('most-used-room', () => [])
+  const leastUsedRooms = useState<IStatisticsUsageRoomsResponse[]>('least-used-room', () => [])
+  const mostIssuesRooms = useState<IStatisticsMostIsssuesRoomsResponse[]>('most-issues-room', () => [])
   const getRoomService = () => new StatisticsService(token.value)
+
+  const loading = useState<boolean>('statistics-loading', () => false)
+  const error = useState<string | null>('statistics-error', () => null)
 
   const fetchBookingTypeCount = async () => {
     return await getRoomService().getBookingTypeCount()
@@ -23,15 +29,45 @@ export const useStatistics = () => {
   }
 
   const fetchMostUsedRooms = async () => {
-    return await getRoomService().getMostUsedRooms()
+    loading.value = true
+    error.value = null
+    try {
+      mostUsedRooms.value = await getRoomService().getMostUsedRooms()
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu najczęściej używanych pokoi'
+    }
+    finally {
+      loading.value = false
+    }
   }
 
   const fetchLeastUsedRooms = async () => {
-    return await getRoomService().getLeastUsedRooms()
+    loading.value = true
+    error.value = null
+    try {
+      leastUsedRooms.value = await getRoomService().getLeastUsedRooms()
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu najczęściej używanych pokoi'
+    }
+    finally {
+      loading.value = false
+    }
   }
 
   const fetchMostIssuesRooms = async () => {
-    return await getRoomService().getMostIssuesRooms()
+    loading.value = true
+    error.value = null
+    try {
+      mostIssuesRooms.value = await getRoomService().getMostIssuesRooms()
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu pokoi z największą liczbą problemów'
+    }
+    finally {
+      loading.value = false
+    }
   }
 
   const fetchReservationTrend = async () => {
@@ -53,5 +89,11 @@ export const useStatistics = () => {
     fetchLeastUsedRooms,
     fetchMostIssuesRooms,
     fetchReservationTrend,
+
+    mostUsedRooms,
+    leastUsedRooms,
+    mostIssuesRooms,
+    loading,
+    error,
   }
 }
