@@ -11,6 +11,7 @@
   },
   "preferences": {
     "title": "Preferences",
+    "description": "Set your application preferences",
     "language": "Interface Language",
     "darkMode": "Dark Mode",
     "notifications": "Notifications"

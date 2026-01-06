@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div>
-      <h2 class="text-2xl font-semibold mb-1">
-        {{ $t('pages.settings.preferences.title') }}
-      </h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-6">
-        {{ $t('pages.settings.preferences.description') || 'Customize your experience' }}
-      </p>
-    </div>
     <Card>
+      <template #title>
+        <h2 class="text-2xl font-semibold mb-1">
+          {{ $t('pages.settings.preferences.title') }}
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6 text-base">
+          {{ $t('pages.settings.preferences.description') || 'Customize your experience' }}
+        </p>
+      </template>
       <template #content>
         <div class="space-y-6">
           <div>
@@ -59,6 +59,7 @@ import ModeSwitch from '~/components/layoutParts/headerParts/ModeSwitch.vue'
 const { fetchUserNotifications, updateUserNotifications } = useUser()
 
 const toast = useToast()
+const { t } = useI18n()
 
 const notifications = await fetchUserNotifications()
 const newNotifications = ref(notifications)
@@ -67,8 +68,8 @@ const handleNotificationsChange = async () => {
   await updateUserNotifications(newNotifications.value)
   toast.add({
     severity: 'success',
-    summary: '',
-    detail: 'Notification preferences updated successfully',
+    summary: t('toast.summary.changeSuccess'),
+    detail: newNotifications.value ? t('toast.details.onNotifications') : t('toast.details.offNotifications'),
     life: 3000,
   })
 }

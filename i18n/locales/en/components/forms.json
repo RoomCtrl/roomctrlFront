@@ -1,7 +1,8 @@
 {
   "submit": {
     "changePassword": "Change Password",
-    "register": "Register"
+    "register": "Register",
+    "reportRoomIssue": "Report Room Issue"
   },
   "registration": {
     "title": "Registration",

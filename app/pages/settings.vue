@@ -17,8 +17,8 @@
               class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
               :class="
                 activeSection === item.id
-                  ? 'bg-primary text-primary-inverse font-semibold'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  ? 'bg-gray-100 dark:bg-gray-700 text-primary-inverse font-semibold'
+                  : 'text-gray-900 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               "
               @click="activeSection = item.id"
             >

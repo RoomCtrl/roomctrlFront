@@ -7,5 +7,14 @@
     "passwordResetRequestFailed": "Failed to send reset token",
     "passwordResetFailed": "Failed to reset password",
     "passwordsDoNotMatch": "Passwords do not match"
+  },
+  "summary": {
+    "codeSent": "Sent",
+    "changeSuccess": "Changed successfully"
+  },
+  "details": {
+    "checkEmail": "Check your inbox to find the password reset token.",
+    "offNotifications": "Notifications have been turned off",
+    "onNotifications": "Notifications have been turned on"
   }
 }

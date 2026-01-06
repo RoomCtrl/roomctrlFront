@@ -1,4 +1,3 @@
-// repositories/StorageRepository.js
 export class StorageRepository {
   constructor() {
     this.tokenKey = 'auth.token'

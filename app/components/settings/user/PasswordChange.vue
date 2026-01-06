@@ -1,108 +1,63 @@
 <template>
   <div>
-    <div>
-      <h2 class="text-2xl font-semibold mb-1">
-        {{ $t('pages.settings.changePassword.title') }}
-      </h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-6">
-        {{ $t('pages.settings.changePassword.description') }}
-      </p>
-    </div>
-    <Card>
+    <Card pt:title:class="flex justify-between">
+      <template #title>
+        <div>
+          <h2 class="text-2xl font-semibold mb-1">
+            {{ $t('pages.settings.changePassword.title') }}
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-6 text-base">
+            {{ $t('pages.settings.changePassword.description') }}
+          </p>
+        </div>
+        <div class="self-center">
+          <Button
+            :label="$t('common.buttons.sendToken')"
+            severity="help"
+            @click="handleSendCode"
+          />
+        </div>
+      </template>
       <template #content>
-        <div class="flex flex-col items-center gap-6">
-          <div class="self-start">
-            <Button
-              label="Wyslij token na maila"
-              severity="help"
-              @click="handleSendCode"
-            />
-          </div>
+        <div class="flex flex-col items-center">
           <form
-            class="flex flex-col gap-4"
+            class="flex flex-col"
             @submit.prevent="submitForm"
           >
             <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-key" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <InputText
-                    id="token"
-                    v-model="token"
-                    :class="{ 'p-invalid': tokenError }"
-                    type="text"
-                    @blur="tokenBlur"
-                  />
-                  <label for="token">{{ $t('forms.fields.resetToken') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <Message
-                v-if="tokenError"
-                severity="error"
-                size="small"
-                variant="simple"
-              >
-                {{ tokenError }}
-              </Message>
+              <FormTextField
+                id="token"
+                v-model="token"
+                :label="$t('forms.fields.user.resetToken')"
+                :errorMessage="tokenError"
+                fluid
+                icon="pi pi-key"
+                @blur="tokenBlur"
+              />
             </div>
 
             <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-lock" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <Password
-                    id="newPassword"
-                    v-model="newPassword"
-                    :class="{ 'p-invalid': newPasswordError }"
-                    type="password"
-                    toggleMask
-                    fluid
-                    @blur="newPasswordBlur"
-                  />
-                  <label for="newPassword">{{ $t('forms.fields.newPassword') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <Message
-                v-if="newPasswordError"
-                severity="error"
-                size="small"
-                variant="simple"
-              >
-                {{ newPasswordError }}
-              </Message>
+              <FormPasswordField
+                id="newPassword"
+                v-model="newPassword"
+                :label="$t('forms.fields.user.newPassword')"
+                :errorMessage="newPasswordError"
+                fluid
+                icon="pi pi-lock"
+                @blur="newPasswordBlur"
+              />
             </div>
 
             <div class="w-[70vw] md:w-[23rem]">
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-lock" />
-                </InputGroupAddon>
-                <FloatLabel variant="on">
-                  <Password
-                    id="confirmPassword"
-                    v-model="confirmPassword"
-                    :class="{ 'p-invalid': confirmPasswordError }"
-                    type="password"
-                    toggleMask
-                    fluid
-                    :feedback="false"
-                    @blur="confirmPasswordBlur"
-                  />
-                  <label for="confirmPassword">{{ $t('forms.fields.confirmPassword') }}</label>
-                </FloatLabel>
-              </InputGroup>
-              <Message
-                v-if="confirmPasswordError"
-                severity="error"
-                size="small"
-                variant="simple"
-              >
-                {{ confirmPasswordError }}
-              </Message>
+              <FormPasswordField
+                id="confirmPassword"
+                v-model="confirmPassword"
+                :label="$t('forms.fields.user.confirmPassword')"
+                :errorMessage="confirmPasswordError"
+                fluid
+                icon="pi pi-lock"
+                @blur="confirmPasswordBlur"
+              />
             </div>
 
             <div class="flex flex-col gap-2 items-center text-center">
@@ -123,6 +78,8 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
+import FormPasswordField from '~/components/common/FormPasswordField.vue'
+import FormTextField from '~/components/common/FormTextField.vue'
 import type { IChangePasswordForm } from '~/interfaces/UsersInterfaces'
 import { AuthRepository } from '~/repositories/AuthRepository'
 
@@ -148,8 +105,8 @@ const handleSendCode = async () => {
   await authRepository.passwordResetRequest({ email: user.value.email })
   toast.add({
     severity: 'info',
-    summary: t('pages.settings.info.codeSent'),
-    detail: t('pages.settings.info.checkEmail'),
+    summary: t('toast.summary.codeSent'),
+    detail: t('toast.details.checkEmail'),
     life: 3000,
   })
 }

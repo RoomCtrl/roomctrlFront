@@ -1,102 +1,73 @@
 <template>
   <div>
-    <div>
-      <h2 class="text-2xl font-semibold mb-1">
-        {{ $t('pages.settings.personalData.title') }}
-      </h2>
-      <p class="text-gray-600 dark:text-gray-400 mb-6">
-        {{ $t('pages.settings.personalData.description') || 'Manage your personal information' }}
-      </p>
-    </div>
     <Card>
+      <template #title>
+        <h2 class="text-2xl font-semibold mb-1">
+          {{ $t('pages.settings.personalData.title') }}
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 text-base mb-6">
+          {{ $t('pages.settings.personalData.description') || 'Manage your personal information' }}
+        </p>
+      </template>
       <template #content>
         <form @submit.prevent="submitForm">
-          <div>
-            <div
-              id="usernamelabel"
-              class="block mb-2 font-semibold"
-            >
-              {{ t('forms.fields.username') }}
-            </div>
-            <InputText
+          <div class="w-[30rem]">
+            <FormTextField
+              id="username"
               v-model="username"
-              class="w-[30rem]"
-              aria-labelledby="usernamelabel"
-              fluid
+              :label="$t('forms.fields.user.username')"
+              :errorMessage="usernameError"
               @blur="usernameBlur"
             />
           </div>
-          <div class="grid md:grid-cols-2 gap-4 mb-4">
+          <div class="grid md:grid-cols-2 gap-x-4">
             <div>
-              <div
-                id="firstNameLabel"
-                class="block mb-2 font-semibold"
-              >
-                {{ t('forms.fields.firstName') }}
-              </div>
-              <InputText
+              <FormTextField
+                id="firstName"
                 v-model="firstName"
-                class="w-full"
-                aria-labelledby="firstNameLabel"
+                :label="$t('forms.fields.user.firstName')"
+                :errorMessage="firstNameError"
                 @blur="firstNameBlur"
               />
             </div>
             <div>
-              <div
-                id="lastNameLabel"
-                class="block mb-2 font-semibold"
-              >
-                {{ t('forms.fields.lastName') }}
-              </div>
-              <InputText
+              <FormTextField
+                id="lastName"
                 v-model="lastName"
-                class="w-full"
-                aria-labelledby="lastNameLabel"
+                :label="$t('forms.fields.user.lastName')"
+                :errorMessage="lastNameError"
                 @blur="lastNameBlur"
               />
             </div>
-          </div>
 
-          <div class="grid grid-cols-2 gap-4">
             <div>
-              <div
-                id="emailLabel"
-                class="block mb-2 font-semibold"
-              >
-                {{ t('forms.fields.email') }}
-              </div>
-              <InputText
+              <FormTextField
+                id="email"
                 v-model="email"
-                type="email"
-                class="w-full"
-                aria-labelledby="emailLabel"
+                :label="$t('forms.fields.user.email')"
+                :errorMessage="emailError"
                 @blur="emailBlur"
               />
             </div>
 
-            <div class="">
-              <div
-                id="phoneLabel"
-                class="block mb-2 font-semibold"
-              >
-                {{ t('forms.fields.phone') }}
-              </div>
-              <InputText
+            <div>
+              <FormTextField
+                id="phone"
                 v-model="phone"
-                class="w-full"
-                aria-labelledby="phoneLabel"
+                :label="$t('forms.fields.phone')"
+                :errorMessage="phoneError"
                 @blur="phoneBlur"
               />
             </div>
-          </div>
 
-          <div class="flex justify-end gap-3 mt-6">
-            <Button
-              type="submit"
-              severity="success"
-              :loading="loading"
-              :label="$t('common.buttons.save')"
-            />
+            <div class="flex justify-end col-span-full">
+              <Button
+                type="submit"
+                severity="success"
+                :loading="loading"
+                :label="$t('common.buttons.save')"
+              />
+            </div>
           </div>
         </form>
       </template>
@@ -106,15 +77,16 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
+import FormTextField from '~/components/common/FormTextField.vue'
 import type { IUpdateUserProfileForm } from '~/interfaces/UsersInterfaces'
 
 const toast = useToast()
 const loading = ref(false)
 const { t } = useI18n()
-const { user } = useAuth()
+const { user, fetchUserProfile } = useAuth()
 const { updateUser } = useUser()
 
-const { handleSubmit } = useForm<IUpdateUserProfileForm>({
+const { handleSubmit, resetForm } = useForm<IUpdateUserProfileForm>({
   validationSchema: {
     username: 'required',
     firstName: 'required',
@@ -141,17 +113,46 @@ const submitForm = handleSubmit(async (formValues: IUpdateUserProfileForm) => {
   loading.value = true
   try {
     await updateUser(user.value.id, formValues)
-  }
-  catch (error) {
-    console.error('Error updating profile:', error)
-  }
-  finally {
-    loading.value = false
     toast.add({
       severity: 'success',
       summary: t('common.buttons.save'),
       detail: t('pages.settings.success.profileUpdated'),
       life: 3000,
+    })
+  }
+  catch (error) {
+    toast.add({
+      severity: 'error',
+      summary: t('common.error'),
+      detail: error.response?.data?.message || t('common.errorMessages.generic'),
+      life: 3000,
+    })
+  }
+  finally {
+    await fetchUserProfile()
+    resetForm({
+      values: {
+        username: user.value.username,
+        firstName: user.value.firstName,
+        lastName: user.value.lastName,
+        email: user.value.email,
+        phone: user.value.phone,
+      },
+    })
+    loading.value = false
+  }
+})
+
+onMounted(() => {
+  if (user.value) {
+    resetForm({
+      values: {
+        username: user.value.username,
+        firstName: user.value.firstName,
+        lastName: user.value.lastName,
+        email: user.value.email,
+        phone: user.value.phone,
+      },
     })
   }
 })

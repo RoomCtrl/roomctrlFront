@@ -17,7 +17,7 @@
     <template #subtitle>
       <div class="flex flex-col sm:flex-row justify-between gap-2">
         <h2 class="text-sm sm:text-base lg:truncate lg:w-[70%]">
-          {{ roomDescription }}
+          {{ roomDescription || t('pages.adminDashboard.roomList.tableNoData.description') }}
         </h2>
         <UserRating
           class="hidden sm:block"
@@ -72,7 +72,7 @@ import RentButton from '~/components/booking/RentButton.vue'
 
 const props = defineProps<{
   roomName: string
-  roomDescription: string
+  roomDescription?: string
   startedAt?: string
   endedAt?: string
   currentBooking?: IBooking

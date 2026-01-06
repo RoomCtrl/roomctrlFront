@@ -1,7 +1,8 @@
 {
   "submit": {
     "changePassword": "Zmień hasło",
-    "register": "Zarejestruj się"
+    "register": "Zarejestruj się",
+    "reportRoomIssue": "Zgłoś problem z salą"
   },
   "registration": {
     "title": "Rejestracja",

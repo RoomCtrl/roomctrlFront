@@ -21,7 +21,6 @@
       filterDisplay="row"
       :rows="rows"
       :rowsPerPageOptions="rowsPerPageOptions"
-      :loading="loading"
       size="small"
       paginator
       removableSort
@@ -33,7 +32,7 @@
         :key="'roomName'"
         field="roomName"
         :header="$t('tables.headers.roomName')"
-        style="width: 20%;"
+        class="w-[20%]"
         sortable
         filter
       />
@@ -41,7 +40,7 @@
         :key="'categoryTranslated'"
         field="categoryTranslated"
         :header="$t('tables.headers.category')"
-        style="width: 10%;"
+        class="w-[10%]"
         sortable
         filter
       />
@@ -49,7 +48,7 @@
         :key="'description'"
         field="description"
         :header="$t('tables.headers.description')"
-        style="width: 20%;"
+        class="w-[20%]"
         sortable
         filter
       />
@@ -59,7 +58,7 @@
         :options="statusOptions"
         translationPrefix="pages.adminDashboard.roomIssueReports.status."
         :header="$t('tables.headers.status')"
-        style="width: 10%;"
+        class="w-[10%]"
         optionLabel="label"
         optionValue="value"
         sortable
@@ -71,7 +70,7 @@
         field="priority"
         :options="priorityOptions"
         :header="$t('tables.headers.priority')"
-        style="width: 5%;"
+        class="w-[5%]"
         sortable
         filter
       >
@@ -85,7 +84,7 @@
         :key="'reportedAtDate'"
         field="reportedAt"
         :header="$t('tables.headers.reportDate')"
-        style="width: 5%;"
+        class="w-[5%]"
         sortable
         filter
       />
@@ -93,7 +92,7 @@
         :key="'reportedAtTime'"
         field="reportedAtTime"
         :header="$t('tables.headers.reportTime')"
-        style="width: 5%;"
+        class="w-[5%]"
         sortable
         filter
         onlyTime
@@ -102,7 +101,7 @@
         :key="'closedAt'"
         field="closedAt"
         :header="$t('tables.headers.closedAt')"
-        style="width: 5%;"
+        class="w-[5%]"
         sortable
         filter
       >
@@ -137,7 +136,7 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const { users, loading, fetchUsers } = useUser()
+const { users, fetchUsers } = useUser()
 const { fetchCurrentUserIssues, issues } = useIssue()
 const { t } = useI18n()
 const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 15)

@@ -7,6 +7,9 @@
     "title": "Room Photos",
     "noImages": "No photos"
   },
+  "noData": {
+    "equipment": "No equipment data"
+  },
   "detailedInfo": {
     "title": "Room information: ",
     "parameters": {

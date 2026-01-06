@@ -15,7 +15,7 @@
         class="flex flex-col gap-4 pt-4"
         @submit.prevent="submitForm"
       >
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col">
           <div class="w-[70vw] md:w-[23rem]">
             <FormSelectField
               id="category"

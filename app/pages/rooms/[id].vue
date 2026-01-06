@@ -53,17 +53,15 @@
 
         <EqupimentInfo
           class="flex-1 lg:col-span-2"
-          :equpiments="roomDetails?.equipment as any"
+          :equipments="roomDetails?.equipment as any"
         />
       </div>
 
-      <!-- Upcoming Meetings -->
       <UpcomingMeeting
         class="lg:col-span-2 lg:row-span-2"
         :meetings="roomDetails?.nextBookings as any"
       />
 
-      <!-- Room Images -->
       <RoomImages
         v-if="roomDetails"
         :room-id="roomDetails.roomId"
@@ -166,14 +164,14 @@ const organization = ref<IOrganization | null>(null)
 const showBookingForm = ref(false)
 
 const cleaningBookings = computed(() => {
-  if (!bookings.value || !roomDetails.value) return []
+  if (!bookings.value || !roomDetails.value || !bookings.value.room) return []
   return bookings.value.filter(booking =>
     booking.room.id === roomDetails.value?.roomId && booking.title.toLowerCase().includes('sprzątanie'),
   ).sort((a, b) => new Date(b.endedAt).getTime() - new Date(a.endedAt).getTime())
 })
 
 const maintenanceBookings = computed(() => {
-  if (!bookings.value || !roomDetails.value) return []
+  if (!bookings.value || !roomDetails.value || !bookings.value.room) return []
   return bookings.value.filter(booking =>
     booking.room.id === roomDetails.value?.roomId && booking.title.toLowerCase().includes('konserwacja'),
   ).sort((a, b) => new Date(b.endedAt).getTime() - new Date(a.endedAt).getTime())

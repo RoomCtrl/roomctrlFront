@@ -28,7 +28,8 @@
     "sendCode": "Send token",
     "resetPassword": "Reset password",
     "backToLogin": "Back to login",
-    "backToEmailStep": "Back to email step"
+    "backToEmailStep": "Back to email step",
+    "sendToken": "Send token to email"
   },
   "toast": {
     "danger": "Warning!",

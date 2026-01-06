@@ -7,7 +7,7 @@
       <Textarea
         :id="id"
         :model-value="modelValue"
-        :class="{ 'p-invalid': errorMessage }"
+        :class="[{ 'p-invalid': errorMessage }, 'min-h-[4rem]']"
         :autofocus="autofocus"
         :rows="rows"
         :auto-resize="autoResize"
