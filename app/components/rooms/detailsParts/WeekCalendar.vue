@@ -17,7 +17,13 @@
     >
       <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-200 dark:border-gray-600">
         <button
-          class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-2"
+          :disabled="!canGoPrevious"
+          :class="[
+            'px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-2',
+            canGoPrevious
+              ? 'bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white cursor-pointer'
+              : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed opacity-50',
+          ]"
           @click="previousWeek"
         >
           <i class="pi pi-chevron-left text-xs" />
@@ -187,6 +193,7 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Dialog from 'primevue/dialog'
 import type { IBooking } from '~/interfaces/RoomsIntefaces'
+import { parseLocalDate } from '~/utils/dateHelpers'
 
 interface IReservation extends IBooking {
   color?: string
@@ -219,25 +226,80 @@ const weekDays = computed(() => {
   })
 })
 
+const canGoPrevious = computed(() => {
+  const firstDayOfWeek = weekDays.value[0]
+  if (!firstDayOfWeek) return false
+
+  const previousWeekStart = new Date(firstDayOfWeek)
+  previousWeekStart.setDate(previousWeekStart.getDate() - 7)
+
+  return previousWeekStart.getFullYear() >= 2020
+})
+
 const allReservations = computed(() => {
-  const reservations: IReservation[] = []
+  const result: IReservation[] = []
+  const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
+
+  const bookingsToProcess: IBooking[] = []
   if (props.currentBooking) {
-    reservations.push({ ...props.currentBooking, color: 'red' })
+    bookingsToProcess.push(props.currentBooking)
   }
   if (props.nextBookings) {
-    reservations.push(
-      ...props.nextBookings.map((booking, idx) => ({
-        ...booking,
-        color: idx % 2 === 0 ? 'blue' : 'green',
-      })),
-    )
+    bookingsToProcess.push(...props.nextBookings)
   }
-  return reservations
+
+  bookingsToProcess.forEach((booking, index) => {
+    const startDate = parseLocalDate(booking.startedAt)
+    const endDate = parseLocalDate(booking.endedAt)
+    const color = colors[index % colors.length]
+
+    const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+    const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
+
+    if (startDay.getTime() === endDay.getTime()) {
+      result.push({
+        ...booking,
+        color,
+      })
+    }
+    else {
+      const currentDay = new Date(startDay)
+
+      while (currentDay <= endDay) {
+        let segmentStart: Date, segmentEnd: Date
+
+        if (currentDay.getTime() === startDay.getTime()) {
+          segmentStart = new Date(startDate)
+          segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
+        }
+        else if (currentDay.getTime() === endDay.getTime()) {
+          segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
+          segmentEnd = new Date(endDate)
+        }
+        else {
+          segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
+          segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
+        }
+
+        result.push({
+          ...booking,
+          startedAt: segmentStart.toISOString(),
+          endedAt: segmentEnd.toISOString(),
+          color,
+          isMultiDay: true,
+        })
+
+        currentDay.setDate(currentDay.getDate() + 1)
+      }
+    }
+  })
+
+  return result
 })
 
 const getReservationsForDay = (day: Date): IReservation[] => {
   return allReservations.value.filter((res) => {
-    const resDate = new Date(res.startedAt)
+    const resDate = parseLocalDate(res.startedAt)
     return (
       resDate.getDate() === day.getDate()
       && resDate.getMonth() === day.getMonth()
@@ -247,8 +309,8 @@ const getReservationsForDay = (day: Date): IReservation[] => {
 }
 
 const getReservationStyle = (reservation: IReservation): Record<string, string> => {
-  const startDate = new Date(reservation.startedAt)
-  const endDate = new Date(reservation.endedAt)
+  const startDate = parseLocalDate(reservation.startedAt)
+  const endDate = parseLocalDate(reservation.endedAt)
   const durationMs = endDate.getTime() - startDate.getTime()
   const durationMinutes = Math.max(30, Math.round(durationMs / (1000 * 60)))
 
@@ -276,21 +338,21 @@ const getReservationColor = (res: IReservation): string => {
 
 const formatTime = (date: string): string => {
   if (!date) return '--:--'
-  const d = new Date(date)
+  const d = parseLocalDate(date)
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
 const formatDate = (date: string): string => {
   if (!date) return '--'
-  const d = new Date(date)
+  const d = parseLocalDate(date)
   return d.toLocaleDateString()
 }
 
 const calculateDuration = (res: IReservation): number => {
-  const startDate = new Date(res.startedAt)
-  const endDate = new Date(res.endedAt)
+  const startDate = parseLocalDate(res.startedAt)
+  const endDate = parseLocalDate(res.endedAt)
   const durationMs = endDate.getTime() - startDate.getTime()
-  return Math.max(30, Math.round(durationMs / (1000 * 60)))
+  return Math.round(durationMs / (1000 * 60))
 }
 
 const dayOfWeekFullNames = [
@@ -329,7 +391,9 @@ const openBookingModal = (reservation: IReservation): void => {
 }
 
 const previousWeek = (): void => {
-  weekOffset.value -= 1
+  if (canGoPrevious.value) {
+    weekOffset.value -= 1
+  }
 }
 
 const nextWeek = (): void => {

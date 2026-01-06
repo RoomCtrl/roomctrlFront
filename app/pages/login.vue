@@ -1,8 +1,9 @@
 <template>
   <div class="flex justify-center items-center w-full">
     <Tabs
-      pt:root:class="min-w-[70%] min-h-[40rem"
-      value="0"
+      pt:root:class="max-sm:w-[95%] min-w-[80rem]"
+      pt:content:class="h-full"
+      :value="tabValue"
     >
       <TabList>
         <Tab value="0">
@@ -17,7 +18,7 @@
           <FormsLogin />
         </TabPanel>
         <TabPanel value="1">
-          <Registration />
+          <Registration @registration-attempted="handleRegister" />
         </TabPanel>
       </TabPanels>
     </Tabs>
@@ -30,4 +31,10 @@ import Registration from '~/components/forms/Registration.vue'
 definePageMeta({
   middleware: ['guest'],
 })
+
+const tabValue = ref('0')
+
+const handleRegister = () => {
+  tabValue.value = '0'
+}
 </script>

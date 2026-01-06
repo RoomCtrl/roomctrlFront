@@ -34,12 +34,11 @@ export const useAuth = () => {
       user.value = result.user
       token.value = result.token
       roles.value = result.user.roles || []
-      
-      // Uruchom monitorowanie sesji po zalogowaniu
+
       if (import.meta.client) {
         startSessionMonitoring()
       }
-      
+
       return result
     }
     finally {
@@ -49,24 +48,21 @@ export const useAuth = () => {
 
   const logout = async (redirectTo?: string): Promise<void> => {
     loading.value = true
-    
-    // Zatrzymaj monitorowanie sesji
+
     if (sessionMonitoringInterval.value) {
       clearInterval(sessionMonitoringInterval.value)
       sessionMonitoringInterval.value = null
     }
-    
+
     try {
       if (token.value) {
         await authService.logout(token.value)
       }
     }
     catch (error) {
-      // Ignoruj błędy podczas wylogowania
       console.error('Logout error:', error)
     }
     finally {
-      // Zawsze wyczyść stan, nawet jeśli wystąpił błąd
       user.value = null
       token.value = null
       roles.value = []
@@ -182,17 +178,14 @@ export const useAuth = () => {
     return rolesList.every(role => roles.value.includes(role))
   }
 
-  // Monitorowanie wygaśnięcia tokenu
   const startSessionMonitoring = () => {
     if (import.meta.server) return
 
-    // Zatrzymaj poprzednie monitorowanie, jeśli istnieje
     if (sessionMonitoringInterval.value) {
       clearInterval(sessionMonitoringInterval.value)
       sessionMonitoringInterval.value = null
     }
 
-    // Sprawdzaj sesję co 30 sekund
     const intervalId = setInterval(async () => {
       if (!isAuthenticated.value) {
         clearInterval(intervalId)
@@ -207,15 +200,28 @@ export const useAuth = () => {
         return
       }
 
-      // Sprawdź czy token wygasł
       if (authService.isTokenExpired?.(currentToken)) {
         clearInterval(intervalId)
         sessionMonitoringInterval.value = null
         await logout('/login')
       }
-    }, 30000) // Co 30 sekund
+    }, 30000)
 
     sessionMonitoringInterval.value = intervalId as unknown as number
+  }
+
+  const fetchUserProfile = async () => {
+    if (!token.value) {
+      return null
+    }
+    try {
+      const userProfile = await authService.getUserProfile(token.value)
+      user.value = userProfile
+    }
+    catch (error) {
+      console.error('Error fetching user profile:', error)
+      return null
+    }
   }
 
   return {
@@ -234,5 +240,6 @@ export const useAuth = () => {
     refreshToken,
     syncFromStorage,
     startSessionMonitoring,
+    fetchUserProfile,
   }
 }

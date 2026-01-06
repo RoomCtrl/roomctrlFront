@@ -1,7 +1,8 @@
 {
   "submit": {
     "changePassword": "Change Password",
-    "register": "Register"
+    "register": "Register",
+    "reportRoomIssue": "Report Room Issue"
   },
   "registration": {
     "title": "Registration",
@@ -161,7 +162,11 @@
     "isPrivate": "Private Booking",
     "editTitle": "Edit Booking",
     "cancelTitle": "Cancel Booking",
-    "cancelConfirmation": "Are you sure you want to cancel this booking?"
+    "cancelConfirmation": "Are you sure you want to cancel this booking?",
+    "errors": {
+      "exceedsCapacity": "Number of participants cannot exceed room capacity ({capacity})",
+      "lessThanSelected": "Number of participants ({count}) cannot be less than selected people ({selected})"
+    }
   },
   "fieldMessages": {
     "error": {

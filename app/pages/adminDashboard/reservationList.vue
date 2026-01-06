@@ -55,7 +55,10 @@
         style="width: 25%"
       >
         <template #body="slotProps">
-          <span>{{ slotProps.data.room.roomName }}</span>
+          <span v-if="slotProps.data.room">{{ slotProps.data.room.roomName || '' }}</span>
+          <div v-else>
+            {{ $t('pages.adminDashboard.reservationList.noExistRoom') }}
+          </div>
         </template>
       </BaseTextFilterColumn>
       <BaseDateFilterColumn
@@ -236,6 +239,7 @@ import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseText
 import BaseDateFilterColumn from '~/components/common/datatable/columns/BaseDateFilterColumn.vue'
 import BaseSelectTagFilter from '~/components/common/datatable/columns/BaseSelectTagFilter.vue'
 import RentButton from '~/components/booking/RentButton.vue'
+import { parseLocalDate } from '~/utils/dateHelpers'
 
 definePageMeta({
   middleware: 'admin',
@@ -268,8 +272,10 @@ const bookingsWithTimeFields = computed(() => {
   if (!bookings.value) return []
   return bookings.value.map(booking => ({
     ...booking,
-    startedAtTime: booking.startedAt,
-    endedAtTime: booking.endedAt,
+    startedAt: parseLocalDate(booking.startedAt),
+    endedAt: parseLocalDate(booking.endedAt),
+    startedAtTime: parseLocalDate(booking.startedAt),
+    endedAtTime: parseLocalDate(booking.endedAt),
   }))
 })
 
@@ -299,8 +305,8 @@ const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string
   active: 'info',
 }))
 
-onMounted(() => {
-  fetchBookings()
+onMounted(async () => {
+  await fetchBookings()
 })
 </script>
 

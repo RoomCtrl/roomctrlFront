@@ -3,5 +3,7 @@
   "editReservation": "Edycja rezerwacji",
   "cancelReservation": {
     "title": "Czy na pewno chcesz anulować tę rezerwację?"
-  }
+  },
+  "noRoom": "Sala nie istenieje",
+  "noLocations": "Brak dostępnych lokalizacji"
 }

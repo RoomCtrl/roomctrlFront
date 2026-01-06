@@ -1,24 +1,24 @@
 <template>
-  <div class="w-[70vw] md:w-[23rem]">
-    <InputGroup>
-      <InputGroupAddon v-if="icon">
-        <i :class="icon" />
-      </InputGroupAddon>
-      <FloatLabel variant="on">
-        <Password
-          :id="id"
-          :model-value="modelValue"
-          :class="{ 'p-invalid': errorMessage }"
-          type="password"
-          :toggle-mask="toggleMask"
-          :fluid="fluid"
-          :feedback="feedback"
-          @update:model-value="$emit('update:modelValue', $event)"
-          @blur="$emit('blur')"
-        />
-        <label :for="id">{{ label }}</label>
-      </FloatLabel>
-    </InputGroup>
+  <InputGroup>
+    <InputGroupAddon v-if="icon">
+      <i :class="icon" />
+    </InputGroupAddon>
+    <FloatLabel variant="on">
+      <Password
+        :id="id"
+        :model-value="modelValue"
+        :class="{ 'p-invalid': errorMessage }"
+        type="password"
+        :toggle-mask="toggleMask"
+        :fluid="fluid"
+        :feedback="feedback"
+        @update:model-value="$emit('update:modelValue', $event)"
+        @blur="$emit('blur')"
+      />
+      <label :for="id">{{ label }}</label>
+    </FloatLabel>
+  </InputGroup>
+  <div class="error-message-wrapper">
     <Message
       v-if="errorMessage"
       severity="error"
@@ -56,3 +56,9 @@ defineEmits<{
   'blur': []
 }>()
 </script>
+
+<style scoped>
+.error-message-wrapper {
+  min-height: 1.5rem;
+}
+</style>

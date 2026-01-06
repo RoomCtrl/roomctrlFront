@@ -3,5 +3,7 @@
   "editReservation": "Edit Reservation",
   "cancelReservation": {
     "title": "Are you sure you want to cancel this reservation?"
-  }
+  },
+  "noRoom": "Room does not exist",
+  "noLocations": "No locations available"
 }

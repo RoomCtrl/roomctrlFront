@@ -1,39 +1,54 @@
 <template>
   <Panel
     :header="$t('pages.roomDetails.equipment.title')"
-    pt:content:class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-2 gap-2 w-[95%] self-center"
+    pt:content:class=""
     pt:header:class="text-xl sm:text-2xl 2xl:text-3xl font-semibold mb-3"
     :toggleable="isMobile"
   >
-    <Card
-      v-for="equipment in paddedEquipments"
-      :key="equipment.name || Math.random()"
-      pt:root:class="overflow-hidden"
-      pt:body:class="bg-gray-500/20"
+    <div
+      v-if="equipments.length > 0"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-2 gap-2 w-[95%] self-center"
     >
-      <template #content>
-        <div
-          class="flex flex-row gap-2 items-center"
-          :class="{ 'opacity-30': !equipment.name }"
-        >
-          <i :class="equipment.name ? equipmentIcon(equipment.category) : 'pi pi-inbox'" class="text-sm sm:text-base" />
-          <h1 
-            ref="equipmentTextRefs"
-            v-tooltip.top="getTooltipConfig(equipment)"
-            class="truncate text-xs sm:text-sm"
-            @mouseenter="(e) => checkOverflow(e.target, equipment)"
+      <Card
+        v-for="equipment in paddedEquipments"
+        :key="equipment.name || Math.random()"
+        pt:root:class="overflow-hidden"
+        pt:body:class="bg-gray-500/20"
+      >
+        <template #content>
+          <div
+            class="flex flex-row gap-2 items-center"
+            :class="{ 'opacity-30': !equipment.name }"
           >
-            {{ equipment.name ? equipment.quantity + 'x ' + equipment.name : '---' }}
-          </h1>
-        </div>
-      </template>
-    </Card>
+            <i
+              :class="equipment.name ? equipmentIcon(equipment.category) : 'pi pi-inbox'"
+              class="text-sm sm:text-base"
+            />
+            <h1
+              ref="equipmentTextRefs"
+              v-tooltip.top="getTooltipConfig(equipment)"
+              class="truncate text-xs sm:text-sm"
+              @mouseenter="(e) => checkOverflow(e.target, equipment)"
+              @focusin="(e) => checkOverflow(e.target, equipment)"
+            >
+              {{ equipment.name ? equipment.quantity + 'x ' + equipment.name : '---' }}
+            </h1>
+          </div>
+        </template>
+      </Card>
+    </div>
+    <div
+      v-else
+      class="flex justify-center items-center min-h-[20vh] font-semibold text-xl"
+    >
+      {{ $t('pages.roomDetails.noData.equipment') }}
+    </div>
   </Panel>
 </template>
 
 <script setup lang="ts">
 const props = defineProps<{
-  equpiments: [{
+  equipments: [{
     name: string
     category: string
     quantity: number
@@ -52,7 +67,7 @@ const equipmentIcon = (equpiment: string) => {
 }
 
 const paddedEquipments = computed(() => {
-  const arr = [...props.equpiments]
+  const arr = [...props.equipments]
   while (arr.length < 8) {
     arr.push({ name: '', quantity: 0, category: 'empty' })
   }

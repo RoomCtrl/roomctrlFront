@@ -23,6 +23,39 @@ export const lastWeekdaysArray = () => {
 
   return days.reverse()
 }
+
+export const parseLocalDate = (dateString: string): Date => {
+  if (!dateString) return new Date()
+  const datePattern = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/
+  const match = dateString.match(datePattern)
+
+  if (!match) {
+    console.warn('Invalid date format:', dateString)
+    return new Date(dateString)
+  }
+
+  const [, year, month, day, hours, minutes, seconds] = match
+
+  return new Date(
+    parseInt(year),
+    parseInt(month) - 1,
+    parseInt(day),
+    parseInt(hours),
+    parseInt(minutes),
+    parseInt(seconds),
+  )
+}
+export const formatDateForAPI = (date: Date): string => {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+  const seconds = String(date.getSeconds()).padStart(2, '0')
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
+}
+
 export const formatToHoursMinutes = (date: Date): string => {
   const hours = date.getHours().toString().padStart(2, '0')
   const minutes = date.getMinutes().toString().padStart(2, '0')

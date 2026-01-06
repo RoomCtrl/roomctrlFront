@@ -1,5 +1,6 @@
 {
   "success": "Sukces",
+  "error": "Błąd",
   "messages": {
     "copied": "Skopiowano!",
     "passwordResetCodeSent": "Token resetujący został wysłany na podany adres email",
@@ -7,5 +8,14 @@
     "passwordResetRequestFailed": "Nie udało się wysłać tokenu resetującego",
     "passwordResetFailed": "Nie udało się zresetować hasła",
     "passwordsDoNotMatch": "Hasła nie są identyczne"
+  },
+  "summary": {
+    "codeSent": "Wysłano",
+    "changeSuccess": "Zmieniono pomyślnie"
+  },
+  "details": {
+    "checkEmail": "Sprawdź swoją skrzynkę odbiorczą, aby znaleźć token resetujący hasło.",
+    "offNotifications": "Powiadomienia zostały wyłączone",
+    "onNotifications": "Powiadomienia zostały włączone"
   }
 }

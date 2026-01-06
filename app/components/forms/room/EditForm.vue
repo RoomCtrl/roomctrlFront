@@ -1,7 +1,7 @@
 <template>
   <form
-    class="grid grid-cols-4 w-full gap-y-6 gap-x-4 pt-4"
-    @submit.prevent="addRoomSubmit"
+    class="grid grid-cols-4 w-full gap-x-4 pt-4"
+    @submit.prevent="editRoomSubmit"
   >
     <div class="col-span-2">
       <FormTextField
@@ -190,23 +190,28 @@
       />
       <Button
         type="submit"
-        :label="$t('forms.roomForm.buttons.create')"
+        :label="$t('forms.roomForm.buttons.update')"
         severity="success"
         variant="outlined"
+        :loading="loading"
       />
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import type { IRoomCreateRequest, IRoomEqupiment } from '~/interfaces/RoomsIntefaces'
-import FormTextField from '../common/FormTextField.vue'
 import { useField, useForm } from 'vee-validate'
-import FormNumberField from '../common/FormNumberField.vue'
-import FormTextArea from '../common/FormTextArea.vue'
-import FormSelectField from '../common/FormSelectField.vue'
+import FormNumberField from '~/components/common/FormNumberField.vue'
+import FormSelectField from '~/components/common/FormSelectField.vue'
+import FormTextArea from '~/components/common/FormTextArea.vue'
+import FormTextField from '~/components/common/FormTextField.vue'
+import type { IRoomCreateRequest, IRoomEqupiment, IRoomResponse } from '~/interfaces/RoomsIntefaces'
 
-const { createRoom } = useRoom()
+const props = defineProps<{
+  roomId: string
+}>()
+
+const { updateRoom, fetchRoom, room, loading } = useRoom()
 const { user } = useAuth()
 const { t } = useI18n()
 const confirm = useConfirm()
@@ -240,11 +245,13 @@ const { value: airConditioningMax, errorMessage: airConditioningMaxError, handle
 const { value: equipment, errorMessage: equipmentError, handleBlur: equipmentBlur } = useField<IRoomEqupiment[]>('equipment', undefined, {
   initialValue: [],
 })
+
 const emit = defineEmits<{
   cancel: []
+  success: []
 }>()
 
-const addRoomSubmit = handleSubmit(async (formValues: IRoomCreateRequest) => {
+const editRoomSubmit = handleSubmit(async (formValues: IRoomCreateRequest) => {
   try {
     formValues.organizationId = user.value?.organization.id as string
 
@@ -255,15 +262,22 @@ const addRoomSubmit = handleSubmit(async (formValues: IRoomCreateRequest) => {
       }
     }
 
-    await createRoom(formValues)
-    resetForm()
-  }
-  finally {
-    emit('cancel')
+    await updateRoom(props.roomId, formValues)
+
     toast.add({
       severity: 'success',
       summary: t('common.toast.success'),
-      detail: t('forms.roomForm.messages.roomCreated'),
+      detail: t('forms.roomForm.messages.roomUpdated'),
+      life: 3000,
+    })
+
+    emit('success')
+  }
+  catch (error) {
+    toast.add({
+      severity: 'error',
+      summary: t('common.toast.error'),
+      detail: t('common.toast.roomUpdateError'),
       life: 3000,
     })
   }
@@ -308,6 +322,34 @@ const removeEquipment = (index: number) => {
     },
   })
 }
+
+onMounted(async () => {
+  await fetchRoom(props.roomId, true)
+
+  if (room.value) {
+    resetForm({
+      values: {
+        roomName: room.value.roomName,
+        status: room.value.status,
+        capacity: room.value.capacity,
+        size: room.value.size,
+        location: room.value.location,
+        access: room.value.access,
+        description: room.value.description,
+        lighting: room.value.lighting,
+      },
+    })
+
+    if (room.value.airConditioning) {
+      airConditioningMin.value = room.value.airConditioning.min
+      airConditioningMax.value = room.value.airConditioning.max
+    }
+
+    if (room.value.equipment && room.value.equipment.length > 0) {
+      equipment.value = [...room.value.equipment]
+    }
+  }
+})
 </script>
 
 <style scoped>

@@ -3,6 +3,9 @@
     "rentNow": "Zarezerwuj teraz",
     "addFavorite": "Dodaj do ulubinych"
   },
+  "noData": {
+    "equipment": "Brak danych o wyposażeniu"
+  },
   "images": {
     "title": "Zdjęcia sali",
     "noImages": "Brak zdjęć"
@@ -13,6 +16,14 @@
       "airConditioning": "Klimatyzacja: ",
       "lighting": "Oświetlenie: ",
       "access": "Dostęp do sali: "
+    },
+    "noData": {
+      "capacity": "Brak danych o pojemności",
+      "size": "Brak danych o wielkości",
+      "location": "Brak danych o lokalizacji",
+      "access": "Brak danych o dostępie",
+      "airConditioning": "Brak danych o klimatyzacji",
+      "lighting": "Brak danych o oświetleniu"
     },
     "accessMethod": {
       "magneticCard": "Karta magnetyczna",

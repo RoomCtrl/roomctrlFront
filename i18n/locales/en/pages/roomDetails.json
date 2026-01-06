@@ -7,12 +7,23 @@
     "title": "Room Photos",
     "noImages": "No photos"
   },
+  "noData": {
+    "equipment": "No equipment data"
+  },
   "detailedInfo": {
     "title": "Room information: ",
     "parameters": {
       "airConditioning": "Air conditioning: ",
       "lighting": "Lighting: ",
       "access": "Room access: "
+    },
+    "noData": {
+      "capacity": "No capacity data",
+      "size": "No size data",
+      "location": "No location data",
+      "access": "No access data",
+      "airConditioning": "No air conditioning data",
+      "lighting": "No lighting data"
     },
     "accessMethod": {
       "magneticCard": "Magnetic card",

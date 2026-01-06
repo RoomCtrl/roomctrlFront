@@ -28,7 +28,8 @@
     "sendCode": "Wyślij token",
     "resetPassword": "Resetuj hasło",
     "backToLogin": "Powrót do logowania",
-    "backToEmailStep": "Powrót do wprowadzania emaila"
+    "backToEmailStep": "Powrót do wprowadzania emaila",
+    "sendToken": "Wyślij token na maila"
   },
   "toast": {
     "danger": "Uwaga!",

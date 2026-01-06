@@ -170,10 +170,13 @@ const availableUsers = computed(() => {
   }
   return users.value
     .filter((u) => {
+      if (u.id === user.value?.id) {
+        return false
+      }
       if (isAdmin.value) {
         return true
       }
-      return u.id === user.value?.id
+      return false
     })
     .map(u => ({
       id: u.id,
@@ -181,20 +184,11 @@ const availableUsers = computed(() => {
     }))
 })
 
-// watch([() => participantIds.value, () => participantsCount.value, () => room.value?.capacity], () => {
-//   const roomCapacity = props.capacity || room.value?.capacity
-//   if (roomCapacity && participantsCount.value > roomCapacity) {
-//     participantsCountError.value = `Liczba uczestników nie może przekroczyć pojemności sali (${roomCapacity})`
-//     return
-//   }
-
-//   if (participantIds.value && participantIds.value.length > participantsCount.value) {
-//     participantsCountError.value = `Liczba uczestników (${participantsCount.value}) nie może być mniejsza niż liczba wybranych osób (${participantIds.value.length})`
-//   }
-//   else if (participantIdsError && (participantIdsError.includes('liczba wybranych osób') || participantsCountError.value.includes('pojemności sali'))) {
-//     delete participantsCountError.value
-//   }
-// })
+watch(() => participantIds.value, (newParticipantIds) => {
+  if (newParticipantIds && newParticipantIds.length > 0) {
+    participantsCount.value = newParticipantIds.length
+  }
+})
 
 const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
   try {

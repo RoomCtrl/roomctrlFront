@@ -1,11 +1,11 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="flex flex-col gap-8 items-center">
-      <h1 class="text-3xl font-bold pt-[3vh]">
+    <div class="flex flex-col items-center">
+      <h1 class="text-3xl font-bold pt-[3vh] pb-6">
         {{ $t('forms.titles.loginForm') }}
       </h1>
 
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col">
         <div class="w-[70vw] md:w-[23rem]">
           <FormTextField
             id="username"
@@ -35,7 +35,7 @@
           class="w-[65vw] md:w-[15rem]"
         />
         <NuxtLink
-          to="/passwordReset"
+          :to="localePath('passwordReset')"
           class="hover:underline"
         >
           {{ $t('common.buttons.forgotPassword') }}
@@ -58,6 +58,7 @@ interface ILoginUser {
   password: string
 }
 
+const localePath = useLocalePath()
 const { isAdmin, login, isAuthenticated } = useAuth()
 
 const { handleSubmit, resetForm } = useForm<ILoginUser>({

@@ -4,5 +4,6 @@
     "pending": "Oczekująca",
     "active": "Aktywna",
     "cancelled": "Anulowana"
-  }
+  },
+  "noExistRoom": "Sala nie istnieje"
 }

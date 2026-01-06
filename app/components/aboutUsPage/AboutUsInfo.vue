@@ -55,7 +55,7 @@
               <div
                 v-for="(opinion, index) in opinions"
                 :key="index"
-                class="bg-white dark:bg-surface-800 p-6 rounded-xl shadow-md text-left hover:shadow-lg transition-shadow duration-300"
+                class="bg-white dark:bg-neutral-800 p-6 rounded-xl shadow-md text-left hover:shadow-lg transition-shadow duration-300"
               >
                 <div class="flex items-center gap-1 mb-3">
                   <i

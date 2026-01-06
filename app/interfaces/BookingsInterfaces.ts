@@ -26,7 +26,7 @@ export interface IBooking {
   participantsCount: number
   participants: IBookingParticipant[]
   isPrivate: boolean
-  room: IBookingRoom
+  room: IBookingRoom | null
   user: IBookingUser
   createdAt: string
 }

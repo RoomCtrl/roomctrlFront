@@ -84,6 +84,16 @@ export class AuthService {
     }
   }
 
+  async getUserProfile(token) {
+    try {
+      const userData = await this.authRepository.getUserProfile(token)
+      return userData
+    }
+    catch (error) {
+      throw new Error(error.message || 'Błąd podczas pobierania profilu użytkownika')
+    }
+  }
+
   isTokenExpired(token) {
     if (!token) return true
     try {

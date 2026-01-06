@@ -54,32 +54,32 @@ const Informations = [
   {
     title: t('common.roomParameters.capacity'),
     icon: 'pi pi-users',
-    value: props.roomParameters.capacity + ' osób',
+    value: props.roomParameters.capacity ? props.roomParameters.capacity + ' osób' : t('pages.roomDetails.detailedInfo.noData.capacity'),
   },
   {
     title: t('common.roomParameters.size'),
     icon: 'pi pi-arrow-up-right-and-arrow-down-left-from-center',
-    value: props.roomParameters.size + ' m²',
+    value: props.roomParameters.size ? props.roomParameters.size + ' m²' : t('pages.roomDetails.detailedInfo.noData.size'),
   },
   {
     title: t('common.roomParameters.location'),
     icon: 'pi pi-thumbtack',
-    value: props.roomParameters.location,
+    value: props.roomParameters.location || t('pages.roomDetails.detailedInfo.noData.location'),
   },
   {
     title: t('pages.roomDetails.detailedInfo.parameters.access'),
     icon: 'pi pi-id-card',
-    value: props.roomParameters.access,
+    value: props.roomParameters.access || t('pages.roomDetails.detailedInfo.noData.access'),
   },
   {
     title: t('pages.roomDetails.detailedInfo.parameters.airConditioning'),
     icon: 'pi pi-wrench',
-    value: props.roomParameters.airConditioning ? `Min: ${props.roomParameters.airConditioning.min}°C, Max: ${props.roomParameters.airConditioning.max}°C` : 'Brak',
+    value: props.roomParameters.airConditioning ? `Min: ${props.roomParameters.airConditioning.min}°C, Max: ${props.roomParameters.airConditioning.max}°C` : t('pages.roomDetails.detailedInfo.noData.airConditioning'),
   },
   {
     title: t('pages.roomDetails.detailedInfo.parameters.lighting'),
     icon: 'pi pi-lightbulb',
-    value: props.roomParameters.lighting || 'Brak',
+    value: props.roomParameters.lighting || t('pages.roomDetails.detailedInfo.noData.lighting'),
   },
 ]
 
