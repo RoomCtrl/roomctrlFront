@@ -3,7 +3,8 @@
   "status": {
     "pending": "Oczekująca",
     "active": "Aktywna",
-    "cancelled": "Anulowana"
+    "cancelled": "Anulowana",
+    "completed": "Zakończona"
   },
   "noExistRoom": "Sala nie istnieje"
 }

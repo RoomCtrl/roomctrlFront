@@ -3,7 +3,8 @@
   "status": {
     "pending": "Pending",
     "active": "Active",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "completed": "Completed"
   },
   "noExistRoom": "No room exists"
 }
