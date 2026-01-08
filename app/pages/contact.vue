@@ -20,6 +20,5 @@
 </template>
 
 <script setup lang="ts">
-import { Card } from 'primevue'
 import MailSender from '~/components/contactPage/MailSender.vue'
 </script>

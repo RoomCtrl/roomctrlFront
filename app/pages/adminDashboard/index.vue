@@ -33,6 +33,7 @@
       </div>
       <ReportRoomsTable />
       <IncomingRentsTable
+        path="/adminDashboard/reservationList"
         :rows="4"
         :header="$t('pages.adminDashboard.dashboard.tables.titles.incomingRents')"
         :bookings="upcomingBookings"
@@ -48,17 +49,13 @@ import LoadOfRooms from '~/components/adminDasboard/main/LoadOfRooms.vue'
 import MostRentRooms from '~/components/adminDasboard/main/MostRentRooms.vue'
 import RentMonthCalendar from '~/components/adminDasboard/main/RentMonthCalendar.vue'
 import ReportRoomsTable from '~/components/adminDasboard/main/ReportRoomsTable.vue'
-import { useBooking } from '~/composables/useBooking'
-import { useRoom } from '~/composables/useRoom'
-import { useAuth } from '~/composables/useAuth'
-import { BookingService } from '~/services/BookingService'
 
 definePageMeta({
   layout: 'admin-dashboard',
   middleware: 'admin',
 })
 
-const { bookings } = useBooking()
+const { bookings, fetchBookings } = useBooking()
 const { rooms: roomsList, fetchRooms } = useRoom()
 
 const maxRooms = computed(() => roomsList.value.length)
@@ -115,8 +112,7 @@ const upcomingBookings = computed(() => {
 })
 
 onMounted(async () => {
-  bookings.value = await new BookingService(useAuth().token.value).getBookings()
-
-  fetchRooms(true)
+  await fetchBookings(false)
+  await fetchRooms(true)
 })
 </script>

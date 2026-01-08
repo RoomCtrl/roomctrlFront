@@ -76,7 +76,7 @@ const rentsPerDay = ref<number[]>([])
 const animatedUsers = ref(0)
 const animatedSatisfaction = ref(0)
 
-const animateValue = (start: number, end: number, duration: number, callback: (value: number) => void) => {
+const animateValue = (start: number, end: number, duration: number, callback: () => void) => {
   const startTime = performance.now()
   const range = end - start
 
@@ -208,41 +208,6 @@ onMounted(() => {
 .indicator strong {
   font-weight: 700;
   font-size: 1rem;
-}
-
-.btn-large {
-  padding: 1.25rem 2.5rem;
-  font-size: 1.125rem;
-}
-
-.image-wrapper {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
-
-.btn-white {
-  background: white;
-  color: #6366f1;
-}
-
-.btn-white:hover {
-  background: #f9fafb;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.btn-ghost {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-.btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: white;
 }
 
 @keyframes slideInLeft {

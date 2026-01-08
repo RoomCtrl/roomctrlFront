@@ -154,7 +154,7 @@
         <div class="grid grid-cols-2 gap-4">
           <div class="p-3 bg-purple-50 dark:bg-purple-950 rounded-lg">
             <div class="text-xs text-purple-600 dark:text-purple-400 font-semibold uppercase">
-              Godzina rozpoczęcia
+              {{ $t('pages.roomDetails.weekCalendar.startTime') }}
             </div>
             <div class="text-lg font-bold text-purple-900 dark:text-purple-100 mt-1">
               {{ formatTime(selectedReservation.startedAt) }}
@@ -163,23 +163,20 @@
 
           <div class="p-3 bg-amber-50 dark:bg-amber-950 rounded-lg">
             <div class="text-xs text-amber-600 dark:text-amber-400 font-semibold uppercase">
-              Czas trwania
+              {{ $t('pages.roomDetails.weekCalendar.duration') }}
             </div>
             <div class="text-lg font-bold text-amber-900 dark:text-amber-100 mt-1">
               {{ calculateDuration(selectedReservation) }} min
             </div>
           </div>
 
-          <div
-            v-if="selectedReservation.participants"
-            class="p-3 bg-green-50 dark:bg-green-950 rounded-lg col-span-2"
-          >
+          <div class="p-3 bg-green-50 dark:bg-green-950 rounded-lg col-span-2">
             <div class="text-xs text-green-600 dark:text-green-400 font-semibold uppercase">
-              Uczestnicy
+              {{ $t('pages.roomDetails.weekCalendar.participantsCount') }}
             </div>
             <div class="text-lg font-bold text-green-900 dark:text-green-100 mt-1">
               <i class="pi pi-users mr-2" />
-              {{ selectedReservation.participants }} {{ $t('common.persons') || 'osób' }}
+              {{ selectedReservation.participants || 1 }} {{ $t('common.persons') || 'osób' }}
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-12 w-full">
     <Hero />
 
-    <HowThisWorkSection />
+    <HowDoesWeWork />
 
     <ForOrganizations />
 
@@ -53,7 +53,7 @@
 <script setup lang="ts">
 import ForOrganizations from '~/components/mainPage/ForOrganizations.vue'
 import Hero from '~/components/mainPage/Hero.vue'
-import HowThisWorkSection from '~/components/mainPage/howThisWorkSection.vue'
+import HowDoesWeWork from '~/components/mainPage/HowDoesWeWork.vue'
 import InfoSection from '~/components/mainPage/InfoSection.vue'
 
 const localePath = useLocalePath()

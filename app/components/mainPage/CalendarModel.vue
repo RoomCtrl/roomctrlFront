@@ -7,10 +7,10 @@
       />
       <div>
         <div class="card-title">
-          Nowa Rezerwacja
+          {{ $t('pages.home.calendarCard.newRent.title') }}
         </div>
         <div class="card-subtitle">
-          Sala A-201
+          {{ $t('pages.home.calendarCard.newRent.description') }}
         </div>
       </div>
     </div>
@@ -21,10 +21,10 @@
       />
       <div>
         <div class="card-title">
-          Potwierdzona
+          {{ $t('pages.home.calendarCard.confirm.title') }}
         </div>
         <div class="card-subtitle">
-          Dziś o 14:00
+          {{ $t('pages.home.calendarCard.confirm.description') }}
         </div>
       </div>
     </div>
@@ -35,17 +35,17 @@
       />
       <div>
         <div class="card-title">
-          Przypomnienie
+          {{ $t('pages.home.calendarCard.reminder.title') }}
         </div>
         <div class="card-subtitle">
-          Za 30 minut
+          {{ $t('pages.home.calendarCard.reminder.description') }}
         </div>
       </div>
     </div>
     <div class="main-visual-card">
       <div class="calendar-preview">
         <div class="calendar-header">
-          Grudzień 2025
+          {{ $t(monthFullNames[month] as string) }} {{ year }}
         </div>
         <div class="calendar-grid">
           <div
@@ -74,6 +74,8 @@
 
 <script setup lang="ts">
 const today = new Date().getDate()
+const year = new Date().getFullYear()
+const month = new Date().getMonth()
 const days = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()
 
 function randomRentNumber(min: number, max: number): number {

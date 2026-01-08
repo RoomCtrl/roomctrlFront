@@ -7,7 +7,7 @@
         :style="{ '--delay': `${index * 100}ms` }"
         class="group cursor-pointer animate-step-in"
       >
-        <div class="relative">
+        <div class="relative h-full cursor-default">
           <div class="absolute -left-4 -top-4 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform duration-300 z-10">
             {{ index + 1 }}
           </div>
@@ -16,7 +16,10 @@
             <div class="flex gap-4 mb-4">
               <div class="flex-shrink-0">
                 <div class="w-16 h-16 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110">
-                  <i :class="step.icon" />
+                  <i
+                    :class="step.icon"
+                    style="font-size: 1.4rem;"
+                  />
                 </div>
               </div>
               <div class="flex flex-col justify-center">
@@ -47,28 +50,36 @@
       </div>
     </div>
 
-    <!-- Wymagania rejestracji -->
     <div class="flex justify-center">
       <div class="bg-green-50 dark:bg-green-900 border-l-4 border-green-500 rounded-r-lg p-6">
         <div class="flex gap-4">
           <i class="pi pi-check-circle text-green-600 text-2xl flex-shrink-0 mt-1" />
           <div>
             <h4 class="font-bold text-green-900 dark:text-green-200 mb-3">
-              Wymagania rejestracji
+              {{ t('pages.howThisWork.instructions.registration.registrationRequirements.title') }}
             </h4>
             <div class="grid md:grid-cols-2 gap-4">
               <div class="space-y-2 text-sm text-green-800 dark:text-green-300">
                 <p class="flex items-center gap-2">
                   <span class="inline-block w-2 h-2 bg-green-600 rounded-full" />
-                  <strong>Imię i nazwisko:</strong> Twoje pełne dane
+                  <strong>
+                    {{ t('pages.howThisWork.instructions.registration.registrationRequirements.name') }}
+                  </strong>
+                  {{ t('pages.howThisWork.instructions.registration.registrationRequirements.nameRequirement') }}
                 </p>
                 <p class="flex items-center gap-2">
                   <span class="inline-block w-2 h-2 bg-green-600 rounded-full" />
-                  <strong>Email:</strong> Musi być prawidłowy
+                  <strong>
+                    {{ t('pages.howThisWork.instructions.registration.registrationRequirements.email') }}
+                  </strong>
+                  {{ t('pages.howThisWork.instructions.registration.registrationRequirements.emailRequirement') }}
                 </p>
                 <p class="flex items-center gap-2">
                   <span class="inline-block w-2 h-2 bg-green-600 rounded-full" />
-                  <strong>Hasło:</strong> Min. 8 znaków, 1 wielka litera
+                  <strong>
+                    {{ t('pages.howThisWork.instructions.registration.registrationRequirements.password') }}
+                  </strong>
+                  {{ t('pages.howThisWork.instructions.registration.registrationRequirements.passwordRequirement') }}
                 </p>
               </div>
             </div>
@@ -77,7 +88,6 @@
       </div>
     </div>
 
-    <!-- Galeria zdjęć -->
     <div class="mt-12 galleria-glow">
       <Galleria
         :value="images"
@@ -108,45 +118,46 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const steps = [
   {
     icon: 'pi pi-user-plus',
-    title: 'Przejdź do rejestracji',
-    description: 'Kliknij link "Zarejestruj się" na stronie logowania lub na stronie głównej.',
+    title: t('pages.howThisWork.instructions.registration.goToRegistrationPage.title'),
+    description: t('pages.howThisWork.instructions.registration.goToRegistrationPage.description'),
     details: [
-      'Link znajduje się pod formularzem logowania',
-      'Możesz też znaleźć go w stopce strony',
-      'Rejestracja jest bezpłatna',
+      t('pages.howThisWork.instructions.registration.goToRegistrationPage.steps.stepOne'),
+      t('pages.howThisWork.instructions.registration.goToRegistrationPage.steps.stepTwo'),
+      t('pages.howThisWork.instructions.registration.goToRegistrationPage.steps.stepThree'),
     ],
   },
   {
     icon: 'pi pi-pencil',
-    title: 'Wypełnij formularz',
-    description: 'Wprowadź swoje dane osobowe oraz informacje kontaktowe.',
+    title: t('pages.howThisWork.instructions.registration.fillRegistrationForm.title'),
+    description: t('pages.howThisWork.instructions.registration.fillRegistrationForm.description'),
     details: [
-      'Imię i nazwisko powinny być prawdziwe',
-      'Email musi być aktywny i unikalny',
-      'Numer telefonu jest opcjonalny',
+      t('pages.howThisWork.instructions.registration.fillRegistrationForm.steps.stepOne'),
+      t('pages.howThisWork.instructions.registration.fillRegistrationForm.steps.stepTwo'),
+      t('pages.howThisWork.instructions.registration.fillRegistrationForm.steps.stepThree'),
     ],
   },
   {
     icon: 'pi pi-key',
-    title: 'Ustaw hasło',
-    description: 'Utwórz silne hasło dla bezpieczeństwa swojego konta.',
+    title: t('pages.howThisWork.instructions.registration.setPassword.title'),
+    description: t('pages.howThisWork.instructions.registration.setPassword.description'),
     details: [
-      'Minimum 8 znaków',
-      'Co najmniej jedna wielka litera',
-      'Przynajmniej jedna cyfra',
+      t('pages.howThisWork.instructions.registration.setPassword.steps.stepOne'),
+      t('pages.howThisWork.instructions.registration.setPassword.steps.stepTwo'),
+      t('pages.howThisWork.instructions.registration.setPassword.steps.stepThree'),
     ],
   },
   {
     icon: 'pi pi-check-circle',
-    title: 'Gotowe!',
-    description: 'Twoje konto jest aktywne. Możesz teraz w pełni korzystać z aplikacji.',
+    title: t('pages.howThisWork.instructions.registration.ready.title'),
+    description: t('pages.howThisWork.instructions.registration.ready.description'),
     details: [
-      'Przejdź do logowania z nowych danych',
-      'Uzupełnij swój profil',
-      'Zarezerwuj swoją pierwszą salę!',
+      t('pages.howThisWork.instructions.registration.ready.steps.stepOne'),
+      t('pages.howThisWork.instructions.registration.ready.steps.stepTwo'),
+      t('pages.howThisWork.instructions.registration.ready.steps.stepThree'),
     ],
   },
 ]

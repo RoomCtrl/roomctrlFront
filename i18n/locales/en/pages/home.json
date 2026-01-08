@@ -9,6 +9,20 @@
     "satisfaction": "Satisfaction",
     "availability": "Availability"
   },
+  "calendarCard": {
+    "newRent": {
+      "title": "New Reservation",
+      "description": "Room A-201"
+    },
+    "confirm": {
+      "title": "Confirmed",
+      "description": "Today at 14:00"
+    },
+    "reminder": {
+      "title": "Reminder",
+      "description": "In 30 minutes"
+    }
+  },
   "howThisWork": {
     "title": "How does RoomCtrl work?",
     "subtitle": "Discover the simple room booking process and explore all the features of our platform.",

@@ -46,7 +46,7 @@
     <template #footer>
       <div class="flex flex-col gap-1 pt-1">
         <div class="flex justify-between text-xs font-medium">
-          <span>Wykorzystanie</span>
+          <span>{{ $t('pages.adminDashboard.dashboard.carousel.utilization') }}</span>
         </div>
         <div class="relative">
           <div
@@ -85,6 +85,8 @@ const props = defineProps<{
   rank: number
 }>()
 
+const { t } = useI18n()
+
 const progressColorClass = computed(() => {
   const rate = Math.round(props.room.percentage)
   if (rate >= 80) return 'bg-gradient-to-r from-green-500 to-green-600'
@@ -112,12 +114,12 @@ const trendIcon = computed(() => {
 
 const trendText = computed(() => {
   const weeklyAvg = props.room.monthlyBookings / 4
-  if (weeklyAvg === 0) return 'Brak danych do porównania'
+  if (weeklyAvg === 0) return t('pages.adminDashboard.dashboard.carousel.noDataToCompare')
   const diff = Math.abs(props.room.weeklyBookings - weeklyAvg)
   const percent = Math.round((diff / weeklyAvg) * 100)
   return trendDirection.value === 'trending-up'
-    ? `+${percent}% vs średnia`
-    : `-${percent}% vs średnia`
+    ? t('pages.adminDashboard.dashboard.carousel.trendUp', { percent })
+    : t('pages.adminDashboard.dashboard.carousel.trendDown', { percent })
 })
 
 const trendColorClass = computed(() => {

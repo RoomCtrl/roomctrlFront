@@ -1,10 +1,18 @@
 {
   "title": "Reservation List",
+  "addReservation": "Add Reservation",
   "status": {
-    "pending": "Pending",
+    "completed": "Completed",
     "active": "Active",
     "cancelled": "Cancelled",
     "completed": "Completed"
   },
-  "noExistRoom": "No room exists"
+  "noExistRoom": "No room exists",
+  "participantsModal": {
+    "title": "Participants List",
+    "username": "Username",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name"
+  }
 }

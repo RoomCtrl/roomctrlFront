@@ -8,12 +8,12 @@ export class IssueService {
     this.repository = new IssueRepository(token)
   }
 
-  async getIssues(): Promise<IIssuesDataResponse[]> {
-    return this.repository.getIssues()
+  async getIssues(status?: 'open' | 'in_progress' | 'closed'): Promise<IIssuesDataResponse[]> {
+    return this.repository.getIssues(status)
   }
 
-  async getCurrentUserIssues(): Promise<IIssuesDataResponse[]> {
-    return this.repository.getCurrentUserIssues()
+  async getCurrentUserIssues(status?: 'open' | 'in_progress' | 'closed'): Promise<IIssuesDataResponse[]> {
+    return this.repository.getCurrentUserIssues(status)
   }
 
   async getIssueById(issueId: string): Promise<IIssueData> {

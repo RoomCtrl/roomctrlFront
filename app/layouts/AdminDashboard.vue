@@ -136,8 +136,6 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import ColorModeSwitch from '~/components/layoutParts/ColorModeSwitch.vue'
 import LanguageSelect from '~/components/layoutParts/LanguageSelect.vue'
 

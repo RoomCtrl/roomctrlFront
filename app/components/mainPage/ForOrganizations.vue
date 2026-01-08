@@ -19,7 +19,10 @@
               :circular="true"
             >
               <template #item="slotProps">
-                <img :src="slotProps.item" />
+                <img
+                  :src="slotProps.item"
+                  alt="Images of universities and companies which works with RoomCtrl"
+                />
               </template>
             </Galleria>
           </div>
@@ -43,11 +46,6 @@ const images = ref([
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-}
-
-.split-section {
-  padding: 6rem 2rem;
-  background: #fafafa;
 }
 
 .split-content {
@@ -74,142 +72,22 @@ const images = ref([
   position: relative;
 }
 
-.image-wrapper {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
-
-.image-wrapper img {
-  width: 100%;
-  height: 500px;
-  object-fit: cover;
-  display: block;
-}
-
-.image-overlay {
-  position: absolute;
-  inset: 0;
-}
-
-/* Animations */
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
-
-/* Responsive */
 @media (max-width: 1200px) {
-  .hero-grid,
   .split-content {
     grid-template-columns: 1fr;
     gap: 4rem;
   }
-
-  .hero-right {
-    order: -1;
-  }
-
-  .hero-visual {
-    height: 450px;
-  }
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding: 5rem 1.5rem 4rem;
-  }
-
-  .main-heading {
-    font-size: 3rem;
-  }
-
   .section-heading {
     font-size: 2rem;
-  }
-
-  .cta-heading {
-    font-size: 2.25rem;
-  }
-
-  .steps-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .benefits-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .hero-visual {
-    height: 400px;
-  }
-
-  .floating-card {
-    padding: 0.75rem 1rem;
-  }
-
-  .card-1,
-  .card-2,
-  .card-3 {
-    position: static;
-    margin-bottom: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .main-heading {
-    font-size: 2.25rem;
-  }
-
   .section-heading {
     font-size: 1.75rem;
-  }
-
-  .cta-heading {
-    font-size: 1.875rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .trust-indicators {
-    flex-direction: column;
-    gap: 1rem;
   }
 }
 </style>

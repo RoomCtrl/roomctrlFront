@@ -1,9 +1,9 @@
 <template>
   <div class="flex justify-center items-center w-full">
     <Tabs
+      v-model:value="tabValue"
       pt:root:class="max-sm:w-[95%] min-w-[80rem]"
       pt:content:class="h-full"
-      :value="tabValue"
     >
       <TabList>
         <Tab value="0">

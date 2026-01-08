@@ -130,7 +130,7 @@
             variant="outlined"
             @click="openCancelModal(data)"
           />
-          <ReportRoomIssue :room-id="data.roomId" />
+          <ReportRoomIssue :room-id="data.roomId || ''" />
         </div>
       </template>
     </Column>
@@ -150,7 +150,7 @@
   <Dialog
     v-model:visible="editModalVisible"
     modal
-    :header="$t('forms.booking.editTitle')"
+    :header="$t('forms.titles.editBooking')"
     :style="{ width: '50rem' }"
     :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
   >

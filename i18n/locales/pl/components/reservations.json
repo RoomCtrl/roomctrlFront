@@ -7,7 +7,12 @@
     "startTime": "Godzina rozpoczęcia",
     "endTime": "Godzina zakończenia",
     "location": "Lokalizacja",
-    "attendees": "Uczestnicy"
+    "room": "Sala",
+    "attendees": "Uczestnicy",
+    "cancelReservation": "Anuluj rezerwację",
+    "date": "Data",
+    "reservationCancelled": "Ta rezerwacja została anulowana",
+    "reservationCompleted": "Ta rezerwacja została ukończona"
   },
   "form": {
     "title": "Tytuł",

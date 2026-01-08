@@ -25,7 +25,10 @@
       <div
         :class="[fontSize, textLayout, 'flex gap-2 items-center']"
       >
-        <div v-if="!isToday" class="flex flex-row gap-1 items-center">
+        <div
+          v-if="!isToday"
+          class="flex flex-row gap-1 items-center"
+        >
           <h3>
             {{ formatDateRange(new Date(startedAt), new Date(endedAt)) }}
           </h3>
@@ -77,8 +80,8 @@ const isToday = computed(() => {
   if (!props.startedAt) return false
   const date = new Date(props.startedAt)
   const today = new Date()
-  return date.getDate() === today.getDate() 
-    && date.getMonth() === today.getMonth() 
+  return date.getDate() === today.getDate()
+    && date.getMonth() === today.getMonth()
     && date.getFullYear() === today.getFullYear()
 })
 

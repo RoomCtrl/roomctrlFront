@@ -35,6 +35,11 @@
     "noNotes": "No notes",
     "addNote": "Add note",
     "startRepair": "Start repair",
-    "closeIssue": "Close issue"
+    "closeIssue": "Close issue",
+    "actions": {
+      "created": "Issue created",
+      "status_changed": "Status changed",
+      "closed": "Issue closed"
+    }
   }
 }

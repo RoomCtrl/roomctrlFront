@@ -55,8 +55,6 @@
 </template>
 
 <script setup lang="ts">
-import { NuxtLink } from '#components'
-
 const localePath = useLocalePath()
 const { t } = useI18n()
 

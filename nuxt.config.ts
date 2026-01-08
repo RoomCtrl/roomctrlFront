@@ -1,6 +1,7 @@
 import MyCustomPreset from './theme/primevue-preset'
 
 export default defineNuxtConfig({
+  pages: true,
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',

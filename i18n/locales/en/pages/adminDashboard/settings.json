@@ -1,23 +1,16 @@
 {
-  "title": "Organization Settings",
+  "title": "Settings",
   "sections": {
     "organization": {
       "title": "Organization Information",
       "name": "Organization Name",
-      "namePlaceholder": "Enter organization name",
-      "email": "Contact Email",
-      "emailPlaceholder": "contact@organization.com"
+      "email": "Contact Email"
     },
-    "workingHours": "Working Hours"
-  },
-  "notifications": {
-    "title": "Notifications",
-    "newBookingNotification": "Notify about new bookings",
-    "newBookingNotificationDescription": "Receive email when user creates a new booking",
-    "reportNotification": "Notify about reports",
-    "reportNotificationDescription": "Receive email when user reports a room issue",
-    "cancellationNotification": "Notify about cancellations",
-    "cancellationNotificationDescription": "Receive email when user cancels a booking",
-    "notificationEmail": "Notification Email"
+    "workingHours": "Working Hours",
+    "submitHours": "Save Hours",
+    "notifications": {
+      "title": "Notifications",
+      "newBookingNotification": "Notify about my new bookings"
+    }
   }
 }

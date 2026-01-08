@@ -8,12 +8,8 @@ export class BookingService {
     this.repository = new BookingRepository(token)
   }
 
-  async getBookings(
-    roomId?: string,
-    status?: 'active' | 'cancelled' | 'completed',
-    userId?: string,
-  ): Promise<IBooking[]> {
-    return this.repository.getBookings(roomId, status, userId)
+  async getBookings(myBookings: boolean): Promise<IBooking[]> {
+    return this.repository.getBookings(myBookings)
   }
 
   async getBooking(bookingId: string): Promise<IBooking> {
@@ -28,16 +24,8 @@ export class BookingService {
     return this.repository.updateBooking(bookingId, updatedBooking)
   }
 
-  async deleteBooking(bookingId: string): Promise<void> {
-    return this.repository.deleteBooking(bookingId)
-  }
-
   async cancelBooking(bookingId: string): Promise<IBooking> {
     return this.repository.cancelBooking(bookingId)
-  }
-
-  async getUserBookings(userId: string, status?: 'active' | 'cancelled' | 'completed'): Promise<IBooking[]> {
-    return this.repository.getUserBookings(userId, status)
   }
 
   async getBookingStats(): Promise<import('~/interfaces/BookingsInterfaces').IBookingStats> {

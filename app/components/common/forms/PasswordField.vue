@@ -4,21 +4,18 @@
       <i :class="icon" />
     </InputGroupAddon>
     <FloatLabel variant="on">
-      <Textarea
+      <Password
         :id="id"
         :model-value="modelValue"
-        :class="[{ 'p-invalid': errorMessage }, 'min-h-[4rem]']"
-        :autofocus="autofocus"
-        :rows="rows"
-        :auto-resize="autoResize"
-        fluid
+        :class="{ 'p-invalid': errorMessage }"
+        type="password"
+        :toggle-mask="toggleMask"
+        :fluid="fluid"
+        :feedback="feedback"
         @update:model-value="$emit('update:modelValue', $event)"
         @blur="$emit('blur')"
       />
-      <label
-        :for="id"
-        :aria-labelledby="id"
-      >{{ label }}</label>
+      <label :for="id">{{ label }}</label>
     </FloatLabel>
   </InputGroup>
   <div class="error-message-wrapper">
@@ -40,18 +37,18 @@ interface Props {
   modelValue?: string
   errorMessage?: string
   icon?: string
-  autofocus?: boolean
-  rows?: number
-  autoResize?: boolean
+  toggleMask?: boolean
+  fluid?: boolean
+  feedback?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   modelValue: '',
   errorMessage: '',
-  icon: '',
-  autofocus: false,
-  rows: 5,
-  autoResize: false,
+  icon: 'pi pi-key',
+  toggleMask: true,
+  fluid: true,
+  feedback: false,
 })
 
 defineEmits<{
@@ -62,6 +59,6 @@ defineEmits<{
 
 <style scoped>
 .error-message-wrapper {
-  min-height: 1.5rem;
+  min-height: 1.7rem;
 }
 </style>

@@ -182,3 +182,17 @@ export const monthNamesShort = [
   'date.monthShortNames.november',
   'date.monthShortNames.december',
 ]
+export const monthFullNames = [
+  'date.monthNames.january',
+  'date.monthNames.february',
+  'date.monthNames.march',
+  'date.monthNames.april',
+  'date.monthNames.may',
+  'date.monthNames.june',
+  'date.monthNames.july',
+  'date.monthNames.august',
+  'date.monthNames.september',
+  'date.monthNames.october',
+  'date.monthNames.november',
+  'date.monthNames.december',
+]

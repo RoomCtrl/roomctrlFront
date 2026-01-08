@@ -1,5 +1,19 @@
 {
   "tableNoData": {
-    "description": "No description"
+    "description": "No description",
+    "access": "No access information"
+  },
+  "statuses": {
+    "available": "Available",
+    "out_of_use": "Out of use"
+  },
+  "dialogs": {
+    "addRoom": "Add New Room",
+    "editRoom": "Edit Room"
+  },
+  "toasts": {
+    "roomAdded": "Room has been added",
+    "roomDeleted": "Room has been deleted",
+    "operationFailed": "Operation failed"
   }
 }

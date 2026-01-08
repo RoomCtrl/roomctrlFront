@@ -29,53 +29,77 @@
         </div>
       </div>
     </template>
-    <div class="p-6 mb-3 space-y-4 border-y border-gray-200">
-      <div class="flex flex-row items-center gap-3">
-        <i class="pi pi-clock" />
-        <div>
-          <div class="text-sm font-medium">
-            {{ formatTime(selectedReservation.date) }} -
-            {{
-              formatEndTime(
-                selectedReservation.date,
-                selectedReservation.duration,
-              )
-            }}
-          </div>
-          <div class="text-sm">
-            {{ $t('reservations.rentDetails.duration') }}:
-            {{ selectedReservation.duration }}
-            {{ $t('reservations.rentDetails.minutes') }}
+    <div class="p-6 mb-3 border-y border-gray-200">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex items-start gap-3">
+          <i class="pi pi-clock" />
+          <div>
+            <div class="text-sm font-medium">
+              {{ formatTime(selectedReservation.date) }} -
+              {{
+                formatEndTime(
+                  selectedReservation.date,
+                  selectedReservation.duration,
+                )
+              }}
+            </div>
+            <div class="text-sm">
+              {{ $t('reservations.rentDetails.duration') }}:
+              {{ selectedReservation.duration }}
+              {{ $t('reservations.rentDetails.minutes') }}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="flex items-start gap-3">
-        <i class="pi pi-map-marker" />
-        <div class="text-sm">
-          {{ selectedReservation.location }}
+        <div class="flex items-start gap-3">
+          <i class="pi pi-building" />
+          <div>
+            <div class="text-xs text-gray-500 font-semibold">
+              {{ $t('reservations.rentDetails.room') }}
+            </div>
+            <div class="text-sm">
+              {{ selectedReservation.roomName }}
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="flex items-start gap-3">
-        <i class="pi pi-users" />
-        <div class="text-sm">
-          {{ selectedReservation.attendees }}
-          {{
-            selectedReservation.attendees === 1
-              ? $t('reservations.rentDetails.person')
-              : $t('reservations.rentDetails.persons')
-          }}
+        <div class="flex items-start gap-3">
+          <i class="pi pi-map-marker" />
+          <div>
+            <div class="text-xs text-gray-500 font-semibold">
+              {{ $t('reservations.rentDetails.location') }}
+            </div>
+            <div class="text-sm">
+              {{ selectedReservation.location }}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <i class="pi pi-users" />
+          <div>
+            <div class="text-xs text-gray-500 font-semibold">
+              {{ $t('reservations.rentDetails.attendees') }}
+            </div>
+            <div class="text-sm">
+              {{ selectedReservation.attendees }}
+              {{
+                selectedReservation.attendees === 1
+                  ? $t('reservations.rentDetails.person')
+                  : $t('reservations.rentDetails.persons')
+              }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <div
-      v-if="selectedReservation.status !== 'cancelled'"
+      v-if="selectedReservation.status !== 'cancelled' && selectedReservation.status !== 'completed'"
       class="flex justify-end gap-3"
     >
       <Button
-        label="Anuluj rezerwację"
+        :label="$t('reservations.rentDetails.cancelReservation')"
         severity="danger"
         :loading="deleteLoading"
         @click="handleDelete"
@@ -90,17 +114,23 @@
       v-else
       class="flex justify-center"
     >
-      <p class="text-red-500 font-semibold">
-        Ta rezerwacja została anulowana
+      <p
+        v-if="selectedReservation.status === 'cancelled'"
+        class="text-red-500 font-semibold"
+      >
+        {{ $t('reservations.rentDetails.reservationCancelled') }}
+      </p>
+      <p
+        v-else-if="selectedReservation.status === 'completed'"
+        class="text-green-600 font-semibold"
+      >
+        {{ $t('reservations.rentDetails.reservationCompleted') }}
       </p>
     </div>
   </Dialog>
 </template>
 
 <script setup lang="ts">
-import { useBooking } from '~/composables/useBooking'
-import { ref } from 'vue'
-
 const props = defineProps<{
   open: boolean
   selectedReservation: {
@@ -112,6 +142,7 @@ const props = defineProps<{
     attendees: number
     color: string
     status?: 'active' | 'cancelled' | 'completed'
+    roomName?: string
   }
 }>()
 
@@ -120,24 +151,26 @@ const emit = defineEmits(['update:open', 'edit', 'deleted'])
 const { cancelBooking } = useBooking()
 const deleteLoading = ref(false)
 const confirm = useConfirm()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const toast = useToast()
 
 const formatTime = (date: Date) => {
-  return date.toLocaleTimeString('pl-PL', {
+  return date.toLocaleTimeString(locale.value, {
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
   })
 }
 
 const formatDate = (date: Date) => {
-  return date.toLocaleDateString('pl-PL', {
+  return date.toLocaleDateString(locale.value, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
   })
 }
 

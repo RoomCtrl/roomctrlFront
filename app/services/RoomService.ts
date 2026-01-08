@@ -8,12 +8,12 @@ export class RoomService {
     this.repository = new RoomRepository(token)
   }
 
-  async getRooms(withBookings: boolean = false, status?: 'available' | 'occupied' | 'maintenance'): Promise<IRoomCard[]> {
+  async getRooms(withBookings?: boolean, status?: 'available' | 'out_of_use'): Promise<IRoomCard[]> {
     return await this.repository.getRooms(withBookings, status)
   }
 
-  async getRoom(roomId: string, withBookings: boolean = false): Promise<IRoomDetails> {
-    return await this.repository.getRoom(roomId, withBookings)
+  async getRoom(roomId: string): Promise<IRoomCard> {
+    return await this.repository.getRoom(roomId)
   }
 
   async createRoom(newRoom: IRoomCreateRequest): Promise<IRoomDetails> {

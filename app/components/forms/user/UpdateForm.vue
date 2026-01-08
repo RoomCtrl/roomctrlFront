@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="grid grid-cols-2 grid-rows-3 gap-2 py-[0.4rem]">
+    <div class="grid grid-cols-2 grid-rows-3 gap-x-2 py-[0.4rem]">
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="username"
           v-model="username"
           :label="$t('forms.fields.user.username')"
@@ -13,7 +13,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="firstName"
           v-model="firstName"
           :label="$t('forms.fields.user.firstName')"
@@ -23,7 +23,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="lastName"
           v-model="lastName"
           :label="$t('forms.fields.user.lastName')"
@@ -33,7 +33,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="email"
           v-model="email"
           :label="$t('forms.fields.email')"
@@ -44,7 +44,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="phone"
           v-model="phone"
           :label="$t('forms.fields.phone')"
@@ -55,7 +55,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormMultiSelectField
+        <CommonFormsMultiSelectField
           id="roles"
           v-model="roles"
           :label="$t('forms.fields.user.roles')"
@@ -85,8 +85,6 @@ import { useForm, useField, defineRule } from 'vee-validate'
 import { required } from '@vee-validate/rules'
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
 import type { IUserAddResponse } from '~/interfaces/UsersInterfaces'
-import FormTextField from '~/components/common/FormTextField.vue'
-import FormMultiSelectField from '~/components/common/FormMultiSelectField.vue'
 
 const props = defineProps<{
   userId: string

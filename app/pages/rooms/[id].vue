@@ -249,7 +249,7 @@ onMounted(async () => {
   const roomId = String(route.params.id)
   await loadFavoriteIds()
   await fetchRoom(roomId, true)
-  await fetchBookings(roomId)
+  await fetchBookings(false)
   await fetchOrganizationData()
 })
 </script>

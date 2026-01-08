@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center">
       <div class="flex itemx-center justify-center">
         <h1 class="text-start w-full text-5xl font-bold py-[3vh]">
-          {{ $t('forms.registration.title') }}
+          {{ $t('forms.titles.registration') }}
         </h1>
       </div>
 
@@ -11,38 +11,38 @@
         <div class="flex flex-col">
           <div class="section-title">
             <i class="pi pi-building" />
-            <h2>{{ $t('forms.registration.organizationData') }}</h2>
+            <h2>{{ $t('forms.titles.organizationData') }}</h2>
           </div>
 
           <div class="flex flex-col">
             <div class="w-full md:w-[23rem]">
-              <FormTextField
+              <CommonFormsTextField
                 id="regon"
                 v-model="regon"
                 icon="pi pi-hashtag"
-                :label="$t('forms.registration.regon')"
+                :label="$t('forms.fields.organization.regon')"
                 :errorMessage="regonError"
                 @blur="regonBlur"
               />
             </div>
 
             <div class="w-full md:w-[23rem]">
-              <FormTextField
+              <CommonFormsTextField
                 id="organizationName"
                 v-model="organizationName"
                 icon="pi pi-building"
-                :label="$t('forms.registration.organizationName')"
+                :label="$t('forms.fields.organization.name')"
                 :errorMessage="organizationNameError"
                 @blur="organizationNameBlur"
               />
             </div>
 
             <div class="w-full md:w-[23rem]">
-              <FormTextField
+              <CommonFormsTextField
                 id="organizationEmail"
                 v-model="organizationEmail"
                 icon="pi pi-envelope"
-                :label="$t('forms.registration.organizationEmail')"
+                :label="$t('forms.fields.organization.email')"
                 :errorMessage="organizationEmailError"
                 @blur="organizationEmailBlur"
               />
@@ -53,80 +53,80 @@
         <div class="flex flex-col">
           <div class="section-title">
             <i class="pi pi-user" />
-            <h2>{{ $t('forms.registration.userData') }}</h2>
+            <h2>{{ $t('forms.titles.userData') }}</h2>
           </div>
 
           <div class="flex flex-col md:grid md:grid-cols-2 md:grid-rows-4 md:gap-x-4">
             <div class="w-full md:w-[23rem] col-span-full">
-              <FormTextField
+              <CommonFormsTextField
                 id="username"
                 v-model="username"
                 icon="pi pi-user"
-                :label="$t('forms.registration.username')"
+                :label="$t('forms.fields.user.username')"
                 :errorMessage="usernameError"
                 @blur="usernameBlur"
               />
             </div>
 
             <div class="w-full md:w-[23rem]">
-              <FormTextField
+              <CommonFormsTextField
                 id="firstName"
                 v-model="firstName"
                 icon="pi pi-id-card"
-                :label="$t('forms.registration.firstName')"
+                :label="$t('forms.fields.user.firstName')"
                 :errorMessage="firstNameError"
                 @blur="firstNameBlur"
               />
             </div>
 
             <div class="w-full md:w-[23rem]">
-              <FormTextField
+              <CommonFormsTextField
                 id="lastName"
                 v-model="lastName"
                 icon="pi pi-id-card"
-                :label="$t('forms.registration.lastName')"
+                :label="$t('forms.fields.user.lastName')"
                 :errorMessage="lastNameError"
                 @blur="lastNameBlur"
               />
             </div>
 
             <div class="w-full md:w-[23rem]">
-              <FormTextField
+              <CommonFormsTextField
                 id="email"
                 v-model="email"
                 icon="pi pi-at"
-                :label="$t('forms.registration.email')"
+                :label="$t('forms.fields.user.email')"
                 :errorMessage="emailError"
                 @blur="emailBlur"
               />
             </div>
 
             <div class="w-full md:w-[23rem] rows-start-3">
-              <FormTextField
+              <CommonFormsTextField
                 id="phone"
                 v-model="phone"
                 icon="pi pi-phone"
-                :label="$t('forms.registration.phone')"
+                :label="$t('forms.fields.phone')"
                 :errorMessage="phoneError"
                 @blur="phoneBlur"
               />
             </div>
 
             <div class="w-full md:w-[23rem] row-start-4">
-              <FormPasswordField
+              <CommonFormsPasswordField
                 id="password"
                 v-model="password"
-                :label="$t('forms.registration.password')"
+                :label="$t('forms.fields.user.password')"
                 :errorMessage="passwordError"
                 @blur="passwordBlur"
               />
             </div>
 
             <div class="w-full md:w-[23rem] row-start-4">
-              <FormPasswordField
+              <CommonFormsPasswordField
                 id="confirmPassword"
                 v-model="confirmPassword"
-                :label="$t('forms.registration.confirmPassword')"
+                :label="$t('forms.fields.user.confirmPassword')"
                 :errorMessage="confirmPasswordError"
                 @blur="confirmPasswordBlur"
               />
@@ -146,18 +146,18 @@
             for="acceptTerms"
             class="text-sm"
           >
-            {{ $t('forms.registration.acceptTerms') }}
+            {{ $t('forms.registrationRequires.acceptTerms') }}
             <NuxtLink
               :to="localePath('/rules')"
               target="_blank"
               class="text-primary-400 hover:underline"
-            >{{ $t('forms.registration.rules') }}</NuxtLink>
-            {{ $t('forms.registration.and') }}
+            >{{ $t('forms.registrationRequires.rules') }}</NuxtLink>
+            {{ $t('forms.registrationRequires.and') }}
             <NuxtLink
               :to="localePath('/privacyPolicy')"
               target="_blank"
               class="text-primary-400 hover:underline"
-            >{{ $t('forms.registration.privacyPolicy') }}</NuxtLink>
+            >{{ $t('forms.registrationRequires.privacyPolicy') }}</NuxtLink>
           </label>
         </div>
         <div class="error-message-wrapper">
@@ -174,7 +174,7 @@
       <div class="flex justify-center">
         <Button
           type="submit"
-          :label="$t('forms.registration.submit')"
+          :label="$t('forms.submit.register')"
           :loading="loading"
           class="w-[65vw] md:w-[15rem]"
         />
@@ -189,8 +189,6 @@ import { useForm, useField } from 'vee-validate'
 import { useToast } from 'primevue/usetoast'
 import { AuthRepository } from '~/repositories/AuthRepository'
 import type { IRegisterRequest } from '~/interfaces/RepositoriesInterface'
-import FormTextField from '../common/FormTextField.vue'
-import FormPasswordField from '../common/FormPasswordField.vue'
 
 const toast = useToast()
 const localePath = useLocalePath()
@@ -208,7 +206,7 @@ const { handleSubmit, resetForm } = useForm<IRegisterRequest>({
     firstName: 'required|min:2',
     lastName: 'required|min:2',
     email: 'required|email',
-    phone: 'required',
+    phone: 'required|phone',
     password: 'required|min:8',
     confirmPassword: 'required|confirmed:@password',
     acceptTerms: 'accepted',
@@ -237,28 +235,24 @@ const submitForm = handleSubmit(async (formValues) => {
 
     toast.add({
       severity: 'success',
-      summary: t('forms.registration.successTitle'),
-      detail: t('forms.registration.successMessage'),
+      summary: t('toast.summary.success'),
+      detail: t('toast.messages.success.registration'),
       life: 5000,
     })
 
     resetForm()
 
-    setTimeout(() => {
-      const loginTab = document.querySelector('[value="0"]') as HTMLElement
-      loginTab?.click()
-    }, 2000)
+    emit('registrationAttempted')
   }
   catch (error: any) {
     toast.add({
       severity: 'error',
-      summary: t('forms.registration.errorTitle'),
-      detail: error?.data?.message || error?.message || t('forms.registration.errorMessage'),
+      summary: t('toast.summary.registrationError'),
+      detail: error?.data?.message || error?.message || t('toast.messages.error.registration'),
       life: 5000,
     })
   }
   finally {
-    emit('registrationAttempted')
     loading.value = false
   }
 })

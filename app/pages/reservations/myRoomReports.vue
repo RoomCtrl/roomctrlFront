@@ -6,7 +6,7 @@
       <Card>
         <template #content>
           <h1 class="font-extrabold text-4xl">
-            Moje zgłoszenia
+            {{ $t('pages.myRoomReports.title') }}
           </h1>
         </template>
       </Card>
@@ -40,7 +40,7 @@
         :key="'categoryTranslated'"
         field="categoryTranslated"
         :header="$t('tables.headers.category')"
-        class="w-[10%]"
+        class="w-[20%]"
         sortable
         filter
       />
@@ -126,7 +126,6 @@
 <script setup lang="ts">
 import { FilterMatchMode } from '@primevue/core/api'
 import { onMounted } from 'vue'
-import { useUser } from '@/composables/useUser'
 import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseTextFilterColumn.vue'
 import BaseDateFilterColumn from '~/components/common/datatable/columns/BaseDateFilterColumn.vue'
 import BaseSelectTagFilter from '~/components/common/datatable/columns/BaseSelectTagFilter.vue'
@@ -136,10 +135,9 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const { users, fetchUsers } = useUser()
 const { fetchCurrentUserIssues, issues } = useIssue()
 const { t } = useI18n()
-const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 15)
+const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(issues, 15)
 
 const statusOptions = ref([
   { label: t('pages.adminDashboard.roomIssueReports.status.pending'), value: 'pending' },
@@ -193,7 +191,6 @@ const getPriorityColor = (priority: string) => {
 }
 
 onMounted(async () => {
-  await fetchUsers(true)
   await fetchCurrentUserIssues()
 })
 </script>

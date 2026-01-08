@@ -1,10 +1,10 @@
 <template>
   <form
-    class="grid grid-cols-3 gap-4 pt-5"
+    class="grid grid-cols-3 gap-x-4 pt-4"
     @submit.prevent="addBooking"
   >
-    <div class="flex flex-col gap-2 col-span-full">
-      <FormTextField
+    <div class="col-span-full">
+      <CommonFormsTextField
         id="title"
         v-model="title"
         :label="$t('forms.fields.booking.title')"
@@ -15,9 +15,9 @@
 
     <div
       v-if="!providedRoomId"
-      class="flex flex-col gap-2 col-span-full"
+      class="col-span-full"
     >
-      <FormSelectField
+      <CommonFormsSelectField
         id="room"
         v-model="roomId"
         :label="$t('forms.fields.booking.roomId')"
@@ -29,9 +29,9 @@
       />
     </div>
 
-    <div class="flex flex-col md:flex-row gap-4 col-span-2">
-      <div class="flex flex-col gap-2 flex-1">
-        <FormDateField
+    <div class="flex flex-col md:flex-row gap-x-4 col-span-2">
+      <div class="flex-1">
+        <CommonFormsDateField
           id="startedAt"
           v-model="startedAt"
           :label="$t('forms.fields.booking.startedAt')"
@@ -42,8 +42,8 @@
         />
       </div>
 
-      <div class="flex flex-col gap-2 flex-1">
-        <FormDateField
+      <div class="flex-1">
+        <CommonFormsDateField
           id="endedAt"
           v-model="endedAt"
           :label="$t('forms.fields.booking.endedAt')"
@@ -55,8 +55,8 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-2">
-      <FormNumberField
+    <div>
+      <CommonFormsNumberField
         id="participantsCount"
         v-model="participantsCount"
         :label="$t('forms.fields.booking.participantsCount')"
@@ -66,19 +66,19 @@
       />
     </div>
 
-    <div class="flex flex-col col-span-full">
-      <FormMultiSelectField
+    <div class="col-span-full">
+      <CommonFormsMultiSelectField
         id="participantIds"
         v-model="participantIds"
         :label="$t('forms.fields.booking.participantIds')"
         :options="availableUsers"
         optionLabel="displayName"
         optionValue="id"
+        :hint="$t('forms.booking.participantsHint')"
         :filter="true"
         :errorMessage="participantIdsError"
         @blur="participantIdsBlur"
       />
-      <small class="text-gray-500">{{ $t('forms.booking.participantsHint') }}</small>
     </div>
 
     <div class="flex items-center gap-2 col-span-full">
@@ -118,11 +118,6 @@ import { useAuth } from '~/composables/useAuth'
 import type { IBookingCreateRequest } from '~/interfaces/BookingsInterfaces'
 import { useToast } from 'primevue/usetoast'
 import { useField, useForm } from 'vee-validate'
-import FormTextField from '~/components/common/FormTextField.vue'
-import FormSelectField from '~/components/common/FormSelectField.vue'
-import FormDateField from '~/components/common/FormDateField.vue'
-import FormNumberField from '~/components/common/FormNumberField.vue'
-import FormMultiSelectField from '~/components/common/FormMultiSelectField.vue'
 
 const props = defineProps<{
   visible: boolean
@@ -136,7 +131,7 @@ const { handleSubmit, resetForm } = useForm<IBookingCreateRequest>({
     roomId: 'required',
     startedAt: 'required',
     endedAt: 'required',
-    participantsCount: 'required|min:1',
+    participantsCount: 'required|min_value:1|max_value:' + (props.capacity || 1),
   },
   initialValues: {
     roomId: props.providedRoomId || '',
@@ -149,7 +144,7 @@ const { value: startedAt, errorMessage: startedAtError, handleBlur: startedAtBlu
 const { value: endedAt, errorMessage: endedAtError, handleBlur: endedAtBlur } = useField<Date>('endedAt')
 const { value: participantsCount, errorMessage: participantsCountError, handleBlur: participantsCountBlur } = useField<number>('participantsCount')
 const { value: participantIds, errorMessage: participantIdsError, handleBlur: participantIdsBlur } = useField<string[]>('participantIds')
-const { value: isPrivate, errorMessage: isPrivateError, handleBlur: isPrivateBlur } = useField<boolean>('isPrivate')
+const { value: isPrivate } = useField<boolean>('isPrivate')
 
 const emit = defineEmits<{
   success: []
@@ -160,7 +155,7 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const toast = useToast()
 const { createBooking, loading } = useBooking()
-const { rooms, fetchRooms, room } = useRoom()
+const { rooms, fetchRooms } = useRoom()
 const { users, fetchUsers } = useUser()
 const { user, isAdmin } = useAuth()
 

@@ -1,23 +1,16 @@
 {
-  "title": "Ustawienia organizacji",
+  "title": "Ustawienia",
   "sections": {
     "organization": {
       "title": "Dane organizacji",
       "name": "Nazwa organizacji",
-      "namePlaceholder": "Wprowadź nazwę organizacji",
-      "email": "Email kontaktowy",
-      "emailPlaceholder": "kontakt@organizacja.pl"
+      "email": "Email kontaktowy"
     },
     "workingHours": "Godziny pracy",
+    "submitHours": "Zapisz godziny",
     "notifications": {
       "title": "Powiadomienia",
-      "newBookingNotification": "Powiadamiaj o nowych rezerwacjach",
-      "newBookingNotificationDescription": "Otrzymuj email gdy użytkownik utworzy nową rezerwację",
-      "reportNotification": "Powiadamiaj o zgłoszeniach",
-      "reportNotificationDescription": "Otrzymuj email gdy użytkownik zgłosi problem z salą",
-      "cancellationNotification": "Powiadamiaj o anulowaniach",
-      "cancellationNotificationDescription": "Otrzymuj email gdy użytkownik anuluje rezerwację",
-      "notificationEmail": "Email do powiadomień"
+      "newBookingNotification": "Powiadamiaj o moich nowych rezerwacjach"
     }
   }
 }

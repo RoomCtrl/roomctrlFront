@@ -8,10 +8,9 @@
     />
     <Popover ref="op">
       <div class="flex flex-col gap-4 min-w-[250px]">
-        <!-- Header z avatarem i danymi użytkownika -->
         <div class="flex items-center gap-3 pb-3 border-b border-gray-200 dark:border-gray-600">
-          <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center">
-            <i class="pi pi-user text-2xl text-primary-600 dark:text-primary-400" />
+          <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
+            <i class="pi pi-user text-2xl text-gray-600 dark:text-gray-400" />
           </div>
           <div class="flex flex-col">
             <h1 class="font-bold text-lg text-gray-800 dark:text-white">
@@ -23,7 +22,6 @@
           </div>
         </div>
 
-        <!-- Menu opcji -->
         <nav>
           <ul class="flex flex-col gap-1">
             <li
@@ -42,7 +40,6 @@
           </ul>
         </nav>
 
-        <!-- Przycisk wylogowania -->
         <div class="pt-3 border-t border-gray-200 dark:border-gray-600">
           <Button
             :label="t('common.buttons.logOut')"
@@ -59,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IGetUserProfileResponse } from '~/app/interfaces/RepositoriesInterface'
+import type { IGetUserProfileResponse } from '~/interfaces/RepositoriesInterface'
 
 const op = ref()
 const { t } = useI18n()
@@ -71,17 +68,15 @@ const { user, logout, isAdmin } = useAuth() as {
 }
 
 const handleLogout = async () => {
-  // Zamknij popover przed wylogowaniem
   if (op.value) {
     op.value.hide()
   }
 
-  // Poczekaj chwilę na zamknięcie popovera
   await new Promise(resolve => setTimeout(resolve, 100))
 
   await logout('/')
 }
-const toggle = (event) => {
+const toggle = (event: Event) => {
   op.value.toggle(event)
 }
 

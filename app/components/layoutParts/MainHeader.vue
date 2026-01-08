@@ -60,9 +60,9 @@ import TheDropMenu from './headerParts/TheDropMenu.vue'
 import UserHeaderOptions from './headerParts/UserHeaderOptions.vue'
 import MobileHeader from './headerParts/MobileSidebar.vue'
 
-defineProps({
-  darkMode: Boolean,
-})
+defineProps<{
+  darkMode: boolean
+}>()
 const localePath = useLocalePath()
 const { t } = useI18n()
 const { user } = useAuth()
@@ -139,9 +139,9 @@ const tabs = computed(() => [
         auth: isUserLogin.value,
       },
       {
-        label: 'Moje zgłoszenia',
+        label: t('pages.myRoomReports.title'),
         route: '/reservations/myRoomReports',
-        description: t('layouts.main.pages.myCalendar.description'),
+        description: t('layouts.main.pages.myRoomReports.description'),
         auth: isUserLogin.value,
       },
     ],

@@ -2,110 +2,48 @@
   <Toast class="pt-[7vh]" />
   <form @submit.prevent="sendMail">
     <div
-      class="flex flex-col gap-3 w-full 2xl:w-[35vw]"
+      class="flex flex-col w-full 2xl:w-[35vw]"
     >
       <h1 class="flex justify-center text-xl font-bold">
         {{ $t('forms.titles.contactForm') }}
       </h1>
-      <div>
-        <InputGroup>
-          <InputGroupAddon>
-            <i class="pi pi-user" />
-          </InputGroupAddon>
-          <FloatLabel variant="on">
-            <InputText
-              id="name"
-              v-model="name"
-              type="text"
-              class="w-[70vw] sm:w-full"
-              :class="{ 'p-invalid': nameError }"
-              @blur="nameBlur"
-            />
-            <label for="name">{{ $t('forms.fields.user.username') }}</label>
-          </FloatLabel>
-        </InputGroup>
-        <Message
-          v-if="nameError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ nameError }}
-        </Message>
-      </div>
-      <div>
-        <InputGroup>
-          <InputGroupAddon>
-            <i class="pi pi-envelope" />
-          </InputGroupAddon>
-          <FloatLabel variant="on">
-            <InputText
-              id="email"
-              v-model="email"
-              type="text"
-              class="w-[70vw] sm:w-full"
-              :class="{ 'p-invalid': emailError }"
-              @blur="emailBlur"
-            />
-            <label for="email">{{ $t('forms.fields.email') }}</label>
-          </FloatLabel>
-        </InputGroup>
-        <Message
-          v-if="emailError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ emailError }}
-        </Message>
-      </div>
-      <div>
-        <InputGroup>
-          <InputGroupAddon>
-            <i class="pi pi-list" />
-          </InputGroupAddon>
-          <FloatLabel variant="on">
-            <Select
-              id="subject"
-              v-model="subject"
-              :options="subjects"
-              type="text"
-              class="w-[70vw] sm:w-full"
-              :class="{ 'p-invalid': subjectError }"
-              @blur="subjectBlur"
-            />
-            <label for="subject">{{ $t('forms.fields.subject') }}</label>
-          </FloatLabel>
-        </InputGroup>
-        <Message
-          v-if="subjectError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ subjectError }}
-        </Message>
-      </div>
-      <div>
-        <FloatLabel variant="on">
-          <Textarea
-            id="message"
-            v-model="message"
-            class="w-full h-[25vh]"
-            :class="{ 'p-invalid': messageError }"
-            @blur="messageBlur"
-          />
-          <label for="message">{{ $t('forms.fields.message') }}</label>
-        </FloatLabel>
-        <Message
-          v-if="messageError"
-          severity="error"
-          size="small"
-          variant="simple"
-        >
-          {{ messageError }}
-        </Message>
-      </div>
+      <CommonFormsTextField
+        id="name"
+        v-model="name"
+        :label="$t('forms.fields.user.username')"
+        :errorMessage="nameError"
+        icon="pi pi-user"
+        @blur="nameBlur"
+      />
+
+      <CommonFormsTextField
+        id="email"
+        v-model="email"
+        :label="$t('forms.fields.email')"
+        :errorMessage="emailError"
+        icon="pi pi-envelope"
+        @blur="emailBlur"
+      />
+
+      <CommonFormsSelectField
+        id="subject"
+        v-model="subject"
+        :options="subjects"
+        :label="$t('forms.fields.subject')"
+        :errorMessage="subjectError"
+        icon="pi pi-list"
+        option-label=""
+        option-value=""
+        @blur="subjectBlur"
+      />
+
+      <CommonFormsTextArea
+        id="message"
+        v-model="message"
+        :label="$t('forms.fields.message')"
+        :errorMessage="messageError"
+        @blur="messageBlur"
+      />
       <Button
         :label="t('pages.contact.send')"
         icon="pi pi-send"
@@ -123,13 +61,12 @@ import { useField, useForm } from 'vee-validate'
 import type { IContactMailData } from '~/interfaces/RepositoriesInterface'
 
 const toast = useToast()
-
-const showToast = (severity: string, summary: string, detail: string) => {
-  toast.add({ severity, summary, detail, life: 3000 })
-}
-
+const { sendContactMessage } = useMailer()
 const { t } = useI18n()
 const { user } = useAuth()
+
+const loading = ref<boolean>(false)
+
 const isUserLogin = computed(() => {
   return !(Object.keys(user.value || {}).length === 0)
 })
@@ -143,14 +80,12 @@ const subjects = computed(() => {
   }
 })
 
-const { sendContactMessage } = useMailer()
-
 const { handleSubmit, resetForm } = useForm<IContactMailData>({
   validationSchema: {
     name: 'required',
     email: 'required|email',
-    subject: 'required|max:255',
-    message: 'required',
+    subject: 'required',
+    message: 'required|min:10|max:5000',
   },
 })
 
@@ -159,7 +94,9 @@ const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useFie
 const { value: subject, errorMessage: subjectError, handleBlur: subjectBlur } = useField<string>('subject')
 const { value: message, errorMessage: messageError, handleBlur: messageBlur } = useField<string>('message')
 
-const loading = ref<boolean>(false)
+const showToast = (severity: string, summary: string, detail: string) => {
+  toast.add({ severity, summary, detail, life: 3000 })
+}
 
 const sendMail = handleSubmit(async (formValues: IContactMailData) => {
   loading.value = true
@@ -175,6 +112,13 @@ const sendMail = handleSubmit(async (formValues: IContactMailData) => {
   }
   finally {
     loading.value = false
+  }
+})
+
+onMounted(() => {
+  if (isUserLogin.value && user.value) {
+    name.value = (user.value.firstName + ' ' + user.value.lastName) || ''
+    email.value = user.value.email || ''
   }
 })
 </script>

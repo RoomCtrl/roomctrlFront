@@ -54,7 +54,9 @@ const Informations = [
   {
     title: t('common.roomParameters.capacity'),
     icon: 'pi pi-users',
-    value: props.roomParameters.capacity ? props.roomParameters.capacity + ' osób' : t('pages.roomDetails.detailedInfo.noData.capacity'),
+    value: props.roomParameters.capacity
+      ? t('pages.roomDetails.detailedInfo.parameters.capacityCount', { count: props.roomParameters.capacity })
+      : t('pages.roomDetails.detailedInfo.noData.capacity'),
   },
   {
     title: t('common.roomParameters.size'),

@@ -2,63 +2,42 @@
   <div class="h-[98.2vh] overflow-auto w-full p-6">
     <div class="flex flex-col gap-6">
       <div class="flex items-center gap-3 mb-4">
-        <i class="pi pi-building text-3xl" />
+        <i class="pi pi-cog text-3xl" />
         <h1 class="text-3xl font-bold">
           {{ $t('pages.adminDashboard.settingsAdmin.title') }}
         </h1>
       </div>
 
-      <OrganizationData />
+      <div class="grid grid-cols-2 gap-x-6">
+        <OrganizationData />
+
+        <Card>
+          <template #title>
+            <div class="flex items-center gap-2">
+              <i class="pi pi-bell" />
+              {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.title') }}
+            </div>
+          </template>
+          <template #content>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center justify-between">
+                <div class="flex flex-col gap-1">
+                  <label class="font-semibold">
+                    {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.newBookingNotification') }}
+                  </label>
+                </div>
+                <ToggleSwitch
+                  v-model="newNotifications"
+                  :default-value="notifications"
+                  @change="handleNotificationsChange"
+                />
+              </div>
+            </div>
+          </template>
+        </Card>
+      </div>
 
       <CleaningTime />
-
-      <Card>
-        <template #title>
-          <div class="flex items-center gap-2">
-            <i class="pi pi-bell" />
-            {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.title') }}
-          </div>
-        </template>
-        <template #content>
-          <div class="flex flex-col gap-4">
-            <div class="flex items-center justify-between">
-              <div class="flex flex-col gap-1">
-                <label class="font-semibold">
-                  {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.newBookingNotification') }}
-                </label>
-                <small class="text-gray-500">
-                  {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.newBookingNotificationDescription') }}
-                </small>
-              </div>
-              <ToggleSwitch v-model="settingsAdmin.notifyOnNewBooking" />
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div class="flex flex-col gap-1">
-                <label class="font-semibold">
-                  {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.reportNotification') }}
-                </label>
-                <small class="text-gray-500">
-                  {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.reportNotificationDescription') }}
-                </small>
-              </div>
-              <ToggleSwitch v-model="settingsAdmin.notifyOnReport" />
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div class="flex flex-col gap-1">
-                <label class="font-semibold">
-                  {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.cancellationNotification') }}
-                </label>
-                <small class="text-gray-500">
-                  {{ $t('pages.adminDashboard.settingsAdmin.sections.notifications.cancellationNotificationDescription') }}
-                </small>
-              </div>
-              <ToggleSwitch v-model="settingsAdmin.notifyOnCancellation" />
-            </div>
-          </div>
-        </template>
-      </Card>
     </div>
     <Toast />
   </div>
@@ -73,31 +52,23 @@ definePageMeta({
   layout: 'admin-dashboard',
 })
 
-const defaultSettingsAdmin = {
-  organizationName: '',
-  regon: '',
-  email: '',
-  phone: '',
-  address: '',
-  description: '',
+const toast = useToast()
+const { t } = useI18n()
 
-  openingTime: new Date(2024, 0, 1, 8, 0),
-  closingTime: new Date(2024, 0, 1, 18, 0),
-  workingDays: [1, 2, 3, 4, 5],
+const { fetchUserNotifications, updateUserNotifications } = useUser()
+const notifications = await fetchUserNotifications()
 
-  requireBookingApproval: false,
-  maxAdvanceDays: 30,
-  maxActiveBookingsPerUser: 5,
-  minGapBetweenBookings: 15,
-  cancellationDeadlineHours: 24,
+const newNotifications = ref(true)
 
-  notifyOnNewBooking: true,
-  notifyOnReport: true,
-  notifyOnCancellation: true,
-  notificationEmail: '',
+const handleNotificationsChange = async () => {
+  await updateUserNotifications(newNotifications.value)
+  toast.add({
+    severity: 'success',
+    summary: t('toast.summary.changeSuccess'),
+    detail: newNotifications.value ? t('toast.details.onNotifications') : t('toast.details.offNotifications'),
+    life: 3000,
+  })
 }
-
-const settingsAdmin = ref({ ...defaultSettingsAdmin })
 </script>
 
 <style scoped>

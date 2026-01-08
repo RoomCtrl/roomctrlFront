@@ -23,7 +23,7 @@
                 <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 pb-1">
                   {{ $t('pages.adminDashboard.roomIssueReports.modal.status') }}
                 </div>
-                <span :class="['px-2 py-1 rounded-full text-sm font-medium w-[5rem]', getStatusColor(issue?.status || '')]">
+                <span :class="['px-2 py-1 rounded-full text-sm font-medium whitespace-nowrap', getStatusColor(issue?.status || '')]">
                   {{ $t('pages.adminDashboard.roomIssueReports.status.' + issue?.status) }}
                 </span>
               </div>
@@ -93,7 +93,7 @@
               <div class="w-2 h-2 bg-blue-500 rounded-full mt-2" />
               <div class="flex-1">
                 <div class="text-sm font-medium">
-                  {{ log.action }}
+                  {{ $t('pages.adminDashboard.roomIssueReports.modal.actions.' + log.action) }}
                 </div>
                 <div class="text-xs text-gray-600 dark:text-gray-400">
                   {{ log.createdAt }} - {{ log.userName }}
@@ -241,6 +241,12 @@ const getPriorityColor = (priority: string) => {
     default: return 'text-gray-500'
   }
 }
+
+watch(() => visible.value, async (newVisible) => {
+  if (newVisible) {
+    await fetchIssueById(props.issueId)
+  }
+})
 
 onMounted(async () => {
   await fetchIssueById(props.issueId)

@@ -2,31 +2,8 @@
   "submit": {
     "changePassword": "Zmień hasło",
     "register": "Zarejestruj się",
-    "reportRoomIssue": "Zgłoś problem z salą"
-  },
-  "registration": {
-    "title": "Rejestracja",
-    "organizationData": "Dane organizacji",
-    "userData": "Dane użytkownika",
-    "regon": "REGON",
-    "organizationName": "Nazwa organizacji",
-    "organizationEmail": "Email organizacji",
-    "firstName": "Imię",
-    "lastName": "Nazwisko",
-    "username": "Nazwa użytkownika",
-    "email": "Email",
-    "phone": "Telefon",
-    "password": "Hasło",
-    "confirmPassword": "Potwierdź hasło",
-    "acceptTerms": "Akceptuję",
-    "rules": "regulamin",
-    "and": "oraz",
-    "privacyPolicy": "politykę prywatności",
-    "submit": "Zarejestruj się",
-    "successTitle": "Sukces",
-    "successMessage": "Rejestracja przebiegła pomyślnie! Możesz się teraz zalogować.",
-    "errorTitle": "Błąd rejestracji",
-    "errorMessage": "Nie udało się zarejestrować. Spróbuj ponownie."
+    "reportRoomIssue": "Zgłoś problem z salą",
+    "saveChanges": "Zapisz zmiany"
   },
   "filters": {
     "title": "Filtrowanie",
@@ -44,7 +21,12 @@
     "registrationForm": "Rejestracja",
     "passwordResetRequest": "Resetowanie hasła",
     "passwordResetConfirm": "Ustaw nowe hasło",
-    "roomIssueReport": "Zgłoszenie sali"
+    "roomIssueReport": "Zgłoszenie sali",
+    "registration": "Rejestracja",
+    "organizationData": "Dane organizacji",
+    "userData": "Dane użytkownika",
+    "editBooking": "Edytuj rezerwację",
+    "newTitle": "Nowa rezerwacja"
   },
   "fields": {
     "user": {
@@ -57,7 +39,13 @@
       "resetToken": "Token resetujący",
       "password": "Hasło",
       "newPassword": "Nowe hasło",
-      "confirmPassword": "Potwierdź hasło"
+      "confirmPassword": "Potwierdź hasło",
+      "email": "Email"
+    },
+    "organization": {
+      "name": "Nazwa organizacji",
+      "email": "Email organizacji",
+      "regon": "REGON"
     },
     "room": {
       "name": "Nazwa sali",
@@ -67,6 +55,8 @@
       "access": "Dostęp",
       "lighting": "Oświetlenie",
       "airConditioning": "Klimatyzacja (min/max °C)",
+      "airConditioningMin": "Klimatyzacja (min °C)",
+      "airConditioningMax": "Klimatyzacja (max °C)",
       "equipment": {
         "title": "Wyposażenie",
         "name": "Nazwa wyposażenia",
@@ -80,13 +70,18 @@
       "startedAt": "Data i godzina rozpoczęcia",
       "endedAt": "Data i godzina zakończenia",
       "participantsCount": "Liczba uczestników",
-      "participantIds": "Wybierz uczestników"
+      "participantIds": "Wybierz uczestników",
+      "isPrivate": "Rezerwacja prywatna"
     },
     "email": "Email",
     "subject": "Temat",
     "phone": "Telefon",
     "message": "Wiadomość",
     "workType": "Rodzaj pracy",
+    "workTypes": {
+      "cleaning": "Sprzątanie",
+      "maintenance": "Konserwacja"
+    },
     "startTime": "Czas rozpoczęcia",
     "endTime": "Czas zakończenia",
     "daysOfWeek": "Dni tygodnia",
@@ -100,6 +95,12 @@
     "organizationEmail": "Email organizacji",
     "regon": "REGON"
   },
+  "registrationRequires": {
+    "acceptTerms": "Akceptuję",
+    "rules": "regulamin",
+    "and": "oraz",
+    "privacyPolicy": "politykę prywatności"
+  },
   "roomForm": {
     "buttons": {
       "addRoom": "Dodaj salę",
@@ -108,38 +109,12 @@
       "cancel": "Anuluj",
       "addEquipment": "Dodaj wyposażenie"
     },
-    "placeholders": {
-      "roomName": "Sala Konferencyjna 201",
-      "location": "Piętro 2, Skrzydło A",
-      "capacity": "12",
-      "size": "45.5",
-      "access": "Karta magnetyczna",
-      "description": "Przestronna sala konferencyjna...",
-      "airConditioningMin": "18",
-      "airConditioningMax": "24",
-      "equipmentName": "Nazwa wyposażenia",
-      "equipmentQuantity": "Ilość"
-    },
-    "lighting": {
-      "natural": "Naturalne",
-      "artificial": "Sztuczne",
-      "mixed": "Mieszane"
-    },
     "equipmentCategories": {
       "video": "Video",
       "audio": "Audio",
       "furniture": "Meble",
       "accessory": "Akcesoria",
       "other": "Inne"
-    },
-    "errors": {
-      "roomNameRequired": "Nazwa sali jest wymagana",
-      "capacityRequired": "Pojemność musi być większa niż 0",
-      "sizeRequired": "Rozmiar musi być większy niż 0",
-      "locationRequired": "Lokalizacja jest wymagana",
-      "accessRequired": "Dostęp jest wymagany",
-      "descriptionRequired": "Opis jest wymagany",
-      "airConditioningMinMax": "Temperatura min musi być mniejsza niż max"
     },
     "messages": {
       "noEquipment": "Nie dodano wyposażenia"
@@ -149,27 +124,7 @@
     }
   },
   "booking": {
-    "title": "Tytuł rezerwacji",
-    "titlePlaceholder": "Wprowadź tytuł rezerwacji",
-    "room": "Sala",
-    "selectRoom": "Wybierz salę",
-    "startDate": "Data rozpoczęcia",
-    "startDatePlaceholder": "Wybierz datę rozpoczęcia",
-    "endDate": "Data zakończenia",
-    "endDatePlaceholder": "Wybierz datę zakończenia",
-    "participants": "Liczba uczestników",
-    "participantsPlaceholder": "Wprowadź liczbę uczestników",
-    "addParticipants": "Dodaj uczestników",
-    "selectParticipants": "Wybierz uczestników",
-    "participantsHint": "Wybierz użytkowników, którzy będą uczestniczyć w rezerwacji",
-    "isPrivate": "Rezerwacja prywatna",
-    "editTitle": "Edytuj rezerwację",
-    "cancelTitle": "Anuluj rezerwację",
-    "cancelConfirmation": "Czy na pewno chcesz anulować tę rezerwację?",
-    "errors": {
-      "exceedsCapacity": "Liczba uczestników nie może przekroczyć pojemności sali ({capacity})",
-      "lessThanSelected": "Liczba uczestników ({count}) nie może być mniejsza niż liczba wybranych osób ({selected})"
-    }
+    "participantsHint": "Wybierz użytkowników, którzy będą uczestniczyć w rezerwacji"
   },
   "fieldMessages": {
     "error": {
@@ -177,7 +132,12 @@
       "required": "Pole {fieldName} jest wymagane.",
       "invalidField": "Pole {fieldName} jest nieprawidłowe.",
       "acceptTerms": "Musisz zaakceptować regulamin",
-      "min": "Pole {fieldName} musi mieć co najmniej {length} znaków."
+      "min": "Pole {fieldName} musi mieć co najmniej {length} znaków.",
+      "max": "Pole {fieldName} może mieć maksymalnie {length} znaków.",
+      "minValue": "Pole {fieldName} musi być co najmniej {length}.",
+      "maxValue": "Pole {fieldName} może być maksymalnie {length}.",
+      "integer": "Pole {fieldName} musi być liczbą całkowitą.",
+      "phone": "Wprowadź poprawny numer telefonu (9-15 cyfr, opcjonalnie z + i formatowaniem)"
     }
   },
   "messages": {
@@ -186,6 +146,25 @@
     },
     "success": {
       "correctSentMail": "Wiadomość została wysłana pomyślnie!"
+    }
+  },
+  "roomImageUpload": {
+    "tooltipAddImage": "Dodaj zdjęcie",
+    "dialogTitle": "Dodaj zdjęcie do sali",
+    "allowedFormats": "Dozwolone formaty: JPG, PNG, PDF",
+    "chooseFiles": "Wybierz pliki",
+    "filesSelected": "Wybrano {count} plik(ów)",
+    "buttons": {
+      "upload": "Prześlij",
+      "cancel": "Anuluj"
+    },
+    "errors": {
+      "noFiles": "Nie wybrano plików",
+      "uploadFailed": "Przesyłanie nie powiodło się"
+    },
+    "success": {
+      "singleImage": "Zdjęcie zostało przesłane",
+      "multipleImages": "{count} zdjęć zostało przesłanych"
     }
   }
 }

@@ -1,6 +1,18 @@
 {
-  "success": "Success",
+  "summary": {
+    "codeSent": "Sent",
+    "changeSuccess": "Changed successfully",
+    "error": "Error",
+    "registrationError": "Registration Error",
+    "success": "Success"
+  },
   "messages": {
+    "success": {
+      "registration": "Registration successful! You can now log in."
+    },
+    "error": {
+      "registration": "Registration failed. Please try again."
+    },
     "copied": "Copied !",
     "passwordResetCodeSent": "Reset token has been sent to your email",
     "passwordResetSuccess": "Password has been successfully reset",
@@ -8,13 +20,15 @@
     "passwordResetFailed": "Failed to reset password",
     "passwordsDoNotMatch": "Passwords do not match"
   },
-  "summary": {
-    "codeSent": "Sent",
-    "changeSuccess": "Changed successfully"
-  },
+
   "details": {
     "checkEmail": "Check your inbox to find the password reset token.",
     "offNotifications": "Notifications have been turned off",
-    "onNotifications": "Notifications have been turned on"
+    "onNotifications": "Notifications have been turned on",
+    "organizationDataUpdated": "Organization data updated successfully",
+    "savedWorkTime": {
+      "cleaning": "Cleaning time saved",
+      "maintenance": "Maintenance time saved"
+    }
   }
 }

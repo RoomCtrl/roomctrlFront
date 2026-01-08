@@ -38,11 +38,10 @@ import { useBooking } from '~/composables/useBooking'
 import { useAuth } from '~/composables/useAuth'
 
 const { t } = useI18n()
-const { bookings, fetchUserBookings } = useBooking()
+const { bookings, fetchBookings } = useBooking()
 const { user } = useAuth()
 
 const mapBookingToReservation = (booking: any) => {
-  // Określ status na podstawie dat
   const now = new Date()
   const endDate = new Date(booking.endedAt)
   const status = endDate < now ? 'ended' : 'planned'
@@ -87,16 +86,15 @@ const tabs = computed(() => [
   },
 ])
 
-// Pobierz rezerwacje użytkownika
 onMounted(async () => {
   if (user.value?.id) {
-    await fetchUserBookings(user.value.id)
+    await fetchBookings(true)
   }
 })
 
 const refreshBookings = async () => {
   if (user.value?.id) {
-    await fetchUserBookings(user.value.id)
+    await fetchBookings(true)
   }
 }
 </script>
