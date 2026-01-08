@@ -13,7 +13,12 @@
       "thisWeek": "Ostatnie 7 dni",
       "thisMonth": "Ostatnie 30 dni"
     },
-    "noBookingsToday": "Brak rezerwacji dzisiaj"
+    "noBookingsToday": "Brak rezerwacji dzisiaj",
+    "labels": {
+      "planned": "Zaplanowane",
+      "ended": "Zakończone",
+      "cancelled": "Anulowane"
+    }
   },
   "knob": {
     "generally": "Ogólnie: ",
@@ -38,7 +43,11 @@
     },
     "weekly": "Tygodniowo",
     "monthly": "Miesięcznie",
-    "noData": "Brak danych do wyświetlenia"
+    "noData": "Brak danych do wyświetlenia",
+    "utilization": "Wykorzystanie",
+    "noDataToCompare": "Brak danych do porównania",
+    "trendUp": "+{percent}% vs średnia",
+    "trendDown": "-{percent}% vs średnia"
   },
   "tables": {
     "titles": {

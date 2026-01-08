@@ -34,7 +34,13 @@
     "firstName": "Imię",
     "lastName": "Nazwisko",
     "role": "Role",
-    "closedAt": "Zamknięte"
+    "closedAt": "Zamknięte",
+    "access": "Dostęp",
+    "lighting": "Oświetlenie"
+  },
+  "noData": {
+    "lighting": "Brak danych o oświetleniu",
+    "access": "Brak danych o dostępie"
   },
   "buttonTooltips": {
     "goToRoom": "Przejdź do sali",

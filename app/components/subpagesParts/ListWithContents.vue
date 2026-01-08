@@ -1,7 +1,11 @@
 <template>
-  <div class="relative flex flex-col lg:flex-row gap-4">
+  <div class="relative flex flex-col max-lg:gap-4">
+    <TableOfContents
+      :data="pageContent"
+      class="min-lg:flex-1"
+    />
     <div class="w-full flex flex-col items-start">
-      <div class="min-lg:flex-1 w-[75%]">
+      <div class="min-lg:flex-1 lg:w-[75%]">
         <Card
           pt:root:class="overflow-hidden"
           pt:body:class="bg-[#ad3636ff]"
@@ -23,15 +27,11 @@
         />
       </div>
     </div>
-    <TableOfContents
-      :data="pageContent"
-      class="min-lg:flex-1"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { IPageList } from '~/app/interfaces/PageInterfaces'
+import type { IPageList } from '~/interfaces/PageInterfaces'
 import InfoListCard from './infoSectionParts/InfoListCard.vue'
 import TableOfContents from './infoSectionParts/TableOfContents.vue'
 

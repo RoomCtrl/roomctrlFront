@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <ListWithContents
       :pageContent="rulesList"
       :title="$t('pages.rules.title')"

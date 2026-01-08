@@ -12,8 +12,9 @@ export class IssueRepository {
     }
   }
 
-  async getIssues(): Promise<IIssuesDataResponse[]> {
-    return $fetch('/api/issues', {
+  async getIssues(status?: 'open' | 'in_progress' | 'closed'): Promise<IIssuesDataResponse[]> {
+    const url = status ? `/api/issues?status=${status}` : '/api/issues'
+    return $fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -21,8 +22,9 @@ export class IssueRepository {
     })
   }
 
-  async getCurrentUserIssues(): Promise<IIssuesDataResponse[]> {
-    return $fetch('/api/issues/my', {
+  async getCurrentUserIssues(status?: 'open' | 'in_progress' | 'closed'): Promise<IIssuesDataResponse[]> {
+    const url = status ? `/api/issues/my?status=${status}` : '/api/issues/my'
+    return $fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,

@@ -14,6 +14,8 @@
           v-tooltip.left="{ value: $t('pages.adminDashboard.dashboard.tables.tooltip') }"
           icon="pi pi-arrow-right"
           class="flex"
+          as="a"
+          :href="localePath(path)"
           variant="outlined"
           rounded
         />
@@ -25,7 +27,7 @@
           root: { class: 'flex flex-col h-full' },
           table: { class: tableDisplay },
         }"
-        :value="reservations"
+        :value="bookings"
         paginator
         size="small"
         :rows="rows"
@@ -36,33 +38,52 @@
           </div>
         </template>
         <Column
-          class="w-[25%]"
-          field="room"
+          style="width: 15%;"
+          field="room.roomName"
           :header="$t('pages.adminDashboard.dashboard.tables.headers.room')"
         />
         <Column
-          class="w-[30%]"
-          field="bookedBy"
+          style="width: 25%;"
+          field="title"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.room')"
+        />
+        <Column
+          style="width: 15%;"
+          field="user.username"
           :header="$t('pages.adminDashboard.dashboard.tables.headers.reserver')"
         />
         <Column
-          class="w-[25%]"
-          field="date"
+          style="width: 10%;"
+          field="startedAt"
           :header="$t('pages.adminDashboard.dashboard.tables.headers.day')"
-        />
+        >
+          <template #body="slotProps">
+            {{ formatDate(slotProps.data.startedAt) }}
+          </template>
+        </Column>
         <Column
-          class="w-[25%]"
-          field="hour"
+          style="width: 10%;"
+          field="endedAt"
           :header="$t('pages.adminDashboard.dashboard.tables.headers.hour')"
+        >
+          <template #body="slotProps">
+            {{ formatDate(slotProps.data.startedAt) }}
+          </template>
+        </Column>
+        <Column
+          style="width: 5%;"
+          field="participantsCount"
+          :header="$t('tables.headers.participantsCount')"
         />
         <Column
-          class="w-[10%]"
+          class="w-[20%]"
+          style="width: 10%;"
           field="status"
           :header="$t('pages.adminDashboard.dashboard.tables.headers.status')"
         >
           <template #body="slotProps">
             <Tag
-              :value="$t(`pages.adminDashboard.dashboard.calendar.statuses.${slotProps.data.status}`)"
+              :value="$t(`pages.adminDashboard.reservationList.status.${slotProps.data.status}`)"
               :severity="statusColor[slotProps.data.status]"
               class="w-full text-center"
             />
@@ -74,38 +95,33 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   rows: number
   header?: string
   bookings?: any[]
+  path: string
 }>()
+const localePath = useLocalePath()
 
-const reservations = computed(() => {
-  if (!props.bookings || props.bookings.length === 0) {
-    return []
-  }
-  return props.bookings.map((booking) => {
-    const startDate = new Date(booking.startedAt)
-    const endDate = new Date(booking.endedAt)
-    const now = new Date()
-    const status = endDate < now ? 'ended' : 'planned'
-
-    return {
-      hour: startDate.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' }),
-      date: startDate.toLocaleDateString('pl-PL'),
-      room: booking.room?.roomName || 'N/A',
-      bookedBy: `${booking.user?.firstName || ''} ${booking.user?.lastName || ''}`.trim() || booking.user?.username || 'N/A',
-      status: status,
-    }
-  })
-})
-
-const { tableDisplay } = useDataTable(reservations, 4)
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const hours = date.getHours().toString().padStart(2, '0')
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  return `${hours}:${minutes} ${day}.${month}`
+}
 
 const statusColor = computed(() => ({
   cancelled: 'error',
-  ended: 'success',
-  planned: 'info',
-  toApprove: 'warn',
+  completed: 'success',
+  active: 'info',
 }))
 </script>
+
+<style scoped>
+.p-datatable {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+</style>

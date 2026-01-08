@@ -35,6 +35,9 @@
     },
     "myCalendar": {
       "description": "Displays your scheduled appointments in a clear calendar layout."
+    },
+    "myRoomReports": {
+      "description": "View and track the status of your room issue reports."
     }
   },
   "copyright": "2025 RoomCtrl. All rights reserved.",

@@ -2,31 +2,8 @@
   "submit": {
     "changePassword": "Change Password",
     "register": "Register",
-    "reportRoomIssue": "Report Room Issue"
-  },
-  "registration": {
-    "title": "Registration",
-    "organizationData": "Organization Data",
-    "userData": "User Data",
-    "regon": "REGON",
-    "organizationName": "Organization Name",
-    "organizationEmail": "Organization Email",
-    "firstName": "First Name",
-    "lastName": "Last Name",
-    "username": "Username",
-    "email": "Email",
-    "phone": "Phone",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "acceptTerms": "I accept the",
-    "rules": "terms and conditions",
-    "and": "and",
-    "privacyPolicy": "privacy policy",
-    "submit": "Register",
-    "successTitle": "Success",
-    "successMessage": "Registration successful! You can now log in.",
-    "errorTitle": "Registration Error",
-    "errorMessage": "Registration failed. Please try again."
+    "reportRoomIssue": "Report Room Issue",
+    "saveChanges": "Save Changes"
   },
   "filters": {
     "title": "Filtering",
@@ -44,7 +21,12 @@
     "registrationForm": "Registration",
     "passwordResetRequest": "Password Reset",
     "passwordResetConfirm": "Set New Password",
-    "roomIssueReport": "Room Issue Report"
+    "roomIssueReport": "Room Issue Report",
+    "registration": "Registration",
+    "organizationData": "Organization Data",
+    "userData": "User Data",
+    "editBooking": "Edit Booking",
+    "newTitle": "New Booking"
   },
   "fields": {
     "user": {
@@ -57,7 +39,13 @@
       "resetToken": "Reset Token",
       "password": "Password",
       "newPassword": "New Password",
-      "confirmPassword": "Confirm Password"
+      "confirmPassword": "Confirm Password",
+      "email": "Email"
+    },
+    "organization": {
+      "name": "Organization Name",
+      "email": "Organization Email",
+      "regon": "REGON"
     },
     "room": {
       "name": "Room Name",
@@ -80,13 +68,18 @@
       "startedAt": "Start Date and Time",
       "endedAt": "End Date and Time",
       "participantsCount": "Number of Participants",
-      "participantIds": "Select Participants"
+      "participantIds": "Select Participants",
+      "isPrivate": "Private Booking"
     },
     "email": "Email",
     "subject": "Subject",
     "phone": "Phone",
     "message": "Message",
     "workType": "Work Type",
+    "workTypes": {
+      "cleaning": "Cleaning",
+      "maintenance": "Maintenance"
+    },
     "startTime": "Start Time",
     "endTime": "End Time",
     "daysOfWeek": "Days of Week",
@@ -95,7 +88,16 @@
     "status": "Status",
     "category": "Category",
     "priority": "Priority",
-    "acceptTerms": "Terms acceptance"
+    "acceptTerms": "Terms acceptance",
+    "organizationName": "Organization Name",
+    "organizationEmail": "Organization Email",
+    "regon": "REGON"
+  },
+  "registrationRequires": {
+    "acceptTerms": "I accept the",
+    "rules": "terms and conditions",
+    "and": "and",
+    "privacyPolicy": "privacy policy"
   },
   "roomForm": {
     "buttons": {
@@ -105,38 +107,12 @@
       "cancel": "Cancel",
       "addEquipment": "Add Equipment"
     },
-    "placeholders": {
-      "roomName": "Conference Room 201",
-      "location": "Floor 2, Wing A",
-      "capacity": "12",
-      "size": "45.5",
-      "access": "Magnetic Card",
-      "description": "Spacious conference room...",
-      "airConditioningMin": "18",
-      "airConditioningMax": "24",
-      "equipmentName": "Equipment Name",
-      "equipmentQuantity": "Quantity"
-    },
-    "lighting": {
-      "natural": "Natural",
-      "artificial": "Artificial",
-      "mixed": "Mixed"
-    },
     "equipmentCategories": {
       "video": "Video",
       "audio": "Audio",
       "furniture": "Furniture",
       "accessory": "Accessory",
       "other": "Other"
-    },
-    "errors": {
-      "roomNameRequired": "Room name is required",
-      "capacityRequired": "Capacity must be greater than 0",
-      "sizeRequired": "Size must be greater than 0",
-      "locationRequired": "Location is required",
-      "accessRequired": "Access is required",
-      "descriptionRequired": "Description is required",
-      "airConditioningMinMax": "Min temperature must be less than max"
     },
     "messages": {
       "noEquipment": "No equipment added"
@@ -146,34 +122,20 @@
     }
   },
   "booking": {
-    "title": "Booking Title",
-    "titlePlaceholder": "Enter booking title",
-    "room": "Room",
-    "selectRoom": "Select room",
-    "startDate": "Start Date",
-    "startDatePlaceholder": "Select start date",
-    "endDate": "End Date",
-    "endDatePlaceholder": "Select end date",
-    "participants": "Number of Participants",
-    "participantsPlaceholder": "Enter number of participants",
-    "addParticipants": "Add Participants",
-    "selectParticipants": "Select participants",
-    "participantsHint": "Select users who will participate in the booking",
-    "isPrivate": "Private Booking",
-    "editTitle": "Edit Booking",
-    "cancelTitle": "Cancel Booking",
-    "cancelConfirmation": "Are you sure you want to cancel this booking?",
-    "errors": {
-      "exceedsCapacity": "Number of participants cannot exceed room capacity ({capacity})",
-      "lessThanSelected": "Number of participants ({count}) cannot be less than selected people ({selected})"
-    }
+    "participantsHint": "Select users who will participate in the booking"
   },
   "fieldMessages": {
     "error": {
       "email": "Enter a valid email address",
       "required": "The field {fieldName} is required.",
       "invalidField": "The field {fieldName} is invalid.",
-      "acceptTerms": "You must accept the terms and privacy policy."
+      "acceptTerms": "You must accept the terms and privacy policy.",
+      "min": "The field {fieldName} must be at least {min} characters long.",
+      "max": "The field {fieldName} must be at most {length} characters long.",
+      "minValue": "The field {fieldName} must be at least {length}.",
+      "maxValue": "The field {fieldName} must be at most {length}.",
+      "integer": "The field {fieldName} must be an integer.",
+      "phone": "Enter a valid phone number (9-15 digits, optionally with + and formatting)"
     }
   },
   "messages": {
@@ -182,6 +144,25 @@
     },
     "success": {
       "correctSentMail": "The message has been sent successfully!"
+    }
+  },
+  "roomImageUpload": {
+    "tooltipAddImage": "Add image",
+    "dialogTitle": "Add image to room",
+    "allowedFormats": "Allowed formats: JPG, PNG, PDF",
+    "chooseFiles": "Choose files",
+    "filesSelected": "Selected {count} file(s)",
+    "buttons": {
+      "upload": "Upload",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "noFiles": "No files selected",
+      "uploadFailed": "Upload failed"
+    },
+    "success": {
+      "singleImage": "Image has been uploaded",
+      "multipleImages": "{count} images have been uploaded"
     }
   }
 }

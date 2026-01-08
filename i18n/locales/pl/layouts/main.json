@@ -35,6 +35,9 @@
     },
     "myCalendar": {
       "description": "Pokazuje Twoje zaplanowane terminy w przejrzystym układzie kalendarza."
+    },
+    "myRoomReports": {
+      "description": "Przeglądaj i śledź status swoich zgłoszeń dotyczących problemów z salami."
     }
   },
   "copyright": "2025 RoomCtrl. Wszystkie prawa zastrzeżone.",

@@ -4,7 +4,7 @@
     @submit.prevent="editRoomSubmit"
   >
     <div class="col-span-2">
-      <FormTextField
+      <CommonFormsTextField
         id="roomName"
         v-model="roomName"
         :label="$t('forms.fields.room.name')"
@@ -14,7 +14,7 @@
     </div>
 
     <div>
-      <FormTextField
+      <CommonFormsTextField
         id="location"
         v-model="location"
         :label="$t('forms.fields.room.location')"
@@ -24,7 +24,7 @@
     </div>
 
     <div>
-      <FormSelectField
+      <CommonFormsSelectField
         id="status"
         v-model="status"
         :options="statusOptions"
@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-span-1">
-      <FormNumberField
+      <CommonFormsNumberField
         id="capacity"
         v-model="capacity"
         :label="$t('forms.fields.room.capacity')"
@@ -45,7 +45,7 @@
     </div>
 
     <div>
-      <FormNumberField
+      <CommonFormsNumberField
         id="size"
         v-model="size"
         :label="$t('forms.fields.room.size')"
@@ -55,7 +55,7 @@
     </div>
 
     <div>
-      <FormTextField
+      <CommonFormsTextField
         id="access"
         v-model="access"
         :label="$t('forms.fields.room.access')"
@@ -65,7 +65,7 @@
     </div>
 
     <div>
-      <FormTextField
+      <CommonFormsTextField
         id="lighting"
         v-model="lighting"
         :label="$t('forms.fields.room.lighting')"
@@ -75,7 +75,7 @@
     </div>
 
     <div class="col-span-2">
-      <FormTextArea
+      <CommonFormsTextArea
         id="description"
         v-model="description"
         :label="$t('forms.fields.description')"
@@ -90,7 +90,7 @@
       </label>
       <div class="flex gap-2">
         <div class="w-full">
-          <FormNumberField
+          <CommonFormsNumberField
             id="airConditioningMin"
             v-model="airConditioningMin"
             label="Min"
@@ -99,7 +99,7 @@
           />
         </div>
         <div class="w-full">
-          <FormNumberField
+          <CommonFormsNumberField
             id="airConditioningMax"
             v-model="airConditioningMax"
             label="Max"
@@ -135,7 +135,7 @@
         >
           <div class="flex-1 space-y-2">
             <div class="w-full">
-              <FormTextField
+              <CommonFormsTextField
                 :id="`equipment-name-${index}`"
                 v-model="item.name"
                 :label="$t('forms.fields.room.equipment.name')"
@@ -143,7 +143,7 @@
             </div>
             <div class="flex gap-2">
               <div class="flex-1">
-                <FormSelectField
+                <CommonFormsSelectField
                   :id="`equipment-category-${index}`"
                   v-model="item.category"
                   :label="$t('forms.fields.room.equipment.category')"
@@ -151,12 +151,11 @@
                 />
               </div>
               <div class="w-full">
-                <FormNumberField
+                <CommonFormsNumberField
                   :id="`equipment-quantity-${index}`"
                   v-model="item.quantity"
                   :label="$t('forms.fields.room.equipment.quantity')"
                   :min="1"
-                  :placeholder="$t('forms.roomForm.placeholders.equipmentQuantity')"
                 />
               </div>
             </div>
@@ -201,10 +200,6 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
-import FormNumberField from '~/components/common/FormNumberField.vue'
-import FormSelectField from '~/components/common/FormSelectField.vue'
-import FormTextArea from '~/components/common/FormTextArea.vue'
-import FormTextField from '~/components/common/FormTextField.vue'
 import type { IRoomCreateRequest, IRoomEqupiment, IRoomResponse } from '~/interfaces/RoomsIntefaces'
 
 const props = defineProps<{
@@ -219,11 +214,16 @@ const toast = useToast()
 
 const { handleSubmit, resetForm } = useForm<IRoomCreateRequest>({
   validationSchema: {
-    roomName: 'required|min:3',
-    capacity: 'required|integer|min:1|max:200',
-    size: 'required',
-    location: 'required',
-    access: 'required',
+    roomName: 'required|min:3|max:255',
+    status: 'required',
+    capacity: 'required|integer|min_value:1|max_value:200',
+    size: 'required|min_value:1|max_value:1000',
+    location: 'required|min:3|max:255',
+    access: 'required|max:100',
+    lighting: 'max:100',
+    description: 'min:10|max:2000',
+    airConditioningMin: 'min_value:16|max_value:30',
+    airConditioningMax: 'min_value:16|max_value:40',
   },
 })
 

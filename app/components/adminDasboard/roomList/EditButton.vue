@@ -1,3 +1,0 @@
-<template>
-  some
-</template>

@@ -80,7 +80,6 @@
                 <p>{{ t('pages.downloadApp.compareText') }}</p>
               </div>
 
-              <!-- Wybór ekranu -->
               <div class="screen-selector">
                 <button
                   v-for="screen in screens"
@@ -126,7 +125,6 @@
                 </template>
               </ClientOnly>
 
-              <!-- Platformy indicator -->
               <div class="platform-indicators">
                 <div class="platform-label android">
                   <i class="pi pi-android" />
@@ -411,7 +409,6 @@ onMounted(async () => {
   margin-bottom: 0.5rem;
 }
 
-/* Screen Selector */
 .screen-selector {
   display: flex;
   flex-wrap: wrap;
@@ -462,7 +459,6 @@ onMounted(async () => {
   font-size: 1rem;
 }
 
-/* Platform Indicators */
 .platform-indicators {
   display: flex;
   justify-content: space-between;
@@ -508,7 +504,6 @@ onMounted(async () => {
   margin: 0 auto;
 }
 
-/* Features Section */
 .features-section {
   padding: 4rem 0 6rem;
 }
@@ -565,7 +560,6 @@ onMounted(async () => {
   color: #9ca3af;
 }
 
-/* Responsive */
 @media (max-width: 1280px) {
   .side-card > * {
     max-width: 350px;

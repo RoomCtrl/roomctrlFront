@@ -15,7 +15,8 @@
     "parameters": {
       "airConditioning": "Air conditioning: ",
       "lighting": "Lighting: ",
-      "access": "Room access: "
+      "access": "Room access: ",
+      "capacityCount": "{count} persons"
     },
     "noData": {
       "capacity": "No capacity data",
@@ -52,7 +53,10 @@
     "available": "Available",
     "occupied": "Occupied",
     "fullDay": "Room available all day",
-    "bookingDetails": "Booking details"
+    "bookingDetails": "Booking details",
+    "startTime": "Start time",
+    "duration": "Duration",
+    "participantsCount": "Participants"
   },
   "cleaning": {
     "title": "Cleaning",

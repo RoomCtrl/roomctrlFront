@@ -20,8 +20,18 @@ definePageMeta({
   middleware: 'auth',
 })
 
-const { bookings, loading, fetchUserBookings } = useBooking()
+const { bookings, loading, fetchBookings } = useBooking()
 const { user } = useAuth()
+
+const allReservations = computed(() =>
+  bookings.value.map(mapBookingToReservation),
+)
+
+const refreshBookings = async () => {
+  if (user.value?.id) {
+    await fetchBookings(true)
+  }
+}
 
 const mapBookingToReservation = (booking: any) => {
   let status = 'active'
@@ -49,19 +59,9 @@ const mapBookingToReservation = (booking: any) => {
   }
 }
 
-const allReservations = computed(() =>
-  bookings.value.map(mapBookingToReservation),
-)
-
 onMounted(async () => {
   if (user.value?.id) {
-    await fetchUserBookings(user.value.id)
+    await fetchBookings(true)
   }
 })
-
-const refreshBookings = async () => {
-  if (user.value?.id) {
-    await fetchUserBookings(user.value.id)
-  }
-}
 </script>

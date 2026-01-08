@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <ListWithContents
       :pageContent="privacyPolicyPageContent"
       :title="$t('pages.privacyPolicy.title')"

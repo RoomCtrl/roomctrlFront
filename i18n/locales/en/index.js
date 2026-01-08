@@ -5,7 +5,7 @@ import primevue from './primevue.json'
 import date from './date.json'
 import { home, contact, aboutUs, faq, rules, howThisWork, privacyPolicy, downloadApp, allRooms, roomDetails,
   reservationsHistory, users, dashboard, panelSelector, roomIssueReports, notFound, myCalendar, statistics,
-  settings, settingsAdmin, reservationList, roomList } from './pages'
+  settings, settingsAdmin, reservationList, roomList, myRoomReports } from './pages'
 import { forms, toast, tables, reservations } from './components'
 
 export default () => ({
@@ -31,6 +31,7 @@ export default () => ({
     reservationsHistory,
     myCalendar,
     settings,
+    myRoomReports,
     adminDashboard: {
       users,
       dashboard,

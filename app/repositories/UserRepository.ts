@@ -12,96 +12,89 @@ export class UserRepository {
   }
 
   async getUsers(withDetails: boolean): Promise<IUserResponse[]> {
-    return await fetch(`/api/users?withDetails=${withDetails}`, {
+    return await $fetch(`/api/users?withDetails=${withDetails}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
-    }).then(res => res.json())
+    })
   }
 
   async addUser(newUser: IUserAddResponse) {
-    const res = await fetch('/api/users', {
+    return $fetch('/api/users', {
       method: 'POST',
-      body: JSON.stringify(newUser),
+      body: newUser,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`,
       },
     })
-    const data = await res.json()
-    if (!res.ok) {
-      throw data
-    }
-    return data
   }
 
   async getUser(guid: string, withDetails: boolean): Promise<IUserResponse> {
-    return await fetch(`/api/users/${guid}?withDetails=${withDetails}`, {
+    return $fetch(`/api/users/${guid}?withDetails=${withDetails}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
-    }).then(res => res.json())
+    })
   }
 
   async updateUser(guid: string, updatedUser: IAddUserForm) {
-    return await fetch(`/api/users/${guid}`, {
+    return $fetch(`/api/users/${guid}`, {
       method: 'PUT',
-      body: JSON.stringify(updatedUser),
+      body: updatedUser,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`,
       },
-    }).then(res => res.json())
+    })
   }
 
   async deletelUser(guid: string) {
-    return await fetch(`/api/users/${guid}`, {
+    return $fetch(`/api/users/${guid}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
-    }).then(res => res.json())
+    })
   }
 
   async updateUserProfile(guid: string, updatedProfile: IUpdateUserProfileForm) {
-    return await fetch(`/api/v1/users/${guid}/profile`, {
+    return $fetch(`/api/v1/users/${guid}/profile`, {
       method: 'PUT',
-      body: JSON.stringify(updatedProfile),
+      body: updatedProfile,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`,
       },
-    }).then(res => res.json())
+    })
   }
 
   async changePassword(guid: string, passwordData: IChangePasswordForm) {
-    return await fetch(`/api/v1/users/${guid}/change-password`, {
+    return $fetch(`/api/v1/users/${guid}/change-password`, {
       method: 'POST',
-      body: JSON.stringify(passwordData),
+      body: passwordData,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`,
       },
-    }).then(res => res.json())
+    })
   }
 
   async getUserNotifications(): Promise<boolean> {
-    const response = await fetch('/api/users/settings/notifications', {
+    return $fetch('/api/users/settings/notifications', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
     })
-    const data = await response.json()
-    return data.emailNotificationsEnabled
   }
 
   async updateUserNotifications(emailNotificationsEnabled: boolean) {
-    return await fetch('/api/users/settings/notifications', {
+    return $fetch('/api/users/settings/notifications', {
       method: 'PATCH',
-      body: JSON.stringify({ emailNotificationsEnabled }),
+      body: { emailNotificationsEnabled },
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`,
@@ -110,13 +103,13 @@ export class UserRepository {
   }
 
   async updateOrganization(organizationId: string, newData: IOrganization) {
-    return await fetch(`/api/organizations/${organizationId}`, {
+    return $fetch(`/api/organizations/${organizationId}`, {
       method: 'PUT',
-      body: JSON.stringify(newData),
+      body: newData,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`,
       },
-    }).then(res => res.json())
+    })
   }
 }

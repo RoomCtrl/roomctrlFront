@@ -11,6 +11,15 @@
     "dateBefore": "Date before",
     "dateAfter": "Date after",
     "clear": "Clear",
-    "apply": "Apply"
+    "apply": "Apply",
+    "noFilter": "No Filter",
+    "lt": "Less than",
+    "lte": "Less than or equal to",
+    "gt": "Greater than",
+    "gte": "Greater than or equal to",
+    "matchAll": "Match All",
+    "matchAny": "Match Any",
+    "addRule": "Add Rule",
+    "removeRule": "Remove Rule"
   }
 }

@@ -96,6 +96,6 @@ const chartOptions = ref({
   },
 })
 onMounted(() => {
-  fetchBookings()
+  fetchBookings(false)
 })
 </script>

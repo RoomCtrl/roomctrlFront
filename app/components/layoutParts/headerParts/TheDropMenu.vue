@@ -16,7 +16,9 @@
       class="relative cursor-pointer px-4 py-3 font-semibold transition-all duration-200 hover:text-[#D74141] group inline-flex items-center"
       :class="{ 'text-[#D74141]': arrowPosition }"
       @mouseenter="showDropdown"
+      @focusin="showDropdown"
       @mouseleave="scheduleHide"
+      @focusout="scheduleHide"
     >
       <div class="flex items-center gap-2">
         {{ tab.label }}
@@ -42,59 +44,59 @@
       pt:content:class=".p-card-link rounded-lg shadow-xl p-6 min-w-[500px]"
       :dismissable="false"
       @mouseenter="cancelHide"
+      @focusin="cancelHide"
       @mouseleave="scheduleHide"
+      @focusout="scheduleHide"
     >
-    <div class="mb-6 pb-3 border-b border-gray-200">
-      <h2 class="text-2xl font-bold">
-        {{ tab.label }}
-      </h2>
-    </div>
-
-    <div class="grid grid-cols-2 gap-6 max-w-[500px] mx-auto">
-      <div
-        v-for="item in tab.items"
-        :key="item.label"
-        class="group cursor-pointer"
-      >
-        <NuxtLink
-          :to="localePath(item.route)"
-          class="p-card-link block p-3 rounded-lg transition-all duration-200 hover:bg-gray-50 border border-transparent hover:border-gray-200 h-full"
-          exact-active-class="bg-[#D74141]/20 border-[#D74141]/20"
-          @click="hideDropDown"
-        >
-          <div class="flex items-center gap-2 mb-2">
-            <h3 class="font-semibold group-hover:text-[#D74141] transition-colors duration-200">
-              {{ item.label }}
-            </h3>
-            <i
-              class="pi pi-arrow-right text-[#D74141] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-              style="font-size: 0.75rem;"
-            />
-          </div>
-
-          <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed">
-            {{ item.description }}
-          </p>
-        </NuxtLink>
+      <div class="mb-6 pb-3 border-b border-gray-200">
+        <h2 class="text-2xl font-bold">
+          {{ tab.label }}
+        </h2>
       </div>
-    </div>
-  </Popover>
+
+      <div class="grid grid-cols-2 gap-6 max-w-[500px] mx-auto">
+        <div
+          v-for="item in tab.items"
+          :key="item.label"
+          class="group cursor-pointer"
+        >
+          <NuxtLink
+            :to="localePath(item.route)"
+            class="p-card-link block p-3 rounded-lg transition-all duration-200 hover:bg-gray-50 border border-transparent hover:border-gray-200 h-full"
+            exact-active-class="bg-[#D74141]/20 border-[#D74141]/20"
+            @click="hideDropDown"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="font-semibold group-hover:text-[#D74141] transition-colors duration-200">
+                {{ item.label }}
+              </h3>
+              <i
+                class="pi pi-arrow-right text-[#D74141] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                style="font-size: 0.75rem;"
+              />
+            </div>
+
+            <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed">
+              {{ item.description }}
+            </p>
+          </NuxtLink>
+        </div>
+      </div>
+    </Popover>
   </ClientOnly>
 </template>
 
-<script setup>
-import { ref, onUnmounted } from 'vue'
-
-defineProps({
-  tab: Object,
-})
+<script setup lang="ts">
+defineProps<{
+  tab: object
+}>()
 
 const localePath = useLocalePath()
 const op = ref()
 const arrowPosition = ref(false)
-let hideTimeout = null
+let hideTimeout: ReturnType<typeof setTimeout> | null = null
 
-const showDropdown = (event) => {
+const showDropdown = (event: Event) => {
   if (hideTimeout) {
     clearTimeout(hideTimeout)
     hideTimeout = null

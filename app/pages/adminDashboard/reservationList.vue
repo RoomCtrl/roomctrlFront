@@ -14,7 +14,7 @@
       >
         <template #content>
           <RentButton
-            button-label="Dodaj rezerwacje"
+            :button-label="$t('pages.adminDashboard.reservationList.addReservation')"
             buttonIcon="pi pi-plus"
           />
         </template>
@@ -176,7 +176,7 @@
     <Dialog
       v-model:visible="editModalVisible"
       modal
-      :header="$t('forms.booking.editTitle')"
+      :header="$t('forms.titles.editBooking')"
       :style="{ width: '50rem' }"
       :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
@@ -190,7 +190,7 @@
     <Dialog
       v-model:visible="usersModalVisible"
       modal
-      header="Lista uzytownikow"
+      :header="$t('pages.adminDashboard.reservationList.participantsModal.title')"
       :style="{ width: '50rem' }"
       :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
@@ -203,21 +203,21 @@
             <div>
               <div class="grid grid-cols-2">
                 <div>
-                  <p>Nazwa uzytkownika</p>
+                  <p>{{ $t('pages.adminDashboard.reservationList.participantsModal.username') }}</p>
                   {{ user.username }}
                 </div>
                 <div>
-                  <p>Email</p>
+                  <p>{{ $t('pages.adminDashboard.reservationList.participantsModal.email') }}</p>
                   {{ user.email }}
                 </div>
               </div>
               <div class="grid grid-cols-2">
                 <div>
-                  <p>Imie</p>
+                  <p>{{ $t('pages.adminDashboard.reservationList.participantsModal.firstName') }}</p>
                   {{ user.firstName }}
                 </div>
                 <div>
-                  <p>Nazwisko</p>
+                  <p>{{ $t('pages.adminDashboard.reservationList.participantsModal.lastName') }}</p>
                   {{ user.lastName }}
                 </div>
               </div>
@@ -233,7 +233,6 @@
 </template>
 
 <script setup lang="ts">
-import { useRoom } from '~/composables/useRoom'
 import { FilterMatchMode } from '@primevue/core/api'
 import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseTextFilterColumn.vue'
 import BaseDateFilterColumn from '~/components/common/datatable/columns/BaseDateFilterColumn.vue'
@@ -306,7 +305,7 @@ const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string
 }))
 
 onMounted(async () => {
-  await fetchBookings()
+  await fetchBookings(false)
 })
 </script>
 

@@ -1,9 +1,17 @@
 {
   "title": "Lista rezerwacji",
+  "addReservation": "Dodaj rezerwację",
   "status": {
-    "pending": "Oczekująca",
+    "completed": "Zakończona",
     "active": "Aktywna",
     "cancelled": "Anulowana"
   },
-  "noExistRoom": "Sala nie istnieje"
+  "noExistRoom": "Sala nie istnieje",
+  "participantsModal": {
+    "title": "Lista użytkowników",
+    "username": "Nazwa użytkownika",
+    "email": "Email",
+    "firstName": "Imię",
+    "lastName": "Nazwisko"
+  }
 }

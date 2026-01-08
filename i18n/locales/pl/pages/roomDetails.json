@@ -15,7 +15,8 @@
     "parameters": {
       "airConditioning": "Klimatyzacja: ",
       "lighting": "Oświetlenie: ",
-      "access": "Dostęp do sali: "
+      "access": "Dostęp do sali: ",
+      "capacityCount": "{count} osób"
     },
     "noData": {
       "capacity": "Brak danych o pojemności",
@@ -52,7 +53,10 @@
     "available": "Dostępne",
     "occupied": "Zajęte",
     "fullDay": "Sala dostępna cały dzień",
-    "bookingDetails": "Szczegóły rezerwacji"
+    "bookingDetails": "Szczegóły rezerwacji",
+    "startTime": "Godzina rozpoczęcia",
+    "duration": "Czas trwania",
+    "participantsCount": "Uczestnicy"
   },
   "cleaning": {
     "title": "Sprzątanie",

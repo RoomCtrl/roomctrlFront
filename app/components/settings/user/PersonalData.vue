@@ -12,7 +12,7 @@
       <template #content>
         <form @submit.prevent="submitForm">
           <div class="w-[30rem]">
-            <FormTextField
+            <CommonFormsTextField
               id="username"
               v-model="username"
               :label="$t('forms.fields.user.username')"
@@ -22,7 +22,7 @@
           </div>
           <div class="grid md:grid-cols-2 gap-x-4">
             <div>
-              <FormTextField
+              <CommonFormsTextField
                 id="firstName"
                 v-model="firstName"
                 :label="$t('forms.fields.user.firstName')"
@@ -31,7 +31,7 @@
               />
             </div>
             <div>
-              <FormTextField
+              <CommonFormsTextField
                 id="lastName"
                 v-model="lastName"
                 :label="$t('forms.fields.user.lastName')"
@@ -41,7 +41,7 @@
             </div>
 
             <div>
-              <FormTextField
+              <CommonFormsTextField
                 id="email"
                 v-model="email"
                 :label="$t('forms.fields.user.email')"
@@ -51,7 +51,7 @@
             </div>
 
             <div>
-              <FormTextField
+              <CommonFormsTextField
                 id="phone"
                 v-model="phone"
                 :label="$t('forms.fields.phone')"
@@ -77,7 +77,6 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
-import FormTextField from '~/components/common/FormTextField.vue'
 import type { IUpdateUserProfileForm } from '~/interfaces/UsersInterfaces'
 
 const toast = useToast()
@@ -94,13 +93,6 @@ const { handleSubmit, resetForm } = useForm<IUpdateUserProfileForm>({
     email: 'required|email',
     phone: 'required',
   },
-  initialValues: {
-    username: user.value.username,
-    firstName: user.value.firstName,
-    lastName: user.value.lastName,
-    email: user.value.email,
-    phone: user.value.phone,
-  },
 })
 
 const { value: username, errorMessage: usernameError, handleBlur: usernameBlur } = useField<string>('username')
@@ -115,16 +107,16 @@ const submitForm = handleSubmit(async (formValues: IUpdateUserProfileForm) => {
     await updateUser(user.value.id, formValues)
     toast.add({
       severity: 'success',
-      summary: t('common.buttons.save'),
-      detail: t('pages.settings.success.profileUpdated'),
+      summary: t('toast.summary.success'),
+      detail: t('toast.messages.success.profileUpdated'),
       life: 3000,
     })
   }
   catch (error) {
     toast.add({
       severity: 'error',
-      summary: t('common.error'),
-      detail: error.response?.data?.message || t('common.errorMessages.generic'),
+      summary: t('toast.summary.error'),
+      detail: error.response?.data?.message || t('toast.messages.error.profileUpdateFailed'),
       life: 3000,
     })
   }

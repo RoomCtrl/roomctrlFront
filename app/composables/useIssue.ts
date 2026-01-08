@@ -11,11 +11,11 @@ export const useIssue = () => {
 
   const getIssueService = () => new IssueService(token.value)
 
-  const fetchIssues = async () => {
+  const fetchIssues = async (status?: 'open' | 'in_progress' | 'closed') => {
     loading.value = true
     error.value = null
     try {
-      issues.value = await getIssueService().getIssues()
+      issues.value = await getIssueService().getIssues(status)
     }
     catch (err) {
       error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu zgłoszeń'
@@ -25,11 +25,11 @@ export const useIssue = () => {
     }
   }
 
-  const fetchCurrentUserIssues = async () => {
+  const fetchCurrentUserIssues = async (status?: 'open' | 'in_progress' | 'closed') => {
     loading.value = true
     error.value = null
     try {
-      issues.value = await getIssueService().getCurrentUserIssues()
+      issues.value = await getIssueService().getCurrentUserIssues(status)
     }
     catch (err) {
       error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu zgłoszeń'

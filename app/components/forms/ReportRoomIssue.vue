@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Toast />
     <Button
       icon="pi pi-exclamation-circle"
+      :disabled="!roomId"
       severity="danger"
       @click="visible = true"
     />
@@ -12,12 +12,12 @@
       modal
     >
       <form
-        class="flex flex-col gap-4 pt-4"
+        class="flex flex-col gap-x-4 pt-4"
         @submit.prevent="submitForm"
       >
         <div class="flex flex-col">
           <div class="w-[70vw] md:w-[23rem]">
-            <FormSelectField
+            <CommonFormsSelectField
               id="category"
               v-model="category"
               :options="categoryOptions"
@@ -30,48 +30,27 @@
           </div>
 
           <div class="w-[70vw] md:w-[23rem]">
-            <FormTextArea
+            <CommonFormsTextArea
               id="description"
               v-model="description"
               icon="pi pi-pencil"
               :label="$t('forms.fields.description')"
               :errorMessage="descriptionError"
-              type="description"
               :rows="3"
-              toggleMask
-              fluid
               @blur="descriptionBlur"
             />
           </div>
 
           <div class="w-[70vw] md:w-[23rem]">
-            <InputGroup>
-              <InputGroupAddon>
-                <i class="pi pi-chart-line" />
-              </InputGroupAddon>
-              <FloatLabel variant="on">
-                <Select
-                  id="priority"
-                  v-model="priority"
-                  :class="{ 'p-invalid': priorityError }"
-                  :options="priorityOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  toggleMask
-                  fluid
-                  @blur="priorityBlur"
-                />
-                <label for="priority">{{ $t('forms.fields.priority') }}</label>
-              </FloatLabel>
-            </InputGroup>
-            <Message
-              v-if="priorityError"
-              severity="error"
-              size="small"
-              variant="simple"
-            >
-              {{ priorityError }}
-            </Message>
+            <CommonFormsSelectField
+              id="priority"
+              v-model="priority"
+              :options="priorityOptions"
+              icon="pi pi-chart-line"
+              :label="$t('forms.fields.priority')"
+              :errorMessage="priorityError"
+              @blur="priorityBlur"
+            />
           </div>
         </div>
 
@@ -92,8 +71,6 @@
 <script setup lang="ts">
 import { useForm, useField, defineRule } from 'vee-validate'
 import { required } from '@vee-validate/rules'
-import FormTextArea from '../common/FormTextArea.vue'
-import FormSelectField from '../common/FormSelectField.vue'
 
 defineRule('required', required)
 const props = defineProps<{
@@ -115,7 +92,7 @@ interface IIssueRoomCreate {
 const { handleSubmit, resetForm } = useForm<IIssueRoomCreate>({
   validationSchema: {
     category: 'required',
-    description: 'required|min:10',
+    description: 'required|min:10|max:2500',
     priority: 'required',
   },
 })

@@ -13,7 +13,7 @@ export const useRoom = () => {
 
   const getRoomService = () => new RoomService(token.value)
 
-  const fetchRooms = async (withBookings: boolean = false, status?: 'available' | 'occupied' | 'maintenance') => {
+  const fetchRooms = async (withBookings: boolean = false, status?: 'available' | 'out_of_use') => {
     loading.value = true
     error.value = null
     try {
@@ -35,7 +35,7 @@ export const useRoom = () => {
     loading.value = true
     error.value = null
     try {
-      const fetchedRoom = await getRoomService().getRoom(roomId, withBookings)
+      const fetchedRoom = await getRoomService().getRoom(roomId)
       room.value = {
         ...fetchedRoom,
         isFavorite: favoriteRoomIds.value.has(fetchedRoom.roomId),
@@ -53,16 +53,15 @@ export const useRoom = () => {
     loading.value = true
     error.value = null
     try {
-      const createdRoom = await getRoomService().createRoom(newRoom)
-      rooms.value.push(createdRoom as IRoomCard)
-      return createdRoom
+      await getRoomService().createRoom(newRoom)
+      // rooms.value.push(createdRoom as IRoomCard)
     }
     catch (err) {
       error.value = err instanceof Error ? err.message : 'Błąd przy tworzeniu sali'
       throw err
     }
     finally {
-      await fetchRooms()
+      // await fetchRooms()
       loading.value = false
     }
   }
@@ -131,7 +130,6 @@ export const useRoom = () => {
     try {
       await getRoomService().toggleFavorite(roomId)
 
-      // Update favoriteRoomIds set
       const newFavoriteIds = new Set(favoriteRoomIds.value)
       if (newFavoriteIds.has(roomId)) {
         newFavoriteIds.delete(roomId)
@@ -141,12 +139,10 @@ export const useRoom = () => {
       }
       favoriteRoomIds.value = newFavoriteIds
 
-      // Update room details if viewing this room
       if (room.value && room.value.roomId === roomId) {
         room.value.isFavorite = !room.value.isFavorite
       }
 
-      // Update in rooms list if present
       const roomIndex = rooms.value.findIndex(r => r.roomId === roomId)
       if (roomIndex !== -1) {
         rooms.value[roomIndex].isFavorite = !rooms.value[roomIndex].isFavorite

@@ -25,7 +25,7 @@
             @submit.prevent="submitForm"
           >
             <div class="w-[70vw] md:w-[23rem]">
-              <FormTextField
+              <CommonFormsTextField
                 id="token"
                 v-model="token"
                 :label="$t('forms.fields.user.resetToken')"
@@ -37,7 +37,7 @@
             </div>
 
             <div class="w-[70vw] md:w-[23rem]">
-              <FormPasswordField
+              <CommonFormsPasswordField
                 id="newPassword"
                 v-model="newPassword"
                 :label="$t('forms.fields.user.newPassword')"
@@ -49,7 +49,7 @@
             </div>
 
             <div class="w-[70vw] md:w-[23rem]">
-              <FormPasswordField
+              <CommonFormsPasswordField
                 id="confirmPassword"
                 v-model="confirmPassword"
                 :label="$t('forms.fields.user.confirmPassword')"
@@ -78,8 +78,6 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
-import FormPasswordField from '~/components/common/FormPasswordField.vue'
-import FormTextField from '~/components/common/FormTextField.vue'
 import type { IChangePasswordForm } from '~/interfaces/UsersInterfaces'
 import { AuthRepository } from '~/repositories/AuthRepository'
 

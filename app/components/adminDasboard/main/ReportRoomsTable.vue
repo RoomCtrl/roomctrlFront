@@ -13,6 +13,8 @@
           v-tooltip.left="{ value: $t('pages.adminDashboard.dashboard.tables.tooltip') }"
           icon="pi pi-arrow-right"
           variant="outlined"
+          as="a"
+          :href="localePath('/adminDashboard/roomIssueReports')"
           rounded
         />
       </div>
@@ -20,7 +22,7 @@
     <template #content>
       <DataTable
         :pt="{
-          root: { class: 'flex flex-col h-full' },
+          root: { class: 'flex flex-col' },
           table: { class: tableDisplay },
         }"
         :value="activeIssues"
@@ -34,34 +36,45 @@
           </h1>
         </template>
         <Column
-          class="w-[25%]"
+          style="width: 15%;"
           field="roomName"
           :header="$t('tables.headers.roomName')"
         />
         <Column
-          class="w-[30%]"
+          style="width: 20%;"
           field="reporterName"
           :header="$t('tables.headers.reportedBy')"
         />
         <Column
-          class="w-[25%]"
+          style="width: 25%;"
           field="description"
           :header="$t('tables.headers.description')"
         />
         <Column
-          class="w-[25%]"
+          style="width: 15%;"
           field="reportedAt"
           :header="$t('tables.headers.reportDate')"
         />
         <Column
-          class="w-[10%]"
+          style="width: 10%;"
           field="priority"
           :header="$t('tables.headers.priority')"
         >
           <template #body="slotProps">
+            <div :class="getPriorityColor(slotProps.data.priority)">
+              {{ $t(`pages.adminDashboard.roomIssueReports.priority.${slotProps.data.priority}`) }}
+            </div>
+          </template>
+        </Column>
+        <Column
+          style="width: 10%;"
+          field="status"
+          :header="$t('tables.headers.status')"
+        >
+          <template #body="slotProps">
             <Tag
-              :value="slotProps.data.priority"
-              :severity="priorityColorClass(slotProps.data.priority)"
+              :value="$t(`pages.adminDashboard.roomIssueReports.status.${slotProps.data.status}`)"
+              :severity="statusColorClass(slotProps.data.status)"
             />
           </template>
         </Column>
@@ -73,24 +86,43 @@
 <script setup lang="ts">
 const { fetchIssues, issues } = useIssue()
 
+const localePath = useLocalePath()
+
+await fetchIssues()
+
 const activeIssues = computed(() => {
   return issues.value.filter(i => !i.closedAt)
 })
-const { tableDisplay } = useDataTable(activeIssues, 8)
 
-const priorityColorClass = (priority: string) => {
-  switch (priority) {
-    case 'critical':
-      return 'danger'
-    case 'high':
+const { tableDisplay } = useDataTable(activeIssues, 4)
+
+const statusColorClass = (status: string) => {
+  switch (status) {
+    case 'pending':
+      return 'info'
+    case 'in_progress':
       return 'warn'
-    case 'medium':
-      return 'warn'
-    default:
+    case 'closed':
       return 'success'
+    default:
+      return 'help'
   }
 }
-onMounted(async () => {
-  await fetchIssues()
-})
+
+const getPriorityColor = (priority: string) => {
+  switch (priority) {
+    case 'critical': return 'text-red-700 dark:text-red-500'
+    case 'high': return 'text-orange-700 dark:text-orange-500'
+    case 'medium': return 'text-yellow-700 dark:text-yellow-500'
+    case 'low': return 'text-green-700 dark:text-green-500'
+    default: return 'text-gray-600 dark:text-gray-500'
+  }
+}
 </script>
+
+<style scoped>
+.p-datatable {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+</style>

@@ -13,7 +13,12 @@
       "thisWeek": "Last 7 days",
       "thisMonth": "Last 30 days"
     },
-    "noBookingsToday": "No bookings today"
+    "noBookingsToday": "No bookings today",
+    "labels": {
+      "planned": "Planned",
+      "ended": "Ended",
+      "cancelled": "Cancelled"
+    }
   },
   "knob": {
     "generally": "Overall: ",
@@ -38,7 +43,11 @@
     },
     "weekly": "Weekly",
     "monthly": "Monthly",
-    "noData": "No data to display"
+    "noData": "No data to display",
+    "utilization": "Utilization",
+    "noDataToCompare": "No data to compare",
+    "trendUp": "+{percent}% vs average",
+    "trendDown": "-{percent}% vs average"
   },
   "tables": {
     "titles": {

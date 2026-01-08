@@ -2,7 +2,7 @@
   <form @submit.prevent="submitForm">
     <div class="grid grid-cols-3 grid-rows-4 gap-x-2 py-[0.4rem]">
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="username"
           v-model="username"
           :label="$t('forms.fields.user.username')"
@@ -13,7 +13,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="firstName"
           v-model="firstName"
           :label="$t('forms.fields.user.firstName')"
@@ -23,7 +23,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="lastName"
           v-model="lastName"
           :label="$t('forms.fields.user.lastName')"
@@ -33,7 +33,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="email"
           v-model="email"
           :label="$t('forms.fields.email')"
@@ -44,7 +44,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormTextField
+        <CommonFormsTextField
           id="phone"
           v-model="phone"
           :label="$t('forms.fields.phone')"
@@ -55,7 +55,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormMultiSelectField
+        <CommonFormsMultiSelectField
           id="roles"
           v-model="roles"
           :class="{ 'p-invalid': rolesError }"
@@ -70,7 +70,7 @@
       </div>
 
       <div class="w-[70vw] md:w-[23rem]">
-        <FormPasswordField
+        <CommonFormsPasswordField
           id="password"
           v-model="password"
           :label="$t('forms.fields.user.password')"
@@ -92,18 +92,13 @@
 </template>
 
 <script setup lang="ts">
-import { useForm, useField, defineRule } from 'vee-validate'
-import { required } from '@vee-validate/rules'
+import { useForm, useField } from 'vee-validate'
 import type { IUserAddResponse } from '~/interfaces/UsersInterfaces'
-import FormTextField from '~/components/common/FormTextField.vue'
-import FormMultiSelectField from '~/components/common/FormMultiSelectField.vue'
-import FormPasswordField from '~/components/common/FormPasswordField.vue'
 
 const emit = defineEmits(['updateVisible'])
 
-defineRule('required', required)
-
 const { addUser, error, fetchUsers } = useUser()
+const { user } = useAuth()
 const { t } = useI18n()
 const toast = useToast()
 const { handleSubmit, resetForm } = useForm<IUserAddResponse>({
@@ -113,7 +108,7 @@ const { handleSubmit, resetForm } = useForm<IUserAddResponse>({
     lastName: 'required|min:3',
     email: 'required|email',
     password: 'required',
-    phone: 'required',
+    phone: 'required|phone',
     roles: 'required',
   },
 })
@@ -139,11 +134,7 @@ const { value: password, errorMessage: passwordError, handleBlur: passwordBlur }
 
 const loading = ref<boolean>(false)
 
-const { user } = useAuth()
-
 const submitForm = handleSubmit(async (formValues: IUserAddResponse) => {
-  loading.value = true
-
   try {
     formValues.organizationId = user.value?.organization.id
     formValues.firstLoginStatus = true
@@ -166,10 +157,6 @@ const submitForm = handleSubmit(async (formValues: IUserAddResponse) => {
       detail: errorMessage,
       life: 5000,
     })
-    console.error('Error adding user:', err, 'Error value:', error.value)
-  }
-  finally {
-    loading.value = false
   }
 })
 </script>

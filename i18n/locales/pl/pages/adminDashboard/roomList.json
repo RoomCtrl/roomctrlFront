@@ -1,9 +1,19 @@
 {
   "tableNoData": {
-    "description": "Brak opisu"
+    "description": "Brak opisu",
+    "access": "Brak informacji o dostępie"
   },
   "statuses": {
     "available": "Dostępna",
     "out_of_use": "Wyłączona z użytku"
+  },
+  "dialogs": {
+    "addRoom": "Dodaj nową salę",
+    "editRoom": "Edytuj salę"
+  },
+  "toasts": {
+    "roomAdded": "Sala została dodana",
+    "roomDeleted": "Sala została usunięta",
+    "operationFailed": "Operacja nie powiodła się"
   }
 }

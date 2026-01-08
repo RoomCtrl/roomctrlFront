@@ -34,30 +34,14 @@
         class="flex flex-col gap-4"
       >
         <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-envelope" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="email"
-                v-model="email"
-                :class="{ 'p-invalid': emailError }"
-                type="email"
-                autofocus
-                @blur="emailBlur"
-              />
-              <label for="email">{{ $t('forms.fields.email') }}</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="emailError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ emailError }}
-          </Message>
+          <CommonFormsTextField
+            id="email"
+            v-model="email"
+            :label="$t('forms.fields.email')"
+            :errorMessage="emailError"
+            icon="pi pi-envelope"
+            @blur="emailBlur"
+          />
         </div>
 
         <div class="flex justify-center">
@@ -72,89 +56,39 @@
 
       <div
         v-else
-        class="flex flex-col gap-4"
+        class="flex flex-col"
       >
         <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-key" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <InputText
-                id="token"
-                v-model="token"
-                :class="{ 'p-invalid': tokenError }"
-                type="text"
-                @blur="tokenBlur"
-              />
-              <label for="token">{{ $t('forms.fields.resetToken') }}</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="tokenError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ tokenError }}
-          </Message>
+          <CommonFormsTextField
+            id="token"
+            v-model="token"
+            :label="$t('forms.fields.user.resetToken')"
+            :errorMessage="tokenError"
+            icon="pi pi-key"
+            @blur="tokenBlur"
+          />
         </div>
 
         <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-lock" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <Password
-                id="newPassword"
-                v-model="newPassword"
-                :class="{ 'p-invalid': newPasswordError }"
-                type="password"
-                toggleMask
-                fluid
-                @blur="newPasswordBlur"
-              />
-              <label for="newPassword">{{ $t('forms.fields.newPassword') }}</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="newPasswordError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ newPasswordError }}
-          </Message>
+          <CommonFormsPasswordField
+            id="newPassword"
+            v-model="newPassword"
+            :label="$t('forms.fields.user.newPassword')"
+            :errorMessage="newPasswordError"
+            icon="pi pi-lock"
+            @blur="newPasswordBlur"
+          />
         </div>
 
         <div class="w-[70vw] md:w-[23rem]">
-          <InputGroup>
-            <InputGroupAddon>
-              <i class="pi pi-lock" />
-            </InputGroupAddon>
-            <FloatLabel variant="on">
-              <Password
-                id="confirmPassword"
-                v-model="confirmPassword"
-                :class="{ 'p-invalid': confirmPasswordError }"
-                type="password"
-                toggleMask
-                fluid
-                :feedback="false"
-                @blur="confirmPasswordBlur"
-              />
-              <label for="confirmPassword">{{ $t('forms.fields.confirmPassword') }}</label>
-            </FloatLabel>
-          </InputGroup>
-          <Message
-            v-if="confirmPasswordError"
-            severity="error"
-            size="small"
-            variant="simple"
-          >
-            {{ confirmPasswordError }}
-          </Message>
+          <CommonFormsPasswordField
+            id="confirmPassword"
+            v-model="confirmPassword"
+            :label="$t('forms.fields.user.confirmPassword')"
+            :errorMessage="confirmPasswordError"
+            icon="pi pi-lock"
+            @blur="confirmPasswordBlur"
+          />
         </div>
 
         <div class="flex flex-col gap-2 items-center text-center">
@@ -172,7 +106,6 @@
 
 <script setup lang="ts">
 import { useForm, useField, defineRule } from 'vee-validate'
-import { required, email as emailRule } from '@vee-validate/rules'
 import { AuthRepository } from '~/repositories/AuthRepository'
 import { useToast } from 'primevue/usetoast'
 
@@ -182,9 +115,6 @@ interface ErrorResponse {
   }
 }
 
-defineRule('required', required)
-defineRule('email', emailRule)
-
 const authRepository = new AuthRepository()
 const toast = useToast()
 const { t } = useI18n()
@@ -192,7 +122,6 @@ const { t } = useI18n()
 const currentStep = ref<'email' | 'confirm'>('email')
 const loading = ref<boolean>(false)
 
-// Formularz dla emaila
 const emailSchema = {
   email: 'required|email',
 }
@@ -203,7 +132,6 @@ const { handleSubmit: handleEmailSubmit, resetForm: resetEmailForm } = useForm({
 
 const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useField<string>('email')
 
-// Formularz dla potwierdzenia
 const confirmSchema = {
   token: 'required',
   newPassword: 'required',
@@ -279,7 +207,6 @@ const submitForm = async () => {
         resetEmailForm()
         resetConfirmForm()
 
-        // Opóźnienie przed przekierowaniem, aby użytkownik zobaczył toast
         setTimeout(async () => {
           await navigateTo('/login')
         }, 2000)

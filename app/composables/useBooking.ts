@@ -13,11 +13,11 @@ export const useBooking = () => {
 
   const getBookingService = () => new BookingService(token.value)
 
-  const fetchBookings = async (roomId?: string, status?: 'active' | 'cancelled' | 'completed', userId?: string) => {
+  const fetchBookings = async (myBookings: boolean) => {
     loading.value = true
     error.value = null
     try {
-      bookings.value = await getBookingService().getBookings(roomId, status, userId)
+      bookings.value = await getBookingService().getBookings(myBookings)
     }
     catch (err) {
       error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu rezerwacji'
@@ -54,7 +54,7 @@ export const useBooking = () => {
       throw err
     }
     finally {
-      await fetchBookings()
+      await fetchBookings(false)
       loading.value = false
     }
   }
@@ -82,25 +82,6 @@ export const useBooking = () => {
     }
   }
 
-  const deleteBooking = async (bookingId: string) => {
-    loading.value = true
-    error.value = null
-    try {
-      await getBookingService().deleteBooking(bookingId)
-      bookings.value = bookings.value.filter(b => b.id !== bookingId)
-      if (booking.value && booking.value.id === bookingId) {
-        booking.value = null
-      }
-    }
-    catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy usuwaniu rezerwacji'
-      throw err
-    }
-    finally {
-      loading.value = false
-    }
-  }
-
   const cancelBooking = async (bookingId: string) => {
     loading.value = true
     error.value = null
@@ -118,20 +99,6 @@ export const useBooking = () => {
     catch (err) {
       error.value = err instanceof Error ? err.message : 'Błąd przy anulowaniu rezerwacji'
       throw err
-    }
-    finally {
-      loading.value = false
-    }
-  }
-
-  const fetchUserBookings = async (userId: string, status?: 'active' | 'cancelled' | 'completed') => {
-    loading.value = true
-    error.value = null
-    try {
-      bookings.value = await getBookingService().getUserBookings(userId, status)
-    }
-    catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu rezerwacji użytkownika'
     }
     finally {
       loading.value = false
@@ -178,9 +145,7 @@ export const useBooking = () => {
     createBooking,
     createBookingRecurring,
     updateBooking,
-    deleteBooking,
     cancelBooking,
-    fetchUserBookings,
     fetchBookingStats,
   }
 }

@@ -182,7 +182,11 @@ const changeDateRange = (data: number[], activeButton: string, title: string) =>
 
 const setChartData = () => {
   return {
-    labels: ['Zaplanowane', 'Zakończone', 'Anulowane'],
+    labels: [
+      t('pages.adminDashboard.dashboard.chart.labels.planned'),
+      t('pages.adminDashboard.dashboard.chart.labels.ended'),
+      t('pages.adminDashboard.dashboard.chart.labels.cancelled'),
+    ],
     datasets: chartDataSets.value,
   }
 }

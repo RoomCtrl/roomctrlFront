@@ -3,38 +3,38 @@
     v-if="booking"
     @submit.prevent="submitForm"
   >
-    <div class="grid grid-cols-3 gap-4 pt-4">
+    <div class="grid grid-cols-3 gap-x-4 pt-4">
       <div class="flex flex-col gap-2 col-span-full">
-        <FormTextField
+        <CommonFormsTextField
           id="title"
           v-model="title"
-          :label="$t('forms.booking.title')"
+          :label="$t('forms.fields.booking.title')"
           :errorMessage="titleError"
           @blur="titleBlur"
         />
       </div>
 
       <div class="flex flex-col gap-2 col-span-full">
-        <FormSelectField
+        <CommonFormsSelectField
           id="roomId"
           v-model="roomId"
           :options="availableRooms"
           optionLabel="roomName"
           optionValue="roomId"
-          :label="$t('forms.booking.selectRoom')"
+          :label="$t('forms.fields.booking.roomId')"
           :errorMessage="roomIdError"
           @blur="roomIdBlur"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <FormDateField
+        <CommonFormsDateField
           id="startedAt"
           v-model="startedAt"
           showTime
           hourFormat="24"
           dateFormat="yy/mm/dd"
-          :label="$t('forms.booking.startDatePlaceholder')"
+          :label="$t('forms.fields.booking.startedAt')"
           :errorMessage="startedAtError"
           fluid
           @blur="startedAtBlur"
@@ -42,13 +42,13 @@
       </div>
 
       <div class="flex flex-col gap-2">
-        <FormDateField
+        <CommonFormsDateField
           id="endedAt"
           v-model="endedAt"
           showTime
           dateFormat="yy/mm/dd"
           hourFormat="24"
-          :label="$t('forms.booking.endDatePlaceholder')"
+          :label="$t('forms.fields.booking.endedAt')"
           :errorMessage="endedAtError"
           fluid
           @blur="endedAtBlur"
@@ -56,11 +56,11 @@
       </div>
 
       <div class="flex flex-col gap-2">
-        <FormNumberField
+        <CommonFormsNumberField
           id="participants"
           v-model="participantsCount"
           :min="1"
-          :label="$t('forms.booking.participants')"
+          :label="$t('forms.fields.booking.participantsCount')"
           :errorMessage="participantsCountError"
           fluid
           @blur="participantsCountBlur"
@@ -68,13 +68,13 @@
       </div>
 
       <div class="flex flex-col gap-2 col-span-full">
-        <FormMultiSelectField
+        <CommonFormsMultiSelectField
           id="participantIds"
           v-model="participantIds"
           :options="availableUsers"
           optionLabel="displayName"
           optionValue="id"
-          :label="$t('forms.booking.selectParticipants')"
+          :label="$t('forms.fields.booking.participantIds')"
           :filter="true"
           :errorMessage="customParticipantsError || participantIdsError"
           @blur="participantIdsBlur"
@@ -90,7 +90,7 @@
         <label
           for="isPrivate"
           class="font-semibold"
-        >{{ $t('forms.booking.isPrivate') }}</label>
+        >{{ $t('forms.fields.booking.isPrivate') }}</label>
       </div>
 
       <div class="flex justify-end gap-2 mt-4 col-span-full">
@@ -120,11 +120,6 @@ import { useAuth } from '~/composables/useAuth'
 import { useBooking } from '~/composables/useBooking'
 import { useToast } from 'primevue/usetoast'
 import { useField, useForm } from 'vee-validate'
-import FormTextField from '~/components/common/FormTextField.vue'
-import FormSelectField from '~/components/common/FormSelectField.vue'
-import FormDateField from '~/components/common/FormDateField.vue'
-import FormNumberField from '~/components/common/FormNumberField.vue'
-import FormMultiSelectField from '~/components/common/FormMultiSelectField.vue'
 
 const props = defineProps<{
   bookingId: string
@@ -133,7 +128,7 @@ const props = defineProps<{
 const { t } = useI18n()
 const toast = useToast()
 const { users, fetchUsers } = useUser()
-const { rooms, fetchRooms } = useRoom()
+const { rooms, room, fetchRooms, fetchRoom } = useRoom()
 const { user, isAdmin } = useAuth()
 const { fetchBooking, updateBooking, loading, booking } = useBooking()
 
@@ -143,7 +138,7 @@ const { handleSubmit, resetForm } = useForm<IBookingUpdateRequest>({
     roomId: 'required',
     startedAt: 'required',
     endedAt: 'required',
-    participantsCount: 'required|min:1',
+    participantsCount: `required|min_value:1|max_value:${room.value?.capacity}`,
   },
 })
 
@@ -152,19 +147,12 @@ const { value: roomId, errorMessage: roomIdError, handleBlur: roomIdBlur } = use
 const { value: startedAt, errorMessage: startedAtError, handleBlur: startedAtBlur } = useField<Date | null>('startedAt')
 const { value: endedAt, errorMessage: endedAtError, handleBlur: endedAtBlur } = useField<Date | null>('endedAt')
 const { value: participantsCount, errorMessage: participantsCountError, handleBlur: participantsCountBlur } = useField<number>('participantsCount')
-const { value: isPrivate, errorMessage: isPrivateError, handleBlur: isPrivateBlur } = useField<boolean>('isPrivate')
+const { value: isPrivate } = useField<boolean>('isPrivate')
 const { value: participantIds, errorMessage: participantIdsError, handleBlur: participantIdsBlur } = useField<string[]>('participantIds')
 
 const customParticipantsError = ref<string>('')
 
-watch([() => participantIds.value, () => participantsCount.value], () => {
-  if (participantIds.value && participantIds.value.length > participantsCount.value) {
-    customParticipantsError.value = `Liczba uczestników (${participantsCount.value}) nie może być mniejsza niż liczba wybranych osób (${participantIds.value.length})`
-  }
-  else {
-    customParticipantsError.value = ''
-  }
-})
+const emit = defineEmits(['success', 'cancel'])
 
 const availableRooms = computed(() => {
   if (!rooms.value || !Array.isArray(rooms.value)) {
@@ -220,6 +208,7 @@ const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
       detail: t('common.toast.bookingUpdated'),
       life: 3000,
     })
+    emit('success')
   }
   catch (error: any) {
     console.error('Błąd podczas aktualizacji rezerwacji:', error)
@@ -248,6 +237,23 @@ const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
   }
 })
 
+watch(() => participantIds.value, (newParticipantIds) => {
+  if (newParticipantIds && newParticipantIds.length > 0) {
+    if (newParticipantIds.length > participantsCount.value) {
+      participantsCount.value = newParticipantIds.length
+    }
+  }
+})
+
+watch([() => participantIds.value, () => participantsCount.value], () => {
+  if (participantIds.value && participantIds.value.length > participantsCount.value) {
+    customParticipantsError.value = `Liczba uczestników (${participantsCount.value}) nie może być mniejsza niż liczba wybranych osób (${participantIds.value.length})`
+  }
+  else {
+    customParticipantsError.value = ''
+  }
+})
+
 onMounted(async () => {
   await fetchBooking(props.bookingId)
   if (booking.value) {
@@ -265,5 +271,6 @@ onMounted(async () => {
   }
   await fetchUsers(false)
   await fetchRooms(false)
+  await fetchRoom(booking.value?.room.id)
 })
 </script>

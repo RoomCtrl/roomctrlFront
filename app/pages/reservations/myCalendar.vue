@@ -226,11 +226,11 @@
         <Dialog
           v-model:visible="showBookingForm"
           modal
-          :header="editedReservation ? t('forms.booking.editTitle') : t('forms.booking.newTitle')"
+          :header="editedReservation ? t('forms.titles.editBooking') : t('forms.titles.newTitle')"
           :style="{ width: '50rem' }"
           :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
         >
-          <FormsBookingRentForm
+          <FormsBookingEditForm
             :visible="showBookingForm"
             :provided-room-id="selectedRoomId"
             :booking-id="editingBookingId"
@@ -246,7 +246,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import CalendarHeader from '~/components/reservations/myCalendar/CalendarHeader.vue'
 import RentDetails from '~/components/reservations/myCalendar/RentDetails.vue'
@@ -267,76 +267,80 @@ const selectedRoomId = ref('')
 const editingBookingId = ref('')
 const editedReservation = ref(null)
 const { t } = useI18n()
-const { bookings, fetchUserBookings } = useBooking()
+const { bookings, fetchBookings } = useBooking()
 const { user } = useAuth()
 
 const reservations = computed(() => {
   const result = []
-  const colors = ['blue', 'green', 'yellow', 'purple', 'red', 'orange']
+  const colors = ['blue', 'green', 'yellow', 'purple', 'orange']
 
-  bookings.value.forEach((booking, index) => {
-    const startDate = parseLocalDate(booking.startedAt)
-    const endDate = parseLocalDate(booking.endedAt)
-    const color = colors[index % colors.length]
+  bookings.value
+    .filter(booking => booking.status !== 'cancelled')
+    .forEach((booking, index) => {
+      const startDate = parseLocalDate(booking.startedAt)
+      const endDate = parseLocalDate(booking.endedAt)
+      const color = booking.status === 'cancelled' ? 'red' : colors[index % colors.length]
 
-    const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
-    const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
+      const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+      const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
 
-    if (startDay.getTime() === endDay.getTime()) {
-      const duration = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60))
-      result.push({
-        id: booking.id,
-        title: booking.title,
-        date: startDate,
-        endDate: endDate,
-        duration: duration,
-        location: booking.room?.location || t('pages.myCalendar.noLocations'),
-        attendees: booking.participantsCount,
-        color: color,
-        isPrivate: booking.isPrivate,
-        roomName: booking.room?.roomName || t('pages.myCalendar.noRoom'),
-      })
-    }
-    else {
-      const currentDay = new Date(startDay)
-
-      while (currentDay <= endDay) {
-        let segmentStart, segmentEnd
-
-        if (currentDay.getTime() === startDay.getTime()) {
-          segmentStart = new Date(startDate)
-          segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
-        }
-        else if (currentDay.getTime() === endDay.getTime()) {
-          segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
-          segmentEnd = new Date(endDate)
-        }
-        else {
-          segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
-          segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
-        }
-
-        const duration = Math.round((segmentEnd.getTime() - segmentStart.getTime()) / (1000 * 60))
-
+      if (startDay.getTime() === endDay.getTime()) {
+        const duration = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60))
         result.push({
-          id: `${booking.id}-${currentDay.getTime()}`,
-          originalId: booking.id,
+          id: booking.id,
           title: booking.title,
-          date: segmentStart,
-          endDate: segmentEnd,
+          date: startDate,
+          endDate: endDate,
           duration: duration,
-          location: booking.room.location,
+          location: booking.room?.location || t('pages.myCalendar.noLocations'),
           attendees: booking.participantsCount,
           color: color,
           isPrivate: booking.isPrivate,
-          roomName: booking.room.roomName,
-          isMultiDay: true,
+          roomName: booking.room?.roomName || t('pages.myCalendar.noRoom'),
+          status: booking.status,
         })
-
-        currentDay.setDate(currentDay.getDate() + 1)
       }
-    }
-  })
+      else {
+        const currentDay = new Date(startDay)
+
+        while (currentDay <= endDay) {
+          let segmentStart, segmentEnd
+
+          if (currentDay.getTime() === startDay.getTime()) {
+            segmentStart = new Date(startDate)
+            segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
+          }
+          else if (currentDay.getTime() === endDay.getTime()) {
+            segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
+            segmentEnd = new Date(endDate)
+          }
+          else {
+            segmentStart = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 0, 0, 0)
+            segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
+          }
+
+          const duration = Math.round((segmentEnd.getTime() - segmentStart.getTime()) / (1000 * 60))
+
+          result.push({
+            id: `${booking.id}-${currentDay.getTime()}`,
+            originalId: booking.id,
+            title: booking.title,
+            date: segmentStart,
+            endDate: segmentEnd,
+            duration: duration,
+            location: booking.room.location,
+            attendees: booking.participantsCount,
+            color: color,
+            isPrivate: booking.isPrivate,
+            roomName: booking.room.roomName,
+            isMultiDay: true,
+            status: booking.status,
+          })
+
+          currentDay.setDate(currentDay.getDate() + 1)
+        }
+      }
+    })
 
   return result
 })
@@ -479,7 +483,7 @@ const handleBookingSuccess = async () => {
   const editedId = editingBookingId.value
 
   if (user.value?.id) {
-    await fetchUserBookings(user.value.id, 'active')
+    await fetchBookings(true)
   }
 
   if (editedReservation.value && editedId) {
@@ -512,13 +516,13 @@ const handleEdit = (reservation) => {
 
 const handleDeleted = () => {
   if (user.value?.id) {
-    fetchUserBookings(user.value.id, 'active')
+    fetchBookings(true)
   }
 }
 
 defineExpose({ handleShowBookingForm })
 
-onMounted(() => {
-  fetchUserBookings(user.value.id, 'active')
+onMounted(async () => {
+  await fetchBookings(true)
 })
 </script>

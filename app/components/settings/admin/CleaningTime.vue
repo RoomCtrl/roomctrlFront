@@ -9,69 +9,49 @@
     <template #content>
       <Toast />
       <form
-        class="grid grid-cols-1 md:grid-cols-5 grid-rows-2 gap-4"
+        class="grid grid-cols-1 md:grid-cols-5 gap-x-4"
         @submit.prevent="submitForm"
       >
-        <div class="flex flex-col gap-2 col-span-2">
-          <label
-            for="type"
-            class="font-semibold"
-          >
-            {{ $t('forms.fields.room.name') }}
-          </label>
-          <Select
+        <div class="col-span-2">
+          <CommonFormsSelectField
             id="roomId"
             v-model="roomId"
             :options="roomOptions"
             optionLabel="label"
             optionValue="value"
-          />
-        </div>
-        <div class="flex flex-col gap-2">
-          <label
-            for="type"
-            class="font-semibold"
-          >
-            {{ $t('forms.fields.workType') }}
-          </label>
-          <Select
-            id="type"
-            v-model="type"
-            :options="typeOptions"
-            optionLabel="label"
-            optionValue="value"
+            :label="$t('forms.fields.room.name')"
+            :errorMessage="roomIdError"
+            @blur="roomIdBlur"
           />
         </div>
 
-        <div class="flex flex-col gap-2">
-          <label
-            for="startTime"
-            class="font-semibold"
-          >
-            {{ $t('forms.fields.startTime') }}
-          </label>
-          <DatePicker
-            id="startTime"
-            v-model="startTime"
-            updateModelType="string"
-            timeOnly
-          />
-        </div>
+        <CommonFormsSelectField
+          id="type"
+          v-model="type"
+          :options="typeOptions"
+          :label="$t('forms.fields.workType')"
+          :errorMessage="typeError"
+          @blur="typeBlur"
+        />
 
-        <div class="flex flex-col gap-2">
-          <label
-            for="endTime"
-            class="font-semibold"
-          >
-            {{ $t('forms.fields.endTime') }}
-          </label>
-          <DatePicker
-            id="endTime"
-            v-model="endTime"
-            updateModelType="string"
-            timeOnly
-          />
-        </div>
+        <CommonFormsDateField
+          id="startTime"
+          v-model="startTime"
+          :label="$t('forms.fields.startTime')"
+          :errorMessage="startTimeError"
+          timeOnly
+          @blur="startTimeBlur"
+        />
+
+        <CommonFormsDateField
+          id="endTime"
+          v-model="endTime"
+          :label="$t('forms.fields.endTime')"
+          :errorMessage="endTimeError"
+          timeOnly
+          @blur="endTimeBlur"
+        />
+
         <div class="flex flex-col gap-2 col-span-2 justify-center">
           <label
             for="email"
@@ -81,7 +61,7 @@
           </label>
           <CheckboxGroup
             v-model="daysOfWeek"
-            class="flex flex-row gap-4 "
+            class="grid grid-cols-4 gap-2 "
           >
             <div
               v-for="day in checkBoxDays"
@@ -96,22 +76,21 @@
             </div>
           </CheckboxGroup>
         </div>
-        <div class="flex flex-col gap-2">
-          <label
-            for="weeksAhead"
-            class="font-semibold"
-          >
-            {{ $t('forms.fields.weeksAhead') }}
-          </label>
-          <InputNumber
-            id="weeksAhead"
-            v-model="weeksAhead"
-          />
-        </div>
+
+        <CommonFormsNumberField
+          id="weeksAhead"
+          v-model="weeksAhead"
+          :label="$t('forms.fields.weeksAhead')"
+          :errorMessage="weeksAheadError"
+          :min="0"
+          :max="52"
+          @blur="weeksAheadBlur"
+        />
+
         <div class="flex justify-end col-span-full">
           <Button
             type="submit"
-            label="Zapisz zmiany"
+            :label="$t('pages.adminDashboard.settingsAdmin.sections.submitHours')"
             severity="success"
             icon="pi pi-check"
             class="mt-4"
@@ -124,16 +103,9 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
+import type { IBookingRecurringRequest } from '~/interfaces/BookingsInterfaces'
 
-interface IOrganizationSettings {
-  roomId: string
-  type: 'cleaning' | 'maintenance'
-  startTime: Date
-  endTime: string
-  daysOfWeek: number[]
-  weeksAhead: number
-}
-const { createBookingRecurring } = useBooking()
+const { createBookingRecurring, error } = useBooking()
 const { fetchRooms, rooms } = useRoom()
 const toast = useToast()
 const { t } = useI18n()
@@ -146,11 +118,11 @@ const roomOptions = computed(() =>
 )
 
 const typeOptions = [
-  { label: 'Sprzątanie', value: 'cleaning' },
-  { label: 'Konserwacja', value: 'maintenance' },
+  { label: t('forms.fields.workTypes.cleaning'), value: 'cleaning' },
+  { label: t('forms.fields.workTypes.maintenance'), value: 'maintenance' },
 ]
 const loading = ref(false)
-const { handleSubmit, resetForm } = useForm<IOrganizationSettings>({
+const { handleSubmit, resetForm } = useForm<IBookingRecurringRequest>({
   validationSchema: {
     roomId: 'required',
     type: 'required',
@@ -175,25 +147,37 @@ const { value: roomId, errorMessage: roomIdError, handleBlur: roomIdBlur } = use
 const { value: type, errorMessage: typeError, handleBlur: typeBlur } = useField<'cleaning' | 'maintenance'>('type')
 const { value: startTime, errorMessage: startTimeError, handleBlur: startTimeBlur } = useField<Date>('startTime')
 const { value: endTime, errorMessage: endTimeError, handleBlur: endTimeBlur } = useField<Date>('endTime')
-const { value: daysOfWeek, errorMessage: daysOfWeekError, handleBlur: daysOfWeekBlur } = useField<number[]>('daysOfWeek')
+const { value: daysOfWeek } = useField<number[]>('daysOfWeek')
 const { value: weeksAhead, errorMessage: weeksAheadError, handleBlur: weeksAheadBlur } = useField<number>('weeksAhead')
 
-const submitForm = handleSubmit(async (formValues: IOrganizationSettings) => {
+const submitForm = handleSubmit(async (formValues: IBookingRecurringRequest) => {
   loading.value = true
 
   try {
+    formValues.startTime = formatToHoursMinutes(formValues.startTime)
+    formValues.endTime = formatToHoursMinutes(formValues.endTime)
     await createBookingRecurring(formValues)
+
+    toast.add({
+      severity: 'success',
+      summary: t('common.toast.success'),
+      detail: t(`toast.details.savedWorkTime.${formValues.type}`),
+      life: 3000,
+    })
+
+    resetForm()
+  }
+  catch (err: any) {
+    toast.add({
+      severity: 'error',
+      summary: t('common.toast.error'),
+      detail: error || t('forms.messages.error.whileSavingData'),
+      life: 3000,
+    })
   }
 
   finally {
-    resetForm()
     loading.value = false
-    toast.add({
-      severity: 'success',
-      summary: 'Sukces',
-      detail: 'Zapisano czas sprzątania',
-      life: 3000,
-    })
   }
 })
 

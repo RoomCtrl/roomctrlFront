@@ -80,6 +80,25 @@
         field="description"
         :header="$t('tables.headers.description')"
         :noData="$t('pages.adminDashboard.roomList.tableNoData.description')"
+        class="w-[20%]"
+        filter
+        sortable
+      />
+      <BaseTextFilterColumn
+        key="access"
+        field="access"
+        :header="$t('tables.headers.access')"
+        :noData="$t('pages.adminDashboard.roomList.tableNoData.access')"
+        class="w-[10%]"
+        filter
+        sortable
+      />
+      <BaseTextFilterColumn
+        key="lighting"
+        field="lighting"
+        :header="$t('tables.headers.lighting')"
+        :noData="$t('tables.noData.lighting')"
+        class="w-[10%]"
         filter
         sortable
       />
@@ -106,15 +125,7 @@
               inTable
               :room-id="slotProps.data.roomId"
             />
-            <Button
-              v-tooltip.left="{ value: 'Dodaj zdjęcie' }"
-              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
-              icon="pi pi-image"
-              severity="success"
-              raised
-              variant="outlined"
-              @click="openUploadModal(slotProps.data)"
-            />
+            <RoomUploadDialog :room-id="slotProps.data.roomId" />
             <Button
               v-tooltip.left="{ value: $t('common.buttons.edit') }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
@@ -145,7 +156,7 @@
 
     <Dialog
       v-model:visible="showModal"
-      :header="'Dodaj nową salę'"
+      :header="$t('pages.adminDashboard.roomList.dialogs.addRoom')"
       :modal="true"
       :closable="true"
       class="w-[50vw]"
@@ -154,70 +165,22 @@
       <RoomForm
         :room="selectedRoom"
         :loading="formLoading"
-        @submit="handleFormSubmit"
         @cancel="showModal = false"
       />
     </Dialog>
 
     <Dialog
       v-model:visible="showEditModal"
-      header="Edytuj salę"
+      :header="$t('pages.adminDashboard.roomList.dialogs.editRoom')"
       :modal="true"
       :closable="true"
       class="w-[50vw]"
-      @hide="resetEditModal"
     >
       <EditForm
         v-if="editRoomId"
         :room-id="editRoomId"
-        @success="handleEditSuccess"
         @cancel="showEditModal = false"
       />
-    </Dialog>
-
-    <Dialog
-      v-model:visible="showUploadModal"
-      header="Dodaj zdjęcie do sali"
-      :modal="true"
-      :closable="true"
-      class="w-[40vw]"
-      @hide="resetUploadModal"
-    >
-      <div class="flex flex-col gap-4">
-        <p class="text-gray-600 dark:text-gray-400">
-          Dozwolone formaty: JPG, PNG, PDF
-        </p>
-        <FileUpload
-          ref="fileUploadRef"
-          name="demo[]"
-          accept="image/jpeg,image/png,application/pdf"
-          :max-file-size="5000000"
-          :choose-label="uploadedFiles.length > 0 ? `Wybrano ${uploadedFiles.length} plik(ów)` : 'Wybierz pliki'"
-          :auto="false"
-          :multiple="true"
-          @select="onFileSelect"
-        />
-        <div>
-          <RoomImagesDelete
-            :room-id="uploadRoomId"
-            class="col-span-3 md:col-span-4 lg:col-span-3"
-          />
-        </div>
-        <div class="flex justify-end gap-3">
-          <Button
-            label="Prześlij"
-            :loading="uploadLoading"
-            :disabled="uploadedFiles.length === 0"
-            severity="success"
-            @click="handleUpload"
-          />
-          <Button
-            label="Anuluj"
-            severity="danger"
-            @click="showUploadModal = false"
-          />
-        </div>
-      </div>
     </Dialog>
 
     <ConfirmDialog />
@@ -226,24 +189,21 @@
 </template>
 
 <script setup lang="ts">
-import { useRoom } from '~/composables/useRoom'
-import { useAuth } from '~/composables/useAuth'
 import { FilterMatchMode } from '@primevue/core/api'
 import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseTextFilterColumn.vue'
 import ActionButton from '~/components/common/buttons/ActionButton.vue'
 import RoomForm from '~/components/forms/RoomForm.vue'
 import EditForm from '~/components/forms/room/EditForm.vue'
-import type { IRoomCard, IRoomCreateRequest, IRoomUpdateRequest } from '~/interfaces/RoomsIntefaces'
-import RoomImagesDelete from '~/components/rooms/detailsParts/RoomImagesDelete.vue'
+import type { IRoomCard } from '~/interfaces/RoomsIntefaces'
 import BaseSelectFilterColumn from '~/components/common/datatable/columns/BaseSelectFilterColumn.vue'
+import RoomUploadDialog from '~/components/forms/room/RoomUploadDialog.vue'
 
 definePageMeta({
   middleware: 'admin',
   layout: 'admin-dashboard',
 })
 
-const { rooms, loading, fetchRooms, createRoom, updateRoom, deleteRoom: deleteRoomAPI, uploadImage } = useRoom()
-const { user } = useAuth()
+const { rooms, loading, fetchRooms, deleteRoom: deleteRoomAPI } = useRoom()
 const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, onFilter, handleUpdateRows } = useDataTable(rooms, 15)
 const toast = useToast()
 const confirm = useConfirm()
@@ -255,26 +215,21 @@ const filters = ref({
   size: { value: null, matchMode: FilterMatchMode.EQUALS },
   location: { value: null, matchMode: FilterMatchMode.CONTAINS },
   description: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  access: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  lighting: { value: null, matchMode: FilterMatchMode.CONTAINS },
   status: { value: null, matchMode: FilterMatchMode.EQUALS },
 })
 
 const statusOptions = [
-  { label: 'available', value: 'available' },
-  { label: 'out_of_use', value: 'out_of_use' },
+  { label: t('pages.adminDashboard.roomList.statuses.available'), value: 'available' },
+  { label: t('pages.adminDashboard.roomList.statuses.out_of_use'), value: 'out_of_use' },
 ]
 
 const showModal = ref(false)
 const showEditModal = ref(false)
 const formLoading = ref(false)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const selectedRoom = ref<any>(null)
+const selectedRoom = ref<IRoomCard | null>(null)
 const editRoomId = ref<string | null>(null)
-
-const showUploadModal = ref(false)
-const uploadLoading = ref(false)
-const uploadedFiles = ref<File[]>([])
-const uploadRoomId = ref<string | null>(null)
-const fileUploadRef = ref<string[]>([])
 
 const openAddModal = () => {
   selectedRoom.value = null
@@ -286,122 +241,9 @@ const openEditModal = (room: IRoomCard) => {
   showEditModal.value = true
 }
 
-const openUploadModal = (room: IRoomCard) => {
-  uploadRoomId.value = room.roomId
-  uploadedFiles.value = []
-  showUploadModal.value = true
-}
-
 const resetModal = () => {
   selectedRoom.value = null
   showModal.value = false
-}
-
-const resetEditModal = () => {
-  editRoomId.value = null
-  showEditModal.value = false
-}
-
-const resetUploadModal = () => {
-  uploadedFiles.value = []
-  uploadRoomId.value = null
-  showUploadModal.value = false
-  fileUploadRef.value = []
-}
-
-const onFileSelect = (event: any) => {
-  if (event.files && event.files.length > 0) {
-    uploadedFiles.value = Array.from(event.files)
-  }
-}
-
-const handleUpload = async () => {
-  if (uploadedFiles.value.length === 0 || !uploadRoomId.value) {
-    toast.add({
-      severity: 'error',
-      summary: 'Błąd',
-      detail: 'Nie wybrano plików',
-      life: 3000,
-    })
-    return
-  }
-
-  uploadLoading.value = true
-  try {
-    for (const file of uploadedFiles.value) {
-      await uploadImage(uploadRoomId.value, file)
-    }
-
-    const message = uploadedFiles.value.length === 1
-      ? 'Zdjęcie zostało przesłane'
-      : `${uploadedFiles.value.length} zdjęć zostało przesłanych`
-
-    toast.add({
-      severity: 'success',
-      summary: 'Sukces',
-      detail: message,
-      life: 3000,
-    })
-    showUploadModal.value = false
-    resetUploadModal()
-  }
-  catch (error) {
-    toast.add({
-      severity: 'error',
-      summary: 'Błąd',
-      detail: error instanceof Error ? error.message : 'Przesyłanie nie powiodło się',
-      life: 3000,
-    })
-  }
-  finally {
-    uploadLoading.value = false
-  }
-}
-
-const handleFormSubmit = async (formData: IRoomCreateRequest | IRoomUpdateRequest, image?: File) => {
-  formLoading.value = true
-  try {
-    const organizationId = user.value?.organization.id
-
-    const createData: IRoomCreateRequest = {
-      ...formData as IRoomCreateRequest,
-      organizationId,
-    }
-    const createdRoom = await createRoom(createData)
-    const roomId = createdRoom.roomId
-
-    if (image) {
-      await uploadImage(roomId, image)
-    }
-
-    toast.add({
-      severity: 'success',
-      summary: 'Sukces',
-      detail: 'Sala została dodana',
-      life: 3000,
-    })
-
-    showModal.value = false
-    selectedRoom.value = null
-    await fetchRooms(false)
-  }
-  catch (error) {
-    toast.add({
-      severity: 'error',
-      summary: 'Błąd',
-      detail: error instanceof Error ? error.message : 'Operacja nie powiodła się',
-      life: 3000,
-    })
-  }
-  finally {
-    formLoading.value = false
-  }
-}
-
-const handleEditSuccess = async () => {
-  showEditModal.value = false
-  editRoomId.value = null
-  await fetchRooms(false)
 }
 
 const deleteRoom = async (roomId: string) => {
@@ -424,16 +266,16 @@ const deleteRoom = async (roomId: string) => {
         await deleteRoomAPI(roomId)
         toast.add({
           severity: 'success',
-          summary: 'Sukces',
-          detail: 'Sala została usunięta',
+          summary: t('common.toast.success'),
+          detail: t('pages.adminDashboard.roomList.toasts.roomDeleted'),
           life: 3000,
         })
       }
       catch (error) {
         toast.add({
           severity: 'error',
-          summary: 'Błąd',
-          detail: error instanceof Error ? error.message : 'Operacja nie powiodła się',
+          summary: t('common.error'),
+          detail: error instanceof Error ? error.message : t('pages.adminDashboard.roomList.toasts.operationFailed'),
           life: 3000,
         })
       }

@@ -28,6 +28,7 @@
         @hide="date = null"
       >
         <IncomingRentsTable
+          path="/adminDashboard/reservationList"
           :rows="9"
           :to-approve="false"
           :bookings="selectedDayBookings"

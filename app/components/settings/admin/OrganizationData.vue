@@ -8,44 +8,32 @@
     </template>
     <template #content>
       <form
-        class="grid grid-cols-1 md:grid-cols-3 gap-4"
+        class="grid grid-cols-1 md:grid-cols-2 gap-x-4 pt-4"
         @submit.prevent="onSubmit"
       >
-        <div class="flex flex-col gap-2">
-          <label
-            for="organizationName"
-            class="font-semibold"
-          >
-            {{ $t('pages.adminDashboard.settingsAdmin.sections.organization.name') }}
-          </label>
-          <InputText
-            id="organizationName"
-            v-model="name"
-            :placeholder="$t('pages.adminDashboard.settingsAdmin.sections.organization.namePlaceholder')"
-          />
-        </div>
+        <CommonFormsTextField
+          id="organizationName"
+          v-model="name"
+          :label="$t('pages.adminDashboard.settingsAdmin.sections.organization.name')"
+          :errorMessage="nameError"
+          @blur="nameBlur"
+        />
 
         <div class="flex flex-col gap-2">
-          <label
-            for="email"
-            class="font-semibold"
-          >
-            {{ $t('pages.adminDashboard.settingsAdmin.sections.organization.email') }}
-          </label>
-          <InputText
-            id="email"
+          <CommonFormsTextField
+            id="organizationEmail"
             v-model="email"
-            type="email"
-            :placeholder="$t('pages.adminDashboard.settingsAdmin.sections.organization.emailPlaceholder')"
+            :label="$t('pages.adminDashboard.settingsAdmin.sections.organization.email')"
+            :errorMessage="emailError"
+            @blur="emailBlur"
           />
         </div>
         <div class="flex justify-end col-span-full">
           <Button
             type="submit"
-            label="Zapisz zmiany"
+            :label="$t('forms.submit.saveChanges')"
             severity="success"
             icon="pi pi-check"
-            class="mt-4"
           />
         </div>
       </form>
@@ -64,6 +52,7 @@ interface IOrganizationSettings {
 }
 const { updateOrganization } = useUser()
 const toast = useToast()
+const { t } = useI18n()
 
 const { handleSubmit, resetForm } = useForm<IOrganizationSettings>({
   validationSchema: {
@@ -77,7 +66,11 @@ const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useFie
 
 const onSubmit = handleSubmit(async (formValues: IOrganizationSettings) => {
   await updateOrganization(user.value?.organization?.id, formValues)
-  toast.add({ severity: 'success', summary: 'Success', detail: 'Organization data updated successfully' })
+  toast.add({
+    severity: 'success',
+    summary: t('common.toast.success'),
+    detail: t('components.toast.details.organizationDataUpdated'),
+  })
   resetForm({
     values: formValues,
   })

@@ -7,7 +7,7 @@
 
       <div class="flex flex-col">
         <div class="w-[70vw] md:w-[23rem]">
-          <FormTextField
+          <CommonFormsTextField
             id="username"
             v-model="username"
             :label="$t('forms.fields.user.login')"
@@ -18,7 +18,7 @@
           />
         </div>
 
-        <FormPasswordField
+        <CommonFormsPasswordField
           id="password"
           v-model="password"
           :label="$t('forms.fields.user.password')"
@@ -48,8 +48,6 @@
 <script setup lang="ts">
 import { useForm, useField, defineRule } from 'vee-validate'
 import { required } from '@vee-validate/rules'
-import FormTextField from '../common/FormTextField.vue'
-import FormPasswordField from '../common/FormPasswordField.vue'
 
 defineRule('required', required)
 

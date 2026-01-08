@@ -1,5 +1,10 @@
 <template>
-  <Card class="flex flex-col gap-4 w-full">
+  <Card
+    :pt="{
+      root: { class: 'w-full' },
+      content: { class: 'flex flex-col gap-8 w-full' },
+    }"
+  >
     <template #content>
       <div
         v-for="(faq, index) in faqData"

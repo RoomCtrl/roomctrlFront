@@ -40,7 +40,7 @@
             <span class="font-semibold">
               {{ $t('pages.settings.preferences.notifications') }}
             </span>
-            <InputSwitch
+            <ToggleSwitch
               v-model="newNotifications"
               :default-value="notifications"
               @change="handleNotificationsChange"

@@ -33,7 +33,6 @@
         </h2>
       </div>
       <div class="flex items-center gap-2">
-        <!-- Rozwijana lista dla widoku dnia -->
         <SplitButton
           v-if="viewMode === 'day'"
           :model="[
@@ -89,11 +88,9 @@
           severity="info"
           variant="outlined"
         />
-        <Button
-          severity="success"
-          :label="$t('common.buttons.add')"
-          icon="pi pi-plus"
-          @click="$emit('addBooking')"
+        <RentButton
+          buttonIcon="pi pi-plus"
+          :buttonLabel="$t('common.buttons.add')"
         />
       </div>
     </div>
@@ -101,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import RentButton from '~/components/booking/RentButton.vue'
 import { dayOfWeekFullNames, monthNamesShort } from '~/utils/dateHelpers'
 
 const props = defineProps<{
@@ -133,7 +130,6 @@ const formattedDate = computed(() => {
     return `${monthString} ${props.currentDate.getFullYear()}`
   }
 
-  // Widok tygodniowy
   const start = props.weekDays[0]
   const end = props.weekDays[6]
   if (start != null && end != null) {

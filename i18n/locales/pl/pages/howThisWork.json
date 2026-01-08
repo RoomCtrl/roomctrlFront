@@ -1,15 +1,219 @@
 {
   "title": "Jak działa nasza platforma ?",
+  "subtitle": "Poznaj kroki niezbędne do zalogowania się i pełnego korzystania z platformy RoomCtrl",
   "instructions": {
     "login": {
-      "title": "Szybka instrukcja logowania",
-      "steps": {
-        "stepOne": "Administrator tworzy konto i przekazuje login oraz tymczasowe hasło.",
-        "stepTwo": "Wejdź na stronę logowania i wpisz otrzymane dane.",
-        "stepThree": "Kliknij „Zaloguj się”.",
-        "stepFour": "Przy pierwszym logowaniu zmień hasło na własne.",
-        "stepFive": "Po zmianie hasła możesz korzystać z systemu i rezerwować sale."
+      "title": "Logowanie",
+      "goToLoginPage": {
+        "title": "Przejdź do strony logowania",
+        "description": "Otwórz aplikację RoomCtrl i kliknij przycisk \"Loguj się\" na stronie głównej.",
+        "steps": {
+          "stepOne": "Przycisk znajduje się w prawym górnym rogu",
+          "stepTwo": "Możesz również kliknąć \"Zaloguj się\" w menu nawigacyjnym"
+        }
+      },
+      "enterCredentials": {
+        "title": "Wprowadź swoje dane",
+        "description": "Wprowadź swoją nazwę użytkownika lub adres email oraz hasło.",
+        "steps": {
+          "stepOne": "Email musi być prawidłowy",
+          "stepTwo": "Hasło jest wrażliwe na wielkość liter",
+          "stepThree": "Nie zapisuj hasła w przeglądarce"
+        }
+      },
+      "loginFinish": {
+        "title": "Logowanie zakończone!",
+        "description": "Zostałeś zalogowany i masz dostęp do pełnej aplikacji.",
+        "steps": {
+          "stepOne": "Będziesz mieć dostęp do rezerwacji sal",
+          "stepTwo": "Możesz przeglądać harmonogram",
+          "stepThree": "Twój profil jest teraz aktywny"
+        }
+      },
+      "securityTips": {
+        "title": "Wskazówki dotyczące bezpieczeństwa",
+        "tipOne": "Zawsze używaj bezpiecznego hasła (min. 8 znaków)",
+        "tipTwo": "Nigdy nie udostępniaj swojego loginu innym osobom",
+        "tipThree": "Jeśli zapomnisz hasła, skontaktuj się z administratorem"
       }
+    },
+    "registration": {
+      "title": "Rejestracja",
+      "goToRegistrationPage": {
+        "title": "Przejdź do rejestracji",
+        "description": "Kliknij link \"Zarejestruj się\" na stronie logowania lub na stronie głównej.",
+        "steps": {
+          "stepOne": "Link znajduje się pod formularzem logowania",
+          "stepTwo": "Możesz też znaleźć go w stopce strony",
+          "stepThree": "Rejestracja jest bezpłatna"
+        }
+      },
+      "fillRegistrationForm": {
+        "title": "Wypełnij formularz",
+        "description": "Wprowadź swoje dane osobowe oraz informacje kontaktowe.",
+        "steps": {
+          "stepOne": "Imię i nazwisko powinny być prawdziwe",
+          "stepTwo": "Email musi być aktywny i unikalny",
+          "stepThree": "Numer telefonu jest opcjonalny"
+        }
+      },
+      "setPassword": {
+        "title": "Ustaw hasło",
+        "description": "Utwórz silne hasło dla bezpieczeństwa swojego konta.",
+        "steps": {
+          "stepOne": "Minimum 8 znaków",
+          "stepTwo": "Co najmniej jedna wielka litera",
+          "stepThree": "Przynajmniej jedna cyfra"
+        }
+      },
+      "ready": {
+        "title": "Gotowe!",
+        "description": "Twoje konto jest aktywne. Możesz teraz w pełni korzystać z aplikacji.",
+        "steps": {
+          "stepOne": "Przejdź do logowania z nowych danych",
+          "stepTwo": "Uzupełnij swój profil",
+          "stepThree": "Zarezerwuj swoją pierwszą salę!"
+        }
+      },
+      "registrationRequirements": {
+        "title": "Wymagania rejestracji",
+        "name": "Imię i nazwisko: ",
+        "nameRequirement": "Twoje pełne dane",
+        "email": "Email: ",
+        "emailRequirement": "Musí być prawidłowy",
+        "password": "Hasło: ",
+        "passwordRequirement": "Min. 8 znaków, 1 wielka litera "
+      }
+    },
+    "functions": {
+      "title": "Funkcje",
+      "bookingRooms": {
+        "title": "Rezerwacja sal",
+        "description": "Łatwa rezerwacja dostępnych sal konferencyjnych",
+        "steps": {
+          "stepOne": "Widok kalendarza w czasie rzeczywistym",
+          "stepTwo": "Filtrowanie po parametrach",
+          "stepThree": "Automatyczne powiadomienia"
+        }
+      },
+      "advancedSearch": {
+        "title": "Zaawansowane wyszukiwanie",
+        "description": "Znajdź idealną salę według Twoich kryteriów",
+        "steps": {
+          "stepOne": "Filtr po pojemności",
+          "stepTwo": "Filtr po wyposażeniu",
+          "stepThree": " Sortowanie po lokalizacji"
+        }
+      },
+      "teamManagement": {
+        "title": "Zarządzanie zespołem",
+        "description": "Współpraca z innymi członkami zespołu",
+        "steps": {
+          "stepOne": "Zapraszanie uczestników",
+          "stepTwo": "Udostępnianie rezerwacji",
+          "stepThree": "Historia spotkań"
+        }
+      },
+      "notifications": {
+        "title": "Powiadomienia",
+        "description": "Będź informowany o ważnych wydarzeniach",
+        "steps": {
+          "stepOne": "Przypomnienia przed spotkaniem",
+          "stepTwo": "Aktualizacje dostępności",
+          "stepThree": "Zmiany w rezerwacjach"
+        }
+      },
+      "security": {
+        "title": "Bezpieczeństwo",
+        "description": "Ochrona Twoich danych i prywatności",
+        "steps": {
+          "stepOne": "Szyfrowanie danych",
+          "stepTwo": "Regularne aktualizacje bezpieczeństwa",
+          "stepThree": "Kontrola dostępu"
+        }
+      },
+      "mobileApp": {
+        "title": "Aplikacja mobilna",
+        "description": "Dostęp do aplikacji na dowolnym urządzeniu",
+        "steps": {
+          "stepOne": "Dostęp na iOS i Android",
+          "stepTwo": "Synchronizacja w czasie rzeczywistym",
+          "stepThree": "Powiadomienia push"
+        }
+      }
+    },
+    "workflow": {
+      "title": "Przepływ użytkownika w aplikacji",
+      "steps": {
+        "registration": {
+          "label": "Rejestracja",
+          "description": "Utwórz konto"
+        },
+        "browsing": {
+          "label": "Przeglądanie",
+          "description": "Odkryj dostępne sale"
+        },
+        "booking": {
+          "label": "Rezerwacja",
+          "description": "Zarezerwuj salę"
+        },
+        "confirmation": {
+          "label": "Potwierdzenie",
+          "description": "Otrzymaj potwierdzenie"
+        },
+        "meeting": {
+          "label": "Spotykanie się",
+          "description": "Ciesz się spotkaniem"
+        }
+      }
+    },
+    "benefits": {
+      "title": "Główne zalety",
+      "items": {
+        "timeSaving": {
+          "title": "Oszczędność czasu",
+          "description": "Nie szukaj już sal ręcznie - wszystko w jednym miejscu"
+        },
+        "transparency": {
+          "title": "Pełna transparentność",
+          "description": "Widzisz dokładnie co jest dostępne i kiedy"
+        },
+        "planning": {
+          "title": "Lepsze planowanie",
+          "description": "Organizuj spotkania i rezerwuj miejsca z wyprzedzeniem"
+        },
+        "collaboration": {
+          "title": "Efektywna współpraca",
+          "description": "Całe zespoły mogą pracować razem i dzielić się informacjami"
+        }
+      }
+    },
+    "statistics": {
+      "title": "Liczby na koniec",
+      "items": {
+        "rooms": {
+          "label": "Sal dostępnych",
+          "value": "50+"
+        },
+        "dailyBookings": {
+          "label": "Rezerwacji dziennie",
+          "value": "200+"
+        },
+        "activeUsers": {
+          "label": "Użytkowników aktywnych",
+          "value": "500+"
+        },
+        "satisfaction": {
+          "label": "Zadowolenie użytkowników",
+          "value": "98%"
+        }
+      }
+    },
+    "cta": {
+      "title": "Gotów do rozpoczęcia?",
+      "subtitle": "Załóż konto i zarezerwuj swoją pierwszą salę już dzisiaj!",
+      "loginButton": "Zaloguj się",
+      "registerButton": "Zarejestruj się"
     }
   }
 }

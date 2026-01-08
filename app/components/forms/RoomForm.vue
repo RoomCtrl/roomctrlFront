@@ -1,10 +1,10 @@
 <template>
   <form
-    class="grid grid-cols-4 w-full gap-y-6 gap-x-4 pt-4"
+    class="grid grid-cols-4 w-full gap-x-4 pt-4"
     @submit.prevent="addRoomSubmit"
   >
     <div class="col-span-2">
-      <FormTextField
+      <CommonFormsTextField
         id="roomName"
         v-model="roomName"
         :label="$t('forms.fields.room.name')"
@@ -14,7 +14,7 @@
     </div>
 
     <div>
-      <FormTextField
+      <CommonFormsTextField
         id="location"
         v-model="location"
         :label="$t('forms.fields.room.location')"
@@ -24,7 +24,7 @@
     </div>
 
     <div>
-      <FormSelectField
+      <CommonFormsSelectField
         id="status"
         v-model="status"
         :options="statusOptions"
@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-span-1">
-      <FormNumberField
+      <CommonFormsNumberField
         id="capacity"
         v-model="capacity"
         :label="$t('forms.fields.room.capacity')"
@@ -45,7 +45,7 @@
     </div>
 
     <div>
-      <FormNumberField
+      <CommonFormsNumberField
         id="size"
         v-model="size"
         :label="$t('forms.fields.room.size')"
@@ -55,7 +55,7 @@
     </div>
 
     <div>
-      <FormTextField
+      <CommonFormsTextField
         id="access"
         v-model="access"
         :label="$t('forms.fields.room.access')"
@@ -65,7 +65,7 @@
     </div>
 
     <div>
-      <FormTextField
+      <CommonFormsTextField
         id="lighting"
         v-model="lighting"
         :label="$t('forms.fields.room.lighting')"
@@ -75,7 +75,7 @@
     </div>
 
     <div class="col-span-2">
-      <FormTextArea
+      <CommonFormsTextArea
         id="description"
         v-model="description"
         :label="$t('forms.fields.description')"
@@ -90,7 +90,7 @@
       </label>
       <div class="flex gap-2">
         <div class="w-full">
-          <FormNumberField
+          <CommonFormsNumberField
             id="airConditioningMin"
             v-model="airConditioningMin"
             label="Min"
@@ -99,7 +99,7 @@
           />
         </div>
         <div class="w-full">
-          <FormNumberField
+          <CommonFormsNumberField
             id="airConditioningMax"
             v-model="airConditioningMax"
             label="Max"
@@ -135,7 +135,7 @@
         >
           <div class="flex-1 space-y-2">
             <div class="w-full">
-              <FormTextField
+              <CommonFormsTextField
                 :id="`equipment-name-${index}`"
                 v-model="item.name"
                 :label="$t('forms.fields.room.equipment.name')"
@@ -143,7 +143,7 @@
             </div>
             <div class="flex gap-2">
               <div class="flex-1">
-                <FormSelectField
+                <CommonFormsSelectField
                   :id="`equipment-category-${index}`"
                   v-model="item.category"
                   :label="$t('forms.fields.room.equipment.category')"
@@ -151,12 +151,12 @@
                 />
               </div>
               <div class="w-full">
-                <FormNumberField
+                <CommonFormsNumberField
                   :id="`equipment-quantity-${index}`"
                   v-model="item.quantity"
                   :label="$t('forms.fields.room.equipment.quantity')"
                   :min="1"
-                  :placeholder="$t('forms.roomForm.placeholders.equipmentQuantity')"
+                  :max="1000"
                 />
               </div>
             </div>
@@ -191,6 +191,7 @@
       <Button
         type="submit"
         :label="$t('forms.roomForm.buttons.create')"
+        :loading="loading"
         severity="success"
         variant="outlined"
       />
@@ -200,13 +201,9 @@
 
 <script setup lang="ts">
 import type { IRoomCreateRequest, IRoomEqupiment } from '~/interfaces/RoomsIntefaces'
-import FormTextField from '../common/FormTextField.vue'
 import { useField, useForm } from 'vee-validate'
-import FormNumberField from '../common/FormNumberField.vue'
-import FormTextArea from '../common/FormTextArea.vue'
-import FormSelectField from '../common/FormSelectField.vue'
 
-const { createRoom } = useRoom()
+const { createRoom, loading } = useRoom()
 const { user } = useAuth()
 const { t } = useI18n()
 const confirm = useConfirm()
@@ -214,11 +211,16 @@ const toast = useToast()
 
 const { handleSubmit, resetForm } = useForm<IRoomCreateRequest>({
   validationSchema: {
-    roomName: 'required|min:3',
-    capacity: 'required|integer|min:1|max:200',
-    size: 'required',
-    location: 'required',
-    access: 'required',
+    roomName: 'required|min:3|max:255',
+    status: 'required',
+    capacity: 'required|integer|min_value:1|max_value:200',
+    size: 'required|min_value:1|max_value:1000',
+    location: 'required|min:3|max:255',
+    access: 'required|max:100',
+    lighting: 'max:100',
+    description: 'min:10|max:2000',
+    airConditioningMin: 'min_value:16|max_value:30',
+    airConditioningMax: 'min_value:16|max_value:40',
   },
 })
 
@@ -237,7 +239,7 @@ const { value: description, errorMessage: descriptionError, handleBlur: descript
 const { value: lighting, errorMessage: lightingError, handleBlur: lightingBlur } = useField<string>('lighting')
 const { value: airConditioningMin, errorMessage: airConditioningMinError, handleBlur: airConditioningMinBlur } = useField<number>('airConditioningMin')
 const { value: airConditioningMax, errorMessage: airConditioningMaxError, handleBlur: airConditioningMaxBlur } = useField<number>('airConditioningMax')
-const { value: equipment, errorMessage: equipmentError, handleBlur: equipmentBlur } = useField<IRoomEqupiment[]>('equipment', undefined, {
+const { value: equipment } = useField<IRoomEqupiment[]>('equipment', undefined, {
   initialValue: [],
 })
 const emit = defineEmits<{
@@ -257,13 +259,19 @@ const addRoomSubmit = handleSubmit(async (formValues: IRoomCreateRequest) => {
 
     await createRoom(formValues)
     resetForm()
-  }
-  finally {
-    emit('cancel')
     toast.add({
       severity: 'success',
       summary: t('common.toast.success'),
-      detail: t('forms.roomForm.messages.roomCreated'),
+      detail: t('toast.messages.success.roomAdded'),
+      life: 3000,
+    })
+    emit('cancel')
+  }
+  catch (err: any) {
+    toast.add({
+      severity: 'error',
+      summary: t('common.toast.error'),
+      detail: error.message || t('forms.roomForm.messages.errorCreatingRoom'),
       life: 3000,
     })
   }

@@ -1,7 +1,25 @@
 {
-  "success": "Sukces",
-  "error": "Błąd",
+  "summary": {
+    "codeSent": "Wysłano",
+    "changeSuccess": "Zmieniono pomyślnie",
+    "error": "Błąd",
+    "registrationError": "Błąd rejestracji",
+    "success": "Sukces"
+  },
+
   "messages": {
+    "success": {
+      "registration": "Rejestracja przebiegła pomyślnie! Możesz się teraz zalogować.",
+      "profileUpdated": "Profil został pomyślnie zaktualizowany",
+      "passwordChanged": "Hasło zostało zmienione pomyślnie",
+      "roomAdded": "Sala została dodana pomyślnie",
+      "roomUpdated": "Sala została zaktualizowana pomyślnie"
+    },
+    "error": {
+      "registration": "Nie udało się zarejestrować. Spróbuj ponownie.",
+      "profileUpdateFailed": "Nie udało się zaktualizować profilu",
+      "passwordChangeFailed": "Nie udało się zmienić hasła"
+    },
     "copied": "Skopiowano!",
     "passwordResetCodeSent": "Token resetujący został wysłany na podany adres email",
     "passwordResetSuccess": "Hasło zostało pomyślnie zresetowane",
@@ -9,13 +27,14 @@
     "passwordResetFailed": "Nie udało się zresetować hasła",
     "passwordsDoNotMatch": "Hasła nie są identyczne"
   },
-  "summary": {
-    "codeSent": "Wysłano",
-    "changeSuccess": "Zmieniono pomyślnie"
-  },
   "details": {
     "checkEmail": "Sprawdź swoją skrzynkę odbiorczą, aby znaleźć token resetujący hasło.",
     "offNotifications": "Powiadomienia zostały wyłączone",
-    "onNotifications": "Powiadomienia zostały włączone"
+    "onNotifications": "Powiadomienia zostały włączone",
+    "organizationDataUpdated": "Dane organizacji zostały zaktualizowane",
+    "savedWorkTime": {
+      "cleaning": "Zapisano czas sprzątania",
+      "maintenance": "Zapisano czas konserwacji"
+    }
   }
 }

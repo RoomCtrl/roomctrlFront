@@ -35,6 +35,11 @@
     "noNotes": "Brak notatek",
     "addNote": "Dodaj  notatkę",
     "startRepair": "Rozpocznij naprawę",
-    "closeIssue": "Zamknij zgłoeszenie"
+    "closeIssue": "Zamknij zgłoeszenie",
+    "actions": {
+      "created": "Utworzono zgłoszenie",
+      "status_changed": "Zmieniono status",
+      "closed": "Zamknięto zgłoszenie"
+    }
   }
 }

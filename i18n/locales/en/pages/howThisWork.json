@@ -1,15 +1,219 @@
 {
   "title": "How does our platform work?",
+  "subtitle": "Learn the steps required to log in and fully use the RoomCtrl platform",
   "instructions": {
     "login": {
-      "title": "Quick login guide",
-      "steps": {
-        "stepOne": "The administrator creates an account and provides the login and a temporary password.",
-        "stepTwo": "Go to the login page and enter the provided credentials.",
-        "stepThree": "Click 'Log In'.",
-        "stepFour": "On your first login, change the password to your own.",
-        "stepFive": "After changing the password, you can use the system and book rooms."
+      "title": "Login",
+      "goToLoginPage": {
+        "title": "Go to the login page",
+        "description": "Open the RoomCtrl application and click the \"Log in\" button on the home page.",
+        "steps": {
+          "stepOne": "The button is located in the top-right corner",
+          "stepTwo": "You can also click \"Log in\" in the navigation menu"
+        }
+      },
+      "enterCredentials": {
+        "title": "Enter your details",
+        "description": "Enter your username or email address and password.",
+        "steps": {
+          "stepOne": "The email must be valid",
+          "stepTwo": "The password is case-sensitive",
+          "stepThree": "Do not save your password in the browser"
+        }
+      },
+      "loginFinish": {
+        "title": "Login successful!",
+        "description": "You are now logged in and have access to the full application.",
+        "steps": {
+          "stepOne": "You will have access to room bookings",
+          "stepTwo": "You can browse the schedule",
+          "stepThree": "Your profile is now active"
+        }
+      },
+      "securityTips": {
+        "title": "Security tips",
+        "tipOne": "Always use a secure password (minimum 8 characters)",
+        "tipTwo": "Never share your login details with others",
+        "tipThree": "If you forget your password, contact the administrator"
       }
+    },
+    "registration": {
+      "title": "Registration",
+      "goToRegistrationPage": {
+        "title": "Go to registration",
+        "description": "Click the \"Sign up\" link on the login page or the home page.",
+        "steps": {
+          "stepOne": "The link is located below the login form",
+          "stepTwo": "You can also find it in the page footer",
+          "stepThree": "Registration is free"
+        }
+      },
+      "fillRegistrationForm": {
+        "title": "Fill out the form",
+        "description": "Enter your personal details and contact information.",
+        "steps": {
+          "stepOne": "First and last name should be real",
+          "stepTwo": "Email must be active and unique",
+          "stepThree": "Phone number is optional"
+        }
+      },
+      "setPassword": {
+        "title": "Set a password",
+        "description": "Create a strong password to keep your account secure.",
+        "steps": {
+          "stepOne": "Minimum 8 characters",
+          "stepTwo": "At least one uppercase letter",
+          "stepThree": "At least one digit"
+        }
+      },
+      "ready": {
+        "title": "Done!",
+        "description": "Your account is active. You can now fully use the application.",
+        "steps": {
+          "stepOne": "Go to login using your new credentials",
+          "stepTwo": "Complete your profile",
+          "stepThree": "Book your first room!"
+        }
+      },
+      "registrationRequirements": {
+        "title": "Registration requirements",
+        "name": "First and last name: ",
+        "nameRequirement": "Your full details",
+        "email": "Email: ",
+        "emailRequirement": "Must be valid",
+        "password": "Password: ",
+        "passwordRequirement": "Min. 8 characters, 1 uppercase letter"
+      }
+    },
+    "functions": {
+      "title": "Features",
+      "bookingRooms": {
+        "title": "Room booking",
+        "description": "Easy booking of available conference rooms",
+        "steps": {
+          "stepOne": "Real-time calendar view",
+          "stepTwo": "Filtering by parameters",
+          "stepThree": "Automatic notifications"
+        }
+      },
+      "advancedSearch": {
+        "title": "Advanced search",
+        "description": "Find the perfect room based on your criteria",
+        "steps": {
+          "stepOne": "Filter by capacity",
+          "stepTwo": "Filter by equipment",
+          "stepThree": "Sorting by location"
+        }
+      },
+      "teamManagement": {
+        "title": "Team management",
+        "description": "Collaboration with other team members",
+        "steps": {
+          "stepOne": "Inviting participants",
+          "stepTwo": "Sharing bookings",
+          "stepThree": "Meeting history"
+        }
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "Stay informed about important events",
+        "steps": {
+          "stepOne": "Pre-meeting reminders",
+          "stepTwo": "Availability updates",
+          "stepThree": "Changes to bookings"
+        }
+      },
+      "security": {
+        "title": "Security",
+        "description": "Protection of your data and privacy",
+        "steps": {
+          "stepOne": "Data encryption",
+          "stepTwo": "Regular security updates",
+          "stepThree": "Access control"
+        }
+      },
+      "mobileApp": {
+        "title": "Mobile app",
+        "description": "Access the application on any device",
+        "steps": {
+          "stepOne": "Available on iOS and Android",
+          "stepTwo": "Real-time synchronization",
+          "stepThree": "Push notifications"
+        }
+      }
+    },
+    "workflow": {
+      "title": "User flow in the application",
+      "steps": {
+        "registration": {
+          "label": "Registration",
+          "description": "Create an account"
+        },
+        "browsing": {
+          "label": "Browsing",
+          "description": "Discover available rooms"
+        },
+        "booking": {
+          "label": "Booking",
+          "description": "Reserve a room"
+        },
+        "confirmation": {
+          "label": "Confirmation",
+          "description": "Get confirmation"
+        },
+        "meeting": {
+          "label": "Meeting",
+          "description": "Enjoy your meeting"
+        }
+      }
+    },
+    "benefits": {
+      "title": "Main benefits",
+      "items": {
+        "timeSaving": {
+          "title": "Time saving",
+          "description": "No more manual room searching - everything in one place"
+        },
+        "transparency": {
+          "title": "Full transparency",
+          "description": "See exactly what's available and when"
+        },
+        "planning": {
+          "title": "Better planning",
+          "description": "Organize meetings and reserve spaces in advance"
+        },
+        "collaboration": {
+          "title": "Efficient collaboration",
+          "description": "Entire teams can work together and share information"
+        }
+      }
+    },
+    "statistics": {
+      "title": "Numbers to finish",
+      "items": {
+        "rooms": {
+          "label": "Available rooms",
+          "value": "50+"
+        },
+        "dailyBookings": {
+          "label": "Daily bookings",
+          "value": "200+"
+        },
+        "activeUsers": {
+          "label": "Active users",
+          "value": "500+"
+        },
+        "satisfaction": {
+          "label": "User satisfaction",
+          "value": "98%"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Create an account and book your first room today!",
+      "loginButton": "Log in",
+      "registerButton": "Sign up"
     }
   }
 }
