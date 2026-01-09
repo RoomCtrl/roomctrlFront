@@ -50,6 +50,7 @@
         key="roomName"
         field="roomName"
         :header="$t('tables.headers.roomName')"
+        filterField="roomName"
         filter
         sortable
         style="width: 25%"
@@ -267,6 +268,7 @@ const bookingsWithTimeFields = computed(() => {
   if (!bookings.value) return []
   return bookings.value.map(booking => ({
     ...booking,
+    roomName: booking.room?.roomName || '',
     startedAt: parseLocalDate(booking.startedAt),
     endedAt: parseLocalDate(booking.endedAt),
     startedAtTime: parseLocalDate(booking.startedAt),

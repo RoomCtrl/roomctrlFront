@@ -45,13 +45,11 @@
     <UserHeaderOptions
       :dark-mode="darkMode"
     />
-    <ClientOnly>
-      <div
-        class="block xl:hidden"
-      >
-        <MobileHeader :tabs="tabs" />
-      </div>
-    </ClientOnly>
+    <div
+      class="block xl:hidden"
+    >
+      <MobileHeader :tabs="tabs" />
+    </div>
   </div>
 </template>
 

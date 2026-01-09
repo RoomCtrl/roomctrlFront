@@ -1,0 +1,12 @@
+{
+  "errors": {
+    "IncorrectServerResponse": "Incorrect server response"
+  },
+  "AuthService": {
+    "errors": {
+      "login": "Unexpected error during login",
+      "refreshUserToken": "Failed to refresh token",
+      "errorWhileRefreshToken": "Error while refreshing token"
+    }
+  }
+}

@@ -20,6 +20,10 @@
   "reported": "Zgłosił: ",
   "empty": "Brak zgłoszeń pasujących do wybranych filtrów",
   "notFoundIssues": "Nie znaleziono zgłoszeń",
+  "sort": {
+    "priorityDesc": "Ważność od najważniejszych",
+    "priorityAsc": "Ważność od najmniej ważnych"
+  },
   "modal": {
     "title": "Szczegóły zgłoszenia #{issueNumber}",
     "status": "Status",

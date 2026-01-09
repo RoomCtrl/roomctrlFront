@@ -52,10 +52,6 @@ const buttonStyle = computed(() => {
   return props.inTable ? '--p-button-padding-y: 2px; --p-button-padding-x: 0px' : ''
 })
 
-const deleteMessage = () => {
-  console.log('Usunieto')
-}
-
 const handleGoRoom = () => {
   navigateTo('/rooms/' + props.roomId)
 }

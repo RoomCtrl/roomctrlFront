@@ -122,8 +122,16 @@ import { useField, useForm } from 'vee-validate'
 const props = defineProps<{
   visible: boolean
   providedRoomId?: string
-  capacity?: number
 }>()
+
+const { t } = useI18n()
+const toast = useToast()
+const { createBooking, loading } = useBooking()
+const { rooms, fetchRooms, room, fetchRoom } = useRoom()
+const { users, fetchUsers } = useUser()
+const { user, isAdmin } = useAuth()
+
+const maxCapacity = ref(room.value ? room.value.capacity : 10)
 
 const { handleSubmit, resetForm } = useForm<IBookingCreateRequest>({
   validationSchema: {
@@ -131,7 +139,7 @@ const { handleSubmit, resetForm } = useForm<IBookingCreateRequest>({
     roomId: 'required',
     startedAt: 'required',
     endedAt: 'required',
-    participantsCount: 'required|min_value:1|max_value:' + (props.capacity),
+    participantsCount: 'required|min_value:1|max_value:' + (room.value.capacity),
   },
   initialValues: {
     roomId: props.providedRoomId || '',
@@ -142,7 +150,7 @@ const { value: title, errorMessage: titleError, handleBlur: titleBlur } = useFie
 const { value: roomId, errorMessage: roomIdError, handleBlur: roomIdBlur } = useField<string>('roomId')
 const { value: startedAt, errorMessage: startedAtError, handleBlur: startedAtBlur } = useField<Date>('startedAt')
 const { value: endedAt, errorMessage: endedAtError, handleBlur: endedAtBlur } = useField<Date>('endedAt')
-const { value: participantsCount, errorMessage: participantsCountError, handleBlur: participantsCountBlur } = useField<number>('participantsCount')
+const { value: participantsCount, errorMessage: participantsCountError, handleBlur: participantsCountBlur, setErrors: setParticipantsCountErrors } = useField<number>('participantsCount')
 const { value: participantIds, errorMessage: participantIdsError, handleBlur: participantIdsBlur } = useField<string[]>('participantIds')
 const { value: isPrivate } = useField<boolean>('isPrivate')
 
@@ -151,13 +159,6 @@ const emit = defineEmits<{
   cancel: []
   close: []
 }>()
-
-const { t } = useI18n()
-const toast = useToast()
-const { createBooking, loading } = useBooking()
-const { rooms, fetchRooms } = useRoom()
-const { users, fetchUsers } = useUser()
-const { user, isAdmin } = useAuth()
 
 const availableUsers = computed(() => {
   if (!users.value || !Array.isArray(users.value)) {
@@ -242,6 +243,48 @@ const handleCancel = () => {
   emit('cancel')
   emit('close')
 }
+
+watch(() => participantIds.value, (newParticipantIds) => {
+  if (newParticipantIds && newParticipantIds.length > 0) {
+    if (newParticipantIds.length > participantsCount.value) {
+      participantsCount.value = newParticipantIds.length
+    }
+  }
+})
+
+watch(() => roomId.value, async (newRoomId) => {
+  if (newRoomId) {
+    await fetchRoom(newRoomId)
+    if (room.value && room.value.capacity) {
+      maxCapacity.value = room.value.capacity
+
+      if (participantsCount.value > maxCapacity.value) {
+        const errorMsg = t('forms.fieldMessages.error.maxValue', {
+          fieldName: t('forms.fields.booking.participantsCount'),
+          length: maxCapacity.value,
+        })
+        setParticipantsCountErrors(errorMsg)
+      }
+    }
+  }
+})
+
+watch(() => participantsCount.value, (newCount) => {
+  if (newCount > maxCapacity.value) {
+    const errorMsg = t('forms.fieldMessages.error.maxValue', {
+      fieldName: t('forms.fields.booking.participantsCount'),
+      length: maxCapacity.value,
+    })
+    setParticipantsCountErrors(errorMsg)
+  }
+  else if (newCount < 1) {
+    const errorMsg = t('forms.fieldMessages.error.minValue', {
+      fieldName: t('forms.fields.booking.participantsCount'),
+      length: 1,
+    })
+    setParticipantsCountErrors(errorMsg)
+  }
+})
 
 onMounted(async () => {
   if (!props.providedRoomId) {

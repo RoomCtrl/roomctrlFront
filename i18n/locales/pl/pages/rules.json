@@ -67,7 +67,7 @@
   },
   "changes": {
     "title": "Zmiany regulaminu",
-    "list:": {
+    "list": {
       "1": "Administrator Serwisu zastrzega sobie prawo do zmiany Regulaminu w dowolnym momencie.",
       "2": "Zmiany wchodzą w życie w momencie opublikowania ich na stronie Serwisu.",
       "3": "Dalsze korzystanie z Serwisu oznacza akceptację nowego Regulaminu."
@@ -75,7 +75,7 @@
   },
   "contact": {
     "title": "Kontakt",
-    "list:": {
+    "list": {
       "1": "W sprawach dotyczących Regulaminu prosimy o kontakt:",
       "2": "{'roomctrlinfo@gmail.com'}"
     }

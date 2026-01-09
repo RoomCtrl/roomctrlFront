@@ -2,6 +2,7 @@
   <Column
     :field="field"
     :header="header"
+    :filterField="filterField"
     :sortable="sortable"
     :showFilterMenu="showFilterMenu"
   >
@@ -32,6 +33,7 @@ withDefaults(
   defineProps<{
     field: string
     header: string
+    filterField?: string
     noData?: string
     sortable?: boolean
     filter?: boolean

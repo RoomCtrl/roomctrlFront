@@ -1,8 +1,9 @@
 <template>
   <Button
-    v-tooltip.left="{ value: $t('pages.adminDashboard.users.buttons.tooltip.delete') }"
+    v-tooltip.left="{ value: $t('pages.adminDashboard.users.buttons.tooltip.delete'), disabled: user.id === userId }"
     pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
     severity="danger"
+    :disabled="user.id === userId"
     variant="outlined"
     icon="pi pi-user-minus"
     @click="handleDeleteUser()"
@@ -17,6 +18,7 @@ const props = defineProps<{
 const confirm = useConfirm()
 const { t } = useI18n()
 const toast = useToast()
+const { user } = useAuth()
 const { deleteUser } = useUser()
 
 const handleDeleteUser = () => {
@@ -27,7 +29,7 @@ const handleDeleteUser = () => {
     rejectLabel: t('common.buttons.cancel'),
     rejectProps: {
       label: t('common.buttons.cancel'),
-      severity: 'secondary',
+      severity: 'contrast',
       outlined: true,
     },
     acceptProps: {
@@ -39,15 +41,15 @@ const handleDeleteUser = () => {
         await deleteUser(props.userId)
         toast.add({
           severity: 'success',
-          summary: t('common.toast.success'),
+          summary: t('toast.summary.success'),
           detail: t('common.toast.userDeleted'),
           life: 3000,
         })
       }
-      catch (error) {
+      catch (err) {
         toast.add({
           severity: 'error',
-          summary: t('common.error'),
+          summary: t('toast.summary.error'),
           detail: t('common.toast.userDeleteError'),
           life: 3000,
         })

@@ -1,6 +1,6 @@
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
 import type { IOrganization } from '~/interfaces/OrganizationInterfaces'
-import type { IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
+import type { IUpdateUserProfileForm, IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
 import { UserService } from '~/services/UserService'
 
 export const useUser = () => {
@@ -102,6 +102,21 @@ export const useUser = () => {
     }
   }
 
+  const updateUserPartially = async (guid: string, updatedUser: IUpdateUserProfileForm) => {
+    loading.value = true
+    error.value = null
+    try {
+      await userService.updateUserPartially(guid, updatedUser)
+    }
+    catch (err: any) {
+      error.value = formatError(err)
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
   const fetchUserNotifications = async () => {
     loading.value = true
     error.value = null
@@ -157,6 +172,7 @@ export const useUser = () => {
     updateUser,
     updateUserNotifications,
     updateOrganization,
+    updateUserPartially,
 
     loading,
     error,

@@ -138,7 +138,6 @@ const submitForm = handleSubmit(async (formValues: IAddUserForm) => {
     emit('updateVisible', false)
   }
   catch (err: any) {
-    console.log(error.value)
     const errorMessage = error.value || err?.message || t('toast.error')
     toast.add({
       severity: 'error',

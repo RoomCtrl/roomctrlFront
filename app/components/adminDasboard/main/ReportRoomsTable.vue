@@ -24,6 +24,7 @@
         :pt="{
           root: { class: 'flex flex-col' },
           table: { class: tableDisplay },
+          headerRow: { class: tableHeaderDisplay },
         }"
         :value="activeIssues"
         paginator
@@ -67,7 +68,7 @@
           </template>
         </Column>
         <Column
-          style="width: 10%;"
+          style="width: 15%;"
           field="status"
           :header="$t('tables.headers.status')"
         >
@@ -88,13 +89,13 @@ const { fetchIssues, issues } = useIssue()
 
 const localePath = useLocalePath()
 
-await fetchIssues()
-
 const activeIssues = computed(() => {
   return issues.value.filter(i => !i.closedAt)
 })
 
-const { tableDisplay } = useDataTable(activeIssues, 4)
+const { tableDisplay, tableHeaderDisplay } = useDataTable(activeIssues, 4)
+
+await fetchIssues()
 
 const statusColorClass = (status: string) => {
   switch (status) {

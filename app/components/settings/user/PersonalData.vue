@@ -83,7 +83,7 @@ const toast = useToast()
 const loading = ref(false)
 const { t } = useI18n()
 const { user, fetchUserProfile } = useAuth()
-const { updateUser } = useUser()
+const { updateUserPartially } = useUser()
 
 const { handleSubmit, resetForm } = useForm<IUpdateUserProfileForm>({
   validationSchema: {
@@ -104,7 +104,7 @@ const { value: phone, errorMessage: phoneError, handleBlur: phoneBlur } = useFie
 const submitForm = handleSubmit(async (formValues: IUpdateUserProfileForm) => {
   loading.value = true
   try {
-    await updateUser(user.value.id, formValues)
+    await updateUserPartially(user.value.id, formValues)
     toast.add({
       severity: 'success',
       summary: t('toast.summary.success'),

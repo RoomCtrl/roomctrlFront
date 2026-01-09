@@ -32,8 +32,8 @@ export class UserService {
     return await this.repository.updateUser(guid, updatedUser)
   }
 
-  async updateUserProfile(guid: string, updatedProfile: IUpdateUserProfileForm) {
-    return await this.repository.updateUserProfile(guid, updatedProfile)
+  async updateUserPartially(guid: string, updatedUser: IUpdateUserProfileForm) {
+    return await this.repository.updateUserPartrially(guid, updatedUser)
   }
 
   async changePassword(guid: string, passwordData: IChangePasswordForm) {

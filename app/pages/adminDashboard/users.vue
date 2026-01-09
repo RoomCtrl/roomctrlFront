@@ -118,7 +118,6 @@ definePageMeta({
   middleware: 'admin',
   layout: 'admin-dashboard',
 })
-
 const { users, fetchUsers } = useUser()
 const { t } = useI18n()
 const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, handleUpdateRows, onFilter } = useDataTable(users, 15)

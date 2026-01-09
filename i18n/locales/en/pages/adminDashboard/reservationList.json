@@ -4,8 +4,7 @@
   "status": {
     "completed": "Completed",
     "active": "Active",
-    "cancelled": "Cancelled",
-    "completed": "Completed"
+    "cancelled": "Cancelled"
   },
   "noExistRoom": "No room exists",
   "participantsModal": {

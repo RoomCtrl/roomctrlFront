@@ -51,6 +51,17 @@ export class UserRepository {
     })
   }
 
+  async updateUserPartrially(guid: string, updatedUser: IUpdateUserProfileForm) {
+    return $fetch(`/api/users/${guid}`, {
+      method: 'PATCH',
+      body: updatedUser,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`,
+      },
+    })
+  }
+
   async deletelUser(guid: string) {
     return $fetch(`/api/users/${guid}`, {
       method: 'DELETE',
@@ -60,19 +71,8 @@ export class UserRepository {
     })
   }
 
-  async updateUserProfile(guid: string, updatedProfile: IUpdateUserProfileForm) {
-    return $fetch(`/api/v1/users/${guid}/profile`, {
-      method: 'PUT',
-      body: updatedProfile,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`,
-      },
-    })
-  }
-
   async changePassword(guid: string, passwordData: IChangePasswordForm) {
-    return $fetch(`/api/v1/users/${guid}/change-password`, {
+    return $fetch(`/api/users/${guid}/change-password`, {
       method: 'POST',
       body: passwordData,
       headers: {

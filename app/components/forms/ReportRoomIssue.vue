@@ -78,7 +78,7 @@ const props = defineProps<{
 }>()
 
 const visible = ref(false)
-const { createIssue } = useIssue()
+const { createIssue, error } = useIssue()
 const toast = useToast()
 const { t } = useI18n()
 
@@ -124,16 +124,24 @@ const submitForm = handleSubmit(async (formValues: IIssueRoomCreate) => {
   try {
     await createIssue(formValues)
     resetForm()
+    toast.add({
+      severity: 'success',
+      summary: t('toast.summary.success'),
+      detail: t('toast.messages.success.issueReported'),
+      life: 3000,
+    })
+  }
+  catch (err) {
+    toast.add({
+      severity: 'error',
+      summary: t('toast.summary.error'),
+      detail: error.value || t('toast.messages.error.issueReported'),
+      life: 3000,
+    })
   }
   finally {
     loading.value = false
     visible.value = false
-    toast.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Issue reported successfully',
-      life: 3000,
-    })
   }
 })
 </script>

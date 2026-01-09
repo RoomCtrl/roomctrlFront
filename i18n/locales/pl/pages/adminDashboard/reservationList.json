@@ -4,8 +4,7 @@
   "status": {
     "completed": "Zakończona",
     "active": "Aktywna",
-    "cancelled": "Anulowana",
-    "completed": "Zakończona"
+    "cancelled": "Anulowana"
   },
   "noExistRoom": "Sala nie istnieje",
   "participantsModal": {

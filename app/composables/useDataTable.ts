@@ -4,12 +4,19 @@ export function useDataTable<T>(data: T[] | Ref<T[]>, defaultRows = 10) {
   const rows = ref(defaultRows)
   const rowsPerPageOptions = [defaultRows, defaultRows * 2, defaultRows * 3]
 
-  const isTableEmpty = useState<boolean>(() => {
-    return dataRef.value.length === 0
-  })
+  const isTableEmpty = ref(false)
+
+  // Watch data changes to update isTableEmpty
+  watch(() => dataRef.value, (newData) => {
+    isTableEmpty.value = newData.length === 0
+  }, { immediate: true })
 
   const tableDisplay = computed(() => {
     return isTableEmpty.value ? 'flex flex-col h-full' : ''
+  })
+
+  const tableHeaderDisplay = computed(() => {
+    return isTableEmpty.value ? 'flex flex-row' : ''
   })
 
   const paginatorPosition = computed(() => {
@@ -29,6 +36,7 @@ export function useDataTable<T>(data: T[] | Ref<T[]>, defaultRows = 10) {
     rows,
     rowsPerPageOptions,
 
+    tableHeaderDisplay,
     tableDisplay,
     paginatorPosition,
 

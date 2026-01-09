@@ -2,6 +2,8 @@
   <Card
     v-for="(data, index) in infoSectionContent"
     :key="index"
+    pt:body:class="items-center"
+    pt:content:class="w-[60rem]"
     class="flex flex-col my-[2vh] lg:my-[8vh] py-[2vh]"
   >
     <template #content>
@@ -15,7 +17,7 @@
         <div
           v-for="(content, subIndex) in data.contentWithoutList"
           :key="subIndex"
-          class="text-center max-sm:text-sm lg:px-[4vw]"
+          class="max-sm:text-sm text-center"
         >
           {{ $t(content) }}
         </div>
@@ -23,11 +25,11 @@
       <div
         v-for="(content, subIndex) in data.content"
         :key="subIndex"
-        class="flex flex-row justify-center"
+        class="flex flex-row"
       >
         <ul
           v-if="content.list"
-          class="px-[5vw] lg:px-[2vw]"
+          class="px-[2rem]"
           :class="{ 'list-decimal': numberedSubList,
                     'list-disc': !numberedSubList }"
         >

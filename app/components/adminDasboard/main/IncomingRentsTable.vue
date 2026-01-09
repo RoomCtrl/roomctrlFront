@@ -95,13 +95,17 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   rows: number
   header?: string
   bookings?: any[]
   path: string
 }>()
+
 const localePath = useLocalePath()
+
+const bookingsRef = computed(() => props.bookings || [])
+const { tableDisplay } = useDataTable(bookingsRef, props.rows)
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString)

@@ -34,7 +34,13 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "role": "Role",
-    "closedAt": "Closed"
+    "closedAt": "Closed",
+    "access": "Access",
+    "lighting": "Lighting"
+  },
+  "noData": {
+    "lighting": "No data on lighting",
+    "access": "No data on access"
   },
   "buttonTooltips": {
     "goToRoom": "Go to room",

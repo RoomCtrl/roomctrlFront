@@ -3,8 +3,6 @@
     :value="filteredIssues"
     pt:root:class="h-full w-full"
     pt:emptyMessage:class="flex flex-col justify-center items-center h-[43.5rem]"
-    :sortOrder="sortOrder"
-    :sortField="sortField"
     layout="grid"
     paginator
     :rows="6"
@@ -18,15 +16,12 @@
         <Select
           v-model="sortKey"
           :options="sortOptions"
-          optionLabel="label"
+          optionLabel="name"
           aria-label="Sort by priority"
           @change="onSortChange($event)"
         >
           <template #value="slotProps">
-            <i
-              v-if="slotProps.value"
-              :class="slotProps.value.icon"
-            />
+            <i :class="slotProps.value.icon" />
           </template>
         </Select>
       </div>
@@ -124,21 +119,46 @@ const props = defineProps<{
 
 const { updateIssueStatusOrPriority } = useIssue()
 
-const filteredIssues = ref([...props.issues])
-const sortKey = ref()
-const sortOrder = ref()
-const sortField = ref()
-const sortOptions = ref([
-  { label: 'Ważnosc od najwazniejszych', icon: 'pi pi-sort-amount-down', value: '!priority' },
-  { label: 'Waznosc od najmniej waznych', icon: 'pi pi-sort-amount-up', value: 'priority' },
-])
+const baseFilteredIssues = ref([...props.issues])
+const sortOrder = ref(-1)
+const sortField = ref('priority')
+const { t } = useI18n()
+
+const sortOptions = [
+  { name: t('pages.adminDashboard.roomIssueReports.sort.priorityDesc'), icon: 'pi pi-sort-amount-down', data: '!priority' },
+  { name: t('pages.adminDashboard.roomIssueReports.sort.priorityAsc'), icon: 'pi pi-sort-amount-up', data: 'priority' },
+]
+
+const sortKey = ref(sortOptions[0])
+
+const getPriorityValue = (priority: string): number => {
+  switch (priority) {
+    case 'critical': return 4
+    case 'high': return 3
+    case 'medium': return 2
+    case 'low': return 1
+    default: return 0
+  }
+}
+
+const filteredIssues = computed(() => {
+  if (!sortField.value || sortField.value !== 'priority') {
+    return baseFilteredIssues.value
+  }
+
+  return [...baseFilteredIssues.value].sort((a, b) => {
+    const aValue = getPriorityValue(a.priority)
+    const bValue = getPriorityValue(b.priority)
+    return sortOrder.value === -1 ? bValue - aValue : aValue - bValue
+  })
+})
 
 const updateStatus = async (id: string, newStatus: string) => {
   await updateIssueStatusOrPriority(id, { status: newStatus })
 }
 
 const handleFilterIssues = (issues: any[]) => {
-  filteredIssues.value = [...issues]
+  baseFilteredIssues.value = [...issues]
 }
 
 const getStatusColor = (status: string) => {
@@ -166,7 +186,7 @@ const formatReportedAt = (reportedAt: string) => {
 }
 
 const onSortChange = (event) => {
-  const value = event.value.value
+  const value = event.value.data
   const sortValue = event.value
 
   if (value.indexOf('!') === 0) {

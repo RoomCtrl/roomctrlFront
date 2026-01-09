@@ -15,12 +15,14 @@
       "roomAdded": "Sala została dodana pomyślnie",
       "roomUpdated": "Sala została zaktualizowana pomyślnie",
       "bookingCreated": "Rezerwacja została utworzona pomyślnie",
-      "bookingUpdated": "Rezerwacja została zaktualizowana pomyślnie"
+      "bookingUpdated": "Rezerwacja została zaktualizowana pomyślnie",
+      "issueReported": "Zgłoszenie zostało utworzone pomyślnie"
     },
     "error": {
       "registration": "Nie udało się zarejestrować. Spróbuj ponownie.",
       "profileUpdateFailed": "Nie udało się zaktualizować profilu",
-      "passwordChangeFailed": "Nie udało się zmienić hasła"
+      "passwordChangeFailed": "Nie udało się zmienić hasła",
+      "issueReported": "Nie udało się zgłosić problemu"
     },
     "copied": "Skopiowano!",
     "passwordResetCodeSent": "Token resetujący został wysłany na podany adres email",

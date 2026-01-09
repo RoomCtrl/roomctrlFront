@@ -20,6 +20,10 @@
   "reported": "Reported by: ",
   "empty": "No issues match the selected filters",
   "notFoundIssues": "No issues found",
+  "sort": {
+    "priorityDesc": "Priority from most important",
+    "priorityAsc": "Priority from least important"
+  },
   "modal": {
     "title": "Issue details #{issueNumber}",
     "status": "Status",

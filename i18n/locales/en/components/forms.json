@@ -55,6 +55,8 @@
       "access": "Access",
       "lighting": "Lighting",
       "airConditioning": "Air Conditioning (min/max °C)",
+      "airConditioningMin": "Air Conditioning (min °C)",
+      "airConditioningMax": "Air Conditioning (max °C)",
       "equipment": {
         "title": "Equipment",
         "name": "Equipment Name",

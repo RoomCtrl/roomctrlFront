@@ -8,10 +8,20 @@
   },
   "messages": {
     "success": {
-      "registration": "Registration successful! You can now log in."
+      "registration": "Registration successful! You can now log in.",
+      "profileUpdated": "Profile has been successfully updated",
+      "passwordChanged": "Password has been changed successfully",
+      "roomAdded": "Room has been added successfully",
+      "roomUpdated": "Room has been updated successfully",
+      "bookingCreated": "Booking has been created successfully",
+      "bookingUpdated": "Booking has been updated successfully",
+      "issueReported": "Issue has been reported successfully"
     },
     "error": {
-      "registration": "Registration failed. Please try again."
+      "registration": "Registration failed. Please try again.",
+      "profileUpdateFailed": "Failed to update profile",
+      "passwordChangeFailed": "Failed to change password",
+      "issueReported": "Failed to report issue"
     },
     "copied": "Copied !",
     "passwordResetCodeSent": "Reset token has been sent to your email",
