@@ -18,7 +18,7 @@
             <h2 class="text-3xl font-bold mb-2">
               {{ $t('pages.adminDashboard.roomIssueReports.modal.title', { issueNumber: formatReportId(issue?.id || '') }) }}
             </h2>
-            <div class="grid grid-cols-2 gap-10 pr-10">
+            <div class="flex flex-row gap-10 pr-6">
               <div class="flex flex-col">
                 <div class="text-xs font-semibold text-gray-600 dark:text-gray-400 pb-1">
                   {{ $t('pages.adminDashboard.roomIssueReports.modal.status') }}
@@ -37,10 +37,6 @@
               </div>
             </div>
           </div>
-
-          <p class="text-blue-800 dark:text-blue-100">
-            {{ issue?.roomName }}
-          </p>
         </div>
       </div>
     </template>
@@ -96,7 +92,7 @@
                   {{ $t('pages.adminDashboard.roomIssueReports.modal.actions.' + log.action) }}
                 </div>
                 <div class="text-xs text-gray-600 dark:text-gray-400">
-                  {{ log.createdAt }} - {{ log.userName }}
+                  {{ formatDateTime(log.createdAt) }} - {{ log.userName }}
                 </div>
               </div>
             </div>
@@ -120,7 +116,7 @@
                 {{ note.content }}
               </p>
               <div class="text-xs text-gray-600">
-                {{ note.authorName }} - {{ note.createdAt }}
+                {{ note.authorName }} - {{ formatDateTime(note.createdAt) }}
               </div>
             </div>
           </div>
@@ -175,6 +171,7 @@
 
 <script setup lang="ts">
 import { Textarea } from 'primevue'
+import { parseLocalDate } from '~/utils/dateHelpers'
 
 const props = defineProps<{
   issueId: string
@@ -183,6 +180,16 @@ const { fetchIssueById, updateIssueStatusOrPriority, createIssueNewNote, issue }
 const visible = ref(false)
 const newNote = ref('')
 const { t } = useI18n()
+
+const formatDateTime = (dateString: string | undefined) => {
+  if (!dateString) return ''
+  const date = parseLocalDate(dateString)
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const hours = date.getHours().toString().padStart(2, '0')
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  return `${hours}:${minutes} ${day}-${month}`
+}
 
 const baseReportInfo = computed(() => [
   {
@@ -195,7 +202,7 @@ const baseReportInfo = computed(() => [
   },
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.reportDate'),
-    value: issue.value?.reportedAt || '',
+    value: formatDateTime(issue.value?.reportedAt),
   },
   {
     title: t('pages.adminDashboard.roomIssueReports.modal.reporter'),

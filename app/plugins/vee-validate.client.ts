@@ -18,9 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     if (!value) {
       return true
     }
-    // Usuwa wszystkie znaki oprócz cyfr i +
     const cleaned = value.replace(/[^\d+]/g, '')
-    // Sprawdza czy zaczyna się od + i ma 10-15 cyfr lub ma 9-15 cyfr bez +
     const phoneRegex = /^(\+?\d{9,15})$/
     return phoneRegex.test(cleaned)
   })
@@ -54,6 +52,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         airConditioningMin: t('forms.fields.room.airConditioningMin'),
         airConditioningMax: t('forms.fields.room.airConditioningMax'),
         participantsCount: t('forms.fields.booking.participantsCount'),
+        daysOfWeek: t('forms.fields.daysOfWeek'),
+        weeksAhead: t('forms.fields.weeksAhead'),
       }
 
       const fieldName = fieldNames[ctx.field] || ctx.field

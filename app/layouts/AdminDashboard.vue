@@ -1,12 +1,5 @@
 <template>
   <div
-    v-if="loading"
-    class="flex items-center justify-center min-h-screen"
-  >
-    <ProgressSpinner />
-  </div>
-  <div
-    v-else
     class="p-content flex min-h-screen overflow-hidden"
   >
     <aside>
@@ -146,7 +139,6 @@ const route = useRoute()
 const router = useRouter()
 
 const isCollapsed = ref(true)
-const loading = ref(true)
 
 const normalizePath = (path) => {
   if (!path) return '/'
@@ -210,7 +202,6 @@ const handleLogout = async () => {
 
 onMounted(() => {
   syncFromStorage()
-  loading.value = false
 })
 </script>
 

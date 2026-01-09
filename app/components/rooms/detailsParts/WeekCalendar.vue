@@ -59,11 +59,11 @@
           <div
             class="w-12 border-r border-gray-200 dark:border-gray-600 sticky left-0 z-10 bg-gray-50 dark:bg-gray-900"
           >
-            <div class="h-10 border-b border-gray-200 dark:border-gray-600" />
+            <div class="h-12 border-b border-gray-200 dark:border-gray-600" />
             <div
               v-for="hour in hours"
               :key="hour"
-              class="flex items-center justify-end h-10 border-b border-gray-200 dark:border-gray-600 text-xs pr-1 pt-1 font-medium"
+              class="flex items-center justify-end h-12 border-b border-gray-200 dark:border-gray-600 text-xs pr-1 pt-1 font-medium"
             >
               {{ String(hour).padStart(2, '0') }}:00
             </div>
@@ -75,7 +75,7 @@
             class="flex-1 min-w-32 border-r border-gray-200 dark:border-gray-600 relative"
           >
             <div
-              class="h-10 border-b border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center sticky top-0 z-10 bg-gray-50 dark:bg-gray-900"
+              class="h-12 border-b border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center sticky top-0 z-10 bg-gray-50 dark:bg-gray-900"
             >
               <div class="text-xs font-semibold">
                 {{ getDayName(day) }}
@@ -96,15 +96,15 @@
               <div
                 v-for="hour in hours"
                 :key="hour"
-                class="h-10 border-b border-gray-200 dark:border-gray-600"
+                class="h-12 border-b border-gray-200 dark:border-gray-600"
               />
 
               <div
                 v-for="res in getReservationsForDay(day)"
                 :key="res.id"
-                v-tooltip.bottom="getTooltipText(res)"
+                v-tooltip.bottom="calculateDuration(res) < 120 ? getTooltipText(res) : null"
                 :class="[
-                  'absolute left-0 right-0 mx-1 rounded p-2 text-white text-xs font-semibold cursor-pointer hover:opacity-90 transition-opacity overflow-hidden shadow-md',
+                  'absolute left-0 right-0 mx-1 rounded p-1 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
                   getReservationColor(res),
                 ]"
                 :style="getReservationStyle(res)"
@@ -114,11 +114,15 @@
                 @keydown.enter="openBookingModal(res)"
                 @keydown.space="openBookingModal(res)"
               >
-                <div class="truncate">
+                <div class="font-medium flex items-center gap-1">
                   {{ res.title }}
                 </div>
                 <div class="text-xs opacity-90">
-                  {{ formatTime(res.startedAt) }}
+                  {{ formatTime(res.date || res.startedAt) }} - {{ formatTime(res.endDate || res.endedAt) }}
+                </div>
+                <div class="pt-1">
+                  <i class="pi pi-map-marker" />
+                  {{ res.room?.location || $t('pages.myCalendar.noLocations') || 'Brak lokalizacji' }}
                 </div>
               </div>
             </div>
@@ -194,6 +198,12 @@ import { parseLocalDate } from '~/utils/dateHelpers'
 
 interface IReservation extends IBooking {
   color?: string
+  date?: Date
+  endDate?: Date
+  duration?: number
+  originalId?: string
+  isMultiDay?: boolean
+  originalBooking?: IBooking
 }
 
 const props = defineProps<{
@@ -254,9 +264,13 @@ const allReservations = computed(() => {
     const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
 
     if (startDay.getTime() === endDay.getTime()) {
+      const duration = Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60))
       result.push({
         ...booking,
         color,
+        date: startDate,
+        endDate: endDate,
+        duration: duration,
       })
     }
     else {
@@ -278,13 +292,19 @@ const allReservations = computed(() => {
           segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
         }
 
+        const duration = Math.round((segmentEnd.getTime() - segmentStart.getTime()) / (1000 * 60))
+
         result.push({
           ...booking,
-          startedAt: segmentStart.toISOString(),
-          endedAt: segmentEnd.toISOString(),
+          id: `${booking.id}-${currentDay.getTime()}`,
+          originalId: booking.id,
+          date: segmentStart,
+          endDate: segmentEnd,
+          duration: duration,
           color,
           isMultiDay: true,
-        })
+          originalBooking: booking,
+        } as any)
 
         currentDay.setDate(currentDay.getDate() + 1)
       }
@@ -296,7 +316,7 @@ const allReservations = computed(() => {
 
 const getReservationsForDay = (day: Date): IReservation[] => {
   return allReservations.value.filter((res) => {
-    const resDate = parseLocalDate(res.startedAt)
+    const resDate = res.date || parseLocalDate(res.startedAt)
     return (
       resDate.getDate() === day.getDate()
       && resDate.getMonth() === day.getMonth()
@@ -306,13 +326,12 @@ const getReservationsForDay = (day: Date): IReservation[] => {
 }
 
 const getReservationStyle = (reservation: IReservation): Record<string, string> => {
-  const startDate = parseLocalDate(reservation.startedAt)
-  const endDate = parseLocalDate(reservation.endedAt)
-  const durationMs = endDate.getTime() - startDate.getTime()
-  const durationMinutes = Math.max(30, Math.round(durationMs / (1000 * 60)))
+  const startDate = reservation.date || parseLocalDate(reservation.startedAt)
+  const endDate = reservation.endDate || parseLocalDate(reservation.endedAt)
+  const durationMinutes = reservation.duration || Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60))
 
-  const top = (startDate.getHours() * 60 + startDate.getMinutes()) * (40 / 60)
-  const height = (durationMinutes / 60) * 40
+  const top = (startDate.getHours() * 60 + startDate.getMinutes()) * (48 / 60)
+  const height = (durationMinutes / 60) * 48
 
   return {
     top: `${top}px`,
@@ -321,21 +340,21 @@ const getReservationStyle = (reservation: IReservation): Record<string, string> 
 }
 
 const colorMap: Record<string, string> = {
-  red: 'bg-red-600 dark:bg-red-800',
-  blue: 'bg-blue-600 dark:bg-blue-800',
-  green: 'bg-green-600 dark:bg-green-800',
-  yellow: 'bg-yellow-600 dark:bg-yellow-800',
-  purple: 'bg-purple-600 dark:bg-purple-800',
-  orange: 'bg-orange-600 dark:bg-orange-800',
+  red: 'bg-red-500 dark:bg-red-900',
+  blue: 'bg-blue-500 dark:bg-blue-900',
+  green: 'bg-green-500 dark:bg-green-900',
+  yellow: 'bg-yellow-500 dark:bg-yellow-900',
+  purple: 'bg-purple-500 dark:bg-purple-900',
+  orange: 'bg-orange-500 dark:bg-orange-900',
 }
 
 const getReservationColor = (res: IReservation): string => {
-  return colorMap[res.color || 'blue'] || 'bg-blue-600 dark:bg-blue-800'
+  return colorMap[res.color || 'blue'] || 'bg-blue-500 dark:bg-blue-900'
 }
 
-const formatTime = (date: string): string => {
+const formatTime = (date: string | Date): string => {
   if (!date) return '--:--'
-  const d = parseLocalDate(date)
+  const d = typeof date === 'string' ? parseLocalDate(date) : date
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
@@ -346,8 +365,9 @@ const formatDate = (date: string): string => {
 }
 
 const calculateDuration = (res: IReservation): number => {
-  const startDate = parseLocalDate(res.startedAt)
-  const endDate = parseLocalDate(res.endedAt)
+  if (res.duration) return res.duration
+  const startDate = res.date || parseLocalDate(res.startedAt)
+  const endDate = res.endDate || parseLocalDate(res.endedAt)
   const durationMs = endDate.getTime() - startDate.getTime()
   return Math.round(durationMs / (1000 * 60))
 }
@@ -369,8 +389,11 @@ const getDayName = (day: Date): string => {
 }
 
 const getTooltipText = (res: IReservation): string => {
-  const startTime = formatTime(res.startedAt)
-  return `${res.title} (${startTime})`
+  const startTime = formatTime(res.date || res.startedAt)
+  const endTime = formatTime(res.endDate || res.endedAt)
+  const duration = calculateDuration(res)
+  const location = res.room?.location || t('pages.myCalendar.noLocations') || 'Brak lokalizacji'
+  return `${res.title}\n${startTime} - ${endTime} (${duration} min)\n${location}`
 }
 
 const isToday = (day: Date): boolean => {
@@ -383,7 +406,12 @@ const isToday = (day: Date): boolean => {
 }
 
 const openBookingModal = (reservation: IReservation): void => {
-  selectedReservation.value = reservation
+  const originalBooking = (reservation as any).originalBooking || reservation
+  const displayReservation = {
+    ...originalBooking,
+    id: (reservation as any).originalId || reservation.id,
+  }
+  selectedReservation.value = displayReservation
   showBookingDetails.value = true
 }
 

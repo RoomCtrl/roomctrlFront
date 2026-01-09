@@ -68,8 +68,8 @@ const onSubmit = handleSubmit(async (formValues: IOrganizationSettings) => {
   await updateOrganization(user.value?.organization?.id, formValues)
   toast.add({
     severity: 'success',
-    summary: t('common.toast.success'),
-    detail: t('components.toast.details.organizationDataUpdated'),
+    summary: t('toast.summary.success'),
+    detail: t('toast.details.organizationDataUpdated'),
   })
   resetForm({
     values: formValues,

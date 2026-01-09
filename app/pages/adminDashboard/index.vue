@@ -48,6 +48,7 @@ import IncomingRentsTable from '~/components/adminDasboard/main/IncomingRentsTab
 import LoadOfRooms from '~/components/adminDasboard/main/LoadOfRooms.vue'
 import MostRentRooms from '~/components/adminDasboard/main/MostRentRooms.vue'
 import RentMonthCalendar from '~/components/adminDasboard/main/RentMonthCalendar.vue'
+import { parseLocalDate } from '~/utils/dateHelpers'
 import ReportRoomsTable from '~/components/adminDasboard/main/ReportRoomsTable.vue'
 
 definePageMeta({
@@ -98,8 +99,8 @@ const rooms = computed(() => {
 const bookingsChartData = computed(() => {
   const now = new Date()
   return {
-    planned: bookings.value.filter(booking => new Date(booking.startedAt) > now).length,
-    ended: bookings.value.filter(booking => new Date(booking.endedAt) < now).length,
+    planned: bookings.value.filter(booking => parseLocalDate(booking.startedAt) > now).length,
+    ended: bookings.value.filter(booking => parseLocalDate(booking.endedAt) < now).length,
     cancelled: 0,
   }
 })
@@ -107,8 +108,8 @@ const bookingsChartData = computed(() => {
 const upcomingBookings = computed(() => {
   const now = new Date()
   return [...bookings.value]
-    .filter(booking => new Date(booking.startedAt) > now)
-    .sort((a, b) => new Date(a.startedAt).getTime() - new Date(b.startedAt).getTime())
+    .filter(booking => parseLocalDate(booking.startedAt) > now)
+    .sort((a, b) => parseLocalDate(a.startedAt).getTime() - parseLocalDate(b.startedAt).getTime())
 })
 
 onMounted(async () => {

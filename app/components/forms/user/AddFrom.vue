@@ -142,7 +142,7 @@ const submitForm = handleSubmit(async (formValues: IUserAddResponse) => {
     resetForm()
     toast.add({
       severity: 'success',
-      summary: t('toast.success'),
+      summary: t('toast.summary.success'),
       detail: t('pages.adminDashboard.users.toast.success'),
       life: 3000,
     })

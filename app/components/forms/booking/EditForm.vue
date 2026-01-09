@@ -167,17 +167,10 @@ const availableUsers = computed(() => {
   if (!users.value || !Array.isArray(users.value)) {
     return []
   }
-  return users.value
-    .filter((u) => {
-      if (isAdmin.value) {
-        return true
-      }
-      return u.id === user.value?.id
-    })
-    .map(u => ({
-      id: u.id,
-      displayName: `${u.firstName} ${u.lastName} (${u.username})`,
-    }))
+  return users.value.map(u => ({
+    id: u.id,
+    displayName: `${u.firstName} ${u.lastName} (${u.username})`,
+  }))
 })
 
 const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {

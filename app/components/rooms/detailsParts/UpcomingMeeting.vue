@@ -58,6 +58,7 @@
 
 <script setup lang="ts">
 import DateTimeDisplay from '~/components/common/DateTimeDisplay.vue'
+import { parseLocalDate } from '~/utils/dateHelpers'
 
 const roomStatus = inject<ComputedRef<string>>('roomStatus')
 
@@ -73,6 +74,6 @@ const props = defineProps<{
 }>()
 
 const todayMeetings = computed(() => {
-  return props.meetings?.filter(m => isRangeTimeToday(new Date(m.startedAt), new Date(m.endedAt)))
+  return props.meetings?.filter(m => isRangeTimeToday(parseLocalDate(m.startedAt), parseLocalDate(m.endedAt)))
 })
 </script>

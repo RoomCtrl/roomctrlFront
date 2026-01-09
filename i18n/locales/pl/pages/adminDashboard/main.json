@@ -60,7 +60,8 @@
       "reserver": "Rezerwujący",
       "day": "Dzień",
       "hour": "Godzina",
-      "status": "Status"
+      "status": "Status",
+      "title": "Tytuł"
     },
     "buttons": {
       "details": "Szczegóły"

@@ -74,8 +74,8 @@ export const useUser = () => {
     loading.value = true
     error.value = null
     try {
-      const createdUser = await userService.addUser(newUser)
-      users.value.push(createdUser)
+      await userService.addUser(newUser)
+      await fetchUsers(false)
     }
     catch (err: any) {
       error.value = formatError(err)

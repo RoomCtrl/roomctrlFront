@@ -137,7 +137,8 @@
       "minValue": "The field {fieldName} must be at least {length}.",
       "maxValue": "The field {fieldName} must be at most {length}.",
       "integer": "The field {fieldName} must be an integer.",
-      "phone": "Enter a valid phone number (9-15 digits, optionally with + and formatting)"
+      "phone": "Enter a valid phone number (9-15 digits, optionally with + and formatting)",
+      "atLeastOneDay": "Select at least one day of the week"
     }
   },
   "messages": {

@@ -126,7 +126,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const toast = useToast()
-const { createBooking, loading } = useBooking()
+const { createBooking, loading, error } = useBooking()
 const { rooms, fetchRooms, room, fetchRoom } = useRoom()
 const { users, fetchUsers } = useUser()
 const { user, isAdmin } = useAuth()
@@ -164,20 +164,10 @@ const availableUsers = computed(() => {
   if (!users.value || !Array.isArray(users.value)) {
     return []
   }
-  return users.value
-    .filter((u) => {
-      if (u.id === user.value?.id) {
-        return false
-      }
-      if (isAdmin.value) {
-        return true
-      }
-      return false
-    })
-    .map(u => ({
-      id: u.id,
-      displayName: `${u.firstName} ${u.lastName} (${u.username})`,
-    }))
+  return users.value.map(u => ({
+    id: u.id,
+    displayName: `${u.firstName} ${u.lastName} (${u.username})`,
+  }))
 })
 
 watch(() => participantIds.value, (newParticipantIds) => {
@@ -188,7 +178,7 @@ watch(() => participantIds.value, (newParticipantIds) => {
 
 const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
   try {
-    const formatDate = (date: Date): string => {
+    const formatDateTime = (date: Date): string => {
       const year = date.getFullYear()
       const month = String(date.getMonth() + 1).padStart(2, '0')
       const day = String(date.getDate()).padStart(2, '0')
@@ -200,9 +190,10 @@ const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
 
     const bookingData: IBookingCreateRequest = {
       ...formValues,
-      startedAt: formatDate(formValues.startedAt),
-      endedAt: formatDate(formValues.endedAt),
+      startedAt: formValues.startedAt instanceof Date ? formatDateTime(formValues.startedAt) : formValues.startedAt,
+      endedAt: formValues.endedAt instanceof Date ? formatDateTime(formValues.endedAt) : formValues.endedAt,
     }
+
     if (props.providedRoomId) {
       bookingData.roomId = props.providedRoomId
     }
@@ -220,21 +211,12 @@ const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
     emit('close')
   }
   catch (err: any) {
-    if (err?.code === 409) {
-      toast.add({
-        severity: 'warn',
-        summary: t('common.warning'),
-        detail: err?.message || 'W tym czasie jest już zarezerwowana inna rezerwacja. Wybierz inny termin.',
-        life: 5000,
-      })
-      return
-    }
-
+    console.log('Error creating booking:', err, 'Error from composable:', error.value)
     toast.add({
       severity: 'error',
-      summary: t('common.error'),
-      detail: err?.message || t('common.toast.bookingError'),
-      life: 3000,
+      summary: t('toast.summary.error'),
+      detail: error.value,
+      life: 5000,
     })
   }
 })

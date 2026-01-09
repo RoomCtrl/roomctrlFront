@@ -137,7 +137,8 @@
       "minValue": "Pole {fieldName} musi być co najmniej {length}.",
       "maxValue": "Pole {fieldName} może być maksymalnie {length}.",
       "integer": "Pole {fieldName} musi być liczbą całkowitą.",
-      "phone": "Wprowadź poprawny numer telefonu (9-15 cyfr, opcjonalnie z + i formatowaniem)"
+      "phone": "Wprowadź poprawny numer telefonu (9-15 cyfr, opcjonalnie z + i formatowaniem)",
+      "atLeastOneDay": "Wybierz co najmniej jeden dzień tygodnia"
     }
   },
   "messages": {

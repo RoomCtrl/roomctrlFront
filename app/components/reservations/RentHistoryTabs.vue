@@ -36,6 +36,7 @@
 import ReservationCollection from '~/components/reservations/ReservationCollection.vue'
 import { useBooking } from '~/composables/useBooking'
 import { useAuth } from '~/composables/useAuth'
+import { parseLocalDate } from '~/utils/dateHelpers'
 
 const { t } = useI18n()
 const { bookings, fetchBookings } = useBooking()
@@ -43,14 +44,14 @@ const { user } = useAuth()
 
 const mapBookingToReservation = (booking: any) => {
   const now = new Date()
-  const endDate = new Date(booking.endedAt)
+  const endDate = parseLocalDate(booking.endedAt)
   const status = endDate < now ? 'ended' : 'planned'
 
   return {
     id: booking.id,
     title: booking.title,
-    startedAt: new Date(booking.startedAt),
-    endedAt: new Date(booking.endedAt),
+    startedAt: parseLocalDate(booking.startedAt),
+    endedAt: parseLocalDate(booking.endedAt),
     status,
     roomId: booking.room?.id,
     room: booking.room,

@@ -112,6 +112,7 @@
 import type { IIssuesDataResponse } from '~/interfaces/IssuesInterfaces'
 import ReportDataFilters from './ReportDataFilters.vue'
 import ReportDetailsModal from './ReportDetailsModal.vue'
+import { parseLocalDate } from '~/utils/dateHelpers'
 
 const props = defineProps<{
   issues: IIssuesDataResponse[]
@@ -181,7 +182,14 @@ const getPriorityColor = (priority: string) => {
 }
 
 const formatReportedAt = (reportedAt: string) => {
-  const [date, time] = reportedAt.split(' ')
+  const dateObj = parseLocalDate(reportedAt)
+  const day = dateObj.getDate().toString().padStart(2, '0')
+  const month = (dateObj.getMonth() + 1).toString().padStart(2, '0')
+  const hours = dateObj.getHours().toString().padStart(2, '0')
+  const minutes = dateObj.getMinutes().toString().padStart(2, '0')
+  
+  const date = `${day}-${month}`
+  const time = `${hours}:${minutes}`
   return { date, time }
 }
 

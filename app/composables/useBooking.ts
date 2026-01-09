@@ -7,6 +7,9 @@ export const useBooking = () => {
 
   const formatError = (err: any): string => {
     const errorData = err.data
+    console.error('Booking error data first:', errorData)
+    console.error('Booking error data violations:', errorData.violations)
+    console.error('Booking error data message:', errorData.message)
 
     if (errorData.violations && Array.isArray(errorData.violations)) {
       return errorData.violations.map((v: any) => `${v.field}: ${v.message}`).join(', ')
@@ -61,17 +64,15 @@ export const useBooking = () => {
     loading.value = true
     error.value = null
     try {
-      const createdBooking = await getBookingService().createBooking(newBooking)
-      bookings.value.push(createdBooking)
-      return createdBooking
+      await getBookingService().createBooking(newBooking)
+      await fetchBookings(false)
     }
     catch (err) {
       error.value = formatError(err)
-      throw err
+      console.log('error creating booking:', error.value)
       throw err
     }
     finally {
-      await fetchBookings(false)
       loading.value = false
     }
   }

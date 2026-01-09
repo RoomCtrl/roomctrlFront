@@ -55,14 +55,18 @@
           style="width: 15%;"
           field="reportedAt"
           :header="$t('tables.headers.reportDate')"
-        />
+        >
+          <template #body="slotProps">
+            {{ formatDate(slotProps.data.reportedAt) }}
+          </template>
+        </Column>
         <Column
           style="width: 10%;"
           field="priority"
           :header="$t('tables.headers.priority')"
         >
           <template #body="slotProps">
-            <div :class="getPriorityColor(slotProps.data.priority)">
+            <div :class="[getPriorityColor(slotProps.data.priority), 'font-semibold']">
               {{ $t(`pages.adminDashboard.roomIssueReports.priority.${slotProps.data.priority}`) }}
             </div>
           </template>
@@ -85,6 +89,8 @@
 </template>
 
 <script setup lang="ts">
+import { parseLocalDate } from '~/utils/dateHelpers'
+
 const { fetchIssues, issues } = useIssue()
 
 const localePath = useLocalePath()
@@ -96,6 +102,16 @@ const activeIssues = computed(() => {
 const { tableDisplay, tableHeaderDisplay } = useDataTable(activeIssues, 4)
 
 await fetchIssues()
+
+const formatDate = (dateString: string) => {
+  if (!dateString) return ''
+  const date = parseLocalDate(dateString)
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const hours = date.getHours().toString().padStart(2, '0')
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  return `${hours}:${minutes} ${day}-${month}`
+}
 
 const statusColorClass = (status: string) => {
   switch (status) {

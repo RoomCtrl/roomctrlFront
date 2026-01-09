@@ -53,6 +53,8 @@ withDefaults(
       value: string
     }[]
   }>(), {
+    optionLabel: 'label',
+    optionValue: 'value',
     sortable: false,
     filter: false,
     showFilterMenu: false,

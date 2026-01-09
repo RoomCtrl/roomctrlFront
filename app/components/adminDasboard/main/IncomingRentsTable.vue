@@ -45,7 +45,7 @@
         <Column
           style="width: 25%;"
           field="title"
-          :header="$t('pages.adminDashboard.dashboard.tables.headers.room')"
+          :header="$t('pages.adminDashboard.dashboard.tables.headers.title')"
         />
         <Column
           style="width: 15%;"
@@ -67,7 +67,7 @@
           :header="$t('pages.adminDashboard.dashboard.tables.headers.hour')"
         >
           <template #body="slotProps">
-            {{ formatDate(slotProps.data.startedAt) }}
+            {{ formatDate(slotProps.data.endedAt) }}
           </template>
         </Column>
         <Column
@@ -95,6 +95,8 @@
 </template>
 
 <script setup lang="ts">
+import { parseLocalDate } from '~/utils/dateHelpers'
+
 const props = defineProps<{
   rows: number
   header?: string
@@ -108,12 +110,12 @@ const bookingsRef = computed(() => props.bookings || [])
 const { tableDisplay } = useDataTable(bookingsRef, props.rows)
 
 const formatDate = (dateString: string) => {
-  const date = new Date(dateString)
+  const date = parseLocalDate(dateString)
   const day = date.getDate().toString().padStart(2, '0')
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
   const hours = date.getHours().toString().padStart(2, '0')
   const minutes = date.getMinutes().toString().padStart(2, '0')
-  return `${hours}:${minutes} ${day}.${month}`
+  return `${hours}:${minutes} ${day}-${month}`
 }
 
 const statusColor = computed(() => ({

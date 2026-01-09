@@ -12,7 +12,10 @@
     "lint": "eslint",
     "lint:fix": "eslint . --fix",
     "lint:json": "eslint \"**/*.{json,jsonc}\"",
-    "lint:json:fix": "eslint . --ext .json,.jsonc --fix"
+    "lint:json:fix": "eslint . --ext .json,.jsonc --fix",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.5.2",
@@ -35,6 +38,7 @@
   },
   "devDependencies": {
     "@hypernym/nuxt-anime": "^2.1.1",
+    "@nuxt/test-utils": "^3.15.4",
     "@nuxtjs/i18n": "^10.1.2",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@primevue/nuxt-module": "^4.3.6",
@@ -43,10 +47,15 @@
     "@typescript-eslint/eslint-plugin": "^8.47.0",
     "@typescript-eslint/parser": "^8.47.0",
     "@vee-validate/nuxt": "^4.15.1",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "@vue/test-utils": "^2.4.6",
     "eslint": "^9.39.1",
     "eslint-plugin-json": "^4.0.1",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
+    "happy-dom": "^15.11.7",
     "nuxt-qrcode": "^0.4.8",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "vitest": "^3.2.4"
   }
 }

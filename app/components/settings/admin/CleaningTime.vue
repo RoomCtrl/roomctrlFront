@@ -54,14 +54,16 @@
 
         <div class="flex flex-col gap-2 col-span-2 justify-center">
           <label
-            for="email"
+            for="daysOfWeek"
             class="font-semibold"
           >
             {{ $t('forms.fields.daysOfWeek') }}
           </label>
           <CheckboxGroup
+            id="daysOfWeek"
             v-model="daysOfWeek"
             class="grid grid-cols-4 gap-2 "
+            @blur="daysOfWeekBlur"
           >
             <div
               v-for="day in checkBoxDays"
@@ -75,6 +77,12 @@
               <label :for="day.label"> {{ day.label }} </label>
             </div>
           </CheckboxGroup>
+          <small
+            v-if="daysOfWeekError"
+            class="text-red-500"
+          >
+            {{ daysOfWeekError }}
+          </small>
         </div>
 
         <CommonFormsNumberField
@@ -147,10 +155,24 @@ const { value: roomId, errorMessage: roomIdError, handleBlur: roomIdBlur } = use
 const { value: type, errorMessage: typeError, handleBlur: typeBlur } = useField<'cleaning' | 'maintenance'>('type')
 const { value: startTime, errorMessage: startTimeError, handleBlur: startTimeBlur } = useField<Date>('startTime')
 const { value: endTime, errorMessage: endTimeError, handleBlur: endTimeBlur } = useField<Date>('endTime')
-const { value: daysOfWeek } = useField<number[]>('daysOfWeek')
+const { value: daysOfWeek, errorMessage: daysOfWeekError, handleBlur: daysOfWeekBlur, setErrors: setDaysOfWeekErrors } = useField<number[]>('daysOfWeek')
 const { value: weeksAhead, errorMessage: weeksAheadError, handleBlur: weeksAheadBlur } = useField<number>('weeksAhead')
 
+watch(() => daysOfWeek.value, (newValue) => {
+  if (!newValue || newValue.length === 0) {
+    setDaysOfWeekErrors(t('forms.fieldMessages.error.atLeastOneDay'))
+  }
+  else {
+    setDaysOfWeekErrors(undefined)
+  }
+})
+
 const submitForm = handleSubmit(async (formValues: IBookingRecurringRequest) => {
+  if (!formValues.daysOfWeek || formValues.daysOfWeek.length === 0) {
+    setDaysOfWeekErrors(t('forms.fieldMessages.error.atLeastOneDay'))
+    return
+  }
+
   loading.value = true
 
   try {
@@ -185,3 +207,11 @@ onMounted(async () => {
   await fetchRooms()
 })
 </script>
+
+<style scoped>
+.p-checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+</style>
