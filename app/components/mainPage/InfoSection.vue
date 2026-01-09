@@ -59,7 +59,7 @@ const informations = [
 
 <style scoped>
 .info-card {
-  background: white;
+  background: var(--p-neutral-200);
   border-radius: 16px;
   padding: 2rem;
   display: flex;
@@ -101,7 +101,7 @@ const informations = [
 }
 
 .info-text {
-  color: #6b7280;
+  color: var(--p-gray-600);
   line-height: 1.6;
 }
 

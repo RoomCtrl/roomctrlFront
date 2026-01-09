@@ -176,10 +176,10 @@
       :closable="true"
       class="w-[50vw]"
     >
-      <EditForm
+      <FormsRoomEditForm
         v-if="editRoomId"
         :room-id="editRoomId"
-        @cancel="showEditModal = false"
+        @update-visible="showEditModal = $event"
       />
     </Dialog>
 
@@ -193,7 +193,6 @@ import { FilterMatchMode } from '@primevue/core/api'
 import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseTextFilterColumn.vue'
 import ActionButton from '~/components/common/buttons/ActionButton.vue'
 import RoomForm from '~/components/forms/RoomForm.vue'
-import EditForm from '~/components/forms/room/EditForm.vue'
 import type { IRoomCard } from '~/interfaces/RoomsIntefaces'
 import BaseSelectFilterColumn from '~/components/common/datatable/columns/BaseSelectFilterColumn.vue'
 import RoomUploadDialog from '~/components/forms/room/RoomUploadDialog.vue'
@@ -248,13 +247,13 @@ const resetModal = () => {
 
 const deleteRoom = async (roomId: string) => {
   confirm.require({
-    message: t('pages.adminDashboard.main.roomList.deleteRoom.title'),
+    message: t('pages.adminDashboard.roomList.deleteRoomConfirmation.message'),
     header: t('common.toast.danger'),
     icon: 'pi pi-info-circle',
     rejectLabel: t('common.buttons.cancel'),
     rejectProps: {
       label: t('common.buttons.cancel'),
-      severity: 'secondary',
+      severity: 'contrast',
       outlined: true,
     },
     acceptProps: {

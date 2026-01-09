@@ -185,7 +185,7 @@
         :label="$t('forms.roomForm.buttons.cancel')"
         severity="danger"
         variant="outlined"
-        @click="$emit('cancel')"
+        @click="$emit('updateVisible', false)"
       />
       <Button
         type="submit"
@@ -200,13 +200,13 @@
 
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate'
-import type { IRoomCreateRequest, IRoomEqupiment, IRoomResponse } from '~/interfaces/RoomsIntefaces'
+import type { IRoomCreateRequest, IRoomEqupiment } from '~/interfaces/RoomsIntefaces'
 
 const props = defineProps<{
   roomId: string
 }>()
 
-const { updateRoom, fetchRoom, room, loading } = useRoom()
+const { updateRoom, fetchRoom, room, loading, error } = useRoom()
 const { user } = useAuth()
 const { t } = useI18n()
 const confirm = useConfirm()
@@ -242,14 +242,11 @@ const { value: description, errorMessage: descriptionError, handleBlur: descript
 const { value: lighting, errorMessage: lightingError, handleBlur: lightingBlur } = useField<string>('lighting')
 const { value: airConditioningMin, errorMessage: airConditioningMinError, handleBlur: airConditioningMinBlur } = useField<number>('airConditioningMin')
 const { value: airConditioningMax, errorMessage: airConditioningMaxError, handleBlur: airConditioningMaxBlur } = useField<number>('airConditioningMax')
-const { value: equipment, errorMessage: equipmentError, handleBlur: equipmentBlur } = useField<IRoomEqupiment[]>('equipment', undefined, {
+const { value: equipment } = useField<IRoomEqupiment[]>('equipment', undefined, {
   initialValue: [],
 })
 
-const emit = defineEmits<{
-  cancel: []
-  success: []
-}>()
+const emit = defineEmits(['updateVisible'])
 
 const editRoomSubmit = handleSubmit(async (formValues: IRoomCreateRequest) => {
   try {
@@ -266,19 +263,20 @@ const editRoomSubmit = handleSubmit(async (formValues: IRoomCreateRequest) => {
 
     toast.add({
       severity: 'success',
-      summary: t('common.toast.success'),
-      detail: t('forms.roomForm.messages.roomUpdated'),
+      summary: t('toast.summary.success'),
+      detail: t('toast.messages.success.roomUpdated'),
       life: 3000,
     })
 
-    emit('success')
+    emit('updateVisible', false)
   }
-  catch (error) {
+  catch (err) {
+    const errorMessage = error.value || err?.message || t('toast.error')
     toast.add({
       severity: 'error',
-      summary: t('common.toast.error'),
-      detail: t('common.toast.roomUpdateError'),
-      life: 3000,
+      summary: t('toast.summary.error'),
+      detail: errorMessage,
+      life: 5000,
     })
   }
 })

@@ -157,8 +157,7 @@
     <FormsBookingEditForm
       v-if="selectedBooking"
       :booking-id="selectedBooking.id"
-      @success="handleBookingSuccess"
-      @cancel="editModalVisible = false"
+      @update-visible="editModalVisible = $event"
     />
   </Dialog>
 </template>
@@ -201,11 +200,6 @@ const openEditModal = (booking: any) => {
 const openCancelModal = (booking: any) => {
   selectedBooking.value = booking
   handleCancelBooking()
-}
-
-const handleBookingSuccess = () => {
-  editModalVisible.value = false
-  emit('refresh')
 }
 
 const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string>>(() => ({

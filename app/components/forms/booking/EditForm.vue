@@ -99,7 +99,7 @@
           :label="$t('common.buttons.cancel')"
           severity="danger"
           variant="outlined"
-          @click="$emit('cancel')"
+          @click="$emit('updateVisible', false)"
         />
         <Button
           type="submit"
@@ -130,7 +130,9 @@ const toast = useToast()
 const { users, fetchUsers } = useUser()
 const { rooms, room, fetchRooms, fetchRoom } = useRoom()
 const { user, isAdmin } = useAuth()
-const { fetchBooking, updateBooking, loading, booking } = useBooking()
+const { fetchBooking, updateBooking, loading, booking, error } = useBooking()
+
+const maxCapacity = ref(room.value ? room.value.capacity : 10)
 
 const { handleSubmit, resetForm } = useForm<IBookingUpdateRequest>({
   validationSchema: {
@@ -138,7 +140,7 @@ const { handleSubmit, resetForm } = useForm<IBookingUpdateRequest>({
     roomId: 'required',
     startedAt: 'required',
     endedAt: 'required',
-    participantsCount: `required|min_value:1|max_value:${room.value?.capacity}`,
+    participantsCount: `required|min_value:1|max_value:${maxCapacity.value}`,
   },
 })
 
@@ -146,13 +148,13 @@ const { value: title, errorMessage: titleError, handleBlur: titleBlur } = useFie
 const { value: roomId, errorMessage: roomIdError, handleBlur: roomIdBlur } = useField<string>('roomId')
 const { value: startedAt, errorMessage: startedAtError, handleBlur: startedAtBlur } = useField<Date | null>('startedAt')
 const { value: endedAt, errorMessage: endedAtError, handleBlur: endedAtBlur } = useField<Date | null>('endedAt')
-const { value: participantsCount, errorMessage: participantsCountError, handleBlur: participantsCountBlur } = useField<number>('participantsCount')
+const { value: participantsCount, errorMessage: participantsCountError, handleBlur: participantsCountBlur, setErrors: setParticipantsCountErrors } = useField<number>('participantsCount')
 const { value: isPrivate } = useField<boolean>('isPrivate')
 const { value: participantIds, errorMessage: participantIdsError, handleBlur: participantIdsBlur } = useField<string[]>('participantIds')
 
 const customParticipantsError = ref<string>('')
 
-const emit = defineEmits(['success', 'cancel'])
+const emit = defineEmits(['updateVisible'])
 
 const availableRooms = computed(() => {
   if (!rooms.value || !Array.isArray(rooms.value)) {
@@ -204,35 +206,19 @@ const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
     await updateBooking(props.bookingId, payload)
     toast.add({
       severity: 'success',
-      summary: t('common.toast.success'),
-      detail: t('common.toast.bookingUpdated'),
+      summary: t('toast.summary.success'),
+      detail: t('toast.messages.success.bookingUpdated'),
       life: 3000,
     })
-    emit('success')
+    emit('updateVisible', false)
   }
-  catch (error: any) {
-    console.error('Błąd podczas aktualizacji rezerwacji:', error)
-
-    if (error?.status === 409 || error?.response?.status === 409) {
-      const errorMessage = error?.data?.message || error?.response?.data?.message || ''
-
-      if (errorMessage.toLowerCase().includes('time slot already booked')
-        || errorMessage.toLowerCase().includes('already booked')) {
-        toast.add({
-          severity: 'warn',
-          summary: t('common.warning'),
-          detail: 'W tym czasie jest już zarezerwowana inna rezerwacja. Wybierz inny termin.',
-          life: 5000,
-        })
-        return
-      }
-    }
-
+  catch (err: any) {
+    const errorMessage = error.value || err?.message || t('toast.error')
     toast.add({
       severity: 'error',
-      summary: t('common.error'),
-      detail: t('common.toast.bookingError'),
-      life: 3000,
+      summary: t('toast.summary.error'),
+      detail: errorMessage,
+      life: 5000,
     })
   }
 })
@@ -245,12 +231,37 @@ watch(() => participantIds.value, (newParticipantIds) => {
   }
 })
 
-watch([() => participantIds.value, () => participantsCount.value], () => {
-  if (participantIds.value && participantIds.value.length > participantsCount.value) {
-    customParticipantsError.value = `Liczba uczestników (${participantsCount.value}) nie może być mniejsza niż liczba wybranych osób (${participantIds.value.length})`
+watch(() => roomId.value, async (newRoomId) => {
+  if (newRoomId) {
+    await fetchRoom(newRoomId)
+    if (room.value && room.value.capacity) {
+      maxCapacity.value = room.value.capacity
+
+      if (participantsCount.value > maxCapacity.value) {
+        const errorMsg = t('forms.fieldMessages.error.maxValue', {
+          fieldName: t('forms.fields.booking.participantsCount'),
+          length: maxCapacity.value,
+        })
+        setParticipantsCountErrors(errorMsg)
+      }
+    }
   }
-  else {
-    customParticipantsError.value = ''
+})
+
+watch(() => participantsCount.value, (newCount) => {
+  if (newCount > maxCapacity.value) {
+    const errorMsg = t('forms.fieldMessages.error.maxValue', {
+      fieldName: t('forms.fields.booking.participantsCount'),
+      length: maxCapacity.value,
+    })
+    setParticipantsCountErrors(errorMsg)
+  }
+  else if (newCount < 1) {
+    const errorMsg = t('forms.fieldMessages.error.minValue', {
+      fieldName: t('forms.fields.booking.participantsCount'),
+      length: 1,
+    })
+    setParticipantsCountErrors(errorMsg)
   }
 })
 
@@ -271,6 +282,6 @@ onMounted(async () => {
   }
   await fetchUsers(false)
   await fetchRooms(false)
-  await fetchRoom(booking.value?.room.id)
+  await fetchRoom(roomId.value)
 })
 </script>

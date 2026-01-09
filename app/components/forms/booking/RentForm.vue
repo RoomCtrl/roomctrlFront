@@ -131,7 +131,7 @@ const { handleSubmit, resetForm } = useForm<IBookingCreateRequest>({
     roomId: 'required',
     startedAt: 'required',
     endedAt: 'required',
-    participantsCount: 'required|min_value:1|max_value:' + (props.capacity || 1),
+    participantsCount: 'required|min_value:1|max_value:' + (props.capacity),
   },
   initialValues: {
     roomId: props.providedRoomId || '',

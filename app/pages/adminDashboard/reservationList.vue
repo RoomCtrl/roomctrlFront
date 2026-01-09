@@ -44,7 +44,7 @@
         :header="$t('tables.headers.reservationTitle')"
         filter
         sortable
-        style="width: 20%"
+        style="width: 25%"
       />
       <BaseTextFilterColumn
         key="roomName"
@@ -111,7 +111,7 @@
         :header="$t('tables.headers.isPrivate')"
         filter
         sortable
-        style="width: 10%"
+        style="width: 5%"
       >
         <template #body="slotProps">
           {{ $t(`tables.fieldValue.${slotProps.data.isPrivate}`) }}
@@ -183,8 +183,7 @@
       <FormsBookingEditForm
         v-if="selectedBooking"
         :booking-id="selectedBooking.id"
-        @success="handleBookingSuccess"
-        @cancel="editModalVisible = false"
+        @update-visible="editModalVisible = $event"
       />
     </Dialog>
     <Dialog
@@ -245,9 +244,6 @@ definePageMeta({
   layout: 'admin-dashboard',
 })
 
-const emit = defineEmits<{
-  refresh: []
-}>()
 const usersModalVisible = ref(false)
 const selectedUsers = ref(null)
 const selectedBooking = ref<any>(null)
@@ -292,10 +288,6 @@ const openEditModal = (booking: any) => {
 const openUsersModal = (users: any) => {
   selectedUsers.value = users
   usersModalVisible.value = true
-}
-const handleBookingSuccess = () => {
-  editModalVisible.value = false
-  emit('refresh')
 }
 
 const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string>>(() => ({

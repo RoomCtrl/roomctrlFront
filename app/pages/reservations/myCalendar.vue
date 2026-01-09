@@ -234,9 +234,7 @@
             :visible="showBookingForm"
             :provided-room-id="selectedRoomId"
             :booking-id="editingBookingId"
-            @success="handleBookingSuccess"
-            @cancel="showBookingForm = false"
-            @close="showBookingForm = false"
+            @update-visible="showBookingForm = $event"
           />
         </Dialog>
       </template>

@@ -97,7 +97,7 @@ import type { IUserAddResponse } from '~/interfaces/UsersInterfaces'
 
 const emit = defineEmits(['updateVisible'])
 
-const { addUser, error, fetchUsers } = useUser()
+const { addUser, error } = useUser()
 const { user } = useAuth()
 const { t } = useI18n()
 const toast = useToast()
@@ -139,7 +139,6 @@ const submitForm = handleSubmit(async (formValues: IUserAddResponse) => {
     formValues.organizationId = user.value?.organization.id
     formValues.firstLoginStatus = true
     await addUser(formValues)
-    await fetchUsers(false)
     resetForm()
     toast.add({
       severity: 'success',
@@ -153,7 +152,7 @@ const submitForm = handleSubmit(async (formValues: IUserAddResponse) => {
     const errorMessage = error.value || err?.message || t('toast.error')
     toast.add({
       severity: 'error',
-      summary: t('toast.error'),
+      summary: t('toast.summary.error'),
       detail: errorMessage,
       life: 5000,
     })

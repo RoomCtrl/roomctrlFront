@@ -5,6 +5,20 @@ import { useAuth } from '~/composables/useAuth'
 export const useBooking = () => {
   const { token } = useAuth()
 
+  const formatError = (err: any): string => {
+    const errorData = err.data
+
+    if (errorData.violations && Array.isArray(errorData.violations)) {
+      return errorData.violations.map((v: any) => `${v.field}: ${v.message}`).join(', ')
+    }
+
+    if (errorData.message) {
+      return errorData.message
+    }
+
+    return err.message || 'An unknown error occurred.'
+  }
+
   const bookings = useState<IBooking[]>('bookings', () => [])
   const booking = useState<IBooking | null>('booking', () => null)
   const bookingStats = useState<IBookingStats | null>('booking-stats', () => null)
@@ -20,7 +34,8 @@ export const useBooking = () => {
       bookings.value = await getBookingService().getBookings(myBookings)
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu rezerwacji'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
@@ -34,7 +49,8 @@ export const useBooking = () => {
       booking.value = await getBookingService().getBooking(bookingId)
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu szczegółów rezerwacji'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
@@ -50,7 +66,8 @@ export const useBooking = () => {
       return createdBooking
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy tworzeniu rezerwacji'
+      error.value = formatError(err)
+      throw err
       throw err
     }
     finally {
@@ -74,7 +91,7 @@ export const useBooking = () => {
       return result
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy aktualizacji rezerwacji'
+      error.value = formatError(err)
       throw err
     }
     finally {
@@ -86,18 +103,11 @@ export const useBooking = () => {
     loading.value = true
     error.value = null
     try {
-      const result = await getBookingService().cancelBooking(bookingId)
-      const index = bookings.value.findIndex(b => b.id === bookingId)
-      if (index !== -1) {
-        bookings.value[index] = result
-      }
-      if (booking.value && booking.value.id === bookingId) {
-        booking.value = result
-      }
-      return result
+      await getBookingService().cancelBooking(bookingId)
+      fetchBookings(false)
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy anulowaniu rezerwacji'
+      error.value = formatError(err)
       throw err
     }
     finally {
@@ -112,7 +122,8 @@ export const useBooking = () => {
       bookingStats.value = await getBookingService().getBookingStats()
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu statystyk rezerwacji'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
@@ -126,7 +137,7 @@ export const useBooking = () => {
       await getBookingService().createRecurringBooking(recurringBooking)
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy tworzeniu cyklicznych rezerwacji'
+      error.value = formatError(err)
       throw err
     }
     finally {

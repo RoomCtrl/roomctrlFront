@@ -13,6 +13,20 @@ export const useRoom = () => {
 
   const getRoomService = () => new RoomService(token.value)
 
+  const formatError = (err: any): string => {
+    const errorData = err.data
+
+    if (errorData.violations && Array.isArray(errorData.violations)) {
+      return errorData.violations.map((v: any) => `${v.field}: ${v.message}`).join(', ')
+    }
+
+    if (errorData.message) {
+      return errorData.message
+    }
+
+    return err.message || 'An unknown error occurred.'
+  }
+
   const fetchRooms = async (withBookings: boolean = false, status?: 'available' | 'out_of_use') => {
     loading.value = true
     error.value = null
@@ -24,14 +38,15 @@ export const useRoom = () => {
       }))
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu sal'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
     }
   }
 
-  const fetchRoom = async (roomId: string, withBookings: boolean = false) => {
+  const fetchRoom = async (roomId: string) => {
     loading.value = true
     error.value = null
     try {
@@ -42,7 +57,8 @@ export const useRoom = () => {
       }
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu szczegółów sali'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
@@ -54,14 +70,13 @@ export const useRoom = () => {
     error.value = null
     try {
       await getRoomService().createRoom(newRoom)
-      // rooms.value.push(createdRoom as IRoomCard)
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy tworzeniu sali'
+      error.value = formatError(err)
       throw err
     }
     finally {
-      // await fetchRooms()
+      await fetchRooms()
       loading.value = false
     }
   }
@@ -70,18 +85,11 @@ export const useRoom = () => {
     loading.value = true
     error.value = null
     try {
-      const result = await getRoomService().updateRoom(roomId, updatedRoom)
-      const index = rooms.value.findIndex(r => r.roomId === roomId)
-      if (index !== -1) {
-        rooms.value[index] = result as IRoomCard
-      }
-      if (room.value && room.value.roomId === roomId) {
-        room.value = result
-      }
-      return result
+      await getRoomService().updateRoom(roomId, updatedRoom)
+      await fetchRooms()
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy aktualizacji sali'
+      error.value = formatError(err)
       throw err
     }
     finally {
@@ -100,7 +108,7 @@ export const useRoom = () => {
       }
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy usuwaniu sali'
+      error.value = formatError(err)
       throw err
     }
     finally {
@@ -117,7 +125,8 @@ export const useRoom = () => {
       rooms.value = favoriteRooms.map(r => ({ ...r, isFavorite: true }))
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu ulubionych sal'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
@@ -149,7 +158,7 @@ export const useRoom = () => {
       }
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy zmianie statusu ulubionej'
+      error.value = formatError(err)
       throw err
     }
     finally {
@@ -167,7 +176,8 @@ export const useRoom = () => {
       favoriteRoomIds.value = new Set(favoriteRooms.map(r => r.roomId))
     }
     catch (err) {
-      console.error('Error loading favorite room IDs:', err)
+      error.value = formatError(err)
+      throw err
     }
   }
 
@@ -179,7 +189,7 @@ export const useRoom = () => {
       return result
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy uploadu zdjęcia'
+      error.value = formatError(err)
       throw err
     }
     finally {
@@ -206,7 +216,7 @@ export const useRoom = () => {
       }
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy usuwaniu sali'
+      error.value = formatError(err)
       throw err
     }
     finally {
@@ -225,7 +235,7 @@ export const useRoom = () => {
       }
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy usuwaniu sali'
+      formatError(err)
       throw err
     }
     finally {

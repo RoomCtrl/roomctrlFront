@@ -10,9 +10,16 @@ export const useUser = () => {
   const error = useState<string | null>('users-error', () => null)
 
   const formatError = (err: any): string => {
-    if (err.violations && Array.isArray(err.violations)) {
-      return err.violations.map((v: any) => `${v.field}: ${v.message}`).join(', ')
+    const errorData = err.data
+
+    if (errorData.violations && Array.isArray(errorData.violations)) {
+      return errorData.violations.map((v: any) => `${v.field}: ${v.message}`).join(', ')
     }
+
+    if (errorData.message) {
+      return errorData.message
+    }
+
     return err.message || 'An unknown error occurred.'
   }
 
@@ -67,7 +74,8 @@ export const useUser = () => {
     loading.value = true
     error.value = null
     try {
-      await userService.addUser(newUser)
+      const createdUser = await userService.addUser(newUser)
+      users.value.push(createdUser)
     }
     catch (err: any) {
       error.value = formatError(err)

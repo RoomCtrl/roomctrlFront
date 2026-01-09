@@ -15,5 +15,8 @@
     "roomAdded": "Room has been added",
     "roomDeleted": "Room has been deleted",
     "operationFailed": "Operation failed"
+  },
+  "deleteRoomConfirmation": {
+    "message": "Are you sure you want to delete this room?"
   }
 }

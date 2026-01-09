@@ -9,8 +9,6 @@ export function useDataTable<T>(data: T[] | Ref<T[]>, defaultRows = 10) {
   })
 
   const tableDisplay = computed(() => {
-    console.log('dataRef.value.length:', dataRef.value.length)
-    console.log('isTableEmpty.value:', isTableEmpty.value)
     return isTableEmpty.value ? 'flex flex-col h-full' : ''
   })
 

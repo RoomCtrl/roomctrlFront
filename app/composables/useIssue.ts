@@ -11,6 +11,20 @@ export const useIssue = () => {
 
   const getIssueService = () => new IssueService(token.value)
 
+  const formatError = (err: any): string => {
+    const errorData = err.data
+
+    if (errorData.violations && Array.isArray(errorData.violations)) {
+      return errorData.violations.map((v: any) => `${v.field}: ${v.message}`).join(', ')
+    }
+
+    if (errorData.message) {
+      return errorData.message
+    }
+
+    return err.message || 'An unknown error occurred.'
+  }
+
   const fetchIssues = async (status?: 'open' | 'in_progress' | 'closed') => {
     loading.value = true
     error.value = null
@@ -18,7 +32,8 @@ export const useIssue = () => {
       issues.value = await getIssueService().getIssues(status)
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu zgłoszeń'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
@@ -32,7 +47,8 @@ export const useIssue = () => {
       issues.value = await getIssueService().getCurrentUserIssues(status)
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu zgłoszeń'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
@@ -47,7 +63,8 @@ export const useIssue = () => {
     }
     catch
     (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy pobieraniu szczegółów zgłoszenia'
+      error.value = formatError(err)
+      throw err
     }
     finally {
       loading.value = false
@@ -61,6 +78,10 @@ export const useIssue = () => {
   const createIssueNewNote = async (issueId: string, noteContent: string) => {
     try {
       return await getIssueService().createIssueNewNote(issueId, noteContent)
+    }
+    catch (err) {
+      error.value = formatError(err)
+      throw err
     }
     finally {
       await fetchIssueById(issueId)
@@ -82,7 +103,7 @@ export const useIssue = () => {
       await fetchIssues()
     }
     catch (err) {
-      error.value = err instanceof Error ? err.message : 'Błąd przy aktualizacji zgłoszenia'
+      error.value = formatError(err)
       throw err
     }
     finally {

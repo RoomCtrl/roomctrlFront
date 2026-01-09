@@ -95,7 +95,7 @@ defineRule('required', required)
 const toast = useToast()
 const user = ref<IUserAddResponse>()
 const { t } = useI18n()
-const { updateUser, fetchUser } = useUser()
+const { updateUser, fetchUser, error } = useUser()
 const { handleSubmit, resetForm } = useForm<IAddUserForm>({
   validationSchema: {
     username: 'required|min:3',
@@ -127,20 +127,25 @@ const { value: roles, errorMessage: rolesError, handleBlur: rolesBlur } = useFie
 const loading = ref<boolean>(false)
 
 const submitForm = handleSubmit(async (formValues: IAddUserForm) => {
-  loading.value = true
-
   try {
     await updateUser(props.userId, formValues)
     resetForm()
-  }
-  finally {
     toast.add({
       severity: 'info',
       summary: t('common.toast.update'),
       detail: t('pages.adminDashboard.users.toast.update'),
       life: 3000 })
     emit('updateVisible', false)
-    loading.value = false
+  }
+  catch (err: any) {
+    console.log(error.value)
+    const errorMessage = error.value || err?.message || t('toast.error')
+    toast.add({
+      severity: 'error',
+      summary: t('toast.summary.error'),
+      detail: errorMessage,
+      life: 5000,
+    })
   }
 })
 

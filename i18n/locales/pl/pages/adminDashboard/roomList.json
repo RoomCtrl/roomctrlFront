@@ -15,5 +15,8 @@
     "roomAdded": "Sala została dodana",
     "roomDeleted": "Sala została usunięta",
     "operationFailed": "Operacja nie powiodła się"
+  },
+  "deleteRoomConfirmation": {
+    "message": "Czy na pewno chcesz usunąć tę salę?"
   }
 }

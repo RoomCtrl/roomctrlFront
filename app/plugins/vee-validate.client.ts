@@ -53,6 +53,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         description: t('forms.fields.description'),
         airConditioningMin: t('forms.fields.room.airConditioningMin'),
         airConditioningMax: t('forms.fields.room.airConditioningMax'),
+        participantsCount: t('forms.fields.booking.participantsCount'),
       }
 
       const fieldName = fieldNames[ctx.field] || ctx.field

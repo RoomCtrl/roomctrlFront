@@ -13,7 +13,9 @@
       "profileUpdated": "Profil został pomyślnie zaktualizowany",
       "passwordChanged": "Hasło zostało zmienione pomyślnie",
       "roomAdded": "Sala została dodana pomyślnie",
-      "roomUpdated": "Sala została zaktualizowana pomyślnie"
+      "roomUpdated": "Sala została zaktualizowana pomyślnie",
+      "bookingCreated": "Rezerwacja została utworzona pomyślnie",
+      "bookingUpdated": "Rezerwacja została zaktualizowana pomyślnie"
     },
     "error": {
       "registration": "Nie udało się zarejestrować. Spróbuj ponownie.",
