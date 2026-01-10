@@ -16,6 +16,17 @@
     "darkMode": "Dark Mode",
     "notifications": "Notifications"
   },
+  "deleteAccount": {
+    "title": "Delete Account",
+    "warning": "Warning! This action is irreversible",
+    "description": "Deleting your account will permanently remove all your data, including bookings, settings, and history. This action cannot be undone.",
+    "button": "Delete my account",
+    "confirmHeader": "Are you sure you want to delete your account?",
+    "confirmMessage": "This action is irreversible. All your data will be permanently deleted.",
+    "success": "Account has been successfully deleted",
+    "error": "An error occurred while deleting the account",
+    "errorNoUser": "Unable to identify user"
+  },
   "success": {
     "profileUpdated": "Your profile has been updated successfully",
     "passwordChanged": "Your password has been changed successfully"

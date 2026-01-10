@@ -49,10 +49,10 @@
     },
     "room": {
       "name": "Nazwa sali",
-      "capacity": "Pojemność",
-      "size": "Rozmiar",
+      "capacity": "Pojemność (osób)",
+      "size": "Rozmiar (m²)",
       "location": "Lokalizacja",
-      "access": "Dostęp",
+      "access": "Dostęp do sali",
       "lighting": "Oświetlenie",
       "airConditioning": "Klimatyzacja (min/max °C)",
       "airConditioningMin": "Klimatyzacja (min °C)",

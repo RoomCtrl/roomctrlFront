@@ -114,15 +114,17 @@
                 @keydown.enter="openBookingModal(res)"
                 @keydown.space="openBookingModal(res)"
               >
-                <div class="font-medium flex items-center gap-1">
-                  {{ res.title }}
-                </div>
-                <div class="text-xs opacity-90">
-                  {{ formatTime(res.date || res.startedAt) }} - {{ formatTime(res.endDate || res.endedAt) }}
-                </div>
-                <div class="pt-1">
-                  <i class="pi pi-map-marker" />
-                  {{ res.room?.location || $t('pages.myCalendar.noLocations') || 'Brak lokalizacji' }}
+                <div v-if="!res.isMultiDay || res.isFirstDay">
+                  <div class="font-medium flex items-center gap-1">
+                    {{ res.title }}
+                  </div>
+                  <div class="text-xs opacity-90">
+                    {{ formatTime(res.date || res.startedAt) }} - {{ formatTime(res.endDate || res.endedAt) }}
+                  </div>
+                  <div class="pt-1">
+                    <i class="pi pi-map-marker" />
+                    {{ res.room?.location || $t('pages.myCalendar.noLocations') || 'Brak lokalizacji' }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -302,8 +304,9 @@ const allReservations = computed(() => {
 
       while (currentDay <= endDay) {
         let segmentStart: Date, segmentEnd: Date
+        const isFirstDay = currentDay.getTime() === startDay.getTime()
 
-        if (currentDay.getTime() === startDay.getTime()) {
+        if (isFirstDay) {
           segmentStart = new Date(startDate)
           segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
         }
@@ -327,6 +330,7 @@ const allReservations = computed(() => {
           duration: duration,
           color,
           isMultiDay: true,
+          isFirstDay: isFirstDay,
           originalBooking: booking,
         } as any)
 

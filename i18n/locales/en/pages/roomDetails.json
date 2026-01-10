@@ -1,7 +1,9 @@
 {
   "buttons": {
     "rentNow": "Book now",
-    "addFavorite": "Add to favorites"
+    "addFavorite": "Add to favorites",
+    "removeFavorite": "Remove from favorites",
+    "reportIssue": "Report room issue"
   },
   "images": {
     "title": "Room Photos",

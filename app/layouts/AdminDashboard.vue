@@ -136,6 +136,7 @@ const localePath = useLocalePath()
 const { t } = useI18n()
 const { logout, syncFromStorage } = useAuth()
 const route = useRoute()
+const loading = ref(false)
 const router = useRouter()
 
 const isCollapsed = ref(true)

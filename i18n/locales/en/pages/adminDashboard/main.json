@@ -13,7 +13,11 @@
       "thisWeek": "Last 7 days",
       "thisMonth": "Last 30 days"
     },
-    "noBookingsToday": "No bookings today",
+    "noBookings": {
+      "today": "No bookings today",
+      "week": "No bookings in the last 7 days",
+      "month": "No bookings in the last 30 days"
+    },
     "labels": {
       "planned": "Planned",
       "ended": "Ended",
@@ -60,7 +64,8 @@
       "reserver": "Reserver",
       "day": "Day",
       "hour": "Hour",
-      "status": "Status"
+      "status": "Status",
+      "title": "Title"
     },
     "buttons": {
       "details": "Details"

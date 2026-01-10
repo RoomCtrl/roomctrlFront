@@ -47,4 +47,8 @@ export class BookingService {
   async createRecurringBooking(recurringBooking: IBookingRecurringRequest): Promise<void> {
     return this.repository.createRecurringBookings(recurringBooking)
   }
+
+  async deleteMeFromBooking(bookingId: string): Promise<void> {
+    return this.repository.deleteMeFromBooking(bookingId)
+  }
 }

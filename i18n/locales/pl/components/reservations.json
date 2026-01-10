@@ -10,6 +10,7 @@
     "room": "Sala",
     "attendees": "Uczestnicy",
     "cancelReservation": "Anuluj rezerwację",
+    "leaveReservation": "Opuść rezerwację",
     "date": "Data",
     "reservationCancelled": "Ta rezerwacja została anulowana",
     "reservationCompleted": "Ta rezerwacja została ukończona"

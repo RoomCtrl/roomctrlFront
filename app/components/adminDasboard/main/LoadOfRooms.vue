@@ -39,7 +39,7 @@
           v-else
           class="text-xl font-semibold"
         >
-          {{ $t('pages.adminDashboard.dashboard.chart.noBookingsToday') }}
+          {{ noBookingsMessage }}
         </span>
       </div>
     </template>
@@ -146,6 +146,11 @@ const buttons = computed(() => [
 ])
 
 const chooseData = ref<number[]>(todayData.value)
+
+const noBookingsMessage = computed(() => {
+  const key = isActive.value === 'today' ? 'today' : isActive.value === 'week' ? 'week' : 'month'
+  return t(`pages.adminDashboard.dashboard.chart.noBookings.${key}`)
+})
 
 const chartDataSets = computed(() => {
   const documentStyle = getComputedStyle(document.body)

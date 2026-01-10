@@ -49,10 +49,10 @@
     },
     "room": {
       "name": "Room Name",
-      "capacity": "Capacity",
-      "size": "Size",
+      "capacity": "Capacity (people)",
+      "size": "Size (m²)",
       "location": "Location",
-      "access": "Access",
+      "access": "Access to Room",
       "lighting": "Lighting",
       "airConditioning": "Air Conditioning (min/max °C)",
       "airConditioningMin": "Air Conditioning (min °C)",

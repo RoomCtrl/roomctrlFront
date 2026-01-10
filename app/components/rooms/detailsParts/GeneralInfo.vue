@@ -54,7 +54,10 @@
             :next-bookings="nextBookings"
             :room-id="roomId"
           />
-          <ReportRoomIssue :room-id="roomId" />
+          <ReportRoomIssue 
+            v-tooltip="t('pages.roomDetails.buttons.reportIssue')"
+            :room-id="roomId" 
+          />
         </div>
       </div>
     </template>

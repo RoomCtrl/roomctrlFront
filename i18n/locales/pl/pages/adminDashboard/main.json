@@ -13,7 +13,11 @@
       "thisWeek": "Ostatnie 7 dni",
       "thisMonth": "Ostatnie 30 dni"
     },
-    "noBookingsToday": "Brak rezerwacji dzisiaj",
+    "noBookings": {
+      "today": "Brak rezerwacji dzisiaj",
+      "week": "Brak rezerwacji w ostatnich 7 dniach",
+      "month": "Brak rezerwacji w ostatnich 30 dniach"
+    },
     "labels": {
       "planned": "Zaplanowane",
       "ended": "Zakończone",

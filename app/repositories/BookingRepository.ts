@@ -77,4 +77,13 @@ export class BookingRepository {
       body: recurringData,
     })
   }
+
+  async deleteMeFromBooking(bookingId: string): Promise<void> {
+    return $fetch(`/api/bookings/${bookingId}/leave`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    })
+  }
 }

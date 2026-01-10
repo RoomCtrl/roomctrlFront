@@ -29,10 +29,12 @@
     "resetPassword": "Resetuj hasło",
     "backToLogin": "Powrót do logowania",
     "backToEmailStep": "Powrót do wprowadzania emaila",
-    "sendToken": "Wyślij token na maila"
+    "sendToken": "Wyślij token na maila",
+    "leave": "Opuść"
   },
   "toast": {
     "danger": "Uwaga!",
+    "warning": "Ostrzeżenie",
     "success": "Sukces",
     "update": "Zaktualizowano",
     "bookingCreated": "Rezerwacja została utworzona",
@@ -40,6 +42,8 @@
     "bookingCancelled": "Rezerwacja została anulowana",
     "bookingError": "Błąd podczas operacji na rezerwacji",
     "bookingCancelError": "Błąd podczas anulowania rezerwacji",
+    "bookingLeft": "Opuściłeś rezerwację",
+    "bookingLeaveError": "Błąd podczas opuszczania rezerwacji",
     "favoriteAdded": "Sala dodana do ulubionych",
     "favoriteRemoved": "Sala usunięta z ulubionych",
     "favoriteError": "Błąd podczas zmiany ulubionych",

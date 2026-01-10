@@ -10,6 +10,7 @@
     "room": "Room",
     "attendees": "Attendees",
     "cancelReservation": "Cancel reservation",
+    "leaveReservation": "Leave reservation",
     "date": "Date",
     "reservationCancelled": "This reservation has been cancelled",
     "reservationCompleted": "This reservation has been completed"

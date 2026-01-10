@@ -140,11 +140,6 @@
         {{ $t('pages.reservationsHistory.noRent') }}
       </h1>
     </template>
-    <template #loading>
-      <div class="flex justify-center items-center bg-white border-2 w-full h-full">
-        <ProgressSpinner />
-      </div>
-    </template>
   </DataTable>
 
   <Dialog

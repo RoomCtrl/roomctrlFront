@@ -7,6 +7,7 @@
     "cancelled": "Anulowana"
   },
   "noExistRoom": "Sala nie istnieje",
+  "noExistUser": "Użytkownik już nie istnieje",
   "participantsModal": {
     "title": "Lista użytkowników",
     "username": "Nazwa użytkownika",

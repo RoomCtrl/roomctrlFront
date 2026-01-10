@@ -7,9 +7,6 @@ export const useBooking = () => {
 
   const formatError = (err: any): string => {
     const errorData = err.data
-    console.error('Booking error data first:', errorData)
-    console.error('Booking error data violations:', errorData.violations)
-    console.error('Booking error data message:', errorData.message)
 
     if (errorData.violations && Array.isArray(errorData.violations)) {
       return errorData.violations.map((v: any) => `${v.field}: ${v.message}`).join(', ')
@@ -147,6 +144,22 @@ export const useBooking = () => {
     }
   }
 
+  const leaveBooking = async (bookingId: string) => {
+    loading.value = true
+    error.value = null
+    try {
+      await getBookingService().deleteMeFromBooking(bookingId)
+      await fetchBookings(true)
+    }
+    catch (err) {
+      error.value = formatError(err)
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
   return {
     bookings,
     booking,
@@ -160,5 +173,6 @@ export const useBooking = () => {
     updateBooking,
     cancelBooking,
     fetchBookingStats,
+    leaveBooking,
   }
 }

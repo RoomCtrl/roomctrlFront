@@ -59,29 +59,58 @@
                   />
 
                   <div class="absolute top-0 left-0 right-0 bottom-0">
-                    <div
-                      v-for="res in getReservationsForDay(currentDate)"
-                      :key="res.id"
-                      v-tooltip.top="res.duration < 120 ? `${res.title}\n${formatTime(res.date)} - ${formatTime(res.endDate)} (${res.duration} min)\n${res.location}` : null"
-                      :class="[
-                        rentColor(res.color),
-                        'absolute left-0 right-0 mx-2 rounded p-2 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
-                      ]"
-                      :style="getReservationStyle(res)"
-                      @click="openModal(res)"
-                      @keydown.enter="openModal(res)"
+                    <template
+                      v-for="(group, idx) in groupOverlappingReservations(getReservationsForDay(currentDate))"
+                      :key="idx"
                     >
-                      <div class="font-medium text-sm flex items-center gap-2">
-                        {{ res.title }}
+                      <!-- Pojedyncza rezerwacja -->
+                      <div
+                        v-if="group.type === 'single'"
+                        v-tooltip.top="group.reservation.duration < 120 || (group.reservation.isMultiDay && !group.reservation.isFirstDay) ? `${group.reservation.title}\n${formatTime(group.reservation.originalStartDate || group.reservation.date)} - ${formatTime(group.reservation.originalEndDate || group.reservation.endDate)} (${group.reservation.originalDuration || group.reservation.duration} min)\n${group.reservation.location}` : null"
+                        :class="[
+                          rentColor(group.reservation.color),
+                          'absolute left-0 right-0 mx-2 rounded p-2 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
+                        ]"
+                        :style="getReservationStyle(group.reservation)"
+                        @click="openModal(group.reservation)"
+                        @keydown.enter="openModal(group.reservation)"
+                      >
+                        <div v-if="!group.reservation.isMultiDay || group.reservation.isFirstDay">
+                          <div class="font-medium text-sm flex items-center gap-2">
+                            {{ group.reservation.title }}
+                          </div>
+                          <div class="text-xs opacity-90">
+                            {{ formatTime(group.reservation.date) }} - {{ formatTime(group.reservation.endDate) }} ({{ group.reservation.duration }} min)
+                          </div>
+                          <div class="pt-1">
+                            <i class="pi pi-map-marker" />
+                            {{ group.reservation.location }}
+                          </div>
+                        </div>
                       </div>
-                      <div class="text-xs opacity-90">
-                        {{ formatTime(res.date) }} - {{ formatTime(res.endDate) }} ({{ res.duration }} min)
+                      <!-- Grupa nakładających się rezerwacji -->
+                      <div
+                        v-else
+                        v-tooltip.top="`Kliknij aby zobaczyć ${group.reservations.length} nakładających się rezerwacji`"
+                        :class="[
+                          'bg-purple-600 dark:bg-purple-800',
+                          'absolute left-0 right-0 mx-2 rounded p-2 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
+                        ]"
+                        :style="getReservationStyle(group.firstReservation)"
+                        @click="openOverlappingModal(group.reservations)"
+                        @keydown.enter="openOverlappingModal(group.reservations)"
+                      >
+                        <div class="font-bold text-center flex flex-col items-center justify-center h-full">
+                          <i class="pi pi-calendar text-2xl mb-1" />
+                          <div class="text-lg">
+                            {{ group.reservations.length }} rezerwacji
+                          </div>
+                          <div class="text-xs opacity-75">
+                            {{ formatTime(group.firstReservation.date) }} - {{ formatTime(group.firstReservation.endDate) }}
+                          </div>
+                        </div>
                       </div>
-                      <div class="pt-1">
-                        <i class="pi pi-map-marker" />
-                        {{ res.location }}
-                      </div>
-                    </div>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -137,29 +166,55 @@
                   class="h-12 border-b border-gray-200 dark:border-gray-600"
                 />
 
-                <div
-                  v-for="res in getReservationsForDay(day)"
-                  :key="res.id"
-                  v-tooltip.top="res.duration < 120 ? `${res.title}\n${formatTime(res.date)} - ${formatTime(res.endDate)} (${res.duration} min)\n${res.location}` : null"
-                  :class="[
-                    rentColor(res.color),
-                    'absolute left-0 right-0 mx-1 rounded p-1 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
-                  ]"
-                  :style="getReservationStyle(res)"
-                  @click="openModal(res)"
-                  @keydown.enter="openModal(res)"
+                <template
+                  v-for="(group, idx) in groupOverlappingReservations(getReservationsForDay(day))"
+                  :key="idx"
                 >
-                  <div class="font-medium flex items-center gap-1">
-                    {{ res.title }}
+                  <!-- Pojedyncza rezerwacja -->
+                  <div
+                    v-if="group.type === 'single'"
+                    v-tooltip.top="group.reservation.duration < 120 || (group.reservation.isMultiDay && !group.reservation.isFirstDay) ? `${group.reservation.title}\n${formatTime(group.reservation.originalStartDate || group.reservation.date)} - ${formatTime(group.reservation.originalEndDate || group.reservation.endDate)} (${group.reservation.originalDuration || group.reservation.duration} min)\n${group.reservation.location}` : null"
+                    :class="[
+                      rentColor(group.reservation.color),
+                      'absolute left-0 right-0 mx-1 rounded p-1 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
+                    ]"
+                    :style="getReservationStyle(group.reservation)"
+                    @click="openModal(group.reservation)"
+                    @keydown.enter="openModal(group.reservation)"
+                  >
+                    <div v-if="!group.reservation.isMultiDay || group.reservation.isFirstDay">
+                      <div class="font-medium text-sm flex items-center gap-2">
+                        {{ group.reservation.title }}
+                      </div>
+                      <div class="text-xs opacity-90">
+                        {{ formatTime(group.reservation.date) }} - {{ formatTime(group.reservation.endDate) }} ({{ group.reservation.duration }} min)
+                      </div>
+                      <div class="pt-1">
+                        <i class="pi pi-map-marker" />
+                        {{ group.reservation.location }}
+                      </div>
+                    </div>
                   </div>
-                  <div class="text-xs opacity-90">
-                    {{ formatTime(res.date) }} - {{ formatTime(res.endDate) }}
+                  <!-- Grupa nakładających się rezerwacji -->
+                  <div
+                    v-else
+                    v-tooltip.top="`Kliknij aby zobaczyć ${group.reservations.length} nakładających się rezerwacji`"
+                    :class="[
+                      'bg-purple-600 dark:bg-purple-800',
+                      'absolute left-0 right-0 mx-1 rounded p-1 text-white text-xs cursor-pointer hover:opacity-90 transition-opacity overflow-hidden',
+                    ]"
+                    :style="getReservationStyle(group.firstReservation)"
+                    @click="openOverlappingModal(group.reservations)"
+                    @keydown.enter="openOverlappingModal(group.reservations)"
+                  >
+                    <div class="font-bold text-center flex flex-col items-center justify-center h-full">
+                      <i class="pi pi-calendar text-xl" />
+                      <div class="text-sm">
+                        {{ group.reservations.length }}
+                      </div>
+                    </div>
                   </div>
-                  <div class="pt-1">
-                    <i class="pi pi-map-marker" />
-                    {{ res.location }}
-                  </div>
-                </div>
+                </template>
               </div>
             </div>
           </div>
@@ -200,7 +255,7 @@
                 <div
                   v-for="res in getReservationsForDay(day)"
                   :key="res.id"
-                  v-tooltip.top="res.duration < 120 ? `${res.title}\n${formatTime(res.date)} - ${formatTime(res.endDate)} (${res.duration} min)\n${res.location}` : null"
+                  v-tooltip.top="res.duration < 120 || (res.isMultiDay && !res.isFirstDay) ? `${res.title}\n${formatTime(res.originalStartDate || res.date)} - ${formatTime(res.originalEndDate || res.endDate)} (${res.originalDuration || res.duration} min)\n${res.location}` : null"
                   :class="[
                     rentColor(res.color),
                     'text-white text-xs rounded px-1 py-0.5 cursor-pointer hover:opacity-90 transition-opacity truncate',
@@ -208,8 +263,11 @@
                   @click="openModal(res)"
                   @keydown.enter="openModal(res)"
                 >
-                  <span class="font-medium">{{ formatTime(res.date) }} - {{ formatTime(res.endDate) }}</span>
-                  {{ res.title }}
+                  <span
+                    v-if="!res.isMultiDay || res.isFirstDay"
+                    class="font-medium"
+                  >{{ formatTime(res.date) }} - {{ formatTime(res.endDate) }}</span>
+                  <span v-if="!res.isMultiDay || res.isFirstDay">{{ res.title }}</span>
                 </div>
               </div>
             </div>
@@ -223,6 +281,51 @@
           @edit="handleEdit"
           @deleted="handleDeleted"
         />
+        <Dialog
+          v-model:visible="overlappingReservationsVisible"
+          modal
+          :header="`Nakładające się rezerwacje (${selectedOverlappingReservations.length})`"
+          :style="{ width: '50rem' }"
+          :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+        >
+          <div class="space-y-3">
+            <div
+              v-for="(res, idx) in selectedOverlappingReservations"
+              :key="res.id"
+              :class="[
+                rentColor(res.color),
+                'p-4 rounded-lg text-white cursor-pointer hover:opacity-90 transition-opacity',
+              ]"
+              @click="openModal(res); overlappingReservationsVisible = false"
+            >
+              <div class="flex justify-between items-start">
+                <div class="flex-1">
+                  <div class="font-bold text-lg mb-2">
+                    {{ idx + 1 }}. {{ res.title }}
+                  </div>
+                  <div class="flex items-center gap-4 text-sm">
+                    <div class="flex items-center gap-1">
+                      <i class="pi pi-clock" />
+                      {{ formatTime(res.date) }} - {{ formatTime(res.endDate) }}
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <i class="pi pi-hourglass" />
+                      {{ res.duration }} min
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-1 text-sm mt-1">
+                    <i class="pi pi-map-marker" />
+                    {{ res.location }}
+                  </div>
+                  <div class="flex items-center gap-1 text-sm mt-1">
+                    <i class="pi pi-building" />
+                    {{ res.roomName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Dialog>
         <Dialog
           v-model:visible="showBookingForm"
           modal
@@ -264,6 +367,8 @@ const showBookingForm = ref(false)
 const selectedRoomId = ref('')
 const editingBookingId = ref('')
 const editedReservation = ref(null)
+const overlappingReservationsVisible = ref(false)
+const selectedOverlappingReservations = ref([])
 const { t } = useI18n()
 const { bookings, fetchBookings } = useBooking()
 const { user } = useAuth()
@@ -296,6 +401,7 @@ const reservations = computed(() => {
           isPrivate: booking.isPrivate,
           roomName: booking.room?.roomName || t('pages.myCalendar.noRoom'),
           status: booking.status,
+          userId: booking.user?.id,
         })
       }
       else {
@@ -303,8 +409,9 @@ const reservations = computed(() => {
 
         while (currentDay <= endDay) {
           let segmentStart, segmentEnd
+          const isFirstDay = currentDay.getTime() === startDay.getTime()
 
-          if (currentDay.getTime() === startDay.getTime()) {
+          if (isFirstDay) {
             segmentStart = new Date(startDate)
             segmentEnd = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate(), 23, 59, 59)
           }
@@ -332,7 +439,12 @@ const reservations = computed(() => {
             isPrivate: booking.isPrivate,
             roomName: booking.room.roomName,
             isMultiDay: true,
+            isFirstDay: isFirstDay,
             status: booking.status,
+            originalStartDate: startDate,
+            originalEndDate: endDate,
+            originalDuration: Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60)),
+            userId: booking.user?.id,
           })
 
           currentDay.setDate(currentDay.getDate() + 1)
@@ -406,6 +518,53 @@ const getReservationsForDay = (day) => {
   )
 }
 
+const groupOverlappingReservations = (reservations) => {
+  if (!reservations || reservations.length === 0) return []
+
+  const groups = []
+  const processed = new Set()
+
+  reservations.forEach((res, index) => {
+    if (processed.has(index)) return
+
+    const overlapping = [res]
+    processed.add(index)
+
+    // Sprawdź nakładanie się z innymi rezerwacjami
+    reservations.forEach((other, otherIndex) => {
+      if (index === otherIndex || processed.has(otherIndex)) return
+
+      const resStart = res.date.getTime()
+      const resEnd = res.endDate.getTime()
+      const otherStart = other.date.getTime()
+      const otherEnd = other.endDate.getTime()
+
+      // Sprawdź czy rezerwacje się nakładają
+      if (
+        (resStart < otherEnd && resEnd > otherStart) // Częściowe nakładanie
+        || (resStart === otherStart && resEnd === otherEnd) // Całkowite nakładanie
+      ) {
+        overlapping.push(other)
+        processed.add(otherIndex)
+      }
+    })
+
+    if (overlapping.length > 1) {
+      groups.push({ type: 'group', reservations: overlapping, firstReservation: res })
+    }
+    else {
+      groups.push({ type: 'single', reservation: res })
+    }
+  })
+
+  return groups
+}
+
+const openOverlappingModal = (reservations) => {
+  selectedOverlappingReservations.value = reservations
+  overlappingReservationsVisible.value = true
+}
+
 const getReservationStyle = (reservation) => {
   const hour = reservation.date.getHours()
   const minutes = reservation.date.getMinutes()
@@ -463,6 +622,10 @@ const openModal = (reservation) => {
   const displayReservation = {
     ...reservation,
     id: reservation.originalId || reservation.id,
+    date: reservation.originalStartDate || reservation.date,
+    endDate: reservation.originalEndDate || reservation.endDate,
+    duration: reservation.originalDuration || reservation.duration,
+    userId: reservation.userId,
   }
   selectedReservation.value = displayReservation
 }

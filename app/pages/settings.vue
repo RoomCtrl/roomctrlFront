@@ -39,20 +39,30 @@
 import PasswordChange from '~/components/settings/user/PasswordChange.vue'
 import PersonalData from '~/components/settings/user/PersonalData.vue'
 import Preferences from '~/components/settings/user/Preferences.vue'
+import DeleteAccount from '~/components/settings/user/DeleteAccount.vue'
 
 definePageMeta({
   middleware: 'auth',
   layout: 'default',
 })
 const { t } = useI18n()
+const { isAdmin } = useAuth()
 
-const activeSection = ref<'profile' | 'password' | 'preferences'>('profile')
+const activeSection = ref<'profile' | 'password' | 'preferences' | 'deleteAccount'>('profile')
 
-const settingsMenu = computed<Array<{ id: 'profile' | 'password' | 'preferences', label: string }>>(() => [
-  { id: 'profile', label: t('pages.settings.personalData.title') },
-  { id: 'password', label: t('pages.settings.changePassword.title') },
-  { id: 'preferences', label: t('pages.settings.preferences.title') },
-])
+const settingsMenu = computed<Array<{ id: 'profile' | 'password' | 'preferences' | 'deleteAccount', label: string }>>(() => {
+  const menu = [
+    { id: 'profile' as const, label: t('pages.settings.personalData.title') },
+    { id: 'password' as const, label: t('pages.settings.changePassword.title') },
+    { id: 'preferences' as const, label: t('pages.settings.preferences.title') },
+  ]
+  
+  if (!isAdmin.value) {
+    menu.push({ id: 'deleteAccount' as const, label: t('pages.settings.deleteAccount.title') })
+  }
+  
+  return menu
+})
 
 const choosenSetting = computed(() => {
   switch (activeSection.value) {
@@ -62,6 +72,8 @@ const choosenSetting = computed(() => {
       return PasswordChange
     case 'preferences':
       return Preferences
+    case 'deleteAccount':
+      return DeleteAccount
     default:
       return ''
   }

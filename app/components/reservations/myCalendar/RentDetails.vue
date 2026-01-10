@@ -35,13 +35,19 @@
           <i class="pi pi-clock" />
           <div>
             <div class="text-sm font-medium">
-              {{ formatTime(selectedReservation.date) }} -
-              {{
-                formatEndTime(
-                  selectedReservation.date,
-                  selectedReservation.duration,
-                )
-              }}
+              <template v-if="isMultiDay">
+                {{ formatDateTime(selectedReservation.date) }} -
+                {{ formatEndDateTime(selectedReservation.date, selectedReservation.duration) }}
+              </template>
+              <template v-else>
+                {{ formatTime(selectedReservation.date) }} -
+                {{
+                  formatEndTime(
+                    selectedReservation.date,
+                    selectedReservation.duration,
+                  )
+                }}
+              </template>
             </div>
             <div class="text-sm">
               {{ $t('reservations.rentDetails.duration') }}:
@@ -98,17 +104,27 @@
       v-if="selectedReservation.status !== 'cancelled' && selectedReservation.status !== 'completed'"
       class="flex justify-end gap-3"
     >
-      <Button
-        :label="$t('reservations.rentDetails.cancelReservation')"
-        severity="danger"
-        :loading="deleteLoading"
-        @click="handleDelete"
-      />
-      <Button
-        :label="$t('common.buttons.edit')"
-        severity="success"
-        @click="handleEdit"
-      />
+      <template v-if="isOwner">
+        <Button
+          :label="$t('reservations.rentDetails.cancelReservation')"
+          severity="danger"
+          :loading="deleteLoading"
+          @click="handleDelete"
+        />
+        <Button
+          :label="$t('common.buttons.edit')"
+          severity="success"
+          @click="handleEdit"
+        />
+      </template>
+      <template v-else>
+        <Button
+          :label="$t('reservations.rentDetails.leaveReservation')"
+          severity="warning"
+          :loading="leaveLoading"
+          @click="handleLeave"
+        />
+      </template>
     </div>
     <div
       v-else
@@ -138,21 +154,29 @@ const props = defineProps<{
     title: string
     duration: number
     date: Date
+    endDate?: Date
     location: string
     attendees: number
     color: string
     status?: 'active' | 'cancelled' | 'completed'
     roomName?: string
+    userId?: string
   }
 }>()
 
 const emit = defineEmits(['update:open', 'edit', 'deleted'])
 
-const { cancelBooking } = useBooking()
+const { cancelBooking, leaveBooking } = useBooking()
+const { user } = useAuth()
 const deleteLoading = ref(false)
+const leaveLoading = ref(false)
 const confirm = useConfirm()
 const { t, locale } = useI18n()
 const toast = useToast()
+
+const isOwner = computed(() => {
+  return props.selectedReservation.userId === user.value?.id
+})
 
 const formatTime = (date: Date) => {
   return date.toLocaleTimeString(locale.value, {
@@ -177,6 +201,30 @@ const formatDate = (date: Date) => {
 const formatEndTime = (startDate: Date, duration: number) => {
   const endDate = new Date(startDate.getTime() + duration * 60000)
   return formatTime(endDate)
+}
+
+const isMultiDay = computed(() => {
+  if (!props.selectedReservation.date || !props.selectedReservation.endDate) return false
+  const startDay = new Date(props.selectedReservation.date)
+  const endDay = new Date(props.selectedReservation.endDate)
+  startDay.setHours(0, 0, 0, 0)
+  endDay.setHours(0, 0, 0, 0)
+  return startDay.getTime() !== endDay.getTime()
+})
+
+const formatDateTime = (date: Date) => {
+  return date.toLocaleDateString(locale.value, {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+}
+
+const formatEndDateTime = (startDate: Date, duration: number) => {
+  const endDate = new Date(startDate.getTime() + duration * 60000)
+  return formatDateTime(endDate)
 }
 
 const colorMap = {
@@ -236,5 +284,49 @@ const handleDelete = async () => {
 
 const handleEdit = () => {
   emit('edit', props.selectedReservation)
+}
+
+const handleLeave = async () => {
+  confirm.require({
+    message: t('pages.myCalendar.leaveReservation.title'),
+    header: t('common.toast.warning'),
+    icon: 'pi pi-info-circle',
+    rejectLabel: t('common.buttons.cancel'),
+    rejectProps: {
+      label: t('common.buttons.cancel'),
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: t('common.buttons.leave'),
+      severity: 'warning',
+    },
+    accept: async () => {
+      leaveLoading.value = true
+      try {
+        await leaveBooking(props.selectedReservation.id)
+        toast.add({
+          severity: 'success',
+          summary: t('common.toast.success'),
+          detail: t('common.toast.bookingLeft'),
+          life: 3000,
+        })
+        emit('update:open', false)
+        emit('deleted')
+      }
+      catch (err) {
+        console.error('Error leaving booking:', err)
+        toast.add({
+          severity: 'error',
+          summary: t('common.error'),
+          detail: t('common.toast.bookingLeaveError'),
+          life: 3000,
+        })
+      }
+      finally {
+        leaveLoading.value = false
+      }
+    },
+  })
 }
 </script>

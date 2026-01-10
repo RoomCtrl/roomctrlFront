@@ -1,5 +1,6 @@
 {
   "title": "Ustawienia",
+  "noAccess": "Nie masz dostępu do tej strony. Zaloguj się, aby kontynuować.",
   "personalData": {
     "title": "Dane osobowe",
     "description": "Zarządzaj swoimi danymi osobowymi"
@@ -14,5 +15,24 @@
     "language": "Język interfejsu",
     "darkMode": "Tryb ciemny",
     "notifications": "Powiadomienia"
+  },
+  "deleteAccount": {
+    "title": "Usuń konto",
+    "warning": "Uwaga! Ta operacja jest nieodwracalna",
+    "description": "Usunięcie konta spowoduje trwałe usunięcie wszystkich Twoich danych, w tym rezerwacji, ustawień i historii. Tej operacji nie można cofnąć.",
+    "button": "Usuń moje konto",
+    "confirmHeader": "Czy na pewno chcesz usunąć konto?",
+    "confirmMessage": "Ta operacja jest nieodwracalna. Wszystkie Twoje dane zostaną trwale usunięte.",
+    "success": "Konto zostało pomyślnie usunięte",
+    "error": "Wystąpił błąd podczas usuwania konta",
+    "errorNoUser": "Nie można zidentyfikować użytkownika"
+  },
+  "success": {
+    "profileUpdated": "Twój profil został pomyślnie zaktualizowany",
+    "passwordChanged": "Twoje hasło zostało pomyślnie zmienione"
+  },
+  "error": {
+    "profileUpdateFailed": "Nie udało się zaktualizować profilu",
+    "passwordChangeFailed": "Nie udało się zmienić hasła"
   }
 }

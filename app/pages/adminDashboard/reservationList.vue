@@ -56,9 +56,25 @@
         style="width: 25%"
       >
         <template #body="slotProps">
-          <span v-if="slotProps.data.room">{{ slotProps.data.room.roomName || '' }}</span>
+          <span v-if="slotProps.data.room">{{ slotProps.data.room.roomName }}</span>
           <div v-else>
             {{ $t('pages.adminDashboard.reservationList.noExistRoom') }}
+          </div>
+        </template>
+      </BaseTextFilterColumn>
+      <BaseTextFilterColumn
+        key="bookingUser"
+        field="bookingUser"
+        :header="$t('pages.adminDashboard.dashboard.tables.headers.reserver')"
+        filterField="bookingUser"
+        filter
+        sortable
+        style="width: 10%"
+      >
+        <template #body="slotProps">
+          <span v-if="slotProps.data.user">{{ slotProps.data.user.username }}</span>
+          <div v-else>
+            {{ $t('pages.adminDashboard.reservationList.noExistUser') }}
           </div>
         </template>
       </BaseTextFilterColumn>
@@ -104,7 +120,7 @@
         translationPrefix="pages.adminDashboard.reservationList.status."
         filter
         sortable
-        style="width: 10%"
+        style="width: 5%"
       />
       <BaseSelectFilterColumn
         key="isPrivate"
@@ -113,7 +129,7 @@
         :header="$t('tables.headers.isPrivate')"
         filter
         sortable
-        style="width: 5%"
+        style="width: 3%"
       >
         <template #body="slotProps">
           {{ $t(`tables.fieldValue.${slotProps.data.isPrivate}`) }}
@@ -205,21 +221,21 @@
               <div class="grid grid-cols-2">
                 <div>
                   <p>{{ $t('pages.adminDashboard.reservationList.participantsModal.username') }}</p>
-                  {{ user.username }}
+                  {{ user ? user.username : $t('pages.adminDashboard.reservationList.noExistUser') }}
                 </div>
                 <div>
                   <p>{{ $t('pages.adminDashboard.reservationList.participantsModal.email') }}</p>
-                  {{ user.email }}
+                  {{ user ? user.email : $t('pages.adminDashboard.reservationList.noExistUser') }}
                 </div>
               </div>
               <div class="grid grid-cols-2">
                 <div>
                   <p>{{ $t('pages.adminDashboard.reservationList.participantsModal.firstName') }}</p>
-                  {{ user.firstName }}
+                  {{ user ? user.firstName : $t('pages.adminDashboard.reservationList.noExistUser') }}
                 </div>
                 <div>
                   <p>{{ $t('pages.adminDashboard.reservationList.participantsModal.lastName') }}</p>
-                  {{ user.lastName }}
+                  {{ user ? user.lastName : $t('pages.adminDashboard.reservationList.noExistUser') }}
                 </div>
               </div>
             </div>
@@ -256,6 +272,7 @@ const { rows, rowsPerPageOptions, paginatorPosition, tableDisplay, onFilter, han
 const filters = ref({
   title: { value: null, matchMode: FilterMatchMode.CONTAINS },
   roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  bookingUser: { value: null, matchMode: FilterMatchMode.CONTAINS },
   user: { value: null, matchMode: FilterMatchMode.CONTAINS },
   startedAt: { value: null, matchMode: 'customDateFilter' },
   startedAtTime: { value: null, matchMode: 'customTimeFilter' },

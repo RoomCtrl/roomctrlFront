@@ -4,6 +4,9 @@
   "cancelReservation": {
     "title": "Czy na pewno chcesz anulować tę rezerwację?"
   },
+  "leaveReservation": {
+    "title": "Czy na pewno chcesz opuścić tę rezerwację?"
+  },
   "noRoom": "Sala nie istenieje",
   "noLocations": "Brak dostępnych lokalizacji"
 }

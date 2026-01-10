@@ -51,11 +51,15 @@
           style="width: 15%;"
           field="user.username"
           :header="$t('pages.adminDashboard.dashboard.tables.headers.reserver')"
-        />
+        >
+          <template #body="slotProps">
+            {{ slotProps.data.user ? slotProps.data.user.username : $t('pages.adminDashboard.reservationList.noExistUser') }}
+          </template>
+        </Column>
         <Column
           style="width: 10%;"
           field="startedAt"
-          :header="$t('pages.adminDashboard.dashboard.tables.headers.day')"
+          :header="$t('tables.headers.startedAt')"
         >
           <template #body="slotProps">
             {{ formatDate(slotProps.data.startedAt) }}
@@ -64,7 +68,7 @@
         <Column
           style="width: 10%;"
           field="endedAt"
-          :header="$t('pages.adminDashboard.dashboard.tables.headers.hour')"
+          :header="$t('tables.headers.endedAt')"
         >
           <template #body="slotProps">
             {{ formatDate(slotProps.data.endedAt) }}

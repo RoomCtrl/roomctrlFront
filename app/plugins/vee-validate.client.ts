@@ -54,6 +54,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         participantsCount: t('forms.fields.booking.participantsCount'),
         daysOfWeek: t('forms.fields.daysOfWeek'),
         weeksAhead: t('forms.fields.weeksAhead'),
+        status: t('forms.fields.status'),
       }
 
       const fieldName = fieldNames[ctx.field] || ctx.field

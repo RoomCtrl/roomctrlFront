@@ -1,6 +1,7 @@
 <template>
   <div>
     <Button
+      v-tooltip="$t('pages.roomDetails.buttons.reportIssue')"
       icon="pi pi-exclamation-circle"
       :disabled="!roomId"
       severity="danger"

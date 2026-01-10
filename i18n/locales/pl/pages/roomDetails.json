@@ -1,7 +1,9 @@
 {
   "buttons": {
     "rentNow": "Zarezerwuj teraz",
-    "addFavorite": "Dodaj do ulubinych"
+    "addFavorite": "Dodaj do ulubinych",
+    "removeFavorite": "Usuń z ulubionych",
+    "reportIssue": "Zgłoś problem z salą"
   },
   "noData": {
     "equipment": "Brak danych o wyposażeniu"

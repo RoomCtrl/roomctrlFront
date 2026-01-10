@@ -58,10 +58,22 @@ const props = defineProps<{
 const equipmentIcon = (equpiment: string) => {
   switch (equpiment) {
     case 'video': {
+      return 'pi pi-video'
+    }
+    case 'audio': {
+      return 'pi pi-volume-up'
+    }
+    case 'computer': {
       return 'pi pi-desktop'
     }
+    case 'accessory': {
+      return 'pi pi-box'
+    }
+    case 'furniture': {
+      return 'pi pi-home'
+    }
     default: {
-      return 'pi pi-user'
+      return 'pi pi-box'
     }
   }
 }
