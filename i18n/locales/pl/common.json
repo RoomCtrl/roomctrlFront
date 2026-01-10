@@ -30,7 +30,8 @@
     "backToLogin": "Powrót do logowania",
     "backToEmailStep": "Powrót do wprowadzania emaila",
     "sendToken": "Wyślij token na maila",
-    "leave": "Opuść"
+    "leave": "Opuść",
+    "resetFilters": "Resetuj filtry"
   },
   "toast": {
     "danger": "Uwaga!",

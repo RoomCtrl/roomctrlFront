@@ -13,7 +13,16 @@
 
       <Card>
         <template #content>
-          <AddUserButton />
+          <div class="flex gap-2">
+            <Button
+              icon="pi pi-filter-slash"
+              :label="$t('common.buttons.resetFilters')"
+              severity="secondary"
+              variant="outlined"
+              @click="resetFilters"
+            />
+            <AddUserButton />
+          </div>
         </template>
       </Card>
     </div>
@@ -149,6 +158,17 @@ const translateRoles = (roles: string[]) => {
   }
 
   return roles.map(role => map[role] || role).join(', ')
+}
+
+const resetFilters = () => {
+  filters.value = {
+    username: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    firstName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    lastName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    email: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    phone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    roles: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  }
 }
 
 onMounted(async () => {

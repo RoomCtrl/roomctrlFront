@@ -1,160 +1,171 @@
 <template>
-  <DataTable
-    ref="dataTable"
-    v-model:filters="filters"
-    :pt="{
-      root: { class: 'flex flex-col h-full' },
-      table: { class: tableDisplay },
-    }"
-    :value="filteredRents"
-    filterDisplay="row"
-    paginator
-    size="small"
-    stripedRows
-    :loading="loading"
-    :paginatorPosition="paginatorPosition"
-    :rows="rows"
-    removableSort
-    :rowsPerPageOptions="[13, 26, 39]"
-    @update:rows="handleUpdateRows"
-    @filter="onFilter"
-  >
-    <BaseTextFilterColumn
-      :key="'roomName'"
-      field="roomName"
-      :header="$t('pages.reservationsHistory.roomName')"
-      class="w-[10%]"
-      sortable
-      filter
-      showFilterMenu
-    />
-    <BaseTextFilterColumn
-      :key="'title'"
-      field="title"
-      :header="$t('pages.reservationsHistory.rentTitle')"
-      class="w-[25%]"
-      sortable
-      filter
-    />
-    <BaseDateFilterColumn
-      :key="'startedAtDate'"
-      field="startedAt"
-      :header="$t('pages.reservationsHistory.rentStartDate')"
-      dateFormat="dd/mm/yy"
-      class="w-[10%]"
-      sortable
-      filter
-    />
-    <BaseDateFilterColumn
-      :key="'startedAtTime'"
-      field="startedAtTime"
-      :header="$t('pages.reservationsHistory.rentStartTime')"
-      class="w-[8%]"
-      sortable
-      filter
-      onlyTime
-    />
-    <BaseDateFilterColumn
-      :key="'endedAtDate'"
-      field="endedAt"
-      :header="$t('pages.reservationsHistory.rentEndDate')"
-      dateFormat="dd/mm/yy"
-      class="w-[10%]"
-      sortable
-      filter
-    />
-    <BaseDateFilterColumn
-      :key="'endedAtTime'"
-      field="endedAtTime"
-      :header="$t('pages.reservationsHistory.rentEndTime')"
-      class="w-[8%]"
-      sortable
-      filter
-      onlyTime
-    />
-    <BaseSelectMessageFilter
-      :key="'status'"
-      field="status"
-      :header="$t('pages.reservationsHistory.rentStatus')"
-      class="20%"
-      sortable
-      translationPrefix="pages.adminDashboard.reservationList.status."
-      :status-color="statusColor"
-      :options="statuses"
-      filter
-    />
-    <BaseSelectFilterColumn
-      :key="'reservationsType'"
-      class="w-[11%]"
-      field="reservationsType"
-      :header="$t('pages.reservationsHistory.rentType')"
-      sortable
-      :options="typesOfReservation"
-      filter
+  <div class="flex flex-col gap-4 h-full">
+    <div class="flex justify-end">
+      <Button
+        icon="pi pi-filter-slash"
+        :label="$t('common.buttons.resetFilters')"
+        severity="secondary"
+        variant="outlined"
+        @click="resetFilters"
+      />
+    </div>
+    <DataTable
+      ref="dataTable"
+      v-model:filters="filters"
+      :pt="{
+        root: { class: 'flex flex-col h-full' },
+        table: { class: tableDisplay },
+      }"
+      :value="filteredRents"
+      filterDisplay="row"
+      paginator
+      size="small"
+      stripedRows
+      :loading="loading"
+      :paginatorPosition="paginatorPosition"
+      :rows="rows"
+      removableSort
+      :rowsPerPageOptions="[13, 26, 39]"
+      @update:rows="handleUpdateRows"
+      @filter="onFilter"
     >
-      <template #body="{ data }">
-        <span>{{ $t(`pages.reservationsHistory.reservationTypes.${data.reservationsType}`) }}</span>
+      <BaseTextFilterColumn
+        :key="'roomName'"
+        field="roomName"
+        :header="$t('pages.reservationsHistory.roomName')"
+        class="w-[10%]"
+        sortable
+        filter
+        showFilterMenu
+      />
+      <BaseTextFilterColumn
+        :key="'title'"
+        field="title"
+        :header="$t('pages.reservationsHistory.rentTitle')"
+        class="w-[25%]"
+        sortable
+        filter
+      />
+      <BaseDateFilterColumn
+        :key="'startedAtDate'"
+        field="startedAt"
+        :header="$t('pages.reservationsHistory.rentStartDate')"
+        dateFormat="dd/mm/yy"
+        class="w-[10%]"
+        sortable
+        filter
+      />
+      <BaseDateFilterColumn
+        :key="'startedAtTime'"
+        field="startedAtTime"
+        :header="$t('pages.reservationsHistory.rentStartTime')"
+        class="w-[8%]"
+        sortable
+        filter
+        onlyTime
+      />
+      <BaseDateFilterColumn
+        :key="'endedAtDate'"
+        field="endedAt"
+        :header="$t('pages.reservationsHistory.rentEndDate')"
+        dateFormat="dd/mm/yy"
+        class="w-[10%]"
+        sortable
+        filter
+      />
+      <BaseDateFilterColumn
+        :key="'endedAtTime'"
+        field="endedAtTime"
+        :header="$t('pages.reservationsHistory.rentEndTime')"
+        class="w-[8%]"
+        sortable
+        filter
+        onlyTime
+      />
+      <BaseSelectMessageFilter
+        :key="'status'"
+        field="status"
+        :header="$t('pages.reservationsHistory.rentStatus')"
+        class="20%"
+        sortable
+        translationPrefix="pages.adminDashboard.reservationList.status."
+        :status-color="statusColor"
+        :options="statuses"
+        filter
+      />
+      <BaseSelectFilterColumn
+        :key="'reservationsType'"
+        class="w-[11%]"
+        field="reservationsType"
+        :header="$t('pages.reservationsHistory.rentType')"
+        sortable
+        :options="typesOfReservation"
+        filter
+      >
+        <template #body="{ data }">
+          <span>{{ $t(`pages.reservationsHistory.reservationTypes.${data.reservationsType}`) }}</span>
+        </template>
+      </BaseSelectFilterColumn>
+      <Column
+        :key="'actions'"
+        class="w-[10%] "
+      >
+        <template #body="{ data }">
+          <div class="flex justify-center gap-2">
+            <Button
+              v-tooltip.left="{ value: $t('pages.reservationsHistory.comeToRoom') }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+              icon="pi pi-sign-out"
+              as="a"
+              :href="localePath(`/rooms/` + data.roomId)"
+              variant="outlined"
+              severity="info"
+              class="flex-none"
+            />
+            <Button
+              v-tooltip.left="{ value: $t('common.buttons.edit'), disabled: data.status === 'cancelled' || data.canEdit === false }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+              icon="pi pi-pencil"
+              :disabled="data.status === 'cancelled' || data.canEdit === false"
+              severity="success"
+              variant="outlined"
+              @click="openEditModal(data)"
+            />
+            <Button
+              v-tooltip.left="{ value: $t('common.buttons.cancel'), disabled: data.status === 'cancelled' || data.canCancel === false }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+              :disabled="data.status === 'cancelled' || data.canCancel === false"
+              severity="danger"
+              icon="pi pi-times"
+              variant="outlined"
+              @click="openCancelModal(data)"
+            />
+            <ReportRoomIssue :room-id="data.roomId || ''" />
+          </div>
+        </template>
+      </Column>
+
+      <template #empty>
+        <h1 class="flex justify-center items-center min-h-[50vh] font-bold text-2xl">
+          {{ $t('pages.reservationsHistory.noRent') }}
+        </h1>
       </template>
-    </BaseSelectFilterColumn>
-    <Column
-      :key="'actions'"
-      class="w-[10%] "
+    </DataTable>
+
+    <Dialog
+      v-model:visible="editModalVisible"
+      modal
+      :header="$t('forms.titles.editBooking')"
+      :style="{ width: '50rem' }"
+      :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
     >
-      <template #body="{ data }">
-        <div class="flex justify-center gap-2">
-          <Button
-            v-tooltip.left="{ value: $t('pages.reservationsHistory.comeToRoom') }"
-            pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
-            icon="pi pi-sign-out"
-            as="a"
-            :href="localePath(`/rooms/` + data.roomId)"
-            variant="outlined"
-            severity="info"
-            class="flex-none"
-          />
-          <Button
-            v-tooltip.left="{ value: $t('common.buttons.edit'), disabled: data.status === 'cancelled' }"
-            pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
-            icon="pi pi-pencil"
-            :disabled="data.status === 'cancelled'"
-            severity="success"
-            variant="outlined"
-            @click="openEditModal(data)"
-          />
-          <Button
-            v-tooltip.left="{ value: $t('common.buttons.cancel'), disabled: data.status === 'cancelled' }"
-            pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
-            :disabled="data.status === 'cancelled'"
-            severity="danger"
-            icon="pi pi-times"
-            variant="outlined"
-            @click="openCancelModal(data)"
-          />
-          <ReportRoomIssue :room-id="data.roomId || ''" />
-        </div>
-      </template>
-    </Column>
-
-    <template #empty>
-      <h1 class="flex justify-center items-center min-h-[50vh] font-bold text-2xl">
-        {{ $t('pages.reservationsHistory.noRent') }}
-      </h1>
-    </template>
-  </DataTable>
-
-  <Dialog
-    v-model:visible="editModalVisible"
-    modal
-    :header="$t('forms.titles.editBooking')"
-    :style="{ width: '50rem' }"
-    :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
-  >
-    <FormsBookingEditForm
-      v-if="selectedBooking"
-      :booking-id="selectedBooking.id"
-      @update-visible="editModalVisible = $event"
-    />
-  </Dialog>
+      <FormsBookingEditForm
+        v-if="selectedBooking"
+        :booking-id="selectedBooking.id"
+        @update-visible="editModalVisible = $event"
+      />
+    </Dialog>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -284,6 +295,19 @@ const typesOfReservation = ref([
   { label: t('pages.reservationsHistory.reservationTypes.public'), value: 'public' },
   { label: t('pages.reservationsHistory.reservationTypes.private'), value: 'private' },
 ])
+
+const resetFilters = () => {
+  filters.value = {
+    roomName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    startedAt: { value: null, matchMode: 'customDateFilter' },
+    startedAtTime: { value: null, matchMode: 'customTimeFilter' },
+    endedAt: { value: null, matchMode: 'customDateFilter' },
+    endedAtTime: { value: null, matchMode: 'customTimeFilter' },
+    status: { value: null, matchMode: 'statusEquals' },
+    reservationsType: { value: null, matchMode: 'statusEquals' },
+  }
+}
 
 onMounted(() => {
   const anyFS = FilterService as any

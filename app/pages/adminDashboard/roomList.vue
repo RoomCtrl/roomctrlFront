@@ -14,14 +14,24 @@
         pt:content:class="w-full h-full items-center flex"
       >
         <template #content>
-          <Button
-            icon="pi pi-plus"
-            variant="outlined"
-            raised
-            severity="success"
-            :label="$t('forms.roomForm.buttons.addRoom')"
-            @click="openAddModal"
-          />
+          <div class="flex gap-2">
+            <Button
+              icon="pi pi-filter-slash"
+              variant="outlined"
+              raised
+              severity="secondary"
+              :label="$t('common.buttons.resetFilters')"
+              @click="resetFilters"
+            />
+            <Button
+              icon="pi pi-plus"
+              variant="outlined"
+              raised
+              severity="success"
+              :label="$t('forms.roomForm.buttons.addRoom')"
+              @click="openAddModal"
+            />
+          </div>
         </template>
       </Card>
     </div>
@@ -243,6 +253,19 @@ const openEditModal = (room: IRoomCard) => {
 const resetModal = () => {
   selectedRoom.value = null
   showModal.value = false
+}
+
+const resetFilters = () => {
+  filters.value = {
+    roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    capacity: { value: null, matchMode: FilterMatchMode.EQUALS },
+    size: { value: null, matchMode: FilterMatchMode.EQUALS },
+    location: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    description: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    access: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    lighting: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    status: { value: null, matchMode: FilterMatchMode.EQUALS },
+  }
 }
 
 const deleteRoom = async (roomId: string) => {

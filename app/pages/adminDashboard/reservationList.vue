@@ -13,10 +13,19 @@
         pt:content:class="w-full h-full items-center flex"
       >
         <template #content>
-          <RentButton
-            :button-label="$t('pages.adminDashboard.reservationList.addReservation')"
-            buttonIcon="pi pi-plus"
-          />
+          <div class="flex gap-2">
+            <Button
+              icon="pi pi-filter-slash"
+              :label="$t('common.buttons.resetFilters')"
+              severity="secondary"
+              variant="outlined"
+              @click="resetFilters"
+            />
+            <RentButton
+              :button-label="$t('pages.adminDashboard.reservationList.addReservation')"
+              buttonIcon="pi pi-plus"
+            />
+          </div>
         </template>
       </Card>
     </div>
@@ -155,11 +164,11 @@
               @click="handleGoToRoom(slotProps.data.room.id)"
             />
             <Button
-              v-tooltip.left="{ value: $t('tables.buttonTooltips.editRent'), disabled: slotProps.data.status === 'cancelled' }"
+              v-tooltip.left="{ value: $t('tables.buttonTooltips.editRent'), disabled: slotProps.data.status === 'cancelled' || slotProps.data.status === 'completed' }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-pencil"
               severity="info"
-              :disabled="slotProps.data.status === 'cancelled'"
+              :disabled="slotProps.data.status === 'cancelled' || slotProps.data.status === 'completed'"
               variant="outlined"
               @click="openEditModal(slotProps.data)"
             />
@@ -321,6 +330,22 @@ const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string
   completed: 'success',
   active: 'info',
 }))
+
+const resetFilters = () => {
+  filters.value = {
+    title: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    bookingUser: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    user: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    startedAt: { value: null, matchMode: 'customDateFilter' },
+    startedAtTime: { value: null, matchMode: 'customTimeFilter' },
+    endedAt: { value: null, matchMode: 'customDateFilter' },
+    endedAtTime: { value: null, matchMode: 'customTimeFilter' },
+    status: { value: null, matchMode: FilterMatchMode.EQUALS },
+    isPrivate: { value: null, matchMode: FilterMatchMode.EQUALS },
+    participantsCount: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  }
+}
 
 onMounted(async () => {
   await fetchBookings(false)

@@ -128,8 +128,9 @@ const toast = useToast()
 const { createBooking, loading, error } = useBooking()
 const { rooms, fetchRooms, room, fetchRoom } = useRoom()
 const { users, fetchUsers } = useUser()
+const { user: currentUser } = useAuth()
 
-const maxCapacity = ref(room.value ? room.value.capacity : 10)
+const maxCapacity = ref(room.value?.capacity || 10)
 
 const { handleSubmit, resetForm } = useForm<IBookingCreateRequest>({
   validationSchema: {
@@ -137,7 +138,7 @@ const { handleSubmit, resetForm } = useForm<IBookingCreateRequest>({
     roomId: 'required',
     startedAt: 'required',
     endedAt: 'required',
-    participantsCount: 'required|min_value:1|max_value:' + (room.value.capacity),
+    participantsCount: `required|min_value:1|max_value:${maxCapacity.value}`,
   },
   initialValues: {
     roomId: props.providedRoomId || '',
@@ -162,10 +163,12 @@ const availableUsers = computed(() => {
   if (!users.value || !Array.isArray(users.value)) {
     return []
   }
-  return users.value.map(u => ({
-    id: u.id,
-    displayName: `${u.firstName} ${u.lastName} (${u.username})`,
-  }))
+  return users.value
+    .filter(u => u.id !== currentUser.value?.id)
+    .map(u => ({
+      id: u.id,
+      displayName: `${u.firstName} ${u.lastName} (${u.username})`,
+    }))
 })
 
 watch(() => participantIds.value, (newParticipantIds) => {

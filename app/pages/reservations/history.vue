@@ -4,6 +4,7 @@
       :reservations="allReservations"
       :loading="loading"
       @refresh="refreshBookings"
+      @reset-filters="handleResetFilters"
     />
     <ConfirmDialog />
     <Toast />
@@ -32,6 +33,10 @@ const refreshBookings = async () => {
   }
 }
 
+const handleResetFilters = () => {
+  // Przekazywane do komponentu ReservationCollection
+}
+
 const mapBookingToReservation = (booking: any) => {
   let status = 'active'
 
@@ -45,6 +50,8 @@ const mapBookingToReservation = (booking: any) => {
     status = 'completed'
   }
 
+  const isOwner = booking.user?.id === user.value?.id
+
   return {
     id: booking.id,
     title: booking.title,
@@ -55,6 +62,8 @@ const mapBookingToReservation = (booking: any) => {
     room: booking.room,
     participants: booking.participantsCount || 0,
     reservationsType: booking.isPrivate ? 'private' : 'public',
+    canEdit: isOwner,
+    canCancel: isOwner,
   }
 }
 

@@ -123,7 +123,7 @@ const formatDate = (dateString: string) => {
 }
 
 const statusColor = computed(() => ({
-  cancelled: 'error',
+  cancelled: 'danger',
   completed: 'success',
   active: 'info',
 }))

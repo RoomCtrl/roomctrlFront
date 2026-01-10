@@ -114,10 +114,6 @@
 
 <script setup lang="ts">
 import type { IBookingUpdateRequest } from '~/interfaces/BookingsInterfaces'
-import { useUser } from '~/composables/useUser'
-import { useRoom } from '~/composables/useRoom'
-import { useAuth } from '~/composables/useAuth'
-import { useBooking } from '~/composables/useBooking'
 import { useToast } from 'primevue/usetoast'
 import { useField, useForm } from 'vee-validate'
 
@@ -129,8 +125,8 @@ const { t } = useI18n()
 const toast = useToast()
 const { users, fetchUsers } = useUser()
 const { rooms, room, fetchRooms, fetchRoom } = useRoom()
-const { user, isAdmin } = useAuth()
-const { fetchBooking, updateBooking, loading, booking, error } = useBooking()
+const { fetchBooking, updateBooking, fetchBookings, loading, booking, error } = useBooking()
+const { user: currentUser } = useAuth()
 
 const maxCapacity = ref(room.value ? room.value.capacity : 10)
 
@@ -167,10 +163,12 @@ const availableUsers = computed(() => {
   if (!users.value || !Array.isArray(users.value)) {
     return []
   }
-  return users.value.map(u => ({
-    id: u.id,
-    displayName: `${u.firstName} ${u.lastName} (${u.username})`,
-  }))
+  return users.value
+    .filter(u => u.id !== currentUser.value?.id)
+    .map(u => ({
+      id: u.id,
+      displayName: `${u.firstName} ${u.lastName} (${u.username})`,
+    }))
 })
 
 const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
@@ -181,7 +179,6 @@ const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
   try {
     const formatDateTime = (date: Date | null | undefined) => {
       if (!date || !(date instanceof Date)) return undefined
-      // Konwersja z UTC+1 na UTC (odejmujemy 1 godzinę)
       const utcDate = new Date(date.getTime() - (1 * 60 * 60 * 1000))
       const year = utcDate.getFullYear()
       const month = String(utcDate.getMonth() + 1).padStart(2, '0')
@@ -199,6 +196,7 @@ const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
     }
 
     await updateBooking(props.bookingId, payload)
+    await fetchBookings(true)
     toast.add({
       severity: 'success',
       summary: t('toast.summary.success'),
