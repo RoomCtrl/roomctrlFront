@@ -16,8 +16,8 @@
       <i
         :class="[iconSize, 'pi pi-clock']"
       />
-      <div v-if="startedAt && endedAt && !isRangeSameDay(parseLocalDate(startedAt), parseLocalDate(endedAt)) && isToday">
-        {{ formatToDayMonth(parseLocalDate(endedAt)) }}
+      <div v-if="startedAt && endedAt && !isRangeSameDay(new Date(startedAt), new Date(endedAt)) && isToday">
+        {{ formatToDayMonth(new Date(endedAt)) }}
         <i class="pi pi-calendar" />
       </div>
     </div>
@@ -30,7 +30,7 @@
           class="flex flex-row gap-1 items-center"
         >
           <h3>
-            {{ formatDateRange(parseLocalDate(startedAt), parseLocalDate(endedAt)) }}
+            {{ formatDateRange(new Date(startedAt), new Date(endedAt)) }}
           </h3>
           <i class="pi pi-calendar" />
         </div>
@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { formatToHoursMinutes, formatTimeRange, formatToDayMonth, formatDateRange, isRangeSameDay, parseLocalDate } from '~/utils/dateHelpers'
+import { formatToHoursMinutes, formatTimeRange, formatToDayMonth, formatDateRange, isRangeSameDay } from '~/utils/dateHelpers'
 
 const status = inject('roomStatus') as string
 const props = defineProps<{
@@ -62,15 +62,15 @@ const props = defineProps<{
 
 const endedTime = computed(() => {
   if (props.endedAt) {
-    const date = parseLocalDate(props.endedAt)
+    const date = new Date(props.endedAt)
     return formatToHoursMinutes(date)
   }
   return ''
 })
 const rentTimeRange = computed(() => {
   if (props.endedAt && props.startedAt) {
-    const startDate = parseLocalDate(props.startedAt)
-    const endDate = parseLocalDate(props.endedAt)
+    const startDate = new Date(props.startedAt)
+    const endDate = new Date(props.endedAt)
     return formatTimeRange(startDate, endDate)
   }
   return ''
@@ -78,7 +78,7 @@ const rentTimeRange = computed(() => {
 
 const isToday = computed(() => {
   if (!props.startedAt) return false
-  const date = parseLocalDate(props.startedAt)
+  const date = new Date(props.startedAt)
   const today = new Date()
   return date.getDate() === today.getDate()
     && date.getMonth() === today.getMonth()

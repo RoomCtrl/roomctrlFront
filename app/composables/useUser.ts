@@ -1,6 +1,6 @@
 import type { IAddUserForm } from '~/interfaces/FormInterfaces'
 import type { IOrganization } from '~/interfaces/OrganizationInterfaces'
-import type { IUpdateUserProfileForm, IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
+import type { IChangePasswordForm, IUpdateUserProfileForm, IUserAddResponse, IUserResponse } from '~/interfaces/UsersInterfaces'
 import { UserService } from '~/services/UserService'
 
 export const useUser = () => {
@@ -8,6 +8,8 @@ export const useUser = () => {
   const users = useState<IUserResponse[]>('users', () => [])
   const loading = useState<boolean>('users-loading', () => false)
   const error = useState<string | null>('users-error', () => null)
+
+  const { t } = useI18n()
 
   const formatError = (err: any): string => {
     const errorData = err.data
@@ -78,7 +80,7 @@ export const useUser = () => {
       await fetchUsers(false)
     }
     catch (err: any) {
-      error.value = formatError(err)
+      error.value = t(err.message)
       throw err
     }
     finally {
@@ -94,7 +96,8 @@ export const useUser = () => {
       await fetchUsers(false)
     }
     catch (err: any) {
-      error.value = formatError(err)
+      console.log('composables', err)
+      error.value = t(err.message)
       throw err
     }
     finally {
@@ -107,6 +110,21 @@ export const useUser = () => {
     error.value = null
     try {
       await userService.updateUserPartially(guid, updatedUser)
+    }
+    catch (err: any) {
+      error.value = formatError(err)
+      throw err
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
+  const changePassword = async (guid: string, passwordData: IChangePasswordForm) => {
+    loading.value = true
+    error.value = null
+    try {
+      await userService.changePassword(guid, passwordData)
     }
     catch (err: any) {
       error.value = formatError(err)
@@ -173,6 +191,7 @@ export const useUser = () => {
     updateUserNotifications,
     updateOrganization,
     updateUserPartially,
+    changePassword,
 
     loading,
     error,

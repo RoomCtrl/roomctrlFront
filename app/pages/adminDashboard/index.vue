@@ -48,7 +48,6 @@ import IncomingRentsTable from '~/components/adminDasboard/main/IncomingRentsTab
 import LoadOfRooms from '~/components/adminDasboard/main/LoadOfRooms.vue'
 import MostRentRooms from '~/components/adminDasboard/main/MostRentRooms.vue'
 import RentMonthCalendar from '~/components/adminDasboard/main/RentMonthCalendar.vue'
-import { parseLocalDate } from '~/utils/dateHelpers'
 import ReportRoomsTable from '~/components/adminDasboard/main/ReportRoomsTable.vue'
 
 definePageMeta({
@@ -99,8 +98,16 @@ const rooms = computed(() => {
 const bookingsChartData = computed(() => {
   const now = new Date()
   return {
-    planned: bookings.value.filter(booking => parseLocalDate(booking.startedAt) > now).length,
-    ended: bookings.value.filter(booking => parseLocalDate(booking.endedAt) < now).length,
+    planned: bookings.value.filter((booking) => {
+      const startDate = new Date(booking.startedAt)
+      startDate.setTime(startDate.getTime() + (1 * 60 * 60 * 1000))
+      return startDate > now
+    }).length,
+    ended: bookings.value.filter((booking) => {
+      const endDate = new Date(booking.endedAt)
+      endDate.setTime(endDate.getTime() + (1 * 60 * 60 * 1000))
+      return endDate < now
+    }).length,
     cancelled: 0,
   }
 })
@@ -108,8 +115,18 @@ const bookingsChartData = computed(() => {
 const upcomingBookings = computed(() => {
   const now = new Date()
   return [...bookings.value]
-    .filter(booking => parseLocalDate(booking.startedAt) > now)
-    .sort((a, b) => parseLocalDate(a.startedAt).getTime() - parseLocalDate(b.startedAt).getTime())
+    .filter((booking) => {
+      const startDate = new Date(booking.startedAt)
+      startDate.setTime(startDate.getTime() + (1 * 60 * 60 * 1000))
+      return startDate > now
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.startedAt)
+      const dateB = new Date(b.startedAt)
+      dateA.setTime(dateA.getTime() + (1 * 60 * 60 * 1000))
+      dateB.setTime(dateB.getTime() + (1 * 60 * 60 * 1000))
+      return dateA.getTime() - dateB.getTime()
+    })
 })
 
 onMounted(async () => {

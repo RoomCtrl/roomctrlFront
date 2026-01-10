@@ -52,6 +52,7 @@
             class="flex justify-center"
             :current-booking="currentBooking"
             :next-bookings="nextBookings"
+            :room-id="roomId"
           />
           <ReportRoomIssue :room-id="roomId" />
         </div>

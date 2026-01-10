@@ -106,9 +106,10 @@
         sortable
         style="width: 10%"
       />
-      <BaseTextFilterColumn
+      <BaseSelectFilterColumn
         key="isPrivate"
         field="isPrivate"
+        :options="privateOptions"
         :header="$t('tables.headers.isPrivate')"
         filter
         sortable
@@ -117,7 +118,7 @@
         <template #body="slotProps">
           {{ $t(`tables.fieldValue.${slotProps.data.isPrivate}`) }}
         </template>
-      </BaseTextFilterColumn>
+      </BaseSelectFilterColumn>
       <BaseTextFilterColumn
         key="participantsCount"
         field="participantsCount"
@@ -238,7 +239,7 @@ import BaseTextFilterColumn from '~/components/common/datatable/columns/BaseText
 import BaseDateFilterColumn from '~/components/common/datatable/columns/BaseDateFilterColumn.vue'
 import BaseSelectTagFilter from '~/components/common/datatable/columns/BaseSelectTagFilter.vue'
 import RentButton from '~/components/booking/RentButton.vue'
-import { parseLocalDate } from '~/utils/dateHelpers'
+import BaseSelectFilterColumn from '~/components/common/datatable/columns/BaseSelectFilterColumn.vue'
 
 definePageMeta({
   middleware: 'admin',
@@ -247,6 +248,7 @@ definePageMeta({
 
 const usersModalVisible = ref(false)
 const selectedUsers = ref(null)
+const { t } = useI18n()
 const selectedBooking = ref<any>(null)
 const { loading } = useRoom()
 const { fetchBookings, cancelBooking, bookings } = useBooking()
@@ -264,15 +266,20 @@ const filters = ref({
   participantsCount: { value: null, matchMode: FilterMatchMode.CONTAINS },
 })
 
+const privateOptions = [
+  { label: t('common.buttons.yes'), value: true },
+  { label: t('common.buttons.no'), value: false },
+]
+
 const bookingsWithTimeFields = computed(() => {
   if (!bookings.value) return []
   return bookings.value.map(booking => ({
     ...booking,
     roomName: booking.room?.roomName || '',
-    startedAt: parseLocalDate(booking.startedAt),
-    endedAt: parseLocalDate(booking.endedAt),
-    startedAtTime: parseLocalDate(booking.startedAt),
-    endedAtTime: parseLocalDate(booking.endedAt),
+    startedAt: new Date(booking.startedAt),
+    endedAt: new Date(booking.endedAt),
+    startedAtTime: new Date(booking.startedAt),
+    endedAtTime: new Date(booking.endedAt),
   }))
 })
 

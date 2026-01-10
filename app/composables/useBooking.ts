@@ -28,6 +28,8 @@ export const useBooking = () => {
   const loading = useState<boolean>('bookings-loading', () => false)
   const error = useState<string | null>('bookings-error', () => null)
 
+  const { t } = useI18n()
+
   const getBookingService = () => new BookingService(token.value)
 
   const fetchBookings = async (myBookings: boolean) => {
@@ -68,8 +70,7 @@ export const useBooking = () => {
       await fetchBookings(false)
     }
     catch (err) {
-      error.value = formatError(err)
-      console.log('error creating booking:', error.value)
+      error.value = t(err.message)
       throw err
     }
     finally {

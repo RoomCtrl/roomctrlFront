@@ -17,7 +17,19 @@ export class BookingService {
   }
 
   async createBooking(newBooking: IBookingCreateRequest): Promise<IBooking> {
-    return this.repository.createBooking(newBooking)
+    try {
+      return await this.repository.createBooking(newBooking)
+    }
+    catch (error) {
+      if (error.data.message === 'Time slot already booked') {
+        throw new Error('services.bookingService.errors.createBooking.timeSlotBooked')
+      }
+      else if (error.data.message === 'Cannot create booking in the past') {
+        throw new Error('services.bookingService.errors.createBooking.pastTimeBooking')
+      }
+
+      throw error
+    }
   }
 
   async updateBooking(bookingId: string, updatedBooking: IBookingUpdateRequest): Promise<IBooking> {

@@ -50,7 +50,7 @@ interface IOrganizationSettings {
   name: string
   email: string
 }
-const { updateOrganization } = useUser()
+const { updateOrganization, error } = useUser()
 const toast = useToast()
 const { t } = useI18n()
 
@@ -65,15 +65,24 @@ const { value: name, errorMessage: nameError, handleBlur: nameBlur } = useField<
 const { value: email, errorMessage: emailError, handleBlur: emailBlur } = useField<string>('email')
 
 const onSubmit = handleSubmit(async (formValues: IOrganizationSettings) => {
-  await updateOrganization(user.value?.organization?.id, formValues)
-  toast.add({
-    severity: 'success',
-    summary: t('toast.summary.success'),
-    detail: t('toast.details.organizationDataUpdated'),
-  })
-  resetForm({
-    values: formValues,
-  })
+  try {
+    await updateOrganization(user.value?.organization?.id, formValues)
+    toast.add({
+      severity: 'success',
+      summary: t('toast.summary.success'),
+      detail: t('toast.details.organizationDataUpdated'),
+    })
+    resetForm({
+      values: formValues,
+    })
+  }
+  catch (err) {
+    toast.add({
+      severity: 'error',
+      summary: t('toast.summary.error'),
+      detail: error.value,
+    })
+  }
 })
 
 onMounted(() => {

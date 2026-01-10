@@ -180,7 +180,7 @@
             </div>
             <div class="text-lg font-bold text-green-900 dark:text-green-100 mt-1">
               <i class="pi pi-users mr-2" />
-              {{ selectedReservation.participants || 1 }} {{ $t('common.persons') || 'osób' }}
+              {{ selectedReservation.participantsCount || 1 }} {{ $t('common.persons') || 'osób' }}
             </div>
           </div>
         </div>
@@ -190,11 +190,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Dialog from 'primevue/dialog'
 import type { IBooking } from '~/interfaces/RoomsIntefaces'
-import { parseLocalDate } from '~/utils/dateHelpers'
+import { useBooking } from '~/composables/useBooking'
 
 interface IReservation extends IBooking {
   color?: string
@@ -209,13 +209,27 @@ interface IReservation extends IBooking {
 const props = defineProps<{
   currentBooking?: IBooking
   nextBookings?: IBooking[]
+  roomId?: string
 }>()
 
+const { fetchBookings, bookings } = useBooking()
 const isOpen = ref(false)
 const showBookingDetails = ref(false)
 const selectedReservation = ref<IReservation | null>(null)
 const { t } = useI18n()
 const weekOffset = ref(0)
+
+watch(() => props.roomId, async (newRoomId) => {
+  if (newRoomId && isOpen.value) {
+    await fetchBookings()
+  }
+}, { immediate: true })
+
+watch(isOpen, async (open) => {
+  if (open && props.roomId) {
+    await fetchBookings()
+  }
+})
 
 const hours = computed(() => Array.from({ length: 24 }, (_, i) => i))
 
@@ -248,16 +262,26 @@ const allReservations = computed(() => {
   const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange']
 
   const bookingsToProcess: IBooking[] = []
-  if (props.currentBooking) {
-    bookingsToProcess.push(props.currentBooking)
-  }
-  if (props.nextBookings) {
-    bookingsToProcess.push(...props.nextBookings)
+  
+  // Pobierz wszystkie rezerwacje i filtruj po ID pokoju
+  if (props.roomId && bookings.value) {
+    const roomBookings = bookings.value.filter((booking: any) => 
+      booking.room?.id === props.roomId && booking.status !== 'cancelled'
+    )
+    bookingsToProcess.push(...roomBookings)
+  } else {
+    // Fallback do starych danych jeśli roomId nie jest dostępne
+    if (props.currentBooking) {
+      bookingsToProcess.push(props.currentBooking)
+    }
+    if (props.nextBookings) {
+      bookingsToProcess.push(...props.nextBookings)
+    }
   }
 
   bookingsToProcess.forEach((booking, index) => {
-    const startDate = parseLocalDate(booking.startedAt)
-    const endDate = parseLocalDate(booking.endedAt)
+    const startDate = new Date(booking.startedAt)
+    const endDate = new Date(booking.endedAt)
     const color = colors[index % colors.length]
 
     const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
@@ -316,7 +340,7 @@ const allReservations = computed(() => {
 
 const getReservationsForDay = (day: Date): IReservation[] => {
   return allReservations.value.filter((res) => {
-    const resDate = res.date || parseLocalDate(res.startedAt)
+    const resDate = res.date || new Date(res.startedAt)
     return (
       resDate.getDate() === day.getDate()
       && resDate.getMonth() === day.getMonth()
@@ -326,8 +350,8 @@ const getReservationsForDay = (day: Date): IReservation[] => {
 }
 
 const getReservationStyle = (reservation: IReservation): Record<string, string> => {
-  const startDate = reservation.date || parseLocalDate(reservation.startedAt)
-  const endDate = reservation.endDate || parseLocalDate(reservation.endedAt)
+  const startDate = reservation.date || new Date(reservation.startedAt)
+  const endDate = reservation.endDate || new Date(reservation.endedAt)
   const durationMinutes = reservation.duration || Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60))
 
   const top = (startDate.getHours() * 60 + startDate.getMinutes()) * (48 / 60)
@@ -354,20 +378,20 @@ const getReservationColor = (res: IReservation): string => {
 
 const formatTime = (date: string | Date): string => {
   if (!date) return '--:--'
-  const d = typeof date === 'string' ? parseLocalDate(date) : date
+  const d = typeof date === 'string' ? new Date(date) : date
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
 const formatDate = (date: string): string => {
   if (!date) return '--'
-  const d = parseLocalDate(date)
+  const d = new Date(date)
   return d.toLocaleDateString()
 }
 
 const calculateDuration = (res: IReservation): number => {
   if (res.duration) return res.duration
-  const startDate = res.date || parseLocalDate(res.startedAt)
-  const endDate = res.endDate || parseLocalDate(res.endedAt)
+  const startDate = res.date || new Date(res.startedAt)
+  const endDate = res.endDate || new Date(res.endedAt)
   const durationMs = endDate.getTime() - startDate.getTime()
   return Math.round(durationMs / (1000 * 60))
 }

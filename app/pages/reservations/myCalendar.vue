@@ -250,7 +250,7 @@ import CalendarHeader from '~/components/reservations/myCalendar/CalendarHeader.
 import RentDetails from '~/components/reservations/myCalendar/RentDetails.vue'
 import { useBooking } from '~/composables/useBooking'
 import { useAuth } from '~/composables/useAuth'
-import { dayOfWeekFullNames, parseLocalDate } from '~/utils/dateHelpers'
+import { dayOfWeekFullNames } from '~/utils/dateHelpers'
 
 definePageMeta({
   middleware: 'auth',
@@ -275,8 +275,8 @@ const reservations = computed(() => {
   bookings.value
     .filter(booking => booking.status !== 'cancelled')
     .forEach((booking, index) => {
-      const startDate = parseLocalDate(booking.startedAt)
-      const endDate = parseLocalDate(booking.endedAt)
+      const startDate = new Date(booking.startedAt)
+      const endDate = new Date(booking.endedAt)
       const color = booking.status === 'cancelled' ? 'red' : colors[index % colors.length]
 
       const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())

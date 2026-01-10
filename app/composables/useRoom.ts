@@ -70,6 +70,7 @@ export const useRoom = () => {
     error.value = null
     try {
       await getRoomService().createRoom(newRoom)
+      await fetchRooms()
     }
     catch (err) {
       error.value = formatError(err)

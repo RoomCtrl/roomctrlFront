@@ -13,6 +13,7 @@
         v-tooltip.bottom="tooltipConfig"
         class="text-sm sm:text-base lg:text-lg font-bold truncate"
         @mouseenter="checkOverflow"
+        @focusin="checkOverflow"
       >
         {{ meetTitle }}
       </h1>
@@ -65,6 +66,7 @@ import { formatTimeRange } from '~/utils/dateHelpers'
 
 const props = defineProps<{
   currentBooking?: {
+    id: string
     title: string
     startedAt: string
     endedAt: string
@@ -72,11 +74,15 @@ const props = defineProps<{
     isPrivate: string
   }
 }>()
+const { booking, fetchBooking } = useBooking()
+const { user } = useAuth()
 const { t } = useI18n()
 const titleElement = ref(null)
 const shouldShowTooltip = ref(false)
 const meetTitle = computed(() => {
-  return props.currentBooking?.isPrivate ? props.currentBooking.title : t('pages.allRooms.statuses.roomTitle.occupied')
+  return props.currentBooking?.isPrivate && booking.value.user.username === user.value?.username
+    ? t('pages.allRooms.statuses.roomTitle.occupied')
+    : props.currentBooking.title
 })
 
 const checkOverflow = () => {
@@ -96,5 +102,9 @@ const tooltipConfig = computed(() => {
       text: 'text-center',
     },
   }
+})
+
+onMounted(async () => {
+  await fetchBooking(props.currentBooking.id)
 })
 </script>

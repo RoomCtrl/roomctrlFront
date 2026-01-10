@@ -99,9 +99,10 @@ const { updateUser, fetchUser, error } = useUser()
 const { handleSubmit, resetForm } = useForm<IAddUserForm>({
   validationSchema: {
     username: 'required|min:3',
-    firstName: 'min:3',
-    lastName: 'min:3',
-    email: 'email',
+    firstName: 'required|min:3',
+    lastName: 'required|min:3',
+    email: 'required|email',
+    phone: 'required|phone',
     roles: 'required',
   },
 })
@@ -138,7 +139,7 @@ const submitForm = handleSubmit(async (formValues: IAddUserForm) => {
     emit('updateVisible', false)
   }
   catch (err: any) {
-    const errorMessage = error.value || err?.message || t('toast.error')
+    const errorMessage = error.value || err
     toast.add({
       severity: 'error',
       summary: t('toast.summary.error'),

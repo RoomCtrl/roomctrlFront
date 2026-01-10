@@ -8,5 +8,22 @@
       "refreshUserToken": "Nie udało się odświeżyć tokenu",
       "errorWhileRefreshToken": "Błąd podczas odświeżania tokenu"
     }
+  },
+  "userService": {
+    "errors": {
+      "addUser": {
+        "emailAlreadyExists": "Użytkownik z podanym adresem e-mail już istnieje",
+        "phoneAlreadyExists": "Użytkownik z podanym numerem telefonu już istnieje",
+        "usernameAlreadyExists": "Użytkownik z podaną nazwą użytkownika już istnieje"
+      }
+    }
+  },
+  "bookingService": {
+    "errors": {
+      "createBooking": {
+        "timeSlotBooked": "Wybrany przedział czasowy jest już zarezerwowany",
+        "pastTimeBooking": "Nie można utworzyć rezerwacji w przeszłości"
+      }
+    }
   }
 }

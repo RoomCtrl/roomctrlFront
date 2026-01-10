@@ -55,7 +55,7 @@ withDefaults(
     multiSelect?: boolean
     options: {
       label: string
-      value: string
+      value: any
     }[]
   }>(), {
     sortable: false,

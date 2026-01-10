@@ -148,7 +148,6 @@ import GeneralInfo from '~/components/rooms/detailsParts/GeneralInfo.vue'
 import InfoCard from '~/components/rooms/detailsParts/InfoCard.vue'
 import UpcomingMeeting from '~/components/rooms/detailsParts/UpcomingMeeting.vue'
 import RoomImages from '~/components/rooms/detailsParts/RoomImages.vue'
-import { parseLocalDate } from '~/utils/dateHelpers'
 import { useRoom } from '~/composables/useRoom'
 import { useBooking } from '~/composables/useBooking'
 
@@ -167,47 +166,47 @@ const cleaningBookings = computed(() => {
   if (!bookings.value || !roomDetails.value || !bookings.value.room) return []
   return bookings.value.filter(booking =>
     booking.room.id === roomDetails.value?.roomId && booking.title.toLowerCase().includes('sprzątanie'),
-  ).sort((a, b) => parseLocalDate(b.endedAt).getTime() - parseLocalDate(a.endedAt).getTime())
+  ).sort((a, b) => new Date(b.endedAt).getTime() - new Date(a.endedAt).getTime())
 })
 
 const maintenanceBookings = computed(() => {
   if (!bookings.value || !roomDetails.value || !bookings.value.room) return []
   return bookings.value.filter(booking =>
     booking.room.id === roomDetails.value?.roomId && booking.title.toLowerCase().includes('konserwacja'),
-  ).sort((a, b) => parseLocalDate(b.endedAt).getTime() - parseLocalDate(a.endedAt).getTime())
+  ).sort((a, b) => new Date(b.endedAt).getTime() - new Date(a.endedAt).getTime())
 })
 
 const lastCleaning = computed(() => {
-  const completed = cleaningBookings.value.find(booking => parseLocalDate(booking.endedAt) < new Date())
+  const completed = cleaningBookings.value.find(booking => new Date(booking.endedAt) < new Date())
   return completed
-    ? parseLocalDate(completed.endedAt).toLocaleString('pl-PL', {
+    ? new Date(completed.endedAt).toLocaleString('pl-PL', {
         year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
       })
     : null
 })
 
 const nextCleaning = computed(() => {
-  const upcoming = cleaningBookings.value.find(booking => parseLocalDate(booking.startedAt) > new Date())
+  const upcoming = cleaningBookings.value.find(booking => new Date(booking.startedAt) > new Date())
   return upcoming
-    ? parseLocalDate(upcoming.startedAt).toLocaleString('pl-PL', {
+    ? new Date(upcoming.startedAt).toLocaleString('pl-PL', {
         year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
       })
     : null
 })
 
 const lastMaintenance = computed(() => {
-  const completed = maintenanceBookings.value.find(booking => parseLocalDate(booking.endedAt) < new Date())
+  const completed = maintenanceBookings.value.find(booking => new Date(booking.endedAt) < new Date())
   return completed
-    ? parseLocalDate(completed.endedAt).toLocaleString('pl-PL', {
+    ? new Date(completed.endedAt).toLocaleString('pl-PL', {
         year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
       })
     : null
 })
 
 const nextMaintenance = computed(() => {
-  const upcoming = maintenanceBookings.value.find(booking => parseLocalDate(booking.startedAt) > new Date())
+  const upcoming = maintenanceBookings.value.find(booking => new Date(booking.startedAt) > new Date())
   return upcoming
-    ? parseLocalDate(upcoming.startedAt).toLocaleString('pl-PL', {
+    ? new Date(upcoming.startedAt).toLocaleString('pl-PL', {
         year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
       })
     : null

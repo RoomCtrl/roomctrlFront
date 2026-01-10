@@ -181,12 +181,14 @@ const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
   try {
     const formatDateTime = (date: Date | null | undefined) => {
       if (!date || !(date instanceof Date)) return undefined
-      const year = date.getFullYear()
-      const month = String(date.getMonth() + 1).padStart(2, '0')
-      const day = String(date.getDate()).padStart(2, '0')
-      const hours = String(date.getHours()).padStart(2, '0')
-      const minutes = String(date.getMinutes()).padStart(2, '0')
-      const seconds = String(date.getSeconds()).padStart(2, '0')
+      // Konwersja z UTC+1 na UTC (odejmujemy 1 godzinę)
+      const utcDate = new Date(date.getTime() - (1 * 60 * 60 * 1000))
+      const year = utcDate.getFullYear()
+      const month = String(utcDate.getMonth() + 1).padStart(2, '0')
+      const day = String(utcDate.getDate()).padStart(2, '0')
+      const hours = String(utcDate.getHours()).padStart(2, '0')
+      const minutes = String(utcDate.getMinutes()).padStart(2, '0')
+      const seconds = String(utcDate.getSeconds()).padStart(2, '0')
       return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
     }
 

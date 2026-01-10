@@ -14,7 +14,6 @@
 import ReservationCollection from '~/components/reservations/ReservationCollection.vue'
 import { useBooking } from '~/composables/useBooking'
 import { useAuth } from '~/composables/useAuth'
-import { parseLocalDate } from '~/utils/dateHelpers'
 
 definePageMeta({
   middleware: 'auth',
@@ -37,7 +36,7 @@ const mapBookingToReservation = (booking: any) => {
   let status = 'active'
 
   const now = new Date()
-  const endDate = parseLocalDate(booking.endedAt)
+  const endDate = new Date(booking.endedAt)
 
   if (booking.status === 'cancelled') {
     status = 'cancelled'
@@ -49,8 +48,8 @@ const mapBookingToReservation = (booking: any) => {
   return {
     id: booking.id,
     title: booking.title,
-    startedAt: parseLocalDate(booking.startedAt),
-    endedAt: parseLocalDate(booking.endedAt),
+    startedAt: booking.startedAt,
+    endedAt: booking.endedAt,
     status,
     roomId: booking.room?.id,
     room: booking.room,

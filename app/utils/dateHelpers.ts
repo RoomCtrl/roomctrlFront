@@ -36,7 +36,7 @@ export const parseLocalDate = (dateString: string): Date => {
 
   const [, year, month, day, hours, minutes, seconds] = match
 
-  return new Date(
+  const date = new Date(
     parseInt(year),
     parseInt(month) - 1,
     parseInt(day),
@@ -44,6 +44,9 @@ export const parseLocalDate = (dateString: string): Date => {
     parseInt(minutes),
     parseInt(seconds),
   )
+  
+  // Dodaj 1 godzinę do czasu UTC z API (UTC -> UTC+1)
+  return new Date(date.getTime() + (1 * 60 * 60 * 1000))
 }
 export const formatDateForAPI = (date: Date): string => {
   const year = date.getFullYear()

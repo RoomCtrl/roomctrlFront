@@ -114,7 +114,6 @@
 import { useBooking } from '~/composables/useBooking'
 import { useRoom } from '~/composables/useRoom'
 import { useUser } from '~/composables/useUser'
-import { useAuth } from '~/composables/useAuth'
 import type { IBookingCreateRequest } from '~/interfaces/BookingsInterfaces'
 import { useToast } from 'primevue/usetoast'
 import { useField, useForm } from 'vee-validate'
@@ -129,7 +128,6 @@ const toast = useToast()
 const { createBooking, loading, error } = useBooking()
 const { rooms, fetchRooms, room, fetchRoom } = useRoom()
 const { users, fetchUsers } = useUser()
-const { user, isAdmin } = useAuth()
 
 const maxCapacity = ref(room.value ? room.value.capacity : 10)
 
@@ -179,12 +177,13 @@ watch(() => participantIds.value, (newParticipantIds) => {
 const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
   try {
     const formatDateTime = (date: Date): string => {
-      const year = date.getFullYear()
-      const month = String(date.getMonth() + 1).padStart(2, '0')
-      const day = String(date.getDate()).padStart(2, '0')
-      const hours = String(date.getHours()).padStart(2, '0')
-      const minutes = String(date.getMinutes()).padStart(2, '0')
-      const seconds = String(date.getSeconds()).padStart(2, '0')
+      const utcDate = new Date(date.getTime() - (1 * 60 * 60 * 1000))
+      const year = utcDate.getFullYear()
+      const month = String(utcDate.getMonth() + 1).padStart(2, '0')
+      const day = String(utcDate.getDate()).padStart(2, '0')
+      const hours = String(utcDate.getHours()).padStart(2, '0')
+      const minutes = String(utcDate.getMinutes()).padStart(2, '0')
+      const seconds = String(utcDate.getSeconds()).padStart(2, '0')
       return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
     }
 
@@ -199,6 +198,10 @@ const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
     }
 
     await createBooking(bookingData)
+
+    if (props.providedRoomId) {
+      await fetchRoom(props.providedRoomId)
+    }
     resetForm()
     toast.add({
       severity: 'success',
@@ -206,7 +209,6 @@ const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
       detail: t('common.toast.bookingCreated'),
       life: 3000,
     })
-
     emit('success')
     emit('close')
   }
