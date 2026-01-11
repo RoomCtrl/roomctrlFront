@@ -130,10 +130,10 @@ const isAndroid = computed(() => props.content.id === 'android')
 
 const qrValue = computed(() => {
   if (isAndroid.value) {
-    return 'http://185.25.151.154/api/download/android'
+    return 'https://roomctrl-backend.madeinpila.pl/api/download/android'
   }
   else {
-    return 'http://185.25.151.154/api/download/ios'
+    return 'https://roomctrl-backend.madeinpila.pl/api/download/ios'
   }
 })
 
@@ -166,7 +166,7 @@ function copyText(text: string) {
     navigator.clipboard.writeText(text).then(() => {
       toast.add({
         severity: 'success',
-        summary: t('toast.success'),
+        summary: t('toast.summary.success'),
         detail: t('toast.messages.copied'),
         life: 3000,
       })
