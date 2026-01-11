@@ -171,12 +171,6 @@ const availableUsers = computed(() => {
     }))
 })
 
-watch(() => participantIds.value, (newParticipantIds) => {
-  if (newParticipantIds && newParticipantIds.length > 0) {
-    participantsCount.value = newParticipantIds.length
-  }
-})
-
 const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
   try {
     const formatDateTime = (date: Date): string => {

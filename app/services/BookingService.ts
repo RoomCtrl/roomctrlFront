@@ -28,6 +28,14 @@ export class BookingService {
         throw new Error('services.bookingService.errors.createBooking.pastTimeBooking')
       }
 
+      if (error.data.violations) {
+        const endTimeViolation = error.data.violations.find((violation: { propertyPath: string, message: string }) =>
+          violation.message === 'End time must be after start time',
+        )
+        if (endTimeViolation) {
+          throw new Error('services.bookingService.errors.createBooking.endTimeBeforeStartTime')
+        }
+      }
       throw error
     }
   }

@@ -8,5 +8,14 @@
       "refreshUserToken": "Failed to refresh token",
       "errorWhileRefreshToken": "Error while refreshing token"
     }
+  },
+  "bookingService": {
+    "errors": {
+      "createBooking": {
+        "timeSlotBooked": "The selected time slot is already booked",
+        "pastTimeBooking": "Cannot create booking in the past",
+        "endTimeBeforeStartTime": "End time must be after start time"
+      }
+    }
   }
 }

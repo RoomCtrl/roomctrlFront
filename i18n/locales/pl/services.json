@@ -22,7 +22,8 @@
     "errors": {
       "createBooking": {
         "timeSlotBooked": "Wybrany przedział czasowy jest już zarezerwowany",
-        "pastTimeBooking": "Nie można utworzyć rezerwacji w przeszłości"
+        "pastTimeBooking": "Nie można utworzyć rezerwacji w przeszłości",
+        "endTimeBeforeStartTime": "Czas zakończenia musi być po czasie rozpoczęcia"
       }
     }
   }
