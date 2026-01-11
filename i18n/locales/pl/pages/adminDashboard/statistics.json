@@ -15,8 +15,8 @@
   "statusActive": "Aktywne",
   "statusCancelled": "Anulowane",
   "statusCompleted": "Wykonane",
-  "confirmedReservations": "Rezerwacje potwierdzone",
-  "pendingReservations": "Rezerwacje oczekujące",
+  "confirmedReservations": "Rezerwacje zakończone",
+  "pendingReservations": "Rezerwacje aktywne",
   "cancelledReservations": "Rezerwacje anulowane",
   "occupancyPercentage": "Procent obłożenia",
   "noData": "Brak danych do wyświetlenia"
