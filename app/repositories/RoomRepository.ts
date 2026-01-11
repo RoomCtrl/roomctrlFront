@@ -17,7 +17,7 @@ export class RoomRepository {
     if (withBookings !== undefined) params.append('withBookings', String(withBookings))
     if (status) params.append('status', status)
     const url = params.toString() ? `/api/rooms?${params.toString()}` : '/api/rooms'
-    return $fetch(url, {
+    return await $fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -26,7 +26,7 @@ export class RoomRepository {
   }
 
   async getRoom(roomId: string): Promise<IRoomCard> {
-    return $fetch(`/api/rooms/${roomId}`, {
+    return await $fetch(`/api/rooms/${roomId}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -35,7 +35,7 @@ export class RoomRepository {
   }
 
   async createRoom(newRoom: IRoomCreateRequest): Promise<IRoomDetails> {
-    return $fetch('/api/rooms', {
+    return await $fetch('/api/rooms', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -45,7 +45,7 @@ export class RoomRepository {
   }
 
   async updateRoom(roomId: string, updatedRoom: IRoomUpdateRequest): Promise<IRoomDetails> {
-    return $fetch(`/api/rooms/${roomId}`, {
+    return await $fetch(`/api/rooms/${roomId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export class RoomRepository {
   }
 
   async deleteRoom(roomId: string): Promise<void> {
-    return $fetch(`/api/rooms/${roomId}`, {
+    return await $fetch(`/api/rooms/${roomId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -66,7 +66,7 @@ export class RoomRepository {
 
   async getFavoriteRooms(withBookings: boolean = false): Promise<IRoomCard[]> {
     const url = withBookings ? '/api/rooms/favorites?withBookings=true' : '/api/rooms/favorites'
-    return $fetch(url, {
+    return await $fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -75,7 +75,7 @@ export class RoomRepository {
   }
 
   async toggleFavorite(roomId: string): Promise<void> {
-    return $fetch(`/api/rooms/${roomId}/favorite`, {
+    return await $fetch(`/api/rooms/${roomId}/favorite`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -87,7 +87,7 @@ export class RoomRepository {
     const formData = new FormData()
     formData.append('files[]', image)
 
-    return $fetch(`/api/rooms/${roomId}/upload`, {
+    return await $fetch(`/api/rooms/${roomId}/upload`, {
       method: 'POST',
       body: formData,
       headers: {
@@ -97,7 +97,7 @@ export class RoomRepository {
   }
 
   async getRoomImagesURL(roomId: string): Promise<IRoomImagesResponse> {
-    return $fetch(`/api/rooms/${roomId}/images`, {
+    return await $fetch(`/api/rooms/${roomId}/images`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -118,7 +118,7 @@ export class RoomRepository {
   }
 
   async deleteRoomImages(roomId: string): Promise<void> {
-    return $fetch(`/api/rooms/${roomId}/images`, {
+    return await $fetch(`/api/rooms/${roomId}/images`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -127,7 +127,7 @@ export class RoomRepository {
   }
 
   async deleteSingleRoomImage(roomId: string, imageIndex: number): Promise<void> {
-    return $fetch(`/api/rooms/${roomId}/images/${imageIndex}`, {
+    return await $fetch(`/api/rooms/${roomId}/images/${imageIndex}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,

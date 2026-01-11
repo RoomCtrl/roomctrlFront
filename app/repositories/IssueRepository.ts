@@ -14,7 +14,7 @@ export class IssueRepository {
 
   async getIssues(status?: 'open' | 'in_progress' | 'closed'): Promise<IIssuesDataResponse[]> {
     const url = status ? `/api/issues?status=${status}` : '/api/issues'
-    return $fetch(url, {
+    return await $fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -24,7 +24,7 @@ export class IssueRepository {
 
   async getCurrentUserIssues(status?: 'open' | 'in_progress' | 'closed'): Promise<IIssuesDataResponse[]> {
     const url = status ? `/api/issues/my?status=${status}` : '/api/issues/my'
-    return $fetch(url, {
+    return await $fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -33,7 +33,7 @@ export class IssueRepository {
   }
 
   async getIssueById(issueId: string): Promise<IIssueData> {
-    return $fetch(`/api/issues/${issueId}`, {
+    return await $fetch(`/api/issues/${issueId}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -42,7 +42,7 @@ export class IssueRepository {
   }
 
   async createIssue(newIssue: IIssueCreateResponse) {
-    return $fetch('/api/issues', {
+    return await $fetch('/api/issues', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -52,7 +52,7 @@ export class IssueRepository {
   }
 
   async createIssueNewNote(issueId: string, noteContent: string) {
-    return $fetch(`/api/issues/${issueId}/notes`, {
+    return await $fetch(`/api/issues/${issueId}/notes`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -62,7 +62,7 @@ export class IssueRepository {
   }
 
   async deleteIssue(issueId: string) {
-    return $fetch(`/api/issues/${issueId}`, {
+    return await $fetch(`/api/issues/${issueId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -71,7 +71,7 @@ export class IssueRepository {
   }
 
   async updateIssueStatusOrPriority(issueId: string, updatedFields: IIssueNewStatusOrPriority) {
-    return $fetch(`/api/issues/${issueId}`, {
+    return await $fetch(`/api/issues/${issueId}`, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${this.token}`,

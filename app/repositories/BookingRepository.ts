@@ -14,7 +14,7 @@ export class BookingRepository {
 
   async getBookings(myBookings?: boolean): Promise<IBooking[]> {
     const url = myBookings ? `/api/bookings?myBookings=${myBookings}` : '/api/bookings'
-    return $fetch(url, {
+    return await $fetch(url, {
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
@@ -22,7 +22,7 @@ export class BookingRepository {
   }
 
   async getBooking(bookingId: string): Promise<IBooking> {
-    return $fetch(`/api/bookings/${bookingId}`, {
+    return await $fetch(`/api/bookings/${bookingId}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -31,7 +31,7 @@ export class BookingRepository {
   }
 
   async createBooking(newBooking: IBookingCreateRequest): Promise<IBooking> {
-    return $fetch('/api/bookings', {
+    return await $fetch('/api/bookings', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -41,7 +41,7 @@ export class BookingRepository {
   }
 
   async updateBooking(bookingId: string, updatedBooking: IBookingUpdateRequest): Promise<IBooking> {
-    return $fetch(`/api/bookings/${bookingId}`, {
+    return await $fetch(`/api/bookings/${bookingId}`, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -51,7 +51,7 @@ export class BookingRepository {
   }
 
   async cancelBooking(bookingId: string): Promise<IBooking> {
-    return $fetch(`/api/bookings/${bookingId}/cancel`, {
+    return await $fetch(`/api/bookings/${bookingId}/cancel`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -60,7 +60,7 @@ export class BookingRepository {
   }
 
   async getBookingStats(): Promise<import('~/interfaces/BookingsInterfaces').IBookingStats> {
-    return $fetch('/api/bookings/count', {
+    return await $fetch('/api/bookings/count', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -69,7 +69,7 @@ export class BookingRepository {
   }
 
   async createRecurringBookings(recurringData: IBookingRecurringRequest): Promise<void> {
-    return $fetch('/api/bookings/recurring', {
+    return await $fetch('/api/bookings/recurring', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -79,7 +79,7 @@ export class BookingRepository {
   }
 
   async deleteMeFromBooking(bookingId: string): Promise<void> {
-    return $fetch(`/api/bookings/${bookingId}/leave`, {
+    return await $fetch(`/api/bookings/${bookingId}/leave`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,

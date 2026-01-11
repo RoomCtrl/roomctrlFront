@@ -21,7 +21,7 @@ export class UserRepository {
   }
 
   async addUser(newUser: IUserAddResponse) {
-    return $fetch('/api/users', {
+    return await $fetch('/api/users', {
       method: 'POST',
       body: newUser,
       headers: {
@@ -32,7 +32,7 @@ export class UserRepository {
   }
 
   async getUser(guid: string, withDetails: boolean): Promise<IUserResponse> {
-    return $fetch(`/api/users/${guid}?withDetails=${withDetails}`, {
+    return await $fetch(`/api/users/${guid}?withDetails=${withDetails}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -41,7 +41,7 @@ export class UserRepository {
   }
 
   async updateUser(guid: string, updatedUser: IAddUserForm) {
-    return $fetch(`/api/users/${guid}`, {
+    return await $fetch(`/api/users/${guid}`, {
       method: 'PUT',
       body: updatedUser,
       headers: {
@@ -52,7 +52,7 @@ export class UserRepository {
   }
 
   async updateUserPartrially(guid: string, updatedUser: IUpdateUserProfileForm) {
-    return $fetch(`/api/users/${guid}`, {
+    return await $fetch(`/api/users/${guid}`, {
       method: 'PATCH',
       body: updatedUser,
       headers: {
@@ -63,7 +63,7 @@ export class UserRepository {
   }
 
   async deletelUser(guid: string) {
-    return $fetch(`/api/users/${guid}`, {
+    return await $fetch(`/api/users/${guid}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -72,7 +72,7 @@ export class UserRepository {
   }
 
   async changePassword(guid: string, passwordData: IChangePasswordForm) {
-    return $fetch(`/api/users/${guid}/change-password`, {
+    return await $fetch(`/api/users/${guid}/change-password`, {
       method: 'POST',
       body: passwordData,
       headers: {
@@ -83,7 +83,7 @@ export class UserRepository {
   }
 
   async getUserNotifications(): Promise<boolean> {
-    return $fetch('/api/users/settings/notifications', {
+    return await $fetch('/api/users/settings/notifications', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -92,7 +92,7 @@ export class UserRepository {
   }
 
   async updateUserNotifications(emailNotificationsEnabled: boolean) {
-    return $fetch('/api/users/settings/notifications', {
+    return await $fetch('/api/users/settings/notifications', {
       method: 'PATCH',
       body: { emailNotificationsEnabled },
       headers: {
@@ -103,7 +103,7 @@ export class UserRepository {
   }
 
   async updateOrganization(organizationId: string, newData: IOrganization) {
-    return $fetch(`/api/organizations/${organizationId}`, {
+    return await $fetch(`/api/organizations/${organizationId}`, {
       method: 'PUT',
       body: newData,
       headers: {
