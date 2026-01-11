@@ -37,8 +37,8 @@
             v-for="(listItem, subSubIndex) in content.list"
             :key="subSubIndex"
             class="py-[0.3vh] max-sm:text-sm"
+            v-html="$t(listItem)"
           >
-            {{ $t(listItem) }}
           </li>
         </ul>
 

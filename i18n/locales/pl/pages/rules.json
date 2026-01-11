@@ -1,11 +1,11 @@
 {
   "title": "Regulamin",
-  "lastUpdate": "Ostatnia aktualizacja: 31.07.2025",
+  "lastUpdate": "Ostatnia aktualizacja: 11.01.2026",
   "general": {
     "title": "Postanowienia ogólne",
     "list": {
       "1": "Niniejszy regulamin („Regulamin”) określa zasady korzystania z platformy internetowej służącej do rezerwacji sal („Serwis”).",
-      "2": "Serwis jest dostępny pod adresem: http://RoomCtrl.pl .",
+      "2": "Serwis jest dostępny pod adresem: <a href='https://roomctrl.madeinpila.pl/pl' target='_blank'>https://roomctrl.madeinpila.pl/pl</a> .",
       "3": "Administratorem Serwisu jest RoomCtrl.",
       "4": "Korzystanie z Serwisu oznacza akceptację niniejszego Regulaminu.",
       "5": "Regulamin jest dostępny na stronie internetowej Serwisu w zakładce „Regulamin”."
@@ -61,7 +61,7 @@
   "complaints": {
     "title": "Reklamacje",
     "list": {
-      "1": "Użytkownik może zgłaszać reklamacje dotyczące funkcjonowania Serwisu na adres: http://RoomCtrl.pl .",
+      "1": "Użytkownik może zgłaszać reklamacje dotyczące funkcjonowania Serwisu na adres: {'roomctrlinfo@gmail.com'} .",
       "2": "Reklamacje będą rozpatrywane w terminie 14 dni roboczych od daty ich złożenia."
     }
   },

@@ -60,7 +60,6 @@ const { t } = useI18n()
 
 const contactUsDetails = [
   { label: t('layouts.main.footer.contact.email'), content: 'roomctrlinfo@gmail.com' },
-  { label: t('layouts.main.footer.contact.phone'), content: '+48 123 123 123' },
 ]
 
 const pagesAboutPlatform = computed(() => [

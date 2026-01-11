@@ -50,7 +50,6 @@ const { t } = useI18n()
 const contactUsDetails = [
   { id: 'companyName', label: t('pages.contact.contactDetails.company'), content: 'WorldCtrl', icon: 'pi pi-building' },
   { id: 'email', label: t('pages.contact.contactDetails.email'), content: 'roomctrlinfo@gmail.com', icon: 'pi pi-envelope', href: 'mailto:' },
-  { id: 'phone', label: t('pages.contact.contactDetails.phone'), content: '+48 123 123 123', icon: 'pi pi-phone', href: 'tel:' },
 ]
 </script>
 

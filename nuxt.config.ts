@@ -1,7 +1,7 @@
 import MyCustomPreset from './theme/primevue-preset'
 
 export default defineNuxtConfig({
-  pages: true,
+
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@hypernym/nuxt-anime',
     'nuxt-qrcode',
-  ],
+  ], pages: true,
   devtools: {
     enabled: true,
 
@@ -46,7 +46,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://185.25.151.154/api/',
+      apiBase: 'https://roomctrl-backend.madeinpila.pl/api/',
     },
   },
   compatibilityDate: '2025-05-15',
@@ -54,13 +54,13 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
     devProxy: {
       '/api': {
-        target: 'http://185.25.151.154/api/',
+        target: 'https://roomctrl-backend.madeinpila.pl/api/',
         changeOrigin: true,
       },
     },
     routeRules: {
       '/api/**': {
-        proxy: 'http://185.25.151.154/api/**',
+        proxy: 'https://roomctrl-backend.madeinpila.pl/api/**',
       },
     },
   },

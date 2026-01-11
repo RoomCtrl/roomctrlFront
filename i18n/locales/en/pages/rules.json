@@ -1,11 +1,11 @@
 {
   "title": "Terms of Service",
-  "lastUpdate": "Last update: 31.07.2025",
+  "lastUpdate": "Last update: 11.01.2026",
   "general": {
     "title": "General Provisions",
     "list": {
       "1": "These Terms of Service (“Terms”) define the rules for using the online platform for room reservations (“Service”).",
-      "2": "The Service is available at: http://RoomCtrl.pl .",
+      "2": "The Service is available at: <a href='https://roomctrl.madeinpila.pl/pl' target='_blank'>https://roomctrl.madeinpila.pl/pl</a> .",
       "3": "The Service is administered by RoomCtrl.",
       "4": "Using the Service constitutes acceptance of these Terms.",
       "5": "The Terms are available on the Service's website under the “Terms of Service” section."
@@ -61,7 +61,7 @@
   "complaints": {
     "title": "Complaints",
     "list": {
-      "1": "The user may submit complaints regarding the Service's operation at: http://RoomCtrl.pl .",
+      "1": "The user may submit complaints regarding the Service's operation at: {'roomctrlinfo@gmail.com'} .",
       "2": "Complaints will be processed within 14 business days from the date of submission."
     }
   },
