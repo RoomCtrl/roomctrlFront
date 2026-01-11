@@ -39,7 +39,7 @@
     "noNotes": "Brak notatek",
     "addNote": "Dodaj  notatkę",
     "startRepair": "Rozpocznij naprawę",
-    "closeIssue": "Zamknij zgłoeszenie",
+    "closeIssue": "Zamknij zgłoszenie",
     "actions": {
       "created": "Utworzono zgłoszenie",
       "status_changed": "Zmieniono status",
