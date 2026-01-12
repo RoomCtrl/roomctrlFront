@@ -121,6 +121,7 @@ import { useField, useForm } from 'vee-validate'
 const props = defineProps<{
   visible: boolean
   providedRoomId?: string
+  myBookings?: boolean
 }>()
 
 const { t } = useI18n()
@@ -194,8 +195,9 @@ const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
       bookingData.roomId = props.providedRoomId
     }
 
-    await createBooking(bookingData)
+    await createBooking(bookingData, props.myBookings)
 
+    await fetch
     if (props.providedRoomId) {
       await fetchRoom(props.providedRoomId)
     }

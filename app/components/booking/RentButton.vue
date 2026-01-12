@@ -17,6 +17,7 @@
       <FormsBookingRentForm
         :provided-room-id="roomId"
         :visible="visible"
+        :my-bookings="myBookings"
         @cancel="closeModal"
         @success="closeModal"
       />
@@ -30,6 +31,7 @@ defineProps<{
   capacity?: number
   buttonLabel?: string
   buttonIcon?: string
+  myBookings?: boolean
 }>()
 
 const visible = ref(false)

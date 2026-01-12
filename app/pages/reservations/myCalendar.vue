@@ -88,7 +88,6 @@
                           </div>
                         </div>
                       </div>
-                      <!-- Grupa nakładających się rezerwacji -->
                       <div
                         v-else
                         v-tooltip.top="`Kliknij aby zobaczyć ${group.reservations.length} nakładających się rezerwacji`"
@@ -170,7 +169,6 @@
                   v-for="(group, idx) in groupOverlappingReservations(getReservationsForDay(day))"
                   :key="idx"
                 >
-                  <!-- Pojedyncza rezerwacja -->
                   <div
                     v-if="group.type === 'single'"
                     v-tooltip.top="group.reservation.duration < 120 || (group.reservation.isMultiDay && !group.reservation.isFirstDay) ? `${group.reservation.title}\n${formatTime(group.reservation.originalStartDate || group.reservation.date)} - ${formatTime(group.reservation.originalEndDate || group.reservation.endDate)} (${group.reservation.originalDuration || group.reservation.duration} min)\n${group.reservation.location}` : null"
@@ -195,7 +193,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- Grupa nakładających się rezerwacji -->
                   <div
                     v-else
                     v-tooltip.top="`Kliknij aby zobaczyć ${group.reservations.length} nakładających się rezerwacji`"

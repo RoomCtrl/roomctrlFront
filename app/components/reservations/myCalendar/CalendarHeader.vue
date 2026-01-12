@@ -91,6 +91,7 @@
         <RentButton
           buttonIcon="pi pi-plus"
           :buttonLabel="$t('common.buttons.add')"
+          :myBookings="true"
         />
       </div>
     </div>

@@ -59,12 +59,12 @@ export const useBooking = () => {
     }
   }
 
-  const createBooking = async (newBooking: IBookingCreateRequest) => {
+  const createBooking = async (newBooking: IBookingCreateRequest, myBookings: boolean) => {
     loading.value = true
     error.value = null
     try {
       await getBookingService().createBooking(newBooking)
-      await fetchBookings(false)
+      await fetchBookings(myBookings)
     }
     catch (err) {
       error.value = t(err.message)
