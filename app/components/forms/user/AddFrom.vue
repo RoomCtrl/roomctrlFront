@@ -82,7 +82,8 @@
       <div class="flex justify-center pt-4 col-span-3">
         <Button
           type="submit"
-          label="Dodaj"
+          :label="$t('common.buttons.add')"
+          severity="success"
           :loading="loading"
           class="w-[65vw] md:w-[15rem]"
         />

@@ -71,6 +71,7 @@
       <div class="flex justify-center pt-4 col-span-3">
         <Button
           type="submit"
+          severity="info"
           :label="$t('pages.adminDashboard.users.buttons.update')"
           :loading="loading"
           class="w-[65vw] md:w-[15rem]"
