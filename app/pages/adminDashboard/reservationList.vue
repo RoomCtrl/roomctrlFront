@@ -127,6 +127,7 @@
         :status-color="statusColor"
         :header="$t('tables.headers.status')"
         translationPrefix="pages.adminDashboard.reservationList.status."
+        :options="statusOptions"
         filter
         sortable
         style="width: 5%"
@@ -282,7 +283,6 @@ const filters = ref({
   title: { value: null, matchMode: FilterMatchMode.CONTAINS },
   roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
   bookingUser: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  user: { value: null, matchMode: FilterMatchMode.CONTAINS },
   startedAt: { value: null, matchMode: 'customDateFilter' },
   startedAtTime: { value: null, matchMode: 'customTimeFilter' },
   endedAt: { value: null, matchMode: 'customDateFilter' },
@@ -302,10 +302,11 @@ const bookingsWithTimeFields = computed(() => {
   return bookings.value.map(booking => ({
     ...booking,
     roomName: booking.room?.roomName || '',
+    bookingUser: booking.user?.username || '',
     startedAt: new Date(booking.startedAt),
     endedAt: new Date(booking.endedAt),
-    startedAtTime: new Date(booking.startedAt),
-    endedAtTime: new Date(booking.endedAt),
+    startedAtTime: booking.startedAt,
+    endedAtTime: booking.endedAt,
   }))
 })
 
@@ -331,12 +332,17 @@ const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string
   active: 'info',
 }))
 
+const statusOptions = [
+  { label: t('pages.adminDashboard.reservationList.status.cancelled'), value: 'cancelled' },
+  { label: t('pages.adminDashboard.reservationList.status.completed'), value: 'completed' },
+  { label: t('pages.adminDashboard.reservationList.status.active'), value: 'active' },
+]
+
 const resetFilters = () => {
   filters.value = {
     title: { value: null, matchMode: FilterMatchMode.CONTAINS },
     roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
     bookingUser: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    user: { value: null, matchMode: FilterMatchMode.CONTAINS },
     startedAt: { value: null, matchMode: 'customDateFilter' },
     startedAtTime: { value: null, matchMode: 'customTimeFilter' },
     endedAt: { value: null, matchMode: 'customDateFilter' },

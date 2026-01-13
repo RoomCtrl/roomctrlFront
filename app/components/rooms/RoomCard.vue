@@ -22,7 +22,7 @@
           class="flex flex-row justify-between items-center gap-2 w-full"
         >
           <div
-            v-if="room.status !== 'occupied'"
+            v-if="room.status !== 'out_of_use'"
             class="w-[90%]"
           >
             <h1
@@ -52,7 +52,7 @@
           </div>
           <div v-else />
           <div
-            v-if="status != 'occupied'"
+            v-if="status != 'out_of_use'"
             class="hidden lg:block flex"
           >
             <i
@@ -113,17 +113,12 @@ const firstNextBooking = computed(() => {
   }
 })
 const status = computed(() => props.room.status)
-provide('roomStatus', status)
-
-const formatTime = (dateString: string) => {
-  const date = new Date(dateString)
-  return date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' })
-}
-
-const bookingTimeRange = computed(() => {
-  if (!props.room.currentBooking) return ''
-  return `${formatTime(props.room.currentBooking.startedAt)} - ${formatTime(props.room.currentBooking.endedAt)}`
+const roomState = computed(() => {
+  if (status.value === 'available' && props.room.currentBooking) return 'occupied'
+  if (status.value === 'available') return 'available'
+  return 'out_of_use'
 })
+provide('roomStatus', roomState)
 
 const playShow = () => {
   animationClass.value = ''

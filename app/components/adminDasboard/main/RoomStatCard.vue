@@ -139,6 +139,6 @@ const trendColorClass = computed(() => {
   color: var(--p-progressbar-label-color);
   font-size: var(--p-progressbar-label-font-size);
   font-weight: var(--p-progressbar-label-font-weight);
-  @apply absolute z-10 flex justify-center items-center h-5 w-full
+  @apply absolute text-black dark:text-white z-10 flex justify-center items-center h-5 w-full
 }
 </style>

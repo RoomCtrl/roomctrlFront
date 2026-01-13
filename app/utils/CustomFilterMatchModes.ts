@@ -7,7 +7,13 @@ export const customTimeFilter = (value: string, filter: Date): boolean => {
   const minutes = String(filter.getMinutes()).padStart(2, '0')
 
   const filterString = `${hours}:${minutes}`
-  const valueTime = value.slice(11, 16)
+  
+  // Konwertuj wartość ze stringa ISO na lokalny czas
+  const valueDate = new Date(value)
+  const valueHours = String(valueDate.getHours()).padStart(2, '0')
+  const valueMinutes = String(valueDate.getMinutes()).padStart(2, '0')
+  const valueTime = `${valueHours}:${valueMinutes}`
+  
   return (
     valueTime === filterString
   )

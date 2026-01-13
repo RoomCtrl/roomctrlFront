@@ -8,6 +8,7 @@
           :label="$t('forms.fields.user.username')"
           icon="pi pi-user"
           :errorMessage="usernameError"
+          :disabled="isEditingSelf"
           @blur="usernameBlur"
         />
       </div>
@@ -97,6 +98,7 @@ const toast = useToast()
 const user = ref<IUserAddResponse>()
 const { t } = useI18n()
 const { updateUser, fetchUser, error } = useUser()
+const { user: currentUser } = useAuth()
 const { handleSubmit, resetForm } = useForm<IAddUserForm>({
   validationSchema: {
     username: 'required|min:3',
@@ -127,6 +129,7 @@ const { value: phone, errorMessage: phoneError, handleBlur: phoneBlur } = useFie
 const { value: roles, errorMessage: rolesError, handleBlur: rolesBlur } = useField<string[]>('roles')
 
 const loading = ref<boolean>(false)
+const isEditingSelf = computed(() => currentUser.value?.id === props.userId)
 
 const submitForm = handleSubmit(async (formValues: IAddUserForm) => {
   try {

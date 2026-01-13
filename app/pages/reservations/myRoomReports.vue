@@ -163,11 +163,11 @@ const fetchedIssues = computed(() => {
 })
 
 const filters = ref({
-  roomName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  categoryTranslated: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  description: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  status: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  priority: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  categoryTranslated: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  description: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  status: { value: null, matchMode: FilterMatchMode.EQUALS },
+  priority: { value: null, matchMode: FilterMatchMode.EQUALS },
   reportedAt: { value: null, matchMode: 'customDateFilter' },
   reportedAtTime: { value: null, matchMode: 'customTimeFilter' },
   closedAt: { value: null, matchMode: 'customDateFilter' },

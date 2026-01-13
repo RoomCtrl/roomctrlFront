@@ -24,6 +24,9 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       title: 'RoomCtrl',
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
       ],

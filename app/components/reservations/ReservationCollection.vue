@@ -244,7 +244,6 @@ const handleCancelBooking = async () => {
         emit('refresh')
       }
       catch (error) {
-        console.error('Błąd podczas anulowania rezerwacji:', error)
         toast.add({
           severity: 'error',
           summary: t('common.error'),
@@ -273,8 +272,8 @@ const filteredRents = computed(() => {
 const { rows, tableDisplay, paginatorPosition, handleUpdateRows, onFilter } = useDataTable(filteredRents, 13)
 
 const filters = ref({
-  roomName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  title: { value: null, matchMode: FilterMatchMode.CONTAINS },
   startedAt: { value: null, matchMode: 'customDateFilter' },
   startedAtTime: { value: null, matchMode: 'customTimeFilter' },
   endedAt: { value: null, matchMode: 'customDateFilter' },
@@ -298,8 +297,8 @@ const typesOfReservation = ref([
 
 const resetFilters = () => {
   filters.value = {
-    roomName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    roomName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    title: { value: null, matchMode: FilterMatchMode.CONTAINS },
     startedAt: { value: null, matchMode: 'customDateFilter' },
     startedAtTime: { value: null, matchMode: 'customTimeFilter' },
     endedAt: { value: null, matchMode: 'customDateFilter' },

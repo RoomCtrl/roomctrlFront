@@ -10,6 +10,7 @@
           :model-value="modelValue"
           :class="{ 'p-invalid': errorMessage }"
           :autofocus="autofocus"
+          :disabled="disabled"
           @update:model-value="$emit('update:modelValue', $event)"
           @blur="$emit('blur')"
         />
@@ -40,6 +41,7 @@ interface Props {
   errorMessage?: string
   icon?: string
   autofocus?: boolean
+  disabled?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
@@ -47,6 +49,7 @@ withDefaults(defineProps<Props>(), {
   errorMessage: '',
   icon: '',
   autofocus: false,
+  disabled: false,
 })
 
 defineEmits<{

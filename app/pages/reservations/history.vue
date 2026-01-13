@@ -4,7 +4,6 @@
       :reservations="allReservations"
       :loading="loading"
       @refresh="refreshBookings"
-      @reset-filters="handleResetFilters"
     />
     <ConfirmDialog />
     <Toast />
@@ -31,10 +30,6 @@ const refreshBookings = async () => {
   if (user.value?.id) {
     await fetchBookings(true)
   }
-}
-
-const handleResetFilters = () => {
-  // Przekazywane do komponentu ReservationCollection
 }
 
 const mapBookingToReservation = (booking: any) => {

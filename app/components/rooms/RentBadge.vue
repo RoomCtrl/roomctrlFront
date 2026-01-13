@@ -76,14 +76,14 @@ const badgeColor = computed(() => {
     const map: Record<string, string> = {
       available: 'success',
       occupied: 'error',
-      closed: 'warn',
+      out_of_use: 'warn',
     }
     return map[roomStatus!.value]
   }
 })
 
 const statusText = computed(() => {
-  if (roomStatus?.value === 'occupied') return t('pages.allRooms.statuses.tags.closed')
+  if (roomStatus?.value === 'out_of_use') return t('pages.allRooms.statuses.tags.closed')
   return t('pages.allRooms.statuses.tags.available')
 })
 const fontSize = computed(() => {

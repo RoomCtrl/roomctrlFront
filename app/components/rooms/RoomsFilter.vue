@@ -106,7 +106,6 @@
           />
         </div>
 
-        <!-- Location Filter -->
         <div class="flex flex-col gap-2">
           <label
             id="location-filter"

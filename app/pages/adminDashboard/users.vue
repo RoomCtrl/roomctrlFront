@@ -143,11 +143,11 @@ const listOfRoles = ref([
 ])
 
 const filters = ref({
-  username: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  firstName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  lastName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  username: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  firstName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  lastName: { value: null, matchMode: FilterMatchMode.CONTAINS },
   email: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  phone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  phone: { value: null, matchMode: FilterMatchMode.CONTAINS },
   roles: { value: null, matchMode: FilterMatchMode.CONTAINS },
 })
 
@@ -162,11 +162,11 @@ const translateRoles = (roles: string[]) => {
 
 const resetFilters = () => {
   filters.value = {
-    username: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    firstName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    lastName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    username: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    firstName: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    lastName: { value: null, matchMode: FilterMatchMode.CONTAINS },
     email: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    phone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    phone: { value: null, matchMode: FilterMatchMode.CONTAINS },
     roles: { value: null, matchMode: FilterMatchMode.CONTAINS },
   }
 }
