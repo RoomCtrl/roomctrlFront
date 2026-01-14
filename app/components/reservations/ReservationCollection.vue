@@ -1,6 +1,13 @@
 <template>
   <div class="flex flex-col gap-4 h-full">
-    <div class="flex justify-end">
+    <div class="flex flex-row items-center justify-between">
+      <Card>
+        <template #title>
+          <h1 class="font-bold text-4xl">
+            {{ $t('pages.reservationsHistory.title') }}
+          </h1>
+        </template>
+      </Card>
       <Button
         icon="pi pi-filter-slash"
         :label="$t('common.buttons.resetFilters')"

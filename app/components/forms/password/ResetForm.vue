@@ -156,7 +156,7 @@ const submitForm = async () => {
 
         toast.add({
           severity: 'success',
-          summary: t('toast.success'),
+          summary: t('toast.summary.success'),
           detail: t('toast.messages.passwordResetCodeSent'),
           life: 5000,
         })
@@ -199,7 +199,7 @@ const submitForm = async () => {
 
         toast.add({
           severity: 'success',
-          summary: t('toast.success'),
+          summary: t('toast.summary.success'),
           detail: t('toast.messages.passwordResetSuccess'),
           life: 5000,
         })

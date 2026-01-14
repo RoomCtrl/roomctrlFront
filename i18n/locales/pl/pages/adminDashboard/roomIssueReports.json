@@ -43,7 +43,8 @@
     "actions": {
       "created": "Utworzono zgłoszenie",
       "status_changed": "Zmieniono status",
-      "closed": "Zamknięto zgłoszenie"
+      "closed": "Zamknięto zgłoszenie",
+      "note_added": "Dodano notatkę"
     }
   }
 }

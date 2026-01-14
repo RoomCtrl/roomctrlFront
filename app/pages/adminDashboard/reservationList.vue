@@ -178,7 +178,7 @@
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-times-circle"
               severity="danger"
-              :disabled="slotProps.data.status === 'cancelled'"
+              :disabled="slotProps.data.status === 'cancelled' || slotProps.data.status === 'completed'"
               variant="outlined"
               @click="cancelBooking(slotProps.data.id)"
             />

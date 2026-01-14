@@ -187,7 +187,7 @@ function copyText(text: string) {
     document.execCommand('copy')
     toast.add({
       severity: 'success',
-      summary: t('toast.success'),
+      summary: t('toast.summary.success'),
       detail: t('toast.messages.copied'),
       life: 3000,
     })

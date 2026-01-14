@@ -130,7 +130,7 @@ const submitForm = handleSubmit(async (formValues: IChangePasswordForm) => {
 
     toast.add({
       severity: 'success',
-      summary: t('toast.success'),
+      summary: t('toast.summary.success'),
       detail: t('toast.messages.passwordResetSuccess'),
       life: 5000,
     })

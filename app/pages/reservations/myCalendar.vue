@@ -375,7 +375,7 @@ const reservations = computed(() => {
   const colors = ['blue', 'green', 'yellow', 'purple', 'orange']
 
   bookings.value
-    .filter(booking => booking.status !== 'cancelled')
+    .filter(booking => booking.status !== 'cancelled' && booking.title !== 'Sprzątanie' && booking.title !== 'Konserwacja')
     .forEach((booking, index) => {
       const startDate = new Date(booking.startedAt)
       const endDate = new Date(booking.endedAt)

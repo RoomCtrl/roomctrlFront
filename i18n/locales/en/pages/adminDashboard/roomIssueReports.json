@@ -43,7 +43,8 @@
     "actions": {
       "created": "Issue created",
       "status_changed": "Status changed",
-      "closed": "Issue closed"
+      "closed": "Issue closed",
+      "note_added": "Note added"
     }
   }
 }

@@ -72,7 +72,7 @@
         <InfoCard
           :header="$t('pages.roomDetails.cleaning.title')"
         >
-          <div class="flex flex-row gap-1">
+          <div class="flex flex-col">
             <h1>
               {{ $t('pages.roomDetails.cleaning.last') }}
             </h1>
@@ -81,7 +81,7 @@
               {{ lastCleaning || $t('common.noData') }}
             </h2>
           </div>
-          <div class="flex flex-row gap-1">
+          <div class="flex flex-col">
             <h1>
               {{ $t('pages.roomDetails.cleaning.next') }}
             </h1>
@@ -94,7 +94,7 @@
         <InfoCard
           :header="$t('pages.roomDetails.maintenance.title')"
         >
-          <div class="flex flex-row gap-1">
+          <div class="flex flex-col">
             <h1>
               {{ $t('pages.roomDetails.maintenance.last') }}
             </h1>
@@ -102,7 +102,7 @@
               {{ lastMaintenance || $t('common.noData') }}
             </h2>
           </div>
-          <div class="flex flex-row gap-1 ">
+          <div class="flex flex-col ">
             <h1>
               {{ $t('pages.roomDetails.maintenance.next') }}
             </h1>
@@ -163,20 +163,21 @@ const { user } = useAuth()
 const showBookingForm = ref(false)
 
 const cleaningBookings = computed(() => {
-  if (!bookings.value || !roomDetails.value || !bookings.value.room) return []
-  return bookings.value.filter(booking =>
-    booking.room.id === roomDetails.value?.roomId && booking.title.toLowerCase().includes('sprzątanie'),
+  if (!bookings.value || !roomDetails.value) return []
+  return bookings.value.filter(b =>
+    b.room.id === roomDetails.value?.roomId && b.title === 'Sprzątanie',
   ).sort((a, b) => new Date(b.endedAt).getTime() - new Date(a.endedAt).getTime())
 })
 
 const maintenanceBookings = computed(() => {
-  if (!bookings.value || !roomDetails.value || !bookings.value.room) return []
-  return bookings.value.filter(booking =>
-    booking.room.id === roomDetails.value?.roomId && booking.title.toLowerCase().includes('konserwacja'),
+  if (!bookings.value || !roomDetails.value) return []
+  return bookings.value.filter(b =>
+    b.room.id === roomDetails.value?.roomId && b.title === 'Konserwacja',
   ).sort((a, b) => new Date(b.endedAt).getTime() - new Date(a.endedAt).getTime())
 })
 
 const lastCleaning = computed(() => {
+  console.log('cleaningBookings', cleaningBookings.value)
   const completed = cleaningBookings.value.find(booking => new Date(booking.endedAt) < new Date())
   return completed
     ? new Date(completed.endedAt).toLocaleString('pl-PL', {
@@ -186,6 +187,7 @@ const lastCleaning = computed(() => {
 })
 
 const nextCleaning = computed(() => {
+  console.log('cleaningBookings', cleaningBookings.value)
   const upcoming = cleaningBookings.value.find(booking => new Date(booking.startedAt) > new Date())
   return upcoming
     ? new Date(upcoming.startedAt).toLocaleString('pl-PL', {
