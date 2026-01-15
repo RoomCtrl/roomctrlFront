@@ -10,7 +10,7 @@
         class=" w-full"
       >
         <NuxtLink
-          v-if="room.status != 'occupied'"
+          v-if="room.status != 'out_of_use'"
           :to="localePath(`/rooms/${room.roomId}`)"
         >
           <RoomCard :room="room" />
@@ -18,6 +18,7 @@
         <RoomCard
           v-else
           :room="room"
+          class="cursor-default"
         />
       </div>
     </div>
