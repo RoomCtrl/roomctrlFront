@@ -156,7 +156,17 @@ const availableRooms = computed(() => {
   if (!rooms.value || !Array.isArray(rooms.value)) {
     return []
   }
-  return rooms.value.filter(r => r.status === 'available')
+  const filtered = rooms.value.filter(r => r.status === 'available')
+
+  if (booking.value?.room && !filtered.find(r => r.roomId === booking.value.room.id)) {
+    filtered.push({
+      roomId: booking.value.room.id,
+      roomName: booking.value.room.roomName,
+      status: booking.value.room.status,
+    } as any)
+  }
+
+  return filtered
 })
 
 const availableUsers = computed(() => {
@@ -196,7 +206,7 @@ const submitForm = handleSubmit(async (formValue: IBookingUpdateRequest) => {
     }
 
     await updateBooking(props.bookingId, payload)
-    await fetchBookings(true)
+    await fetchBookings(false)
     toast.add({
       severity: 'success',
       summary: t('toast.summary.success'),
@@ -259,8 +269,12 @@ watch(() => participantsCount.value, (newCount) => {
 })
 
 onMounted(async () => {
+  await fetchUsers(false)
+  await fetchRooms(false)
   await fetchBooking(props.bookingId)
+
   if (booking.value) {
+    await fetchRoom(booking.value.room.id)
     resetForm({
       values: {
         title: booking.value.title,
@@ -273,8 +287,5 @@ onMounted(async () => {
       },
     })
   }
-  await fetchUsers(false)
-  await fetchRooms(false)
-  await fetchRoom(roomId.value)
 })
 </script>

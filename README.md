@@ -7,7 +7,7 @@ Nowoczesna aplikacja webowa do zarządzania rezerwacjami sal, zbudowana z wykorz
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat&logo=typescript&logoColor=white)
 ![PrimeVue](https://img.shields.io/badge/PrimeVue-4.3.6-41B883?style=flat)
 
-## 📚 Dokumentacja
+## Dokumentacja
 
 - **[Architektura](./docs/ARCHITECTURE.md)** - Szczegółowa architektura aplikacji
 - **[Komponenty](./docs/COMPONENTS.md)** - Dokumentacja komponentów Vue
@@ -16,18 +16,18 @@ Nowoczesna aplikacja webowa do zarządzania rezerwacjami sal, zbudowana z wykorz
 - **[Przewodnik Developera](./docs/DEVELOPER_GUIDE.md)** - Jak zacząć pracę z projektem
 - **[Deployment](./docs/DEPLOYMENT.md)** - Instrukcje wdrożenia
 
-## ✨ Funkcjonalności
+## Funkcjonalności
 
-- 🔐 **System Autoryzacji** - JWT authentication, role-based access control
-- 📅 **Zarządzanie Rezerwacjami** - Tworzenie, edycja, anulowanie rezerwacji
-- 👥 **Panel Administracyjny** - Zarządzanie użytkownikami, salami, organizacjami
-- 📊 **Statystyki i Raporty** - Wykresy wykorzystania sal
-- 🌍 **Wielojęzyczność** - Wsparcie dla PL/EN (i18n)
-- 🌓 **Tryb Ciemny** - Light/Dark mode
-- 📱 **Responsywność** - Pełna obsługa urządzeń mobilnych
-- ♿ **Accessibility** - ARIA labels, keyboard navigation
+- **System Autoryzacji** - JWT authentication, role-based access control
+- **Zarządzanie Rezerwacjami** - Tworzenie, edycja, anulowanie rezerwacji
+- **Panel Administracyjny** - Zarządzanie użytkownikami, salami, organizacjami
+- **Statystyki i Raporty** - Wykresy wykorzystania sal
+- **Wielojęzyczność** - Wsparcie dla PL/EN (i18n)
+- **Tryb Ciemny** - Light/Dark mode
+- **Responsywność** - Pełna obsługa urządzeń mobilnych
+- **Accessibility** - ARIA labels, keyboard navigation
 
-## 🚀 Szybki Start
+## Szybki Start
 
 ### Wymagania
 
@@ -50,7 +50,7 @@ npm run dev
 
 Aplikacja będzie dostępna pod adresem: `http://localhost:3000`
 
-## 📦 Dostępne Komendy
+## Dostępne Komendy
 
 ```bash
 # Development
@@ -72,7 +72,7 @@ npm run lint:fix         # Automatyczna naprawa problemów
 npm run analyze          # Analiza rozmiaru bundle
 ```
 
-## 🏗️ Struktura Projektu
+## Struktura Projektu
 
 ```
 roomctrlFront/
@@ -95,7 +95,7 @@ roomctrlFront/
 └── package.json            # Zależności projektu
 ```
 
-## 🛠️ Stack Technologiczny
+## Stack Technologiczny
 
 ### Core
 
@@ -134,7 +134,7 @@ roomctrlFront/
 - **Prettier** - Code formatting
 - **Nuxt DevTools** - Developer experience
 
-## 🔧 Konfiguracja
+## Konfiguracja
 
 Konfiguracja aplikacji znajduje się w `nuxt.config.ts`:
 
@@ -148,7 +148,7 @@ export default defineNuxtConfig({
 })
 ```
 
-## 🧪 Testowanie
+## Testowanie
 
 ```bash
 # Uruchom wszystkie testy
@@ -164,7 +164,7 @@ npm run test:ui
 npm run test:coverage
 ```
 
-## 🚢 Deployment
+## Deployment
 
 ### Docker (Rekomendowane)
 
@@ -188,7 +188,7 @@ node .output/server/index.mjs
 
 Szczegółowe instrukcje: [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
 
-## 📖 Przewodnik Developera
+## Przewodnik Developera
 
 Jeśli zaczynasz pracę z projektem, zapoznaj się z [Przewodnikiem Developera](./docs/DEVELOPER_GUIDE.md), który zawiera:
 
@@ -198,7 +198,7 @@ Jeśli zaczynasz pracę z projektem, zapoznaj się z [Przewodnikiem Developera](
 - Najczęstsze problemy
 - Tips & tricks
 
-## 🤝 Contributing
+## Contributing
 
 1. Utwórz branch dla swojego feature: `git checkout -b feature/amazing-feature`
 2. Commituj zmiany: `git commit -m 'feat: add amazing feature'`
@@ -217,11 +217,11 @@ Używamy [Conventional Commits](https://www.conventionalcommits.org/):
 - `test:` - testy
 - `chore:` - maintenance
 
-## 📄 Licencja
+## Licencja
 
 Projekt prywatny - wszystkie prawa zastrzeżone.
 
-## 🔗 Przydatne Linki
+## Przydatne Linki
 
 - [Nuxt 3 Documentation](https://nuxt.com)
 - [Vue 3 Documentation](https://vuejs.org)
@@ -230,5 +230,3 @@ Projekt prywatny - wszystkie prawa zastrzeżone.
 - [Vitest Documentation](https://vitest.dev)
 
 ---
-
-**Pytania?** Sprawdź [dokumentację](./docs/) lub skontaktuj się z zespołem.

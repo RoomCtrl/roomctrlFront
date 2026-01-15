@@ -54,9 +54,9 @@
             :next-bookings="nextBookings"
             :room-id="roomId"
           />
-          <ReportRoomIssue 
+          <ReportRoomIssue
             v-tooltip="t('pages.roomDetails.buttons.reportIssue')"
-            :room-id="roomId" 
+            :room-id="roomId"
           />
         </div>
       </div>
@@ -118,7 +118,6 @@ const handleToggleFavorite = async () => {
   }
   catch (err) {
     isFavoriteLocal.value = previousState
-    console.error('Error toggling favorite:', err)
     toast.add({
       severity: 'error',
       summary: t('common.error'),

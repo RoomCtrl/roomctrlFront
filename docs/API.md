@@ -1068,45 +1068,6 @@ class BookingRepository {
 }
 ```
 
-## Testowanie
-
-### Repository Test
-
-```typescript
-import { describe, it, expect, vi } from 'vitest'
-import BookingRepository from './BookingRepository'
-
-describe('BookingRepository', () => {
-  it('should fetch bookings', async () => {
-    const repository = new BookingRepository('fake-token')
-    const bookings = await repository.getBookings(true)
-
-    expect(Array.isArray(bookings)).toBe(true)
-  })
-})
-```
-
-### Service Test
-
-```typescript
-import { describe, it, expect, vi } from 'vitest'
-import { BookingService } from './BookingService'
-
-describe('BookingService', () => {
-  it('should validate booking data', () => {
-    const service = new BookingService('fake-token')
-
-    const invalidData = {
-      title: 'ab', // Too short
-      startDate: new Date(),
-      endDate: new Date()
-    }
-
-    expect(() => service.validateBookingData(invalidData)).toThrow()
-  })
-})
-```
-
 ## Wnioski
 
 Warstwa API w RoomCtrl:

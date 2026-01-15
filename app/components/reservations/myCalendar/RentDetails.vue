@@ -267,7 +267,6 @@ const handleDelete = async () => {
         emit('deleted')
       }
       catch (err) {
-        console.error('Error cancelling booking:', err)
         toast.add({
           severity: 'error',
           summary: t('common.error'),
@@ -315,7 +314,6 @@ const handleLeave = async () => {
         emit('deleted')
       }
       catch (err) {
-        console.error('Error leaving booking:', err)
         toast.add({
           severity: 'error',
           summary: t('common.error'),

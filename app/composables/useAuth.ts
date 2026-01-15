@@ -59,9 +59,6 @@ export const useAuth = () => {
         await authService.logout(token.value)
       }
     }
-    catch (error) {
-      console.error('Logout error:', error)
-    }
     finally {
       user.value = null
       token.value = null
@@ -219,7 +216,6 @@ export const useAuth = () => {
       user.value = userProfile
     }
     catch (error) {
-      console.error('Error fetching user profile:', error)
       return null
     }
   }

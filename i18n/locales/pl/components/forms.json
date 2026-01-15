@@ -67,7 +67,11 @@
     "booking": {
       "title": "Tytuł rezerwacji",
       "roomId": "Wybierz salę",
+      "roomName": "Nazwa sali",
+      "type": "Rodzaj pracy",
       "startedAt": "Data i godzina rozpoczęcia",
+      "startTime": "Czas rozpoczęcia",
+      "endTime": "Czas zakończenia",
       "endedAt": "Data i godzina zakończenia",
       "participantsCount": "Liczba uczestników",
       "participantIds": "Wybierz uczestników",

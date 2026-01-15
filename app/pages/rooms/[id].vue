@@ -177,7 +177,6 @@ const maintenanceBookings = computed(() => {
 })
 
 const lastCleaning = computed(() => {
-  console.log('cleaningBookings', cleaningBookings.value)
   const completed = cleaningBookings.value.find(booking => new Date(booking.endedAt) < new Date())
   return completed
     ? new Date(completed.endedAt).toLocaleString('pl-PL', {
@@ -187,7 +186,6 @@ const lastCleaning = computed(() => {
 })
 
 const nextCleaning = computed(() => {
-  console.log('cleaningBookings', cleaningBookings.value)
   const upcoming = cleaningBookings.value.find(booking => new Date(booking.startedAt) > new Date())
   return upcoming
     ? new Date(upcoming.startedAt).toLocaleString('pl-PL', {

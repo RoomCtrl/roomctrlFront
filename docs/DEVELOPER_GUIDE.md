@@ -65,9 +65,24 @@ Aplikacja nie wymaga pliku `.env` - konfiguracja znajduje się w `nuxt.config.ts
 ```typescript
 runtimeConfig: {
   public: {
-    apiBase: 'http://185.25.151.154/api/'
-  }
-}
+    apiBase: 'https://roomctrl-backend.madeinpila.pl/api/',
+  },
+},
+compatibilityDate: '2025-05-15',
+nitro: {
+  compressPublicAssets: true,
+  devProxy: {
+    '/api': {
+      target: 'https://roomctrl-backend.madeinpila.pl/api/',
+      changeOrigin: true,
+    },
+  },
+  routeRules: {
+    '/api/**': {
+      proxy: 'https://roomctrl-backend.madeinpila.pl/api/**',
+    },
+  },
+},
 ```
 
 Jeśli chcesz zmienić URL backendu, edytuj `nuxt.config.ts`.
@@ -908,12 +923,10 @@ if (import.meta.dev) {
 
 Teraz jesteś gotowy do pracy z RoomCtrl Frontend! Pamiętaj:
 
-1. ✅ Zawsze używaj TypeScript
-2. ✅ Przestrzegaj konwencji nazewnictwa
-3. ✅ Pisz testy dla nowego kodu
-4. ✅ Używaj ESLint i Prettier
-5. ✅ Commituj zgodnie z Conventional Commits
-6. ✅ Dokumentuj skomplikowaną logikę
-7. ✅ Pytaj zespół gdy masz wątpliwości
-
-Happy coding! 🚀
+1. Zawsze używaj TypeScript
+2. Przestrzegaj konwencji nazewnictwa
+3. Pisz testy dla nowego kodu
+4. Używaj ESLint i Prettier
+5. Commituj zgodnie z Conventional Commits
+6. Dokumentuj skomplikowaną logikę
+7. Pytaj zespół gdy masz wątpliwości

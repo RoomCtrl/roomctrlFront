@@ -197,7 +197,6 @@ const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
 
     await createBooking(bookingData, props.myBookings)
 
-    await fetch
     if (props.providedRoomId) {
       await fetchRoom(props.providedRoomId)
     }
@@ -212,7 +211,6 @@ const addBooking = handleSubmit(async (formValues: IBookingCreateRequest) => {
     emit('close')
   }
   catch (err: any) {
-    console.log('Error creating booking:', err, 'Error from composable:', error.value)
     toast.add({
       severity: 'error',
       summary: t('toast.summary.error'),

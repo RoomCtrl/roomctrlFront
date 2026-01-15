@@ -45,7 +45,6 @@ export class UserService {
       return await this.repository.updateUser(guid, updatedUser)
     }
     catch (error) {
-      console.log('service', error.data)
       if (error.data.message === 'This username is already taken.') {
         throw new Error('services.userService.errors.addUser.usernameAlreadyExists')
       }

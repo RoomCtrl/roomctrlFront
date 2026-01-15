@@ -55,6 +55,10 @@ export default defineNuxtPlugin((nuxtApp) => {
         daysOfWeek: t('forms.fields.daysOfWeek'),
         weeksAhead: t('forms.fields.weeksAhead'),
         status: t('forms.fields.status'),
+        roomId: t('forms.fields.booking.roomName'),
+        startTime: t('forms.fields.booking.startTime'),
+        endTime: t('forms.fields.booking.endTime'),
+        type: t('forms.fields.booking.type'),
       }
 
       const fieldName = fieldNames[ctx.field] || ctx.field

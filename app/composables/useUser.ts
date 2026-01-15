@@ -96,7 +96,6 @@ export const useUser = () => {
       await fetchUsers(false)
     }
     catch (err: any) {
-      console.log('composables', err)
       error.value = t(err.message)
       throw err
     }

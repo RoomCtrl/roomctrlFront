@@ -67,7 +67,11 @@
     "booking": {
       "title": "Booking Title",
       "roomId": "Select Room",
+      "roomName": "Room Name",
+      "type": "Work Type",
       "startedAt": "Start Date and Time",
+      "startTime": "Start Time",
+      "endTime": "End Time",
       "endedAt": "End Date and Time",
       "participantsCount": "Number of Participants",
       "participantIds": "Select Participants",

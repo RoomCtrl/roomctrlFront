@@ -87,14 +87,12 @@ const handleDeleteAccount = () => {
           life: 3000,
         })
 
-        // Wyloguj użytkownika i przekieruj na stronę główną
         setTimeout(async () => {
           await logout()
           router.push('/')
         }, 1000)
       }
       catch (err) {
-        console.error('Error deleting account:', err)
         toast.add({
           severity: 'error',
           summary: t('common.error'),
