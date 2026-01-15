@@ -118,7 +118,7 @@ const upcomingBookings = computed(() => {
     .filter((booking) => {
       const startDate = new Date(booking.startedAt)
       startDate.setTime(startDate.getTime() + (1 * 60 * 60 * 1000))
-      return startDate > now
+      return startDate > now && booking.status !== 'cancelled'
     })
     .sort((a, b) => {
       const dateA = new Date(a.startedAt)

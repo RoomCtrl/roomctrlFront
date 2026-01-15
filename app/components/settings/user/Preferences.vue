@@ -41,8 +41,7 @@
               {{ $t('pages.settings.preferences.notifications') }}
             </span>
             <ToggleSwitch
-              v-model="newNotifications"
-              :default-value="notifications"
+              v-model="notifications"
               @change="handleNotificationsChange"
             />
           </div>
@@ -61,16 +60,20 @@ const { fetchUserNotifications, updateUserNotifications } = useUser()
 const toast = useToast()
 const { t } = useI18n()
 
-const notifications = await fetchUserNotifications()
-const newNotifications = ref(notifications)
+const notifications = ref(false)
 
 const handleNotificationsChange = async () => {
-  await updateUserNotifications(newNotifications.value)
+  await updateUserNotifications(notifications.value)
   toast.add({
     severity: 'success',
     summary: t('toast.summary.changeSuccess'),
-    detail: newNotifications.value ? t('toast.details.onNotifications') : t('toast.details.offNotifications'),
+    detail: notifications.value ? t('toast.details.onNotifications') : t('toast.details.offNotifications'),
     life: 3000,
   })
 }
+
+onMounted(async () => {
+  const userNotifications = await fetchUserNotifications()
+  notifications.value = userNotifications.emailNotificationsEnabled
+})
 </script>

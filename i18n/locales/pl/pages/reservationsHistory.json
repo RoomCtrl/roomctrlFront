@@ -29,6 +29,9 @@
   "collection": {
     "cancelReservation": {
       "title": "Czy na pewno chcesz anulować tę rezerwację?"
+    },
+    "leaveReservation": {
+      "title": "Czy na pewno chcesz opuścić tę rezerwację?"
     }
   }
 }

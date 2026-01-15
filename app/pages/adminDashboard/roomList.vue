@@ -129,7 +129,7 @@
           <div class="flex flex-row gap-2">
             <ActionButton
               v-tooltip.left="{ value: $t('pages.reservationsHistory.comeToRoom') }"
-              icon="pi pi-sign-out"
+              icon="pi pi-sign-in"
               mode="goRoom"
               raised
               inTable

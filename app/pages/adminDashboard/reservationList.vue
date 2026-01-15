@@ -159,7 +159,7 @@
             <Button
               v-tooltip.left="{ value: $t('tables.buttonTooltips.goToRoom') }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
-              icon="pi pi-sign-out"
+              icon="pi pi-sign-in"
               severity="warn"
               variant="outlined"
               @click="handleGoToRoom(slotProps.data.room.id)"

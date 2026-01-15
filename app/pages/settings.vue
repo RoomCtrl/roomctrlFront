@@ -47,20 +47,20 @@ definePageMeta({
 })
 const { t } = useI18n()
 const { isAdmin } = useAuth()
+type settingType = 'profile' | 'password' | 'preferences' | 'deleteAccount'
+const activeSection = ref<settingType>('profile')
 
-const activeSection = ref<'profile' | 'password' | 'preferences' | 'deleteAccount'>('profile')
-
-const settingsMenu = computed<Array<{ id: 'profile' | 'password' | 'preferences' | 'deleteAccount', label: string }>>(() => {
+const settingsMenu = computed<Array<{ id: settingType, label: string }>>(() => {
   const menu = [
-    { id: 'profile' as const, label: t('pages.settings.personalData.title') },
-    { id: 'password' as const, label: t('pages.settings.changePassword.title') },
-    { id: 'preferences' as const, label: t('pages.settings.preferences.title') },
-  ]
-  
+    { id: 'profile', label: t('pages.settings.personalData.title') },
+    { id: 'password', label: t('pages.settings.changePassword.title') },
+    { id: 'preferences', label: t('pages.settings.preferences.title') },
+  ] as Array<{ id: settingType, label: string }>
+
   if (!isAdmin.value) {
-    menu.push({ id: 'deleteAccount' as const, label: t('pages.settings.deleteAccount.title') })
+    menu.push({ id: 'deleteAccount', label: t('pages.settings.deleteAccount.title') })
   }
-  
+
   return menu
 })
 

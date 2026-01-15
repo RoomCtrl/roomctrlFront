@@ -23,7 +23,12 @@ const { bookings, loading, fetchBookings } = useBooking()
 const { user } = useAuth()
 
 const allReservations = computed(() =>
-  bookings.value.map(mapBookingToReservation),
+  bookings.value
+    .filter((booking) => {
+      const title = booking.title?.toLowerCase() || ''
+      return !title.includes('sprzątanie') && !title.includes('konserwacja')
+    })
+    .map(mapBookingToReservation),
 )
 
 const refreshBookings = async () => {

@@ -122,23 +122,24 @@
             <Button
               v-tooltip.left="{ value: $t('pages.reservationsHistory.comeToRoom') }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
-              icon="pi pi-sign-out"
+              icon="pi pi-sign-in"
               as="a"
               :href="localePath(`/rooms/` + data.roomId)"
               variant="outlined"
-              severity="info"
+              severity="warn"
               class="flex-none"
             />
             <Button
-              v-tooltip.left="{ value: $t('common.buttons.edit'), disabled: data.status === 'cancelled' || data.status === 'completed' }"
+              v-tooltip.left="{ value: $t('common.buttons.edit'), disabled: data.status === 'cancelled' || data.status === 'completed' || data.canEdit }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-pencil"
-              :disabled="data.status === 'cancelled' || data.status === 'completed'"
-              severity="success"
+              :disabled="data.status === 'cancelled' || data.status === 'completed' || data.canEdit"
+              severity="info"
               variant="outlined"
               @click="openEditModal(data)"
             />
             <Button
+              v-if="data.canCancel"
               v-tooltip.left="{ value: $t('common.buttons.cancel'), disabled: data.status === 'cancelled' || data.status === 'completed' }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               :disabled="data.status === 'cancelled' || data.status === 'completed'"
@@ -146,6 +147,16 @@
               icon="pi pi-times"
               variant="outlined"
               @click="openCancelModal(data)"
+            />
+            <Button
+              v-else
+              v-tooltip.left="{ value: $t('common.buttons.leave'), disabled: data.status === 'cancelled' || data.status === 'completed' }"
+              pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
+              :disabled="data.status === 'cancelled' || data.status === 'completed'"
+              severity="danger"
+              icon="pi pi-sign-out"
+              variant="outlined"
+              @click="openLeaveModal(data)"
             />
             <ReportRoomIssue :room-id="data.roomId || ''" />
           </div>
@@ -198,7 +209,7 @@ const { t } = useI18n()
 const toast = useToast()
 const { customDateAndTimeFilter, customStatusFilter } = useCustomFilterMatch()
 const localePath = useLocalePath()
-const { cancelBooking } = useBooking()
+const { cancelBooking, leaveBooking } = useBooking()
 const confirm = useConfirm()
 
 const editModalVisible = ref(false)
@@ -213,6 +224,11 @@ const openEditModal = (booking: any) => {
 const openCancelModal = (booking: any) => {
   selectedBooking.value = booking
   handleCancelBooking()
+}
+
+const openLeaveModal = (booking: any) => {
+  selectedBooking.value = booking
+  handleLeaveBooking()
 }
 
 const statusColor = computed<Record<'cancelled' | 'completed' | 'active', string>>(() => ({
@@ -255,6 +271,50 @@ const handleCancelBooking = async () => {
           severity: 'error',
           summary: t('common.error'),
           detail: t('common.toast.bookingCancelError'),
+          life: 3000,
+        })
+      }
+      finally {
+        cancelLoading.value = false
+      }
+    },
+  })
+}
+
+const handleLeaveBooking = async () => {
+  if (!selectedBooking.value?.id) return
+
+  confirm.require({
+    message: t('pages.reservationsHistory.collection.leaveReservation.title'),
+    header: t('common.toast.danger'),
+    icon: 'pi pi-info-circle',
+    rejectLabel: t('common.buttons.cancel'),
+    rejectProps: {
+      label: t('common.buttons.cancel'),
+      severity: 'secondary',
+      outlined: true,
+    },
+    acceptProps: {
+      label: t('common.buttons.leave'),
+      severity: 'warning',
+    },
+    accept: async () => {
+      cancelLoading.value = true
+      try {
+        await leaveBooking(selectedBooking.value.id)
+        toast.add({
+          severity: 'success',
+          summary: t('common.toast.success'),
+          detail: t('common.toast.bookingLeft'),
+          life: 3000,
+        })
+        emit('refresh')
+      }
+      catch (error) {
+        toast.add({
+          severity: 'error',
+          summary: t('common.error'),
+          detail: t('common.toast.bookingLeaveError'),
           life: 3000,
         })
       }
