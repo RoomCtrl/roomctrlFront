@@ -1,11 +1,14 @@
 <template>
   <div class="h-[98.2vh] overflow-auto w-full p-6">
     <div class="flex flex-col gap-6">
-      <div class="flex items-center gap-3 mb-4">
-        <i class="pi pi-cog text-3xl" />
-        <h1 class="text-3xl font-bold">
-          {{ $t('pages.adminDashboard.settingsAdmin.title') }}
-        </h1>
+      <div class="flex">
+        <Card>
+          <template #title>
+            <h1 class="text-3xl font-bold">
+              {{ $t('pages.adminDashboard.settingsAdmin.title') }}
+            </h1>
+          </template>
+        </Card>
       </div>
 
       <div class="grid grid-cols-2 gap-x-6">
