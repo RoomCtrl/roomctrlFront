@@ -11,7 +11,7 @@
       <Button
         icon="pi pi-filter-slash"
         :label="$t('common.buttons.resetFilters')"
-        severity="secondary"
+        severity="danger"
         variant="outlined"
         @click="resetFilters"
       />
@@ -130,18 +130,18 @@
               class="flex-none"
             />
             <Button
-              v-tooltip.left="{ value: $t('common.buttons.edit'), disabled: data.status === 'cancelled' || data.canEdit === false }"
+              v-tooltip.left="{ value: $t('common.buttons.edit'), disabled: data.status === 'cancelled' || data.status === 'completed' }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
               icon="pi pi-pencil"
-              :disabled="data.status === 'cancelled' || data.canEdit === false"
+              :disabled="data.status === 'cancelled' || data.status === 'completed'"
               severity="success"
               variant="outlined"
               @click="openEditModal(data)"
             />
             <Button
-              v-tooltip.left="{ value: $t('common.buttons.cancel'), disabled: data.status === 'cancelled' || data.canCancel === false }"
+              v-tooltip.left="{ value: $t('common.buttons.cancel'), disabled: data.status === 'cancelled' || data.status === 'completed' }"
               pt:root:style="--p-button-padding-y: 2px; --p-button-padding-x: 0px"
-              :disabled="data.status === 'cancelled' || data.canCancel === false"
+              :disabled="data.status === 'cancelled' || data.status === 'completed'"
               severity="danger"
               icon="pi pi-times"
               variant="outlined"

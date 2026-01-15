@@ -19,7 +19,7 @@
               icon="pi pi-filter-slash"
               variant="outlined"
               raised
-              severity="secondary"
+              severity="danger"
               :label="$t('common.buttons.resetFilters')"
               @click="resetFilters"
             />

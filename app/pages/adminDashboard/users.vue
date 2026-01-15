@@ -17,7 +17,7 @@
             <Button
               icon="pi pi-filter-slash"
               :label="$t('common.buttons.resetFilters')"
-              severity="secondary"
+              severity="danger"
               variant="outlined"
               @click="resetFilters"
             />
